@@ -5,8 +5,6 @@ let bodyparser = require('body-parser')
 let rootRouter = require('./routers')
 let PORT = process.env.PORT || 8000
 
-require('dotenv').config()
-
 app.use(logger('dev'))
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }))
