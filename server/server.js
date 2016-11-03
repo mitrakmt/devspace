@@ -1,13 +1,15 @@
 let express = require('express')
 let app = express()
 let logger = require('morgan')
-let bodyparser = require('body-parser')
+let bodyParser = require('body-parser')
+let path = require('path')
+let cors = require('cors')
 let rootRouter = require('./routers')
 let PORT = process.env.PORT || 8000
 
 app.use(logger('dev'))
-app.use(bodyparser.json())
-app.use(bodyparser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/api', rootRouter)
 
