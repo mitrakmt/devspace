@@ -1,0 +1,34 @@
+{
+  "name": "devspace",
+  "version": "0.0.1",
+  "description": "See what's happening with your team and favorite developers",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitrakmt/devspace.git"
+  },
+  "author": "Michael Mitrakos, Dianne Le, David Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mitrakmt/devspace/issues"
+  },
+  "homepage": "https://github.com/mitrakmt/devspace#readme",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.2",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
+    "lodash": "^4.16.6",
+    "moment": "^2.15.2",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "path": "^0.12.7",
+    "pg": "^6.1.0",
+    "sequelize": "^3.24.7"
+  }
+}
