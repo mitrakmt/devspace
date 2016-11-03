@@ -12,10 +12,10 @@ let Users = require('./users')(db)
 
 
 // // HELPER TO DROP ALL TABLES
-// db.sync({force: true}).then(function () {
+// db.sync({force: true}).then(() => {
 //   console.log('Tables have been dropped')
 // })
-db.sync().then(function () {
+db.sync().then(() => {
   console.log('Tables have been Created')
 })
 

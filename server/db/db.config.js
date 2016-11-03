@@ -4,10 +4,10 @@ const Sequelize = require('sequelize')
 const sequelize = new Sequelize(process.env.DATABASE_URI)
 
 sequelize.authenticate()
-  .then(function () {
+  .then(() => {
     console.log('Connection has been established successfully.')
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.log('Unable to connect to the database:', err)
   })
 
