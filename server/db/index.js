@@ -5,8 +5,12 @@ let db = require('./db.config')
 let Companies = require('./companies')(db)
 let Posts = require('./posts')(db)
 let Projects = require('./projects')(db)
-let Teams = requre('./teams')(db)
+let Teams = require('./teams')(db)
 let Users = require('./users')(db)
+let Comments = require('./comments')(db)
+let Transactions = require('./transactions')(db)
+let Follows = require('./follows')(db)
+let Reactions = require('./reactions')(db)
 
 // Assign relationships
 
@@ -25,5 +29,9 @@ module.exports = {
   Posts: Posts,
   Projects: Projects,
   Teams: Teams,
-  Users: Users
+  Users: Users,
+  Comments: Comments,
+  Transactions: Transactions,
+  Follows: Follows,
+  Reactions: Reactions
 }
