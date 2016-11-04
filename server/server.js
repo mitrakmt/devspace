@@ -5,6 +5,7 @@ let bodyParser = require('body-parser')
 let path = require('path')
 let cors = require('cors')
 let rootRouter = require('./routers')
+let db = require('./db')
 let PORT = process.env.PORT || 8000
 
 app.use(logger('dev'))
