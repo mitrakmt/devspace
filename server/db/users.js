@@ -13,6 +13,15 @@ module.exports = (db) => {
     },
     password: {
       type: Sequelize.STRING
+    },
+    bio: {
+      type: Sequelize.STRING
+    },
+    followerCount: {
+      type: Sequelize.INTEGER
+    },
+    followingCount: {
+      type: Sequelize.INTEGER
     }
   }, {
     freezeTableName: true

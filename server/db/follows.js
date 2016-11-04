@@ -1,7 +1,5 @@
-let Sequelize = require('sequelize')
-
 module.exports = (db) => {
-  let Follows
+  const Follows = db.define('follows', {})
 
   return Follows
 }

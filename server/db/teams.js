@@ -1,7 +1,11 @@
 let Sequelize = require('sequelize')
 
 module.exports = (db) => {
-  let Teams
+  const Teams = db.define('teams', {
+    name: {
+      type: Sequelize.STRING
+    }
+  })
 
   return Teams
 }

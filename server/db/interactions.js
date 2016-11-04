@@ -1,14 +1,14 @@
 let Sequelize = require('sequelize')
 
 module.exports = (db) => {
-  const Companies = db.define('companies', {
-    name: {
+  const Interactions = db.define('interactions', {
+    comment: {
       type: Sequelize.STRING
     },
-    status: {
+    liked: {
       type: Sequelize.BOOLEAN
     }
   })
 
-  return Companies
+  return Interactions
 }
