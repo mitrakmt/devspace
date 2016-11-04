@@ -1,7 +1,17 @@
 let Sequelize = require('sequelize')
 
 module.exports = (db) => {
-  let Posts
+  const Posts = db.define('posts', {
+    paid: {
+      type: Sequelize.BOOLEAN
+    },
+    likes: {
+      type: Sequelize.INTEGER
+    },
+    content: {
+      type: Sequelize.STRING
+    }
+  })
 
   return Posts
 }
