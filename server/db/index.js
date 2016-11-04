@@ -13,9 +13,9 @@ let Follows = require('./follows')(db)
 let Interactions = require('./interactions')(db)
 
 // Create join tables
-const UsersCompanies = Sequelize.define('UsersCompanies', {})
-const UsersTeams = Sequelize.define('UsersTeams', {})
-const UsersProjects = Sequelize.define('UsersProjects', {})
+const UsersCompanies = db.define('UsersCompanies', {})
+const UsersTeams = db.define('UsersTeams', {})
+const UsersProjects = db.define('UsersProjects', {})
 
 // Assign relationships
 Projects.belongsTo(Companies)

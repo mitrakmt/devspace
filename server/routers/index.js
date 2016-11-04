@@ -13,11 +13,4 @@ rootRouter.use('/projects', projectsRouter)
 rootRouter.use('/teams', teamsRouter)
 rootRouter.use('/users', usersRouter)
 
-module.exports = {
-  companiesRouter: companiesRouter,
-  paymentsRouter: paymentsRouter,
-  postsRouter: postsRouter,
-  projectsRouter: projectsRouter,
-  teamsRouter: teamsRouter,
-  usersRouter: usersRouter
-}
+module.exports = rootRouter
