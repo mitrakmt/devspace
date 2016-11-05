@@ -111,12 +111,11 @@ ChatRooms.hasMany(Chats, {foreignKey: 'chatRoomId'})
 
 // option { onDelete: 'cascade' } leaves no orphans http://dba.stackexchange.com/questions/44956/good-explanation-of-cascade-on-delete-update-behavior
 // option { hooks: true } destroys each instance one by one to safely delete http://docs.sequelizejs.com/en/latest/docs/hooks/
-Users.hasMany(Follows, { as: 'follows', foreignKey: 'followerId', onDelete: 'cascade', hooks: true })
-Follows.belongsTo(Users, {as: 'follower', foreignKey: 'followerId'})
-Follows.belongsTo(Users, {as: 'followed', foreignKey: 'followedId'})
+// Follows.belongsTo(Users, {as: 'follower', foreignKey: 'followerId'})
+// Follows.belongsTo(Users, {as: 'followed', foreignKey: 'userId'})
 
-Users.belongsToMany(Users, { as: 'following', through: Follows, foreignKey: 'followerId', onDelete: 'cascade', hooks: true})
-Users.belongsToMany(Users, { as: 'followers', through: Follows, foreignKey: 'followedId', onDelete: 'cascade', hooks: true})
+Users.belongsToMany(Users, { as: 'followedUsers', through: Follows, foreignKey: 'followerId', onDelete: 'cascade', hooks: true })
+Users.belongsToMany(Users, { as: 'followers', through: Follows, foreignKey: 'userId', onDelete: 'cascade', hooks: true })
 
 /* *
 * Transactions:Users
@@ -129,8 +128,8 @@ Users.hasMany(Transactions, { as: 'transactions', foreignKey: 'buyerId', onDelet
 Transactions.belongsTo(Users, {as: 'seller', foreignKey: 'sellerId'})
 Transactions.belongsTo(Users, {as: 'buyer', foreignKey: 'buyerId'})
 
-Users.belongsToMany(Users, { as: 'buyers', through: Transactions, foreignKey: 'sellerId', onDelete: 'cascade', hooks: true})
-Users.belongsToMany(Users, { as: 'sellers', through: Transactions, foreignKey: 'buyerId', onDelete: 'cascade', hooks: true})
+Users.belongsToMany(Users, { as: 'sales', through: Transactions, foreignKey: 'sellerId', onDelete: 'cascade', hooks: true })
+Users.belongsToMany(Users, { as: 'purchases', through: Transactions, foreignKey: 'buyerId', onDelete: 'cascade', hooks: true })
 
 // // HELPER TO DROP ALL TABLES
 // db.sync({force: true}).then(() => {
@@ -141,18 +140,18 @@ db.sync().then(() => {
 })
 
 // Users.create({
-//   firstName: 'Michael',
-//   lastName: 'Dianne',
-//   email: 'please@work.com',
-//   password: 'This is so cool',
-//   bio: 'Everything is awesome',
-//   followerCount:0,
-//   followingCount: 0,
+//   firstName: 'Dianne',
+//   lastName: 'L',
+//   email: 'asdf@work.com',
+//   password: 'testing',
+//   bio: 'Work sup work',
+//   followerCount: 0,
+//   followingCount: 0
 // })
-// .then((user)=>{
+// .then((user) => {
 //   console.log('created user')
 // })
-
+//
 // Posts.create({
 //   paid: true,
 //   likes: 0,
@@ -187,6 +186,31 @@ db.sync().then(() => {
 //     })
 //   })
 // })
+
+Follows.create({
+  userId: 1,
+  followerId: 2
+})
+.then((set) => {
+  console.log("set", set)
+  Users.findOne({
+    where: {
+      id: set.userId
+    }
+  })
+  .then((user) => {
+    user.increment('followerCount')
+  })
+
+  Users.findOne({
+    where: {
+      id: set.followerId
+    }
+  })
+  .then((user) => {
+    user.increment('followingCount')
+  })
+})
 
 module.exports = {
   db: db,
