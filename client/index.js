@@ -1,6 +1,6 @@
 let login = function () {
   $.ajax({
-    url: '/api/users/auth',
+    url: '/api/users/login',
     success: function () {
       console.log("Worked")
     }

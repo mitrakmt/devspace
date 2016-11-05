@@ -8,7 +8,7 @@ usersRouter.route('/account')
 
 usersRouter.route('/login')
   .get((req, res) => {
-    res.render('login', { user: req.user })
+    res.render('https://github.com/login/oauth/authorize?client_id=b83b7a6429ff48c6fd4e')
   })
 
 usersRouter.route('/edit')
