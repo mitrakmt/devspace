@@ -111,9 +111,6 @@ ChatRooms.hasMany(Chats, {foreignKey: 'chatRoomId'})
 
 // option { onDelete: 'cascade' } leaves no orphans http://dba.stackexchange.com/questions/44956/good-explanation-of-cascade-on-delete-update-behavior
 // option { hooks: true } destroys each instance one by one to safely delete http://docs.sequelizejs.com/en/latest/docs/hooks/
-// Follows.belongsTo(Users, {as: 'follower', foreignKey: 'followerId'})
-// Follows.belongsTo(Users, {as: 'followed', foreignKey: 'userId'})
-
 Users.belongsToMany(Users, { as: 'followedUsers', through: Follows, foreignKey: 'followerId', onDelete: 'cascade', hooks: true })
 Users.belongsToMany(Users, { as: 'followers', through: Follows, foreignKey: 'userId', onDelete: 'cascade', hooks: true })
 
@@ -124,12 +121,11 @@ Users.belongsToMany(Users, { as: 'followers', through: Follows, foreignKey: 'use
 // Users:Transactions (1:n)
 // Transactions:Users (1:2)
 // Users:Users (n:m)
-Users.hasMany(Transactions, { as: 'transactions', foreignKey: 'buyerId', onDelete: 'cascade', hooks: true })
 Transactions.belongsTo(Users, {as: 'seller', foreignKey: 'sellerId'})
 Transactions.belongsTo(Users, {as: 'buyer', foreignKey: 'buyerId'})
 
-Users.belongsToMany(Users, { as: 'sales', through: Transactions, foreignKey: 'sellerId', onDelete: 'cascade', hooks: true })
-Users.belongsToMany(Users, { as: 'purchases', through: Transactions, foreignKey: 'buyerId', onDelete: 'cascade', hooks: true })
+Users.hasMany(Transactions, { as: 'sales', foreignKey: 'sellerId', onDelete: 'cascade', hooks: true })
+Users.hasMany(Transactions, { as: 'purchases', foreignKey: 'buyerId', onDelete: 'cascade', hooks: true })
 
 // // HELPER TO DROP ALL TABLES
 // db.sync({force: true}).then(() => {
@@ -139,18 +135,36 @@ db.sync().then(() => {
   console.log('Tables have been Created')
 })
 
-// Users.create({
-//   firstName: 'Dianne',
-//   lastName: 'L',
-//   email: 'asdf@work.com',
-//   password: 'testing',
-//   bio: 'Work sup work',
-//   followerCount: 0,
-//   followingCount: 0
-// })
-// .then((user) => {
-//   console.log('created user')
-// })
+
+Users.create({
+  firstName: 'Dianne',
+  lastName: 'L',
+  email: 'asdf@work.com',
+  password: 'testing',
+  bio: 'Work sup work',
+  followerCount: 0,
+  followingCount: 0,
+  cashFlow: 0
+})
+.then((user) => {
+  console.log('created user')
+})
+
+Users.create({
+  firstName: 'Michael',
+  lastName: 'M',
+  email: 'qwerty@work.com',
+  password: 'testing',
+  bio: 'Work sup work',
+  followerCount: 0,
+  followingCount: 0,
+  cashFlow: 0
+})
+.then((user) => {
+  console.log('created user')
+})
+
+
 //
 // Posts.create({
 //   paid: true,
@@ -158,58 +172,78 @@ db.sync().then(() => {
 //   content: 'We are learning sequelize'
 // })
 // .then(post => {
-//   return Users.findOne({
-//     where: { id: 1 }
-//   })
-//   .then(user => {
-//     user.setPosts(post)
-//   })
+//   post.userId = 1
+//   console.log('post', post)
+//   post.save()
 // })
 //
 // Comments.create({
 //   content: 'This is a comment'
 // })
 // .then(comment => {
+//   comment.userId = 1
+//   comment.postId = 1
+//   console.log('comment', comment)
+//   comment.save()
+// })
+
+// Follows.create({
+//   userId: 1,
+//   followerId: 2
+// })
+// .then((set) => {
+//   console.log("set", set)
 //   Users.findOne({
-//     where: { id: 1 }
+//     where: {
+//       id: set.userId
+//     }
 //   })
-//   .then(user => {
-//     user.setComments(comment)
-//     return comment
+//   .then((user) => {
+//     user.increment('followerCount')
 //   })
-//   .then(comment => {
-//     Posts.findOne({
-//       where: { id: 1 }
-//     })
-//     .then(post => {
-//       post.setComments(comment)
-//     })
+//
+//   Users.findOne({
+//     where: {
+//       id: set.followerId
+//     }
+//   })
+//   .then((user) => {
+//     user.increment('followingCount')
 //   })
 // })
 
-Follows.create({
-  userId: 1,
-  followerId: 2
+Transactions.create({
+  sellerId: 2,
+  buyerId: 1,
+  amount: 50,
+  description: 'one on one'
 })
-.then((set) => {
-  console.log("set", set)
+.then((transaction) => {
+  console.log('transaction', transaction)
   Users.findOne({
     where: {
-      id: set.userId
+      id: transaction.sellerId
     }
   })
   .then((user) => {
-    user.increment('followerCount')
+    user.cashFlow += transaction.amount
+    console.log('seller', user.cashFlow)
+    user.save()
   })
 
   Users.findOne({
     where: {
-      id: set.followerId
+      id: transaction.buyerId
     }
   })
   .then((user) => {
-    user.increment('followingCount')
+    user.cashFlow -= transaction.amount
+    console.log('buyer', user.cashFlow)
+    user.save()
   })
+})
+.catch((err) => {
+  console.log('err', err)
 })
 
 module.exports = {
