@@ -4,6 +4,9 @@ module.exports = (db) => {
   const Chats = db.define('chats', {
     content: {
       type: Sequelize.STRING
+    },
+    receiverId: {
+      type: Sequelize.INTEGER
     }
   })
 

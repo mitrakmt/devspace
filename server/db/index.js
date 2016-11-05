@@ -10,7 +10,6 @@ let Users = require('./users')(db)
 let Posts = require('./posts')(db)
 let Comments = require('./comments')(db)
 let Interactions = require('./interactions')(db)
-let ChatRooms = require('./chatRooms')(db)
 let Chats = require('./chats')(db)
 let Follows = require('./follows')(db)
 let Transactions = require('./transactions')(db)
@@ -90,16 +89,6 @@ Posts.hasMany(Interactions, {foreignKey: 'postId'})
 // Users:Chats (1:n)
 Chats.belongsTo(Users)
 Users.hasMany(Chats, {foreignKey: 'userId'})
-
-// ChatRooms:Users (1:1)
-// Users:ChatRooms (1:n)
-ChatRooms.belongsTo(Users)
-Users.hasMany(ChatRooms, {foreignKey: 'userId'})
-
-// Chats:ChatRooms (1:1)
-// ChatRooms:Chats (1:n)
-Chats.belongsTo(ChatRooms)
-ChatRooms.hasMany(Chats, {foreignKey: 'chatRoomId'})
 
 /* *
 * Follows:Users
@@ -288,6 +277,69 @@ Interactions.findOne({
 // .catch((err) => {
 //   console.log('err', err)
 // })
+
+Companies.create({
+  name: 'MakerSquare',
+  status: false
+})
+.then((company) => {
+  Users.findOne({
+    where: {
+      id: 1
+    }
+  })
+  .then(user => {
+    company.setUsers(user)
+  })
+})
+
+Teams.create({
+  name: 'supTeam'
+})
+.then(team => {
+  Users.findOne({
+    where: {
+      id: 6
+    }
+  })
+  .then(user => {
+    team.setUsers(user)
+  })
+})
+
+Projects.create({
+  name: 'supProject'
+})
+.then(project => {
+  Users.findOne({
+    where: {
+      id: 6
+    }
+  })
+  .then(user => {
+    project.setUsers(user)
+  })
+})
+
+Projects.findOne({
+  where: {
+    id: 3
+  }
+})
+.then(project => {
+  return project.update({
+    teamId: 2
+  })
+})
+
+Chats.create({
+  content: 'Hey there',
+  receiverId: 4
+})
+.then(chat => {
+  chat.userId = 1
+  chat.save()
+})
 
 module.exports = {
   db: db,
