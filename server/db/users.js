@@ -23,8 +23,6 @@ module.exports = (db) => {
     followingCount: {
       type: Sequelize.INTEGER
     }
-  }, {
-    freezeTableName: true
   })
 
   return Users
