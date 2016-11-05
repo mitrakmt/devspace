@@ -120,7 +120,6 @@ Users.belongsToMany(Users, { as: 'followers', through: Follows, foreignKey: 'use
 
 // Users:Transactions (1:n)
 // Transactions:Users (1:2)
-// Users:Users (n:m)
 Transactions.belongsTo(Users, {as: 'seller', foreignKey: 'sellerId'})
 Transactions.belongsTo(Users, {as: 'buyer', foreignKey: 'buyerId'})
 
@@ -134,7 +133,6 @@ Users.hasMany(Transactions, { as: 'purchases', foreignKey: 'buyerId', onDelete: 
 db.sync().then(() => {
   console.log('Tables have been Created')
 })
-
 
 Users.create({
   firstName: 'Dianne',
@@ -164,29 +162,75 @@ Users.create({
   console.log('created user')
 })
 
+Posts.create({
+  paid: true,
+  likes: 0,
+  content: 'We are learning sequelize'
+})
+.then(post => {
+  post.userId = 1
+  post.save()
+})
 
-//
-// Posts.create({
-//   paid: true,
-//   likes: 0,
-//   content: 'We are learning sequelize'
-// })
-// .then(post => {
-//   post.userId = 1
-//   console.log('post', post)
-//   post.save()
-// })
-//
-// Comments.create({
-//   content: 'This is a comment'
-// })
-// .then(comment => {
-//   comment.userId = 1
-//   comment.postId = 1
-//   console.log('comment', comment)
-//   comment.save()
-// })
+Posts.create({
+  paid: true,
+  likes: 0,
+  content: 'We are learning sequelize'
+})
+.then(post => {
+  post.userId = 1
+  post.save()
+})
 
+Comments.create({
+  content: 'This is a comment'
+})
+.then(comment => {
+  comment.userId = 1
+  comment.postId = 1
+  comment.save()
+})
+
+Interactions.findOne({
+  where: {
+    userId: 2,
+    postId: 1
+  }
+})
+.then(interaction => {
+  if (interaction === null) {
+    Interactions.create({
+      userId: 2,
+      postId: 1
+    })
+    .then(interaction => {
+      Posts.findOne({
+        where: {
+          id: interaction.postId
+        }
+      })
+      .then(post => {
+        post.increment('likes')
+        console.log('incremented post likes', post.likes)
+      })
+    })
+  } else {
+    Posts.findOne({
+      where: {
+        id: interaction.postId
+      }
+    })
+    .then(post => {
+      post.decrement('likes')
+      console.log('decremented post likes', post.likes)
+    })
+    interaction.destroy()
+    console.log('deleted like')
+  }
+})
+.catch(err => {
+  console.log('err in creating interaction', err)
+})
 // Follows.create({
 //   userId: 1,
 //   followerId: 2
@@ -212,39 +256,38 @@ Users.create({
 //   })
 // })
 
-Transactions.create({
-  sellerId: 2,
-  buyerId: 1,
-  amount: 50,
-  description: 'one on one'
-})
-.then((transaction) => {
-  console.log('transaction', transaction)
-  Users.findOne({
-    where: {
-      id: transaction.sellerId
-    }
-  })
-  .then((user) => {
-    user.cashFlow += transaction.amount
-    console.log('seller', user.cashFlow)
-    user.save()
-  })
-
-  Users.findOne({
-    where: {
-      id: transaction.buyerId
-    }
-  })
-  .then((user) => {
-    user.cashFlow -= transaction.amount
-    console.log('buyer', user.cashFlow)
-    user.save()
-  })
-})
-.catch((err) => {
-  console.log('err', err)
-})
+// Transactions.create({
+//   sellerId: 1,
+//   buyerId: 2,
+//   amount: 100000,
+//   description: 'one on one'
+// })
+// .then((transaction) => {
+//   Users.findOne({
+//     where: {
+//       id: transaction.sellerId
+//     }
+//   })
+//   .then((user) => {
+//     user.cashFlow += transaction.amount
+//     console.log('seller', user.cashFlow)
+//     user.save()
+//   })
+//
+//   Users.findOne({
+//     where: {
+//       id: transaction.buyerId
+//     }
+//   })
+//   .then((user) => {
+//     user.cashFlow -= transaction.amount
+//     console.log('buyer', user.cashFlow)
+//     user.save()
+//   })
+// })
+// .catch((err) => {
+//   console.log('err', err)
+// })
 
 module.exports = {
   db: db,
