@@ -8,6 +8,9 @@ module.exports = (db) => {
     lastName: {
       type: Sequelize.STRING
     },
+    username: {
+      type: Sequelize.STRING
+    },
     email: {
       type: Sequelize.STRING
     },
@@ -21,6 +24,9 @@ module.exports = (db) => {
       type: Sequelize.INTEGER
     },
     followingCount: {
+      type: Sequelize.INTEGER
+    },
+    cashFlow: {
       type: Sequelize.INTEGER
     }
   })
