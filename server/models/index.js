@@ -1,3 +1,4 @@
 module.exports = {
-  // index models
+  Chats: require('./chats.model'),
+  // Follows: require('./follows.model')
 }

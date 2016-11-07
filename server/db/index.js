@@ -123,6 +123,35 @@ db.sync().then(() => {
   console.log('Tables have been Created')
 })
 
+Users.create({
+  firstName: 'Dianne',
+  lastName: 'L',
+  email: 'asdf@work.com',
+  password: 'testing',
+  bio: 'Work sup work',
+  followerCount: 0,
+  followingCount: 0,
+  cashFlow: 0
+})
+.then((user) => {
+  console.log('created user')
+})
+
+
+Users.create({
+  firstName: 'Michael',
+  lastName: 'M',
+  email: 'qwerty@work.com',
+  password: 'testing',
+  bio: 'Work sup work',
+  followerCount: 0,
+  followingCount: 0,
+  cashFlow: 0
+})
+.then((user) => {
+  console.log('created user')
+})
+
 module.exports = {
   db: db,
   Companies: Companies,
@@ -132,5 +161,7 @@ module.exports = {
   Users: Users,
   Transactions: Transactions,
   Follows: Follows,
-  Interactions: Interactions
+  Interactions: Interactions,
+  Chats: Chats,
+  Comments: Comments
 }
