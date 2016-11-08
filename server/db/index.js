@@ -137,10 +137,23 @@ Users.create({
   console.log('created user')
 })
 
-
 Users.create({
   firstName: 'Michael',
   lastName: 'M',
+  email: 'qwerty@work.com',
+  password: 'testing',
+  bio: 'Work sup work',
+  followerCount: 0,
+  followingCount: 0,
+  cashFlow: 0
+})
+.then((user) => {
+  console.log('created user')
+})
+
+Users.create({
+  firstName: 'David',
+  lastName: 'K',
   email: 'qwerty@work.com',
   password: 'testing',
   bio: 'Work sup work',

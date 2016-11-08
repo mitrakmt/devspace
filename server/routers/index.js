@@ -17,6 +17,6 @@ let followsRouter = require('./follows.router')
 // rootRouter.use('/users', usersRouter)
 // rootRouter.use('/home', homeRouter)
 rootRouter.use('/chats', chatsRouter)
-// rootRouter.use('/follows', followsRouter)
+rootRouter.use('/follows', followsRouter)
 
 module.exports = rootRouter

@@ -1,6 +1,5 @@
 const chatsModel = {}
 const Chats = require('../db').Chats
-const Users = require('../db').Users
 
 chatsModel.GET_CHAT_HISTORY = (userId) => {
   return Chats.findAll({
