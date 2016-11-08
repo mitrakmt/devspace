@@ -124,7 +124,7 @@ db.sync().then(() => {
 })
 
 // Users.create({
-//   firstName: "Mike",
+//   firstName: "CHRIS",
 //   lastName: "Mitrakos",
 //   email: "mtm@gmail.com",
 //   password: "test123",
