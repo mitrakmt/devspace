@@ -157,5 +157,6 @@ module.exports = {
   Transactions: Transactions,
   Follows: Follows,
   Interactions: Interactions,
+  Chats: Chats,
   Comments: Comments
 }
