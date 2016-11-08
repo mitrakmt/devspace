@@ -11,11 +11,18 @@ followsModel.GET_FOLLOWERS = (userId) => {
 }
 
 followsModel.DELETE_FOLLOWER = (userId, followerId) => {
-  return Follows.destroy({
+  return Follows.findOne({
     where: {
       userId: userId,
       followerId: followerId
     }
+  })
+  .then(follow => {
+    if (!follow) {
+      return 'Bad request'
+    }
+    follow.destroy()
+    return 'Follower successfully deleted'
   })
 }
 

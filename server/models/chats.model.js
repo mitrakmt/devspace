@@ -41,7 +41,7 @@ chatsModel.POST_MESSAGE = (userId, content, receiverId) => {
     return chat
   })
   .catch(err => {
-    return ' Err in posting chat:' + err
+    return 'Err in posting chat:' + err
   })
 }
 
@@ -53,10 +53,14 @@ chatsModel.DELETE_MESSAGE = (userId, chatId) => {
     }
   })
   .then(chat => {
+    if (!chat) {
+      return 'Bad request'
+    }
     chat.destroy()
+    return 'Chat successfully deleted'
   })
   .catch(err => {
-    console.log('Err in posting chat', err)
+    return 'Err in deleting chat:' + err
   })
 }
 

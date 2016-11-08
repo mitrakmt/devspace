@@ -15,7 +15,7 @@ let followsRouter = require('./follows.router')
 // rootRouter.use('/projects', projectsRouter)
 // rootRouter.use('/teams', teamsRouter)
 // rootRouter.use('/users', usersRouter)
-// rootRouter.use('/home', homeRouter)
+rootRouter.use('/home', homeRouter)
 rootRouter.use('/chats', chatsRouter)
 rootRouter.use('/follows', followsRouter)
 

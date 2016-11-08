@@ -24,8 +24,8 @@ followsController.GET_FOLLOWING = (req, res) => {
 
 followsController.POST_FOLLOWING = (req, res) => {
   Follows.POST_FOLLOWING(req.params.userId, req.body.followerId)
-    .then(something => {
-      res.status(200).send(something)
+    .then(followStatus => {
+      res.status(200).send(followStatus)
     })
 }
 
