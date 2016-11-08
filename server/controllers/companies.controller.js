@@ -67,4 +67,24 @@ companiesController.GET_COMPANY_PROJECTS = (req, res) => {
   Companies.GET_COMPANY_PROJECTS(userId, companyId)
 }
 
+companiesController.ADD_ADMIN = (req, res) => {
+  let userId = req.headers['userid']
+  let companyId = req.body.companyId
+
+  Companies.ADD_ADMIN(userId, companyId)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+companiesController.ADD_MEMBER = (req, res) => {
+  let userId = req.headers['userid']
+  let companyId = req.body.companyId
+
+  Companies.ADD_MEMBER(userId, companyId)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
 module.exports = companiesController
