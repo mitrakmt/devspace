@@ -29,15 +29,15 @@ chatsController.DELETE_CONVERSATION = (req, res) => {
     })
 }
 
-chatsController.POST_CHAT = (req, res) => {
-  Chats.POST_CHAT(req.params.userId, req.body.content, req.body.receiverId)
+chatsController.POST_MESSAGE = (req, res) => {
+  Chats.POST_MESSAGE(req.params.userId, req.body.content, req.body.receiverId)
     .then(chat => {
       res.status(200).send(chat)
     })
 }
 
-chatsController.DELETE_CHAT = (req, res) => {
-  Chats.DELETE_CHAT(req.params.userId, req.body.chatId)
+chatsController.DELETE_MESSAGE = (req, res) => {
+  Chats.DELETE_MESSAGE(req.params.userId, req.body.chatId)
     .then(numDeleted => {
       res.status(200).send('Deleted chat message')
     })

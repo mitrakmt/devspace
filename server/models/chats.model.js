@@ -32,7 +32,7 @@ chatsModel.DELETE_CONVERSATION = (userId, receiverId) => {
   })
 }
 
-chatsModel.POST_CHAT = (userId, content, receiverId) => {
+chatsModel.POST_MESSAGE = (userId, content, receiverId) => {
   return Chats.create({
     userId: userId,
     content: content,
@@ -46,7 +46,7 @@ chatsModel.POST_CHAT = (userId, content, receiverId) => {
   })
 }
 
-chatsModel.DELETE_CHAT = (userId, chatId) => {
+chatsModel.DELETE_MESSAGE = (userId, chatId) => {
   return Chats.findOne({
     where: {
       userId: userId,
