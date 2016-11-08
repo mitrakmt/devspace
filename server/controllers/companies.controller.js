@@ -69,9 +69,21 @@ companiesController.GET_COMPANY_PROJECTS = (req, res) => {
 
 companiesController.ADD_ADMIN = (req, res) => {
   let userId = req.headers['userid']
-  let companyId = req.body.companyId
+  let companyId = req.params.companyId
+  let idToAdd = req.body.idToAdd
 
-  Companies.ADD_ADMIN(userId, companyId)
+  Companies.ADD_ADMIN(userId, companyId, idToAdd)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+companiesController.REMOVE_ADMIN = (req, res) => {
+  let userId = req.headers['userid']
+  let companyId = req.params.companyId
+  let idToRemove = req.body.idToRemove
+
+  Companies.REMOVE_ADMIN(userId, companyId, idToRemove)
     .then(result => {
       res.status(200).send(result)
     })
@@ -79,9 +91,21 @@ companiesController.ADD_ADMIN = (req, res) => {
 
 companiesController.ADD_MEMBER = (req, res) => {
   let userId = req.headers['userid']
-  let companyId = req.body.companyId
+  let companyId = req.params.companyId
+  let idToAdd = req.body.idToAdd
 
-  Companies.ADD_MEMBER(userId, companyId)
+  Companies.ADD_MEMBER(userId, companyId, idToAdd)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+companiesController.REMOVE_MEMBER = (req, res) => {
+  let userId = req.headers['userid']
+  let companyId = req.params.companyId
+  let idToRemove = req.body.idToRemove
+
+  Companies.REMOVE_MEMBER(userId, companyId, idToRemove)
     .then(result => {
       res.status(200).send(result)
     })

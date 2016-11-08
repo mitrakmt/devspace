@@ -13,4 +13,16 @@ teamsRouter.route('/:teamId')
   .delete(teamsController.DELETE_TEAM)
     // Requires userId, teamId
 
+teamsRouter.route('/:teamId/admin')
+  .post(teamsController.ADD_ADMIN)
+    // Requires userId header, teamId in req url, idToAdd to add in req.body
+  .delete(teamsController.REMOVE_ADMIN)
+    // Requires userId header, teamId in req url, idToRemove to delete in req.body
+
+teamsRouter.route('/:teamId/member')
+  .post(teamsController.ADD_MEMBER)
+    // Requires userId header, teamId in req url, idToAdd in req.body
+  .delete(teamsController.REMOVE_ADMIN)
+    // Requires userId header, teamId in req url, idToRemove to remove in req.body
+
 module.exports = teamsRouter

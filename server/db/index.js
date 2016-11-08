@@ -135,7 +135,7 @@ db.sync().then(() => {
 //   followingCount: 0,
 //   username: "mitrakmt"
 // })
-
+//
 // Users.create({
 //   firstName: "David",
 //   lastName: "Kim",

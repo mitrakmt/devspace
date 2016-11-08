@@ -13,4 +13,16 @@ projectsRouter.route('/:username/:repoName')
   .delete(projectsController.DELETE_PROJECT)
     // Requires  userId, and username/repoName in request URL
 
+projectsRouter.route('/:projectId/admin')
+  .post(projectsController.ADD_ADMIN)
+    // Requires userId header, projectId in req url, idToAdd in req.body
+  .delete(projectsController.REMOVE_ADMIN)
+    // Requires userId header, projectId in req url, idToRemove in req.body
+
+projectsRouter.route('/:projectId/member')
+  .post(projectsController.ADD_MEMBER)
+    // Requires userId header, projectId in req url, idToAdd in req.body
+  .delete(projectsController.REMOVE_MEMBER)
+    // Requires userId header, projectId in req url, idToRemove in req.body
+
 module.exports = projectsRouter

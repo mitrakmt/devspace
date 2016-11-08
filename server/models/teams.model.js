@@ -28,7 +28,7 @@ teamsModel.CREATE_TEAM = (userId, teamName, teamDescription, teamAdmins) => {
 }
 
 teamsModel.GET_TEAM = (userId, teamId) => {
-  Teams.findOne({
+  return Teams.findOne({
     where: {
       id: teamId
     }
@@ -39,13 +39,13 @@ teamsModel.GET_TEAM = (userId, teamId) => {
 }
 
 teamsModel.DELETE_TEAM = (userId, teamId) => {
-  Teams.findOne({
+  return Teams.findOne({
     where: {
       id: teamId
     }
   })
   .then(team => {
-    team.destroy()
+    return team.destroy()
       .then(status => {
         return 'Team successfully deleted'
       })
@@ -53,39 +53,67 @@ teamsModel.DELETE_TEAM = (userId, teamId) => {
 }
 
 teamsModel.ADD_ADMIN = (userId, teamId) => {
-  Users.findOne({
+  return Users.findOne({
     where: {
       id: userId
     }
   })
   .then(user => {
-    Teams.findOne({
+    return Teams.findOne({
       where: {
         id: teamId
       }
     })
     .then(team => {
-      user.setProjects(team, { isAdmin: true })
+      return user.setProjects(team, { isAdmin: true })
+        .then(status => {
+          return status
+        })
     })
   })
 }
 
+teamsModel.REMOVE_ADMIN = (userId, teamId, idToDelete) => {
+
+}
+
 teamsModel.ADD_MEMBER = (userId, teamId) => {
-  Users.findOne({
+  return Users.findOne({
     where: {
       id: userId
     }
   })
   .then(user => {
-    Teams.findOne({
+    return Teams.findOne({
       where: {
         id: teamId
       }
     })
     .then(team => {
-      user.setTeams(team, { isAdmin: false })
+      return user.setTeams(team, { isAdmin: false })
+        .then(status => {
+          return status
+        })
     })
   })
 }
+
+// teamsModel.REMOVE_MEMBER = (userId, teamId) => {
+//   Users.findOne({
+//     where: {
+//       id: userId
+//     }
+//   })
+//   .then(user => {
+//     Teams.findOne({
+//       where: {
+//         id: teamId
+//       }
+//     })
+//     .then(team => {
+//       user.setTeams(team, { isAdmin: false })
+//     })
+//   })
+// }
 
 module.exports = teamsModel

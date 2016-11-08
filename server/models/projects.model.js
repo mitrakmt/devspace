@@ -131,6 +131,10 @@ projectsModel.ADD_ADMIN = (userId, projectId) => {
   })
 }
 
+projectsModel.REMOVE_ADMIN = (userId, projectId, idToDelete) => {
+
+}
+
 projectsModel.ADD_MEMBER = (userId, projectId) => {
   Users.findOne({
     where: {

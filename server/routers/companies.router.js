@@ -14,6 +14,18 @@ companiesRouter.route('/:companyId')
     // Requires companyId, userId, information to update
   .delete(companiesController.DELETE_COMPANY)
     // Requires companyId, userId
+    //
+companiesRouter.route('/:companyId/admin')
+  .post(companiesController.ADD_ADMIN)
+    // Requires userId header, companyId in req url, idToAdd in req.body
+  .delete(companiesController.REMOVE_ADMIN)
+    // Requires userId header, companyId in req url, idToRemove in req.body
+
+companiesRouter.route('/:companyId/member')
+  .post(companiesController.ADD_MEMBER)
+    // Requires userId header, companyId in req url, idToAdd in req.body
+  .delete(companiesController.REMOVE_MEMBER)
+    // Requires userId header, companyId in req url, idToRemove in req.body
 
 companiesRouter.route('/teams')
   .get(companiesController.GET_COMPANY_TEAMS)

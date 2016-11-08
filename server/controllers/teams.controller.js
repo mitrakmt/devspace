@@ -26,15 +26,28 @@ teamsController.GET_TEAM = (req, res) => {
 teamsController.DELETE_TEAM = (req, res) => {
   let userId = req.headers['userid']
   let teamId = req.params.teamId
+  let idToAdd = req.body.idToAdd
 
   Teams.DELETE_TEAM(userId, teamId)
 }
 
 teamsController.ADD_ADMIN = (req, res) => {
   let userId = req.headers['userid']
-  let teamId = req.body.teamId
+  let teamId = req.params.teamId
+  let idToAdd = req.body.idToAdd
 
-  Teams.ADD_ADMIN(userId, teamId)
+  Teams.ADD_ADMIN(userId, teamId, idToAdd)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+teamsController.REMOVE_ADMIN = (req, res) => {
+  let userId = req.headers['userid']
+  let teamId = req.params.teamId
+  let idToRemove = req.body.idToRemove
+
+  Teams.REMOVE_ADMIN(userId, teamId, idToRemove)
     .then(result => {
       res.status(200).send(result)
     })
@@ -42,9 +55,21 @@ teamsController.ADD_ADMIN = (req, res) => {
 
 teamsController.ADD_MEMBER = (req, res) => {
   let userId = req.headers['userid']
-  let teamId = req.body.teamId
+  let teamId = req.params.teamId
+  let idToAdd = req.body.idToAdd
 
-  Teams.ADD_MEMBER(userId, teamId)
+  Teams.ADD_MEMBER(userId, teamId, idToAdd)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+teamsController.REMOVE_MEMBER = (req, res) => {
+  let userId = req.headers['userid']
+  let teamId = req.params.teamId
+  let idToRemove = req.body.idToRemove
+
+  Teams.REMOVE_MEMBER(userId, teamId, idToRemove)
     .then(result => {
       res.status(200).send(result)
     })

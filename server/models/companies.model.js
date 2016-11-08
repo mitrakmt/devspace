@@ -28,7 +28,7 @@ companiesModel.CREATE_COMPANY = (userId, name, founded, admins) => {
 }
 
 companiesModel.GET_COMPANY = (userId, companyId) => {
-  Companies.findOne({
+  return Companies.findOne({
     where: {
       id: companyId
     }
@@ -39,7 +39,7 @@ companiesModel.GET_COMPANY = (userId, companyId) => {
 }
 
 companiesModel.UPDATE_COMPANY = (userId, companyId) => {
-  Companies.findOne({
+  return Companies.findOne({
     where: {
       id: companyId
     }
@@ -52,13 +52,13 @@ companiesModel.UPDATE_COMPANY = (userId, companyId) => {
 }
 
 companiesModel.DELETE_COMPANY = (userId, companyId) => {
-  Companies.findOne({
+  return Companies.findOne({
     where: {
       id: companyId
     }
   })
   .then(company => {
-    company.destroy()
+    return company.destroy()
       .then(status => {
         return 'Company successfully deleted'
       })
@@ -66,13 +66,13 @@ companiesModel.DELETE_COMPANY = (userId, companyId) => {
 }
 
 companiesModel.ADD_ADMIN = (userId, companyId) => {
-  Users.findOne({
+  return Users.findOne({
     where: {
       id: userId
     }
   })
   .then(user => {
-    Companies.findOne({
+    return Companies.findOne({
       where: {
         id: companyId
       }
@@ -83,20 +83,63 @@ companiesModel.ADD_ADMIN = (userId, companyId) => {
   })
 }
 
+companiesModel.REMOVE_ADMIN = (userId, companyId, idToDelete) => {
+
+}
+
 companiesModel.ADD_MEMBER = (userId, companyId) => {
-  Users.findOne({
+  return Users.findOne({
     where: {
       id: userId
     }
   })
   .then(user => {
-    Companies.findOne({
+    return Companies.findOne({
       where: {
         id: companyId
       }
     })
     .then(company => {
-      user.setCompanies(company, { isAdmin: false })
+      return user.setCompanies(company, { isAdmin: false })
+        .then(status => {
+          return status
+        })
+    })
+  })
+}
+
+companiesModel.REMOVE_MEMBER = (userId, companyId, idToDelete) => {
+  return Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    return Companies.findOne({
+      where: {
+        id: companyId
+      }
+    })
+    .then(company => {
+      return user.getCompanies(company, { isAdmin: true })
+        .then(companyAdmin => {
+          if (companyAdmin) {
+            return Users.findOne({
+              where: {
+                id: idToDelete
+              }
+            })
+            .then(user => {
+              return user.getCompanies(company)
+                .then(result => {
+                  result.destroy()
+                    .then(status => {
+                      return status
+                    })
+                })
+            })
+          }
+        })
     })
   })
 }

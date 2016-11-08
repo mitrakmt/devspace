@@ -53,9 +53,21 @@ projectsController.DELETE_PROJECT = (req, res) => {
 
 projectsController.ADD_ADMIN = (req, res) => {
   let userId = req.headers['userid']
-  let projectId = req.body.projectId
+  let projectId = req.params.projectId
+  let idToAdd = req.body.idToAdd
 
-  Projects.ADD_ADMIN(userId, projectId)
+  Projects.ADD_ADMIN(userId, projectId, idToAdd)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.REMOVE_ADMIN = (req, res) => {
+  let userId = req.headers['userid']
+  let projectId = req.params.projectId
+  let idToRemove = req.body.idToRemove
+
+  Projects.REMOVE_ADMIN(userId, projectId, idToRemove)
     .then(result => {
       res.status(200).send(result)
     })
@@ -63,9 +75,21 @@ projectsController.ADD_ADMIN = (req, res) => {
 
 projectsController.ADD_MEMBER = (req, res) => {
   let userId = req.headers['userid']
-  let projectId = req.body.projectId
+  let projectId = req.params.projectId
+  let idToAdd = req.body.idToAdd
 
-  Projects.ADD_MEMBER(userId, projectId)
+  Projects.ADD_MEMBER(userId, projectId, idToAdd)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.REMOVE_MEMBER = (req, res) => {
+  let userId = req.headers['userid']
+  let projectId = req.params.projectId
+  let idToRemove = req.body.idToRemove
+
+  Projects.REMOVE_MEMBER(userId, projectId, idToRemove)
     .then(result => {
       res.status(200).send(result)
     })
