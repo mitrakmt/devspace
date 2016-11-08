@@ -65,6 +65,42 @@ companiesModel.DELETE_COMPANY = (userId, companyId) => {
   })
 }
 
+companiesModel.ADD_ADMIN = (userId, companyId) => {
+  Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    Companies.findOne({
+      where: {
+        id: companyId
+      }
+    })
+    .then(company => {
+      user.setCompanies(company, { isAdmin: true })
+    })
+  })
+}
+
+companiesModel.ADD_MEMBER = (userId, companyId) => {
+  Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    Companies.findOne({
+      where: {
+        id: companyId
+      }
+    })
+    .then(company => {
+      user.setCompanies(company, { isAdmin: false })
+    })
+  })
+}
+
 companiesModel.GET_COMPANY_TEAMS = (userId, companyId) => {
 
 }

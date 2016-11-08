@@ -14,16 +14,12 @@ projectsController.GET_PROJECTS = (req, res) => {
 
 projectsController.GET_PROJECT = (req, res) => {
   let userId = req.headers['userid']
-  let username = req.params.username
-  let repo = req.params.repo
+  let projectId = req.body.projectId
 
-  Projects.GET_PROJECT(userId, repo)
+  Projects.GET_PROJECT(userId, projectId)
     .then(project => {
       if (!project) {
-        Projects.CREATE_PROJECT(userId, repo)
-          .then(project => {
-            res.status(200).send(project)
-          })
+        res.status(400).send('You can\'t access that project')
       } else {
         res.status(200).send(project)
       }
@@ -43,6 +39,8 @@ projectsController.UPDATE_PROJECT = (req, res) => {
     })
 }
 
+// project timeline activity over timepsan
+
 projectsController.DELETE_PROJECT = (req, res) => {
   let userId = req.headers['userid']
   let projectId = req.body.projectId
@@ -50,6 +48,26 @@ projectsController.DELETE_PROJECT = (req, res) => {
   Projects.DELETE_PROJECT(userId, projectId)
     .then(status => {
       return status
+    })
+}
+
+projectsController.ADD_ADMIN = (req, res) => {
+  let userId = req.headers['userid']
+  let projectId = req.body.projectId
+
+  Projects.ADD_ADMIN(userId, projectId)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.ADD_MEMBER = (req, res) => {
+  let userId = req.headers['userid']
+  let projectId = req.body.projectId
+
+  Projects.ADD_MEMBER(userId, projectId)
+    .then(result => {
+      res.status(200).send(result)
     })
 }
 

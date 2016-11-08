@@ -52,4 +52,40 @@ teamsModel.DELETE_TEAM = (userId, teamId) => {
   })
 }
 
+teamsModel.ADD_ADMIN = (userId, teamId) => {
+  Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    Teams.findOne({
+      where: {
+        id: teamId
+      }
+    })
+    .then(team => {
+      user.setProjects(team, { isAdmin: true })
+    })
+  })
+}
+
+teamsModel.ADD_MEMBER = (userId, teamId) => {
+  Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    Teams.findOne({
+      where: {
+        id: teamId
+      }
+    })
+    .then(team => {
+      user.setTeams(team, { isAdmin: false })
+    })
+  })
+}
+
 module.exports = teamsModel

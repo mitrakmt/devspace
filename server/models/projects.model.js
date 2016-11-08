@@ -13,14 +13,15 @@ projectsModel.CREATE_PROJECT = (userId, owner, name, url, description, githubId)
   .then(user => {
     Projects.findOne({
       where: {
-        githubId: githubId
+        name: name
       }
     }).then(result => {
+      const users = user
       if (result) {
+        users.setProjects(result, { isAdmin: true })
         return
       }
-
-      const users = user
+      console.log("Creating project of ", name)
       return Projects.create({
         name: name,
         owner: owner,
@@ -29,7 +30,7 @@ projectsModel.CREATE_PROJECT = (userId, owner, name, url, description, githubId)
         githubId: githubId
       })
       .then(project => {
-        users.setProjects(project)
+        users.setProjects(project, { isAdmin: true })
         return project
       })
     })
@@ -48,6 +49,7 @@ projectsModel.GET_PROJECTS = (userId, username) => {
         if (projects[0] === undefined) {
           let options = {
             url: 'https://api.github.com/users/' + username + '/repos?sort=updated',
+            type: 'owner',
             headers: {
               'User-Agent': username
             }
@@ -70,14 +72,21 @@ projectsModel.GET_PROJECTS = (userId, username) => {
   })
 }
 
-projectsModel.GET_PROJECT = (userId, repo) => {
-  Projects.findOne({
+projectsModel.GET_PROJECT = (userId, projectId) => {
+  return Users.findOne({
     where: {
-      repo: repo
+      id: userId
     }
   })
-  .then(project => {
-    return project
+  .then(user => {
+    user.getProjects({
+      where: {
+        projectId: projectId
+      }
+    })
+    .then(project => {
+      return project || false
+    })
   })
 }
 
@@ -95,16 +104,48 @@ projectsModel.UPDATE_PROJECT = (userId, projectId) => {
 }
 
 projectsModel.DELETE_PROJECT = (userId, projectId) => {
-  Projects.findOne({
-    where: {
-      id: projectId
-    }
-  })
+  Users.findOne()
   .then(project => {
     project.destroy()
       .then(status => {
         return 'Project successfully deleted'
       })
+  })
+}
+
+projectsModel.ADD_ADMIN = (userId, projectId) => {
+  Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    Projects.findOne({
+      where: {
+        id: projectId
+      }
+    })
+    .then(project => {
+      user.setProjects(project, { isAdmin: true })
+    })
+  })
+}
+
+projectsModel.ADD_MEMBER = (userId, projectId) => {
+  Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    Projects.findOne({
+      where: {
+        id: projectId
+      }
+    })
+    .then(project => {
+      user.setProjects(project, { isAdmin: false })
+    })
   })
 }
 
