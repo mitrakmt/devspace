@@ -30,4 +30,24 @@ teamsController.DELETE_TEAM = (req, res) => {
   Teams.DELETE_TEAM(userId, teamId)
 }
 
+teamsController.ADD_ADMIN = (req, res) => {
+  let userId = req.headers['userid']
+  let teamId = req.body.teamId
+
+  Teams.ADD_ADMIN(userId, teamId)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+teamsController.ADD_MEMBER = (req, res) => {
+  let userId = req.headers['userid']
+  let teamId = req.body.teamId
+
+  Teams.ADD_MEMBER(userId, teamId)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
 module.exports = teamsController
