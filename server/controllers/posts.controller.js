@@ -40,8 +40,8 @@ postsController.UPDATE_INTERACTION = (req, res) => {
   let userId = req.headers['userid']
   let postId = req.params.postId
   Posts.UPDATE_INTERACTION(userId, postId)
-    .then(result => {
-      res.status(200).send('Interaction updated')
+    .then(post => {
+      res.status(200).send(post)
     })
 }
 
@@ -49,7 +49,6 @@ postsController.CREATE_COMMENT = (req, res) => {
   let userId = req.headers['userid']
   let postId = req.params.postId
   let content = req.body.content
-  console.log(req.params.postId)
 
   Posts.CREATE_COMMENT(userId, postId, content)
     .then(comment => {
@@ -62,11 +61,21 @@ postsController.UPDATE_COMMENT = (req, res) => {
   let content = req.body.content
   let commentId = req.body.commentId
   let postId = req.params.postId
+
+  Posts.UPDATE_COMMENT(userId, postId, commentId, content)
+    .then(status => {
+      res.status(200).send(status)
+    })
 }
 
 postsController.DELETE_COMMENT = (req, res) => {
   let userId = req.headers['userid']
   let commentId = req.body.commentId
   let postId = req.params.postId
+
+  Posts.DELETE_COMMENT(userId, postId, commentId)
+    .then(comment => {
+      res.status(200).send(comment)
+    })
 }
 module.exports = postsController

@@ -19,15 +19,19 @@ postsModel.CREATE_POST = (userId, content, paid, likes) => {
 postsModel.UPDATE_POST = (userId, postId, content) => {
   return Posts.findOne({
     where: {
-      id: postId
+      id: postId,
+      userId: userId
     }
   })
   .then(post => {
+    if (!post) {
+      return 'Bad request'
+    }
     post.update({
       content: content
     })
-    .then(post => {
-      return post
+    .then(updatedPost => {
+      return updatedPost
     })
   })
 }
@@ -35,20 +39,16 @@ postsModel.UPDATE_POST = (userId, postId, content) => {
 postsModel.DELETE_POST = (userId, postId) => {
   return Posts.findOne({
     where: {
-      id: postId
+      id: postId,
+      userId: userId
     }
   })
   .then(post => {
-    if (post.userId == userId) {
-      Posts.destroy({
-        where: {
-          id: postId
-        }
-      })
-      return 'Post successfully deleted'
-    } else {
-      return 'That\'s not your post to delete!'
+    if (!post) {
+      return 'Bad request'
     }
+    post.destroy()
+    return 'Post successfully deleted'
   })
 }
 
@@ -60,6 +60,41 @@ postsModel.CREATE_COMMENT = (userId, postId, content) => {
   })
   .then(comment => {
     return comment
+  })
+}
+
+postsModel.UPDATE_COMMENT = (userId, postId, commentId, content) => {
+  return Comments.findOne({
+    where: {
+      id: commentId,
+      userId: userId
+    }
+  })
+  .then(comment => {
+    if (!comment) {
+      return 'Bad request'
+    }
+    return comment.update({
+      content: content
+    })
+    .then(updatedComment => {
+      return updatedComment
+    })
+  })
+}
+
+postsModel.DELETE_COMMENT = (userId, postId, commentId) => {
+  return Comments.findOne({
+    where: {
+      id: commentId,
+      userId: userId
+    }
+  })
+  .then(comment => {
+    comment.destroy()
+    .then(secondstatus => {
+      return 'Comment successfully deleted'
+    })
   })
 }
 
@@ -84,19 +119,22 @@ postsModel.UPDATE_INTERACTION = (userId, postId) => {
         })
         .then(post => {
           post.increment('likes')
+          return post
         })
       })
     } else {
       return Posts.findOne({
         where: {
-          id: interaction.postId
+          id: postId
         }
       })
       .then(post => {
         post.decrement('likes')
-      })
-      .then(() => {
         interaction.destroy()
+        return post
+      })
+      .then(post => {
+        return post
       })
     }
   })
