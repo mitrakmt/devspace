@@ -29,6 +29,11 @@ postsController.UPDATE_POST = (req, res) => {
 postsController.DELETE_POST = (req, res) => {
   let userId = req.headers['userid']
   let postId = req.params.postId
+
+  Posts.DELETE_POST(userId, postId)
+    .then(status => {
+      res.status(200).send(status)
+    })
 }
 
 postsController.UPDATE_INTERACTION = (req, res) => {

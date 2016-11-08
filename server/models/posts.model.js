@@ -14,10 +14,6 @@ postsModel.CREATE_POST = (userId, content, paid, likes) => {
   .then(post => {
     return post
   })
-  .catch(err => {
-    console.error(err)
-    return false
-  })
 }
 
 postsModel.UPDATE_POST = (userId, postId, content) => {
@@ -36,6 +32,26 @@ postsModel.UPDATE_POST = (userId, postId, content) => {
   })
 }
 
+postsModel.DELETE_POST = (userId, postId) => {
+  return Posts.findOne({
+    where: {
+      id: postId
+    }
+  })
+  .then(post => {
+    if (post.userId == userId) {
+      Posts.destroy({
+        where: {
+          id: postId
+        }
+      })
+      return 'Post successfully deleted'
+    } else {
+      return 'That\'s not your post to delete!'
+    }
+  })
+}
+
 postsModel.CREATE_COMMENT = (userId, postId, content) => {
   return Comments.create({
     userId: userId,
@@ -44,10 +60,6 @@ postsModel.CREATE_COMMENT = (userId, postId, content) => {
   })
   .then(comment => {
     return comment
-  })
-  .catch(err => {
-    console.error(err)
-    return false
   })
 }
 
