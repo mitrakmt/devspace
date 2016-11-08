@@ -132,5 +132,6 @@ module.exports = {
   Users: Users,
   Transactions: Transactions,
   Follows: Follows,
-  Interactions: Interactions
+  Interactions: Interactions,
+  Comments: Comments
 }
