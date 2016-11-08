@@ -7,10 +7,6 @@ teamsRouter.route('/')
   .post(teamsController.CREATE_TEAM)
     // Requires userId, team information (name, description, other admins by email)
 
-teamsRouter.route('/projects')
-  .get(teamsController.GET_TEAM_PROJECTS)
-    // Requires userId, teamId
-
 teamsRouter.route('/:teamId')
   .get(teamsController.GET_TEAM)
     // Requires userId, teamId
