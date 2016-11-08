@@ -9,7 +9,7 @@ chatsModel.GET_CHAT_HISTORY = (userId) => {
 }
 
 chatsModel.DELETE_CHAT_HISTORY = (userId) => {
-  Chats.destroy({
+  return Chats.destroy({
     where: { userId: userId }
   })
 }
@@ -24,45 +24,37 @@ chatsModel.GET_CONVERSATION = (userId, receiverId) => {
 }
 
 chatsModel.DELETE_CONVERSATION = (userId, receiverId) => {
-  return Chats.findAll({
+  return Chats.destroy({
     where: {
       userId: userId,
       receiverId: receiverId
     }
   })
-  .then(conversation => {
-    conversation.destroy()
-  })
 }
 
 chatsModel.POST_CHAT = (userId, content, receiverId) => {
-  console.log('adding chat-userId:', userId, 'content', content, 'receiverId', receiverId)
   return Chats.create({
+    userId: userId,
     content: content,
     receiverId: receiverId
   })
   .then(chat => {
-    return Users.findOne({
-      where: { id: userId }
-    })
-    .then(user => {
-      return user.setChats(chat)
-        .then(something => {
-          return something
-        })
-    })
+    return chat
   })
   .catch(err => {
     return ' Err in posting chat:' + err
   })
 }
 
-chatsModel.DELETE_CHAT = (chatId) => {
+chatsModel.DELETE_CHAT = (userId, chatId) => {
   return Chats.findOne({
-    where: { id: chatId }
+    where: {
+      userId: userId,
+      id: chatId
+    }
   })
   .then(chat => {
-    chat.destory()
+    chat.destroy()
   })
   .catch(err => {
     console.log('Err in posting chat', err)
