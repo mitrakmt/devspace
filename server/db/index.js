@@ -17,7 +17,9 @@ let Transactions = require('./transactions')(db)
 // Create join tables
 const UsersCompanies = db.define('UsersCompanies', {})
 const UsersTeams = db.define('UsersTeams', {})
-const UsersProjects = db.define('UsersProjects', {})
+const UsersProjects = db.define('UsersProjects', {
+  isAdmin: Sequelize.BOOLEAN
+})
 
 // Assign relationships
 
@@ -123,6 +125,28 @@ db.sync().then(() => {
   console.log('Tables have been Created')
 })
 
+// Users.create({
+//   firstName: "CHRIS",
+//   lastName: "Mitrakos",
+//   email: "mtm@gmail.com",
+//   password: "test123",
+//   bio: "Sup",
+//   followerCount: 0,
+//   followingCount: 0,
+//   username: "mitrakmt"
+// })
+//
+// Users.create({
+//   firstName: "David",
+//   lastName: "Kim",
+//   email: "test@gmail.com",
+//   password: "test123",
+//   bio: "Sup",
+//   followerCount: 0,
+//   followingCount: 0,
+//   username: "davidkim310"
+// })
+
 module.exports = {
   db: db,
   Companies: Companies,
@@ -132,5 +156,6 @@ module.exports = {
   Users: Users,
   Transactions: Transactions,
   Follows: Follows,
-  Interactions: Interactions
+  Interactions: Interactions,
+  Comments: Comments
 }
