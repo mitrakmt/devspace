@@ -34,4 +34,22 @@ transactionsModel.CREATE_SALE = () => {
 
 }
 
+/* *
+ * Company Subscriptions
+ * */
+
+// Subscribe customer to bootstrap, orbit, galaxy or universe
+transactionsModel.SUBSCRIBE_TO_PLAN = (token, plan, email) => {
+  stripe.customers.create({
+    source: token,
+    plan: plan,
+    email: email
+  }, (err, customer) => {
+    if (err) {
+      return 'Err in subscribing to plan'
+    } else {
+      return customer
+    }
+  })
+}
 module.exports = transactionsModel
