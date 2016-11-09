@@ -1,5 +1,5 @@
-let usersController = {}
 let Users = require('../models').usersModel
+let usersController = {}
 
 usersController.GET_PROFILE = (req, res) => {
   let userId = req.headers['userid']

@@ -1,5 +1,5 @@
-let companiesController = {}
 let Companies = require('../models').companiesModel
+let companiesController = {}
 
 companiesController.GET_COMPANIES = (req, res) => {
   let userId = req.headers['userid']

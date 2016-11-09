@@ -1,9 +1,9 @@
-let usersModel = {}
 let _ = require('lodash')
 let Users = require('../db').Users
 let Posts = require('../db').Posts
 let Comments = require('../db').Comments
 let Interactions = require('../db').Interactions
+let usersModel = {}
 
 usersModel.GET_POSTS = (userId) => {
   return Posts.findAll({

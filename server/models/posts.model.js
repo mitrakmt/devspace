@@ -1,8 +1,8 @@
-let postsModel = {}
 let Users = require('../db').Users
 let Posts = require('../db').Posts
 let Comments = require('../db').Comments
 let Interactions = require('../db').Interactions
+let postsModel = {}
 
 postsModel.CREATE_POST = (userId, content, paid, likes) => {
   return Posts.create({

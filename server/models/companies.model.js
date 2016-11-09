@@ -1,7 +1,7 @@
-let companiesModel = {}
 let Users = require('../db').Users
 let Companies = require('../db').Companies
 let UsersCompanies = require('../db').UsersCompanies
+let companiesModel = {}
 
 companiesModel.GET_COMPANIES = (userId) => {
   return Users.findOne({

@@ -1,10 +1,11 @@
-let homeController = {}
-let Home = require('../models').Home
+let Home = require('../models').homeModel
 let Projects = require('../models').projectsModel
 let Posts = require('../db').Posts
+let homeController = {}
 
 homeController.GET_GITHUB_ACTIVITY = (req, res) => {
   let username = req.headers['username']
+
   Home.GET_RECEIVED_EVENTS(username)
     .then(events => {
       let result = (JSON.parse(events)).map(event => {
@@ -36,6 +37,7 @@ homeController.GET_GITHUB_ACTIVITY = (req, res) => {
 
 homeController.GET_USER_FEED = (req, res) => {
   let userId = req.headers['userid']
+
   Posts.findAll({
     where: {
       userId: userId

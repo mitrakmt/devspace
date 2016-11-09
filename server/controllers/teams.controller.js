@@ -1,5 +1,5 @@
-let teamsController = {}
 let Teams = require('../models').teamsModel
+let teamsController = {}
 
 teamsController.GET_TEAMS = (req, res) => {
   let userId = req.headers['userid']

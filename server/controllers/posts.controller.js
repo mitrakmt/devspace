@@ -1,5 +1,5 @@
-let postsController = {}
 let Posts = require('../models').postsModel
+let postsController = {}
 
 postsController.CREATE_POST = (req, res) => {
   let userId = req.headers['userid']
@@ -39,6 +39,7 @@ postsController.DELETE_POST = (req, res) => {
 postsController.UPDATE_INTERACTION = (req, res) => {
   let userId = req.headers['userid']
   let postId = req.params.postId
+
   Posts.UPDATE_INTERACTION(userId, postId)
     .then(post => {
       res.status(200).send(post)
