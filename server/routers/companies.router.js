@@ -10,7 +10,7 @@ companiesRouter.route('/')
 companiesRouter.route('/:companyId')
   .get(companiesController.GET_COMPANY)
     // Requires companyId, userId
-  .put(companiesController.UPDATE_COMPANY)    // X
+  .put(companiesController.UPDATE_COMPANY)
     // Requires companyId, userId, information to update (description, founded, or name)
   .delete(companiesController.DELETE_COMPANY)
     // Requires companyId, userId
@@ -28,11 +28,11 @@ companiesRouter.route('/:companyId/member')
     // Requires userId header, companyId in req url, idToRemove in req.body
 
 companiesRouter.route('/teams')
-  .get(companiesController.GET_COMPANY_TEAMS) // X
+  .get(companiesController.GET_COMPANY_TEAMS)
     // Requires companyId, userId
 
 companiesRouter.route('/projects')
-  .get(companiesController.GET_COMPANY_PROJECTS) // X
+  .get(companiesController.GET_COMPANY_PROJECTS)
     // Requires companyId,  userId
 
 module.exports = companiesRouter

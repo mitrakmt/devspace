@@ -6,36 +6,50 @@ projectsController.GET_PROJECTS = (req, res) => {
   let userId = req.headers['userid']
   let username = req.headers['username']
 
-  Projects.GET_PROJECTS(userId, username)
+  Projects.GET_PROJECTS(userId)
     .then(projects => {
       res.status(200).send(projects)
     })
 }
 
-projectsController.GET_PROJECT = (req, res) => {
+projectsController.CREATE_PROJECT = (req, res) => {
   let userId = req.headers['userid']
-  let projectId = req.body.projectId
+  let owner = userId
+  let name = req.body.name
+  let url = req.body.url || null
+  let description = req.body.description
 
-  Projects.GET_PROJECT(userId, projectId)
+  Projects.CREATE_PROJECT(userId, owner, name, url, description)
     .then(project => {
-      if (!project) {
-        res.status(400).send('You can\'t access that project')
-      } else {
-        res.status(200).send(project)
-      }
+      res.status(200).send(project)
+    })
+}
+
+projectsController.GET_PROJECT_FROM_DB = (req, res) => {
+  let userId = req.headers['userid']
+  let projectId = req.params.projectId
+
+  Projects.GET_PROJECT_FROM_DB(userId, projectId)
+    .then(project => {
+      res.status(200).send(project)
     })
 }
 
 projectsController.UPDATE_PROJECT = (req, res) => {
   let userId = req.headers['userid']
-  let content = req.body.content
-  let username = req.params.username
-  let projectId = req.body.projectId
+  let deadline = req.body.deadline
+  let projectId = req.params.projectId
   let projectName = req.params.projectName
+  let url = req.body.url
+  let projectDataToUpdate = {
+    deadline: deadline,
+    projectName: projectName,
+    url: url
+  }
 
-  Projects.UPDATE_PROJECT(userId, projectId)
+  Projects.UPDATE_PROJECT(userId, projectId, projectDataToUpdate)
     .then(project => {
-
+      res.status(200).send(project)
     })
 }
 
@@ -43,11 +57,11 @@ projectsController.UPDATE_PROJECT = (req, res) => {
 
 projectsController.DELETE_PROJECT = (req, res) => {
   let userId = req.headers['userid']
-  let projectId = req.body.projectId
+  let projectId = req.params.projectId
 
   Projects.DELETE_PROJECT(userId, projectId)
     .then(status => {
-      return status
+      res.status(200).send(status)
     })
 }
 
