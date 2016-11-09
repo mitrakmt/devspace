@@ -27,7 +27,7 @@ postsModel.UPDATE_POST = (userId, postId, content) => {
     if (!post) {
       return 'Bad request'
     }
-    post.update({
+    return post.update({
       content: content
     })
     .then(updatedPost => {

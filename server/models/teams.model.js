@@ -1,6 +1,7 @@
 let teamsModel = {}
 let Users = require('../db').Users
 let Teams = require('../db').Teams
+let UsersTeams = require('../db').UsersTeams
 
 teamsModel.GET_TEAMS = (userId) => {
   return Users.findOne({
@@ -52,68 +53,52 @@ teamsModel.DELETE_TEAM = (userId, teamId) => {
   })
 }
 
-teamsModel.ADD_ADMIN = (userId, teamId) => {
-  return Users.findOne({
+teamsModel.ADD_ADMIN = (userId, teamId, idToAdd) => {
+  return UsersTeams.create({
+    userId: idToAdd,
+    teamId: teamId,
+    isAdmin: false
+  })
+  .then(result => {
+    return result
+  })
+}
+
+teamsModel.REMOVE_ADMIN = (userId, teamId, idToRemove) => {
+  return UsersTeams.findOne({
     where: {
-      id: userId
+      userId: idToRemove,
+      isAdmin: true
     }
   })
-  .then(user => {
-    return Teams.findOne({
-      where: {
-        id: teamId
-      }
-    })
-    .then(team => {
-      return user.setProjects(team, { isAdmin: true })
-        .then(status => {
-          return status
-        })
-    })
+  .then(result => {
+    result.destroy()
+    return 'Successfully removed admin'
   })
 }
 
-teamsModel.REMOVE_ADMIN = (userId, teamId, idToDelete) => {
-
+teamsModel.ADD_MEMBER = (userId, teamId, idToAdd) => {
+  return UsersTeams.create({
+    userId: idToAdd,
+    teamId: teamId,
+    isAdmin: false
+  })
+  .then(result => {
+    return result
+  })
 }
 
-teamsModel.ADD_MEMBER = (userId, teamId) => {
-  return Users.findOne({
+teamsModel.REMOVE_MEMBER = (userId, teamId, idToRemove) => {
+  return UsersTeams.findOne({
     where: {
-      id: userId
+      userId: idToRemove,
+      isAdmin: false
     }
   })
-  .then(user => {
-    return Teams.findOne({
-      where: {
-        id: teamId
-      }
-    })
-    .then(team => {
-      return user.setTeams(team, { isAdmin: false })
-        .then(status => {
-          return status
-        })
-    })
+  .then(result => {
+    result.destroy()
+    return 'Successfully removed member'
   })
 }
-
-// teamsModel.REMOVE_MEMBER = (userId, teamId) => {
-//   Users.findOne({
-//     where: {
-//       id: userId
-//     }
-//   })
-//   .then(user => {
-//     Teams.findOne({
-//       where: {
-//         id: teamId
-//       }
-//     })
-//     .then(team => {
-//       user.setTeams(team, { isAdmin: false })
-//     })
-//   })
-// }
 
 module.exports = teamsModel

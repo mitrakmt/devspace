@@ -15,8 +15,9 @@ companiesController.CREATE_COMPANY = (req, res) => {
   let name = req.body.name
   let founded = req.body.founded
   let admins = req.body.admins
+  let description = req.body.description
 
-  Companies.CREATE_COMPANY(userId, name)
+  Companies.CREATE_COMPANY(userId, name, admins, founded, description)
     .then(company => {
       res.status(200).send(company)
     })

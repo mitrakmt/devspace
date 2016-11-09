@@ -1,9 +1,10 @@
 let companiesModel = {}
 let Users = require('../db').Users
 let Companies = require('../db').Companies
+let UsersCompanies = require('../db').UsersCompanies
 
 companiesModel.GET_COMPANIES = (userId) => {
-  return Users.find({
+  return Users.findOne({
     where: {
       id: userId
     }
@@ -16,10 +17,13 @@ companiesModel.GET_COMPANIES = (userId) => {
   })
 }
 
-companiesModel.CREATE_COMPANY = (userId, name, founded, admins) => {
+companiesModel.CREATE_COMPANY = (userId, name, admins, founded, description) => {
   return Companies.create({
     name: name,
-    status: true
+    status: true,
+    description: description,
+    founded: founded,
+    owner: userId
   })
   .then(company => {
     company.setUsers(userId)
@@ -58,89 +62,60 @@ companiesModel.DELETE_COMPANY = (userId, companyId) => {
     }
   })
   .then(company => {
-    return company.destroy()
-      .then(status => {
-        return 'Company successfully deleted'
-      })
+    if (userId === company.owner) {
+      return company.destroy()
+        .then(status => {
+          return 'Company successfully deleted'
+        })
+    }
   })
 }
 
-companiesModel.ADD_ADMIN = (userId, companyId) => {
-  return Users.findOne({
-    where: {
-      id: userId
-    }
+companiesModel.ADD_ADMIN = (userId, companyId, idToAdd) => {
+  return UsersCompanies.create({
+    userId: idToAdd,
+    companyId: companyId,
+    isAdmin: true
   })
-  .then(user => {
-    return Companies.findOne({
-      where: {
-        id: companyId
-      }
-    })
-    .then(company => {
-      user.setCompanies(company, { isAdmin: true })
-    })
+  .then(result => {
+    return result
   })
 }
 
 companiesModel.REMOVE_ADMIN = (userId, companyId, idToDelete) => {
-
-}
-
-companiesModel.ADD_MEMBER = (userId, companyId) => {
-  return Users.findOne({
+  return UsersCompanies.findOne({
     where: {
-      id: userId
+      userId: idToDelete,
+      isAdmin: true
     }
   })
-  .then(user => {
-    return Companies.findOne({
-      where: {
-        id: companyId
-      }
-    })
-    .then(company => {
-      return user.setCompanies(company, { isAdmin: false })
-        .then(status => {
-          return status
-        })
-    })
+  .then(result => {
+    result.destroy()
+    return 'Successfully removed the admin '
+  })
+}
+
+companiesModel.ADD_MEMBER = (userId, companyId, idToAdd) => {
+  return UsersCompanies.create({
+    userId: idToAdd,
+    companyId: companyId,
+    isAdmin: false
+  })
+  .then(result => {
+    return result
   })
 }
 
 companiesModel.REMOVE_MEMBER = (userId, companyId, idToDelete) => {
-  return Users.findOne({
+  return UsersCompanies.findOne({
     where: {
-      id: userId
+      userId: idToDelete,
+      companyId: companyId
     }
   })
-  .then(user => {
-    return Companies.findOne({
-      where: {
-        id: companyId
-      }
-    })
-    .then(company => {
-      return user.getCompanies(company, { isAdmin: true })
-        .then(companyAdmin => {
-          if (companyAdmin) {
-            return Users.findOne({
-              where: {
-                id: idToDelete
-              }
-            })
-            .then(user => {
-              return user.getCompanies(company)
-                .then(result => {
-                  result.destroy()
-                    .then(status => {
-                      return status
-                    })
-                })
-            })
-          }
-        })
-    })
+  .then(result => {
+    result.destroy()
+    return 'Successfully removed the member '
   })
 }
 

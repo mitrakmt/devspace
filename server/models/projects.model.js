@@ -3,6 +3,7 @@ let request = require('request-promise')
 let _ = require('lodash')
 let Users = require('../db').Users
 let Projects = require('../db').Projects
+let UsersProjects = require('../db').UsersProjects
 
 projectsModel.CREATE_PROJECT = (userId, owner, name, url, description, githubId) => {
   Users.findOne({
@@ -21,11 +22,9 @@ projectsModel.CREATE_PROJECT = (userId, owner, name, url, description, githubId)
         users.setProjects(result, { isAdmin: true })
         return
       }
-      console.log("Creating project of ", name)
       return Projects.create({
         name: name,
         owner: owner,
-        description: description,
         url: url,
         githubId: githubId
       })
@@ -113,43 +112,51 @@ projectsModel.DELETE_PROJECT = (userId, projectId) => {
   })
 }
 
-projectsModel.ADD_ADMIN = (userId, projectId) => {
-  Users.findOne({
-    where: {
-      id: userId
-    }
+projectsModel.ADD_ADMIN = (userId, projectId, idToAdd) => {
+  return UsersProjects.create({
+    userId: idToAdd,
+    projectId: projectId,
+    isAdmin: false
   })
-  .then(user => {
-    Projects.findOne({
-      where: {
-        id: projectId
-      }
-    })
-    .then(project => {
-      user.setProjects(project, { isAdmin: true })
-    })
+  .then(result => {
+    return result
   })
 }
 
-projectsModel.REMOVE_ADMIN = (userId, projectId, idToDelete) => {
-
-}
-
-projectsModel.ADD_MEMBER = (userId, projectId) => {
-  Users.findOne({
+projectsModel.REMOVE_ADMIN = (userId, projectId, idToRemove) => {
+  return UsersProjects.findOne({
     where: {
-      id: userId
+      userId: idToRemove,
+      isAdmin: true
     }
   })
-  .then(user => {
-    Projects.findOne({
-      where: {
-        id: projectId
-      }
-    })
-    .then(project => {
-      user.setProjects(project, { isAdmin: false })
-    })
+  .then(result => {
+    result.destroy()
+    return 'Successfully removed admin'
+  })
+}
+
+projectsModel.ADD_MEMBER = (userId, projectId, idToAdd) => {
+  return UsersProjects.create({
+    userId: idToAdd,
+    projectId: projectId,
+    isAdmin: false
+  })
+  .then(result => {
+    return result
+  })
+}
+
+projectsModel.REMOVE_MEMBER = (userId, projectId, idToRemove) => {
+  return UsersProjects.findOne({
+    where: {
+      userId: idToRemove,
+      isAdmin: false
+    }
+  })
+  .then(result => {
+    result.destroy()
+    return 'Successfully removed admin'
   })
 }
 

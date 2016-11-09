@@ -8,14 +8,14 @@ module.exports = (db) => {
     owner: {
       type: Sequelize.STRING
     },
-    description: {
-      type: Sequelize.STRING
-    },
     url: {
       type: Sequelize.STRING
     },
     githubId: {
       type: Sequelize.INTEGER
+    },
+    deadline: {
+      type: Sequelize.DATE
     }
   })
 
