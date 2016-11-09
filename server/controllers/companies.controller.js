@@ -36,9 +36,16 @@ companiesController.GET_COMPANY = (req, res) => {
 companiesController.UPDATE_COMPANY = (req, res) => {
   let userId = req.headers['userid']
   let companyId = req.params.companyId
-  // info to update in req.body
+  let companyName = req.body.companyName
+  let founded = req.body.founded
+  let companyDescription = req.body.companyDescription
+  let companyInfoToUpdate = {
+    companyDescription: companyDescription,
+    companyName: companyName,
+    founded: founded
+  }
 
-  Companies.UPDATE_COMPANY(userId, companyId)
+  Companies.UPDATE_COMPANY(userId, companyId, companyInfoToUpdate)
     .then(company => {
       res.status(200).send(company)
     })
@@ -109,6 +116,24 @@ companiesController.REMOVE_MEMBER = (req, res) => {
   Companies.REMOVE_MEMBER(userId, companyId, idToRemove)
     .then(result => {
       res.status(200).send(result)
+    })
+}
+
+companiesController.GET_COMPANY_TEAMS = (req, res) => {
+  let userId = req.headers['userid']
+  let companyId = req.body.companyId
+  Companies.GET_COMPANY_TEAMS(userId, companyId)
+    .then(teams => {
+      res.status(200).send(teams)
+    })
+}
+
+companiesController.GET_COMPANY_PROJECTS = (req, res) => {
+  let userId = req.headers['userid']
+  let companyId = req.body.companyId
+  Companies.GET_COMPANY_PROJECTS(userId, companyId)
+    .then(projects => {
+      res.status(200).send(projects)
     })
 }
 

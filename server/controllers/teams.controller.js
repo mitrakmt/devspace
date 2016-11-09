@@ -75,4 +75,14 @@ teamsController.REMOVE_MEMBER = (req, res) => {
     })
 }
 
+teamsController.GET_TEAM_PROJECTS = (req, res) => {
+  let userId = req.headers['userid']
+  let teamId = req.params.teamId
+
+  Teams.GET_TEAM_PROJECTS(userId, teamId)
+    .then(projects => {
+      res.status(200).send(projects)
+    })
+}
+
 module.exports = teamsController
