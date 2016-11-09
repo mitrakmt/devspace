@@ -1,6 +1,6 @@
-const followsModel = {}
 const Follows = require('../db').Follows
 const Users = require('../db').Users
+const followsModel = {}
 
 followsModel.GET_FOLLOWERS = (userId) => {
   return Follows.findAll({

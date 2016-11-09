@@ -1,9 +1,9 @@
-let projectsModel = {}
 let request = require('request-promise')
 let _ = require('lodash')
 let Users = require('../db').Users
 let Projects = require('../db').Projects
 let UsersProjects = require('../db').UsersProjects
+let projectsModel = {}
 
 projectsModel.CREATE_PROJECT = (userId, owner, name, url, description, githubId) => {
   Users.findOne({

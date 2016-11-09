@@ -1,7 +1,7 @@
-let teamsModel = {}
 let Users = require('../db').Users
 let Teams = require('../db').Teams
 let UsersTeams = require('../db').UsersTeams
+let teamsModel = {}
 
 teamsModel.GET_TEAMS = (userId) => {
   return Users.findOne({

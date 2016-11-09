@@ -1,6 +1,6 @@
-let projectsController = {}
 let Projects = require('../models').projectsModel
 let Users = require('../db').Users
+let projectsController = {}
 
 projectsController.GET_PROJECTS = (req, res) => {
   let userId = req.headers['userid']

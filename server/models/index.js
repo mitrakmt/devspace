@@ -1,10 +1,11 @@
 module.exports = {
-  usersModel: require('./users.model'),
-  postsModel: require('./posts.model'),
+  chatsModel: require('./chats.model'),
   companiesModel: require('./companies.model'),
-  teamsModel: require('./teams.model'),
+  followsModel: require('./follows.model'),
+  homeModel: require('./home.model'),
+  postsModel: require('./posts.model'),
   projectsModel: require('./projects.model'),
-  Chats: require('./chats.model'),
-  Follows: require('./follows.model'),
-  Home: require('./home.model')
+  teamsModel: require('./teams.model'),
+  transactionsModel: require('./transactions.model'),
+  usersModel: require('./users.model')
 }

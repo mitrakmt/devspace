@@ -11,6 +11,7 @@ let PORT = process.env.PORT || 8000
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
+app.use(cors())
 app.use(helmet())
 app.use(bodyParser.urlencoded({ extended: true }))
 

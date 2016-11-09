@@ -1,3 +1,4 @@
+let Transactions = require('../models').transactionsModel
 let transactionsController = {}
 
 transactionsController.CREATE_MERCHANT = (req, res) => {
