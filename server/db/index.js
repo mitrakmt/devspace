@@ -15,8 +15,12 @@ let Follows = require('./follows')(db)
 let Transactions = require('./transactions')(db)
 
 // Create join tables
-const UsersCompanies = db.define('UsersCompanies', {})
-const UsersTeams = db.define('UsersTeams', {})
+const UsersCompanies = db.define('UsersCompanies', {
+  isAdmin: Sequelize.BOOLEAN
+})
+const UsersTeams = db.define('UsersTeams', {
+  isAdmin: Sequelize.BOOLEAN
+})
 const UsersProjects = db.define('UsersProjects', {
   isAdmin: Sequelize.BOOLEAN
 })
@@ -158,5 +162,8 @@ module.exports = {
   Follows: Follows,
   Interactions: Interactions,
   Chats: Chats,
-  Comments: Comments
+  Comments: Comments,
+  UsersCompanies: UsersCompanies,
+  UsersTeams: UsersTeams,
+  UsersProjects: UsersProjects
 }

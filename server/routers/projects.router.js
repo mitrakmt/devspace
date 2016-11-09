@@ -2,19 +2,19 @@ let projectsRouter = require('express').Router()
 const projectsController = require('../controllers').projectsController
 
 projectsRouter.route('/')
-  .get(projectsController.GET_PROJECTS)
-    // Requires userId
+  .get(projectsController.GET_PROJECTS)    // works but should res the projects
+    // Requires userId and github username in header
 
-projectsRouter.route('/:username/:repoName')
-  .get(projectsController.GET_PROJECT)
+projectsRouter.route('/:projectId')
+  .get(projectsController.GET_PROJECT)    // doesn't work
     // Requires userId, and username/repoName in request URL
-  .put(projectsController.UPDATE_PROJECT)
-    // Requires userId, content to update, and username/repoName in request URL
-  .delete(projectsController.DELETE_PROJECT)
+  .put(projectsController.UPDATE_PROJECT)    // Can't test yet
+    // Requires userId, content to update (name, owner, url, or/and deadline), and username/repoName in request URL
+  .delete(projectsController.DELETE_PROJECT)   // Can't test yet
     // Requires  userId, and username/repoName in request URL
 
 projectsRouter.route('/:projectId/admin')
-  .post(projectsController.ADD_ADMIN)
+  .post(projectsController.ADD_ADMIN)   // works
     // Requires userId header, projectId in req url, idToAdd in req.body
   .delete(projectsController.REMOVE_ADMIN)
     // Requires userId header, projectId in req url, idToRemove in req.body

@@ -7,6 +7,15 @@ module.exports = (db) => {
     },
     status: {
       type: Sequelize.BOOLEAN
+    },
+    founded: {
+      type: Sequelize.DATE
+    },
+    description: {
+      type: Sequelize.STRING
+    },
+    owner: {
+      type: Sequelize.INTEGER
     }
   })
 
