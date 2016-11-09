@@ -53,9 +53,8 @@ homeController.GET_USER_FEED = (req, res) => {
 
 homeController.GET_PROJECT_SIDEBAR = (req, res) => {
   let userId = req.headers['userid']
-  let username = req.headers['username']
 
-  Projects.GET_PROJECTS(userId, username)
+  Projects.GET_PROJECTS(userId)
     .then(projects => {
       res.status(200).send(projects)
     })
