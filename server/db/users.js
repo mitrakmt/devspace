@@ -20,6 +20,9 @@ module.exports = (db) => {
     bio: {
       type: Sequelize.STRING
     },
+    imageUrl: {
+      type: Sequelize.STRING
+    },
     followerCount: {
       type: Sequelize.INTEGER
     },

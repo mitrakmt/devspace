@@ -36,9 +36,41 @@ usersModel.GET_COMMENTS_AND_INTERACTIONS = (userId, posts) => {
     return comments
   })
 
-  // do comments here
-
   return posts
+}
+
+usersModel.EDIT = (userId, userInfo) => {
+  let updatedUserInfo = _.pickBy(userInfo, (item) => {
+    return !_.isUndefined(item)
+  })
+
+  return Users.findOne({
+    where: {
+      id: userInfo.userId
+    }
+  })
+  .then(user => {
+    return user.update(
+      updatedUserInfo
+    )
+  })
+  .then(result => {
+    return result
+  })
+}
+
+usersModel.DELETE_USER = (userId) => {
+  return Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    return user.destroy()
+      .then(status => {
+        return 'User record deleted'
+      })
+  })
 }
 
 module.exports = usersModel

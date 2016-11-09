@@ -101,4 +101,15 @@ teamsModel.REMOVE_MEMBER = (userId, teamId, idToRemove) => {
   })
 }
 
+teamsModel.GET_TEAM_PROJECTS = (userId, teamId) => {
+  Projects.findAll({
+    where: {
+      teamId: teamId
+    }
+  })
+  .then(projects => {
+    return projects
+  })
+}
+
 module.exports = teamsModel

@@ -1,5 +1,6 @@
 let Users = require('../db').Users
 let Companies = require('../db').Companies
+let Teams = require('../db').Teams
 let UsersCompanies = require('../db').UsersCompanies
 let companiesModel = {}
 
@@ -42,16 +43,23 @@ companiesModel.GET_COMPANY = (userId, companyId) => {
   })
 }
 
-companiesModel.UPDATE_COMPANY = (userId, companyId) => {
+companiesModel.UPDATE_COMPANY = (userId, companyId, companyDataToUpdate) => {
+  let updatedCompanyData = _.pickBy(companyDataToUpdate, (item) => {
+    return !_.isUndefined(item)
+  })
+
   return Companies.findOne({
     where: {
       id: companyId
     }
   })
   .then(company => {
-    company.update({
-      // something will go here, will also pass in more args
-    })
+    company.update(
+      updatedCompanyData
+    )
+  })
+  .then(result => {
+    return result
   })
 }
 
@@ -120,11 +128,25 @@ companiesModel.REMOVE_MEMBER = (userId, companyId, idToDelete) => {
 }
 
 companiesModel.GET_COMPANY_TEAMS = (userId, companyId) => {
-
+  Teams.findAll({
+    where: {
+      companyId: companyId
+    }
+  })
+  .then(teams => {
+    return teams
+  })
 }
 
 companiesModel.GET_COMPANY_PROJECTS = (userId, companyId) => {
-
+  Projects.findAll({
+    where: {
+      companyId: companyId
+    }
+  })
+  .then(projects => {
+    return projects
+  })
 }
 
 module.exports = companiesModel
