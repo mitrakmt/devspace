@@ -1,8 +1,4 @@
 const request = require('request-promise')
-const Promise = require('bluebird')
-let Posts = require('../db').Posts
-let Comments = require('../db').Comments
-let Interactions = require('../db').Interactions
 
 let homeModel = {}
 
@@ -167,6 +163,25 @@ homeModel.LIST_LANGUAGES = (username, repo) => {
      console.log(err)
    })
 }
+
+'api.github.com/users/:username/repos'
+// homeModel.GET_PROJECT_SIDEBAR = (username) => {
+//   let options = {
+//     url: `https://api.github.com/users/${username}/repos`,
+//     headers: {
+//       'User-Agent': username
+//     }
+//   }
+//
+//   return request.get(options)
+//    .then(result => {
+//      return result
+//    })
+//    .catch(err => {
+//      console.log(err)
+//    })
+// }
+
 // MUST BE AUTHENTICATED
 'api.github.com/users/:username/events/orgs/:org'
 
