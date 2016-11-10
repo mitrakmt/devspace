@@ -21,6 +21,7 @@ import { GithubListService } from './home/github/github-list/github-list.service
 import { ProjectSidebarListService } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.service';
 import { ProjectSidebarListComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.component';
 import { ProjectSidebarItemComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-item.component';
+import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service'
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ProjectSidebarItemComponent } from './home/project-sidebar/project-side
   providers: [
     HomeService,
     GithubListService,
-    ProjectSidebarListService
+    ProjectSidebarListService,
+    NewsfeedListService
   ],
   bootstrap: [AppComponent]
 })
