@@ -37,7 +37,10 @@ passport.use(new GitHubStrategy({
   })
 }))
 
-app.use('/', express.static(path.join(__dirname, '../client')))
+app.use('/test', (req, res) => {
+  console.log('sup request')
+  res.send('We have contact!')
+})
 
 app.use('/api', rootRouter)
 

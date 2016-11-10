@@ -2,7 +2,6 @@ let projectsModel = {}
 let _ = require('lodash')
 let Projects = require('../db').Projects
 let UsersProjects = require('../db').UsersProjects
-let projectsModel = {}
 
 projectsModel.CREATE_PROJECT = (userId, owner, name, url, description) => {
   return Projects.create({
