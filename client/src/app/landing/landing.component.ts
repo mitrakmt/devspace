@@ -3,8 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-landing',
   template: `
-    <app-navbar></app-navbar>
-    <app-main></app-main>
+    <div>
+      <h1>sup</h1>
+      <app-navbar></app-navbar>
+      <app-main></app-main>
+    </div>
+    <router-outlet></router-outlet>
   `,
   styleUrls: ['./landing.component.css']
 })
