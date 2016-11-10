@@ -8,6 +8,12 @@ usersRouter.route('/profile')
 usersRouter.route('/login')
   .get(usersController.LOGIN)
 
+usersRouter.route('/auth/github')
+  .get()
+
+usersRouter.route('/auth/github/callback')
+  .get()
+
 usersRouter.route('/logout')
   .get(usersController.LOGOUT)
 

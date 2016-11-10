@@ -10,6 +10,7 @@ import { HomeService } from './home.service'
           <div class="col-sm-5"><app-github></app-github></div>
           <div class="col-sm-2"><app-project-sidebar></app-project-sidebar></div>
         </div>
+        <router-outlet></router-outlet>
   `
 })
 export class HomeComponent implements OnInit {
