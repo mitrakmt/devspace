@@ -17,7 +17,9 @@ import { LandingComponent } from './landing/landing.component';
 import { NavbarComponent } from './landing/navbar/navbar.component';
 import { MainComponent } from './landing/main/main.component';
 import { HomeService } from './home/home.service';
-import { ProjectSidebarService } from './home/project-sidebar/project-sidebar.service';
+import { ProjectSidebarListService } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.service';
+import { ProjectSidebarListComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.component';
+import { ProjectSidebarItemComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-item.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ProjectSidebarService } from './home/project-sidebar/project-sidebar.se
     GithubItemComponent,
     LandingComponent,
     NavbarComponent,
-    MainComponent
+    MainComponent,
+    ProjectSidebarListComponent,
+    ProjectSidebarItemComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ import { ProjectSidebarService } from './home/project-sidebar/project-sidebar.se
   ],
   providers: [
     HomeService,
-    ProjectSidebarService
+    ProjectSidebarListService
   ],
   bootstrap: [AppComponent]
 })

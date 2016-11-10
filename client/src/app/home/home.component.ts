@@ -8,7 +8,7 @@ import { HomeService } from './home.service'
         <div class="row">
           <div class="col-sm-5"><app-newsfeed></app-newsfeed></div>
           <div class="col-sm-5"><app-github></app-github></div>
-          <div class="col-sm-2"><app-projects></app-projects></div>
+          <div class="col-sm-2"><app-project-sidebar></app-project-sidebar></div>
         </div>
   `
 })

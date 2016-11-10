@@ -1,21 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectSidebarService } from './project-sidebar.service'
 
 @Component({
-  selector: 'app-projects',
+  selector: 'app-project-sidebar',
   templateUrl: './project-sidebar.component.html'
 })
 export class ProjectSidebarComponent implements OnInit {
 
-  constructor(private projectSidebarService: ProjectSidebarService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.projectSidebarService.getSidebarProjects()
-    .subscribe(
-      (res) => {
-        console.log(res)
-      }
-    )
+    
   }
 
 }

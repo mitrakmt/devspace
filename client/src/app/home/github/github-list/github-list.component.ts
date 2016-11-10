@@ -13,7 +13,7 @@ githubposts: Github[] = [
   new Github("https://avatars3.githubusercontent.com/u/1202528?", "johnpapa", "WatchEvent", "johnpapa/angular-styleguide"),
   new Github("https://avatars.githubusercontent.com/u/14076879?", "oliv3rwang", "ForkEvent", "djoj/Notejs"),
   new Github("https://avatars.githubusercontent.com/u/12263817?", "ckuh", "CreateEvent", "ckuh/typeracer"),
-  new Github("https://avatars.githubusercontent.com/u/14260862?", "tiffanyip", "WatchEvent", "callemall/material-ui")
+  new Github("https://avatars.githubusercontent.com/u/14260862?", "tiffanyip", "WatchEvent", "callemall/material-ui")   
 ];
   constructor() { }
 
