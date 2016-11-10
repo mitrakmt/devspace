@@ -54,6 +54,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {
@@ -64,9 +65,10 @@ import { ReactiveFormsModule } from '@angular/forms';
       { path: 'landing', component: LandingComponent },
       { path: 'home', component: HomeComponent },
       { path: 'app', component: AppComponent },
-      { path: 'login', component: LoginComponent }
-    ]),
-    ReactiveFormsModule
+      { path: 'login', component: LoginComponent },
+      { path: 'auth/github/callback', redirectTo: '/home'},
+      { path: 'auth/github', children: []}
+    ])
   ],
   providers: [
     HomeService,
