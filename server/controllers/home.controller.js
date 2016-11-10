@@ -60,7 +60,10 @@ homeController.GET_USER_FEED = (req, res) => {
     },
     include: [{
       all: true
-    }]
+    }],
+    order: [
+      ['createdAt', 'DESC']
+    ]
   })
   .then(posts => {
     res.status(200).send(posts)
