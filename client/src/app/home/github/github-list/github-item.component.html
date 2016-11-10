@@ -6,8 +6,15 @@
            style="max-height: 60px; float: left; border-radius: 50%;"/>
         <div style="margin-left: 80px;" layout="column">
           <p class="md-display"><strong>@{{githubpost.username}}</strong></p>
+          <span>{{ githubpost.created_at | date:'medium'}}</span>
           <div>
-            <p class="md-display">{{githubpost.type}} <a href="https://www.github.com/{{githubpost.repo}}" target="_blank">{{githubpost.repo}}</a></p>
+            <p class="md-display">
+              <span *ngIf="githubpost.action === 'opened'">Opened </span>
+              <span *ngIf="githubpost.action === 'closed'">Closed </span>
+              {{githubpost.type}} 
+              <a href="https://www.github.com/{{githubpost.repo}}" target="_blank">{{githubpost.repo}}</a>
+            </p>
+            <p *ngIf="githubpost.description !== null">{{githubpost.description}}</p>
           </div>
         </div>
     </div>

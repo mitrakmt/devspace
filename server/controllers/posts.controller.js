@@ -48,10 +48,11 @@ postsController.UPDATE_INTERACTION = (req, res) => {
 
 postsController.CREATE_COMMENT = (req, res) => {
   let userId = req.headers['userid']
+  let username = req.headers['username']
   let postId = req.params.postId
   let content = req.body.content
 
-  Posts.CREATE_COMMENT(userId, postId, content)
+  Posts.CREATE_COMMENT(userId, postId, content, username)
     .then(comment => {
       res.status(200).send(comment)
     })

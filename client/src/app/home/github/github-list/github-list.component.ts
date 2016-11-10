@@ -18,11 +18,16 @@ githubposts: Github[] = [];
           data.forEach((item) => {
             if (item.type === 'CreateEvent') {
               item.type = 'Created:'
-            } else {
+            } else if (item.type === 'ForkEvent') {
               item.type = 'Forked:'
+            } else if (item.type === 'WatchEvent') {
+              item.type = 'Watched:'
+            } else if (item.type === 'PullRequestEvent') {
+              item.type = 'pull request:'
             }
           })
           this.githubposts = data
+          console.log('github data', data)
           return data
         }
       )
