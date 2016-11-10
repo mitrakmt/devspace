@@ -1,8 +1,8 @@
-<h4><a href="{{newsfeedPost.user.username}}">{{newsfeedPost.user.firstName}} {{newsfeedPost.user.lastName}}</a>: {{newsfeedPost.content}}</h4>
+<div>
+<h4><a href="{{newsfeedPost.user.username}}">{{newsfeedPost.user.username}}</a>: {{newsfeedPost.content}}</h4>
 <p>likes: {{newsfeedPost.likes}}</p>
-
-<div *ngIf="newsfeedPost.comments.length > 0" class="view-comments-button">
     <a>View Comments</a>
     <app-newsfeed-comment-list></app-newsfeed-comment-list>
     {{newsfeedPost.comments[0].username}}: {{newsfeedPost.comments[0].content}}
 </div>
+

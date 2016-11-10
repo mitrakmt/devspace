@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NewsfeedListService } from './newsfeed-list.service'
 
+import { NewsfeedListService } from './newsfeed-list.service';
 import { NewsfeedPost } from '../newsfeed-post';
-// import {} from './newsfeed-post.component'
+
 @Component({
   selector: 'app-newsfeed-list',
   templateUrl: './newsfeed-list.component.html'
