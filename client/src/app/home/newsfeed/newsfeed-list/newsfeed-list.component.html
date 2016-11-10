@@ -1,5 +1,6 @@
 <div>NewsFeed</div>
 <hr>
+<app-newpost></app-newpost>
 <md-card md-padding md-margin>
   <ul>
     <app-newsfeed-post *ngFor="let newsfeedPost of newsfeedPosts" [newsfeedPost]="newsfeedPost"></app-newsfeed-post>

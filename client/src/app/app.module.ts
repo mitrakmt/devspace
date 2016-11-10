@@ -26,8 +26,9 @@ import { ProjectSidebarItemComponent } from './home/project-sidebar/project-side
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service';
-import { NewsfeedCommentListComponent } from './home/newsfeed/newsfeed-list/newsfeed-comment-list/newsfeed-comment-list.component';
-import { NewsfeedCommentItemComponent } from './home/newsfeed/newsfeed-list/newsfeed-comment-list/newsfeed-comment-item.component';
+import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -47,8 +48,7 @@ import { NewsfeedCommentItemComponent } from './home/newsfeed/newsfeed-list/news
     ProjectSidebarListComponent,
     ProjectSidebarItemComponent,
     LoginComponent,
-    NewsfeedCommentListComponent,
-    NewsfeedCommentItemComponent,
+    NewpostComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +65,8 @@ import { NewsfeedCommentItemComponent } from './home/newsfeed/newsfeed-list/news
       { path: 'home', component: HomeComponent },
       { path: 'app', component: AppComponent },
       { path: 'login', component: LoginComponent }
-    ])
+    ]),
+    ReactiveFormsModule
   ],
   providers: [
     HomeService,
