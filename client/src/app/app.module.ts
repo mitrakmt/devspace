@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NewsfeedComponent } from './home/newsfeed/newsfeed.component';
-import { ProjectsComponent } from './home/projects/projects.component';
+import { ProjectSidebarComponent } from './home/project-sidebar/project-sidebar.component';
 import { GithubComponent } from './home/github/github.component';
 import { SearchComponent } from './home/search/search.component';
 import { NewsfeedItemComponent } from './home/newsfeed/newsfeed-list/newsfeed-item.component';
@@ -18,13 +18,16 @@ import { NavbarComponent } from './landing/navbar/navbar.component';
 import { MainComponent } from './landing/main/main.component';
 import { HomeService } from './home/home.service';
 import { GithubListService } from './home/github/github-list/github-list.service';
+import { ProjectSidebarListService } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.service';
+import { ProjectSidebarListComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.component';
+import { ProjectSidebarItemComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NewsfeedComponent,
-    ProjectsComponent,
+    ProjectSidebarComponent,
     GithubComponent,
     SearchComponent,
     NewsfeedItemComponent,
@@ -33,7 +36,9 @@ import { GithubListService } from './home/github/github-list/github-list.service
     GithubItemComponent,
     LandingComponent,
     NavbarComponent,
-    MainComponent
+    MainComponent,
+    ProjectSidebarListComponent,
+    ProjectSidebarItemComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ import { GithubListService } from './home/github/github-list/github-list.service
   ],
   providers: [
     HomeService,
-    GithubListService
+    GithubListService,
+    ProjectSidebarListService
   ],
   bootstrap: [AppComponent]
 })
