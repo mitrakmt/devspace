@@ -11,7 +11,7 @@ import { NewsfeedComponent } from './home/newsfeed/newsfeed.component';
 import { ProjectSidebarComponent } from './home/project-sidebar/project-sidebar.component';
 import { GithubComponent } from './home/github/github.component';
 import { SearchComponent } from './home/search/search.component';
-import { NewsfeedItemComponent } from './home/newsfeed/newsfeed-list/newsfeed-item.component';
+import { NewsfeedPostComponent } from './home/newsfeed/newsfeed-list/newsfeed-post.component';
 import { NewsfeedListComponent } from './home/newsfeed/newsfeed-list/newsfeed-list.component';
 import { GithubListComponent } from './home/github/github-list/github-list.component';
 import { GithubItemComponent } from './home/github/github-list/github-item.component';
@@ -25,6 +25,9 @@ import { ProjectSidebarListComponent } from './home/project-sidebar/project-side
 import { ProjectSidebarItemComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-item.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
+import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service';
+import { NewsfeedCommentListComponent } from './home/newsfeed/newsfeed-list/newsfeed-comment-list/newsfeed-comment-list.component';
+import { NewsfeedCommentItemComponent } from './home/newsfeed/newsfeed-list/newsfeed-comment-list/newsfeed-comment-item.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,7 @@ import { LoginService } from './login/login.service';
     ProjectSidebarComponent,
     GithubComponent,
     SearchComponent,
-    NewsfeedItemComponent,
+    NewsfeedPostComponent,
     NewsfeedListComponent,
     GithubListComponent,
     GithubItemComponent,
@@ -43,7 +46,9 @@ import { LoginService } from './login/login.service';
     MainComponent,
     ProjectSidebarListComponent,
     ProjectSidebarItemComponent,
-    LoginComponent
+    LoginComponent,
+    NewsfeedCommentListComponent,
+    NewsfeedCommentItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,8 @@ import { LoginService } from './login/login.service';
     HomeService,
     GithubListService,
     ProjectSidebarListService,
-    LoginService
+    LoginService,
+    NewsfeedListService
   ],
   bootstrap: [AppComponent]
 })
