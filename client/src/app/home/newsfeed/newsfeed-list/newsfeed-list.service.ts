@@ -15,7 +15,6 @@ export class NewsfeedListService {
       .map((res:Response) => res.json())
   }
     sendNewsfeedUpdate(post: any): Observable<any> {
-      let username = post._value.username;
       let content = post._value.content;
       let body = {'content': content};
       let headers = new Headers({'userid': 1});
