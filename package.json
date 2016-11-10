@@ -34,7 +34,7 @@
     "type": "git",
     "url": "git+https://github.com/mitrakmt/devspace.git"
   },
-  "author": "",
+  "author": "Michael Mitrakos, Dianne Le, David Kim",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mitrakmt/devspace/issues"
