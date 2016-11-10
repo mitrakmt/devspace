@@ -1,0 +1,38 @@
+.main {
+    text-align: center;
+}
+
+.landing {
+    height: 100%;
+    width: 100%;
+    margin-top: 0;
+    padding-top: 50px;
+    min-height: 500px;
+    background-image: url("https://drscdn.500px.org/photo/82236245/m%3D2048/9c6d0a7d999e918a134bfbce1871d0b5");
+}
+
+.landing h1 {
+    padding-top: 50px;
+    color: white;
+}
+
+.heading {
+    padding-top: 40px;
+}
+
+.signup-landing {
+    background-color: #E74749;
+    height: 190px;
+}
+
+.signup-landing h1, p {
+    color: white;
+}
+
+.team p {
+    color: black;
+}
+
+.team-circle {
+
+}

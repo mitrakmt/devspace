@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -22,6 +23,8 @@ import { GithubListService } from './home/github/github-list/github-list.service
 import { ProjectSidebarListService } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.service';
 import { ProjectSidebarListComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.component';
 import { ProjectSidebarItemComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-item.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
 
 @NgModule({
   declarations: [
@@ -39,12 +42,14 @@ import { ProjectSidebarItemComponent } from './home/project-sidebar/project-side
     NavbarComponent,
     MainComponent,
     ProjectSidebarListComponent,
-    ProjectSidebarItemComponent
+    ProjectSidebarItemComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    MaterialModule.forRoot(),
     RouterModule.forRoot([
       {
         path: '',
@@ -53,13 +58,15 @@ import { ProjectSidebarItemComponent } from './home/project-sidebar/project-side
       },
       { path: 'landing', component: LandingComponent },
       { path: 'home', component: HomeComponent },
-      { path: 'app', component: AppComponent }
+      { path: 'app', component: AppComponent },
+      { path: 'login', component: LoginComponent }
     ])
   ],
   providers: [
     HomeService,
     GithubListService,
-    ProjectSidebarListService
+    ProjectSidebarListService,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })
