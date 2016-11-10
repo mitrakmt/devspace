@@ -11,15 +11,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService) { }
 
-    login() {
-      this.loginService.login()
-        .subscribe(
-        (user) => {
-          console.log(user)
-        }
-      )
-    }
-
   ngOnInit() {
     
   }

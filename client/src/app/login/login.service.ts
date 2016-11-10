@@ -8,10 +8,4 @@ export class LoginService {
 
   constructor(private _http: Http) { }
 
-  login(): Observable<any> {
-    console.log("HI")
-    return this._http.get('/api/auth/github')
-      .map((res:Response) => res)
-  }
-
 }

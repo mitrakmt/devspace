@@ -45,7 +45,7 @@ passport.use(new Strategy({
     }
   })
   .then((user) => {
-    console.log('INSIDE GITHUB LOGIN PROFILE', user)
+    // console.log('INSIDE GITHUB LOGIN PROFILE', user)
     return done(null, user)
   })
 }))
@@ -66,12 +66,16 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/api/auth/github', 
-  passport.authenticate('github', { scope: 'email'}), (req, res) => {
-    console.log('inside auth/github')
+  passport.authenticate('github', { scope: 'email'}), (req, res) => { 
+    // console.log('inside auth/github ', req)
+    // console.log(req.user)
   })
   
 app.get('/api/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
-  console.log("inside auth/github/callback")
+  req.user = req.user[0].dataValues
+  req.session.user.username = user.username
+  req.session.user.firstName = user.firstName
+  req.session.user.id = user.id
 	res.redirect('/home')
 })
 
