@@ -17,6 +17,7 @@ import { LandingComponent } from './landing/landing.component';
 import { NavbarComponent } from './landing/navbar/navbar.component';
 import { MainComponent } from './landing/main/main.component';
 import { HomeService } from './home/home.service';
+import { GithubListService } from './home/github/github-list/github-list.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { HomeService } from './home/home.service';
     HttpModule
   ],
   providers: [
-    HomeService
+    HomeService,
+    GithubListService
   ],
   bootstrap: [AppComponent]
 })
