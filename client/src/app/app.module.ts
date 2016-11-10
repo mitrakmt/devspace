@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -43,7 +44,17 @@ import { ProjectSidebarItemComponent } from './home/project-sidebar/project-side
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
+      },
+      { path: 'landing', component: LandingComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'app', component: AppComponent }
+    ])
   ],
   providers: [
     HomeService,
