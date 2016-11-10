@@ -11,7 +11,6 @@ export class NewpostComponent {
   myPost: FormGroup;
   constructor(private newsfeedListService: NewsfeedListService) {
     this.myPost = new FormGroup({
-      username: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required)
     })
   }
