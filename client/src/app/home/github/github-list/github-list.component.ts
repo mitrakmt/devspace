@@ -15,7 +15,13 @@ githubposts: Github[] = [];
     this.githubListService.fetchGithubUpdates()
       .subscribe(
         data => {
-          console.log('data', data)
+          data.forEach((item) => {
+            if (item.type === 'CreateEvent') {
+              item.type = 'Created:'
+            } else {
+              item.type = 'Forked:'
+            }
+          })
           this.githubposts = data
           return data
         }

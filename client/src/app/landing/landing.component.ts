@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MaterialModule } from '@angular/material';
 
 @Component({
   selector: 'app-landing',
   template: `
     <div>
-      <h1>sup</h1>
       <app-navbar></app-navbar>
       <app-main></app-main>
     </div>

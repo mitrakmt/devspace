@@ -1,6 +1,6 @@
 let Users = require('../models').usersModel
 let usersController = {}
-let passport = require('passport')
+
 
 usersController.GET_PROFILE = (req, res) => {
   let userId = req.headers['userid']
@@ -11,11 +11,6 @@ usersController.GET_PROFILE = (req, res) => {
     .then(allPosts => {
       res.status(200).send(allPosts)
     })
-}
-
-usersController.LOGIN = (req, res) => {
-  passport.authenticate('github', { failureRedirect: '/login' })
-    res.redirect('/')
 }
 
 usersController.EDIT = (req, res) => {
