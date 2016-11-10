@@ -14,5 +14,15 @@ export class NewsfeedListService {
     return this._http.get('/api/home/feed', options)
       .map((res:Response) => res.json())
   }
-
+    sendNewsfeedUpdate(post: any): Observable<any> {
+      let username = post._value.username;
+      let content = post._value.content;
+      let body = {'content': content};
+      let headers = new Headers({'userid': 1});
+      headers.append('Content-Type', 'application/json');
+      return this._http.post('/api/posts', body, {
+        headers: headers
+      })
+        .map((data) => data.json())
+    }
 }
