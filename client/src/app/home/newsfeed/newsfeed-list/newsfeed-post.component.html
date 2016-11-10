@@ -4,4 +4,5 @@
 <div *ngIf="newsfeedPost.comments.length > 0" class="view-comments-button">
     <a>View Comments</a>
     <app-newsfeed-comment-list></app-newsfeed-comment-list>
+    {{newsfeedPost.comments[0].username}}: {{newsfeedPost.comments[0].content}}
 </div>
