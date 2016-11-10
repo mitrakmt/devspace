@@ -52,11 +52,12 @@ postsModel.DELETE_POST = (userId, postId) => {
   })
 }
 
-postsModel.CREATE_COMMENT = (userId, postId, content) => {
+postsModel.CREATE_COMMENT = (userId, postId, content, username) => {
   return Comments.create({
     userId: userId,
     postId: postId,
-    content: content
+    content: content,
+    username: username
   })
   .then(comment => {
     return comment

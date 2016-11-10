@@ -7,6 +7,9 @@ module.exports = (db) => {
     },
     postId: {
       type: Sequelize.INTEGER
+    },
+    username: {
+      type: Sequelize.STRING
     }
   })
 

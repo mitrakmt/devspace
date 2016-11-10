@@ -12,6 +12,7 @@ homeController.GET_GITHUB_ACTIVITY = (req, res) => {
         if (event.type === 'ForkEvent') {
           return {
             type: event.type,
+            action: event.payload.action,
             username: event.actor.login,
             repo: event.repo.name,
             repo_url: event.repo.url,
@@ -20,13 +21,28 @@ homeController.GET_GITHUB_ACTIVITY = (req, res) => {
             description: event.payload.forkee.description,
             created_at: event.created_at
           }
-        } else {
+        } else if (event.type === 'CreateEvent') {
           return {
             type: event.type,
+            action: event.payload.action,
             username: event.actor.login,
             repo: event.repo.name,
             repo_url: event.repo.url,
             avatar: event.actor.avatar_url,
+            url: null,
+            description: event.payload.description,
+            created_at: event.created_at
+          }
+        } else {
+          return {
+            type: event.type,
+            action: event.payload.action,
+            username: event.actor.login,
+            repo: event.repo.name,
+            repo_url: event.repo.url,
+            avatar: event.actor.avatar_url,
+            url: null,
+            description: null,
             created_at: event.created_at
           }
         }
