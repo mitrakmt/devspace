@@ -6,7 +6,7 @@ homeRouter.route('/github')
   .get(homeController.GET_GITHUB_ACTIVITY)
 
 homeRouter.route('/feed')
-  // Requires req.headers.userid
+  // Requires req.headers.username
   .get(homeController.GET_USER_FEED)
 
 homeRouter.route('/sidebar')

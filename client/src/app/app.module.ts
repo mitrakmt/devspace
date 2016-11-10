@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NewsfeedComponent } from './home/newsfeed/newsfeed.component';
-import { ProjectsComponent } from './home/projects/projects.component';
+import { ProjectSidebarComponent } from './home/project-sidebar/project-sidebar.component';
 import { GithubComponent } from './home/github/github.component';
 import { SearchComponent } from './home/search/search.component';
 import { NewsfeedItemComponent } from './home/newsfeed/newsfeed-list/newsfeed-item.component';
@@ -17,13 +17,14 @@ import { LandingComponent } from './landing/landing.component';
 import { NavbarComponent } from './landing/navbar/navbar.component';
 import { MainComponent } from './landing/main/main.component';
 import { HomeService } from './home/home.service';
+import { ProjectSidebarService } from './home/project-sidebar/project-sidebar.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NewsfeedComponent,
-    ProjectsComponent,
+    ProjectSidebarComponent,
     GithubComponent,
     SearchComponent,
     NewsfeedItemComponent,
@@ -40,7 +41,8 @@ import { HomeService } from './home/home.service';
     HttpModule
   ],
   providers: [
-    HomeService
+    HomeService,
+    ProjectSidebarService
   ],
   bootstrap: [AppComponent]
 })
