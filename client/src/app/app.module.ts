@@ -9,7 +9,7 @@ import { NewsfeedComponent } from './home/newsfeed/newsfeed.component';
 import { ProjectSidebarComponent } from './home/project-sidebar/project-sidebar.component';
 import { GithubComponent } from './home/github/github.component';
 import { SearchComponent } from './home/search/search.component';
-import { NewsfeedItemComponent } from './home/newsfeed/newsfeed-list/newsfeed-item.component';
+import { NewsfeedPostComponent } from './home/newsfeed/newsfeed-list/newsfeed-post.component';
 import { NewsfeedListComponent } from './home/newsfeed/newsfeed-list/newsfeed-list.component';
 import { GithubListComponent } from './home/github/github-list/github-list.component';
 import { GithubItemComponent } from './home/github/github-list/github-item.component';
@@ -21,7 +21,9 @@ import { GithubListService } from './home/github/github-list/github-list.service
 import { ProjectSidebarListService } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.service';
 import { ProjectSidebarListComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.component';
 import { ProjectSidebarItemComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-item.component';
-import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service'
+import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service';
+import { NewsfeedCommentListComponent } from './home/newsfeed/newsfeed-list/newsfeed-comment-list/newsfeed-comment-list.component';
+import { NewsfeedCommentItemComponent } from './home/newsfeed/newsfeed-list/newsfeed-comment-list/newsfeed-comment-item.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list
     ProjectSidebarComponent,
     GithubComponent,
     SearchComponent,
-    NewsfeedItemComponent,
+    NewsfeedPostComponent,
     NewsfeedListComponent,
     GithubListComponent,
     GithubItemComponent,
@@ -39,7 +41,9 @@ import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list
     NavbarComponent,
     MainComponent,
     ProjectSidebarListComponent,
-    ProjectSidebarItemComponent
+    ProjectSidebarItemComponent,
+    NewsfeedCommentListComponent,
+    NewsfeedCommentItemComponent,
   ],
   imports: [
     BrowserModule,

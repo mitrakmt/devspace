@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsfeedListService } from './newsfeed-list.service'
 
-import { Newspost } from '../newspost';
-// import {} from './newsfeed-item.component'
+import { NewsfeedPost } from '../newsfeed-post';
+// import {} from './newsfeed-post.component'
 @Component({
   selector: 'app-newsfeed-list',
   templateUrl: './newsfeed-list.component.html'
 })
 export class NewsfeedListComponent implements OnInit {
-  newsfeedposts: Newspost[] = [];
+  newsfeedPosts: NewsfeedPost[] = [];
 
   constructor(private newsfeedListService: NewsfeedListService) { }
 
@@ -17,7 +17,7 @@ export class NewsfeedListComponent implements OnInit {
       .subscribe(
         data => {
           console.log('newsfeed data', data)
-          this.newsfeedposts = data
+          this.newsfeedPosts = data
           return data
         }
       )
