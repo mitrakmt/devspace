@@ -14,20 +14,19 @@ export class HomeService {
   convertCookieToToken(): void {
     let found = false;
     let splitCookie = document.cookie.split(';')
-    splitCookie.forEach((cookie) => {
+    splitCookie.forEach(cookie => {
       if (cookie.indexOf('token') !== -1) {
         found = true;
         localStorage.setItem("token", cookie.slice(7));
+      } else if (cookie.indexOf('userid') !== -1) {
+        localStorage.setItem("userid", cookie.slice(7));
+      } else if (cookie.indexOf('username') !== -1) {
+        localStorage.setItem('username', cookie.slice(10));
       }
     })
 
     if (!found) {
       this.router.navigate(['/login']);
-    } else {
-      let jwtHelper: JwtHelper = new JwtHelper();
-      let token = localStorage.getItem('token')
-      let payload = jwtHelper.decodeToken(token)
-      console.log(payload)
     }
   }
 
