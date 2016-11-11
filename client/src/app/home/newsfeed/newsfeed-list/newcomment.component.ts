@@ -3,23 +3,23 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NewsfeedListService } from './newsfeed-list.service';
 
 @Component({
-  selector: 'app-newpost',
-  templateUrl: './newpost.component.html',
+  selector: 'app-newcomment',
+  templateUrl: './newcomment.component.html'
 })
-export class NewpostComponent {
-  myPost: FormGroup;
+export class NewcommentComponent{
+myComment: FormGroup;
   constructor(private newsfeedListService: NewsfeedListService) {
-    this.myPost = new FormGroup({
+    this.myComment = new FormGroup({
       content: new FormControl('', Validators.required)
     })
   }
   onSubmit(event) {
     event.preventDefault()
-    console.log("this my post!!", this.myPost);
+    console.log("this my comment!!", event);
     
-    this.newsfeedListService.sendNewsfeedUpdate(this.myPost)
+    this.newsfeedListService.sendNewComment(this.myComment)
       .subscribe(
-        data => console.log("post data===", data)
+        data => console.log("comment data===", data)
       )
   }
 }

@@ -9,7 +9,7 @@ import { NewsfeedPost } from '../newsfeed-post';
 })
 export class NewsfeedListComponent implements OnInit {
   newsfeedPosts: NewsfeedPost[] = [];
-
+  private newsfeedComments
   constructor(private newsfeedListService: NewsfeedListService) { }
 
   ngOnInit() {
