@@ -13,6 +13,7 @@ let session = require('express-session')
 let passport = require('passport')
 let Strategy = require('passport-github2').Strategy
 let Users = require('./db').Users
+let Follows = require('./db').Follows
 let jwt = require('jsonwebtoken')
 let cookieParser = require('cookie-parser')
 let PORT = process.env.PORT || 8000
@@ -37,6 +38,10 @@ passport.use(new Strategy({
     profile.lastName = profile.name[1]
   }
 
+  if (!profile.email) {
+    profile.email = profile.login
+  }
+
   Users.findOrCreate({ 
     where: {
       email: profile.email
@@ -54,6 +59,22 @@ passport.use(new Strategy({
     }
   })
   .then(user => {
+    console.log("USERRRRRR ", user)
+    Follows.findOne({
+      where: {
+        userId: user[0].id,
+        followerId: user[0].id
+      }
+    })
+    .then(follow => {
+      if (follow === null) {
+        return Follows.create({
+          userId: user[0].id,
+          followerId: user[0].id
+        })
+      }
+    })
+
     return done(null, user)
   })
 }))
