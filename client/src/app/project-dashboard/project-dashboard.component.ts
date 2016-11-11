@@ -1,5 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { ProjectDashboardService } from './project-dashboard.service'
+import { ProjectDashboardService } from './project-dashboard.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
