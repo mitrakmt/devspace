@@ -24,4 +24,14 @@ export class NewsfeedListService {
       })
         .map((data) => data.json())
     }
+    sendNewComment(comment: any): Observable<any> {
+      let content = comment._value.content;
+      let body = {'content': content};
+      let headers = new Headers({'userid': 1});
+      headers.append('Content-Type', 'application/json');
+      return this._http.post('/api/posts/comments/' + 1, body, {
+        headers: headers
+      })
+        .map((data) => data.json())
+    }
 }

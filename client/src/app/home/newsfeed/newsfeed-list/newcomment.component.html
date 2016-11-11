@@ -1,0 +1,9 @@
+<form [formGroup]="myComment" (ngSubmit)="onSubmit($event)">
+  <div class="form-group">
+    <label for="comment">Comment</label>
+    <input type="text"
+            id="content"
+            formControlName="content">
+  </div> 
+  <button type="submit" class="btn btn-primary" [disabled]="!myComment.valid">comment</button>
+</form>

@@ -29,6 +29,7 @@ import { LoginService } from './login/login.service';
 import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service';
 import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProjectSidebarListComponent,
     ProjectSidebarItemComponent,
     LoginComponent,
-    NewpostComponent
+    NewpostComponent,
+    NewcommentComponent
   ],
   imports: [
     BrowserModule,
