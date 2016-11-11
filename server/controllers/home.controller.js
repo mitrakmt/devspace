@@ -62,7 +62,6 @@ homeController.GET_USER_FEED = (req, res) => {
   })
   .then(follows => {
     let promises = follows.map(follow => {
-      console.log('follow', follow.dataValues)
       return new Promise((resolve, reject) => {
         Posts.findAll({
           where: {
@@ -76,7 +75,6 @@ homeController.GET_USER_FEED = (req, res) => {
           ]
         })
         .then(posts => {
-          console.log('posts', posts)
           resolve(posts)
         })
         .catch(err => {
@@ -86,11 +84,17 @@ homeController.GET_USER_FEED = (req, res) => {
     })
 
     Promise.all(promises)
-      .then(postObjs => {
-        res.status(200).send(postObjs)
+      .then(postArrs => {
+        let result = postArrs.map(postArr => {
+          return postArr.map(postObj => {
+            return postObj
+          })
+        })
+        let mergedPosts = [].concat.apply([], result)
+        res.status(200).send(mergedPosts)
       })
-      .catch(postObjs => {
-        res.status(204).send(postObjs)
+      .catch(postArrs => {
+        res.status(204).send(postArrs)
       })
   })
 }
