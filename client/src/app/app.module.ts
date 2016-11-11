@@ -30,6 +30,7 @@ import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list
 import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.component';
+import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfeed-comments.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.co
     ProjectSidebarItemComponent,
     LoginComponent,
     NewpostComponent,
-    NewcommentComponent
+    NewcommentComponent,
+    NewsfeedCommentsComponent
   ],
   imports: [
     BrowserModule,

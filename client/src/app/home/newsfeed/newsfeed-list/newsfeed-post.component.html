@@ -3,16 +3,13 @@
         <h4><a href="{{newsfeedPost.user.username}}">{{newsfeedPost.user.username}}</a>: {{newsfeedPost.content}}</h4>
         <p>{{newsfeedPost.createdAt | date:'medium'}}</p>
         <p>likes: {{newsfeedPost.likes}}</p>
-        <app-newcomment></app-newcomment>
+        <app-newcomment [postId]="postId"></app-newcomment>
     </div>
     <div *ngIf="newsfeedPost.comments.length > 0">
         <md-card style="margin-bottom: 20px" md-padding md-margin>
-        <div *ngFor="let comment of newsfeedPost.comments">
-                <md-card style="margin-bottom: 20px" md-padding md-margin>
-            <p>{{comment.createdAt | date:'short'}}:</p>
-            <p>{{comment.content}}</p>
-                </md-card>
-        </div>
+            <div>
+                <app-newsfeed-comments *ngFor="let comment of newsfeedPost.comments" [postId]="postId" [comment]="comment"></app-newsfeed-comments>
+            </div>
         </md-card>
     </div>
 </md-card>
