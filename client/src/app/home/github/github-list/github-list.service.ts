@@ -9,7 +9,8 @@ export class GithubListService {
   constructor(private _http: Http) { }
 
   fetchGithubUpdates(): Observable<any> {
-    let headers = new Headers({ 'username': 'mitrakmt' })
+    let username = localStorage.getItem('username')
+    let headers = new Headers({ 'username': username })
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/home/github', options)
       .map((res:Response) => res.json())
