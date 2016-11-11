@@ -9,7 +9,7 @@ import { MaterialModule } from '@angular/material';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor() { }
 
   ngOnInit() {
     

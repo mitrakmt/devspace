@@ -18,12 +18,7 @@ export class HomeComponent implements OnInit {
   constructor(private homeService: HomeService) { }
 
   ngOnInit() {
-    this.homeService.test()
-      .subscribe(
-        (name) => {
-          console.log(name)
-        }
-      )
+    this.homeService.convertCookieToToken()
   }
 
 }
