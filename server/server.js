@@ -5,6 +5,7 @@ let bodyParser = require('body-parser')
 let GitHubStrategy = require('passport-github2').Strategy
 let path = require('path')
 let cors = require('cors')
+let moment = require('moment')
 let helmet = require('helmet')
 let rootRouter = require('./routers')
 let db = require('./db')
@@ -12,6 +13,8 @@ let session = require('express-session')
 let passport = require('passport')
 let Strategy = require('passport-github2').Strategy
 let Users = require('./db').Users
+let jwt = require('jsonwebtoken')
+let cookieParser = require('cookie-parser')
 let PORT = process.env.PORT || 8000
 
 passport.serializeUser((user, done) => {
@@ -28,7 +31,12 @@ passport.use(new Strategy({
   callbackURL: 'http://localhost:4200/api/auth/github/callback'
 }, (accessToken, refreshToken, profile, done) => {
   profile = JSON.parse(profile['_raw'])
-  profile.name = profile.name.split(' ')
+  if (profile.name) {
+    profile.name = profile.name.split(' ')
+    profile.firstName = profile.name[0]
+    profile.lastName = profile.name[1]
+  }
+
   Users.findOrCreate({ 
     where: {
       email: profile.email
@@ -38,13 +46,14 @@ passport.use(new Strategy({
       email: profile.email,
       bio: profile.bio,
       location: profile.location,
-      firstName: profile.name[0],
-      lastName: profile.name[1],
+      firstName: profile.firstName,
+      lastName: profile.lastName,
       followerCount: profile.followers,
       followingCount: profile.following
     }
   })
-  .then((user) => {
+  .then(user => {
+    console.log("USER", user)
     return done(null, user)
   })
 }))
@@ -55,6 +64,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 app.use(helmet())
 
+app.use(cookieParser());
 app.use(session({
   secret: 'sup',
   resave: false,
@@ -67,13 +77,26 @@ app.use(passport.session())
 app.get('/api/auth/github', 
   passport.authenticate('github', { scope: 'email'}), (req, res) => { })
   
-app.get('/api/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
-  req.user = req.user[0].dataValues
-  req.session.user.username = user.username
-  req.session.user.firstName = user.firstName
-  req.session.user.id = user.id
-	res.redirect('/home')
-})
+app.get('/api/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+    (req, res) => {
+      let token = jwt.sign({
+        username: req.user.username,
+        firstName: req.user.firstName,
+        iss: req.user.id,
+        exp: moment().add(7, 'd').valueOf()
+      }, process.env.GITHUB_SECRET);
+      res.cookie('token', token);
+      let userObj = {
+        username: req.user.username,
+        userid: req.user.id
+      };
+      
+      res.status(200).cookie('user', JSON.stringify(userObj)).header('Auth', token).header('username', userObj.username).header('userId', userObj.userId)
+
+      res.redirect('/home');
+    }
+  )
 
 app.use('/test', (req, res) => {
   res.send('We have contact!')

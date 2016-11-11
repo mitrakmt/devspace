@@ -19,6 +19,7 @@ import { LandingComponent } from './landing/landing.component';
 import { NavbarComponent } from './landing/navbar/navbar.component';
 import { MainComponent } from './landing/main/main.component';
 import { HomeService } from './home/home.service';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { GithubListService } from './home/github/github-list/github-list.service';
 import { ProjectSidebarListService } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.service';
 import { ProjectSidebarListComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.component';
@@ -75,7 +76,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     GithubListService,
     ProjectSidebarListService,
     LoginService,
-    NewsfeedListService
+    NewsfeedListService,
+    AUTH_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })
