@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NewsfeedListService } from './newsfeed-list.service';
 
@@ -7,6 +7,7 @@ import { NewsfeedListService } from './newsfeed-list.service';
   templateUrl: './newcomment.component.html'
 })
 export class NewcommentComponent{
+  @Input("postId") postId: number;
 myComment: FormGroup;
   constructor(private newsfeedListService: NewsfeedListService) {
     this.myComment = new FormGroup({
@@ -15,9 +16,7 @@ myComment: FormGroup;
   }
   onSubmit(event) {
     event.preventDefault()
-    console.log("this my comment!!", event);
-    
-    this.newsfeedListService.sendNewComment(this.myComment)
+    this.newsfeedListService.sendNewComment(this.myComment, this.postId)
       .subscribe(
         data => console.log("comment data===", data)
       )

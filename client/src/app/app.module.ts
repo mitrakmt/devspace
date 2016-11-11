@@ -33,6 +33,8 @@ import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.co
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectDashboardService } from './project-dashboard/project-dashboard.service';
 import { ProjectCommitsComponent } from './project-commits/project-commits.component';
+import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfeed-comments.component';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { ProjectCommitsComponent } from './project-commits/project-commits.compo
     NewpostComponent,
     NewcommentComponent,
     ProjectDashboardComponent,
-    ProjectCommitsComponent
+    ProjectCommitsComponent,
+    NewsfeedCommentsComponent
   ],
   imports: [
     BrowserModule,
