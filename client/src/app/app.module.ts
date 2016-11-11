@@ -30,14 +30,11 @@ import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list
 import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.component';
-<<<<<<< HEAD
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectDashboardService } from './project-dashboard/project-dashboard.service';
 import { ProjectCommitsComponent } from './project-commits/project-commits.component';
-=======
 import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfeed-comments.component';
 
->>>>>>> feat/client-newsfeed
 
 @NgModule({
   declarations: [
@@ -59,12 +56,9 @@ import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfee
     LoginComponent,
     NewpostComponent,
     NewcommentComponent,
-<<<<<<< HEAD
     ProjectDashboardComponent,
-    ProjectCommitsComponent
-=======
+    ProjectCommitsComponent,
     NewsfeedCommentsComponent
->>>>>>> feat/client-newsfeed
   ],
   imports: [
     BrowserModule,
