@@ -109,4 +109,77 @@ projectsController.REMOVE_MEMBER = (req, res) => {
     })
 }
 
+projectsController.GET_COMMITS = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_COMMITS(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.GET_BRANCHES = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_BRANCHES(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.GET_README = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_README(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.GET_FORKS = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_FORKS(username, repo)
+    .then(results => {
+      let forks = (JSON.parse(results)).map(result => {
+        return {
+          owner: result.owner.login,
+          html_url: result.html_url
+        }
+      })
+      res.status(200).send(forks)
+    })
+}
+
+projectsController.GET_CONTRIBUTORS = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_CONTRIBUTORS(username, repo)
+    .then(results => {
+      let contributors = (JSON.parse(results)).map(result => {
+        return {
+          login: result.login,
+          avatar: result.avatar_url,
+          contributions: result.contributions
+        }
+      })
+      res.status(200).send(contributors)
+    })
+}
+
+projectsController.GET_LANGUAGES = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_LANGUAGES(username, repo)
+    .then(results => {
+      res.status(200).send(results)
+    })
+}
+
 module.exports = projectsController
