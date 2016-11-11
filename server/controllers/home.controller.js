@@ -54,6 +54,12 @@ homeController.GET_GITHUB_ACTIVITY = (req, res) => {
 homeController.GET_USER_FEED = (req, res) => {
   let userId = req.headers['userid']
 
+  // Follows.findAll({
+  //   where: {
+  //     followerId: userId
+  //   }
+  // })
+
   Posts.findAll({
     where: {
       userId: userId

@@ -175,7 +175,8 @@ projectsModel.GET_README = (username, repo) => {
   let options = {
     url: `https://api.github.com/repos/${username}/${repo}/readme`,
     headers: {
-      'User-Agent': username
+      'User-Agent': username,
+      'Accept': 'application/vnd.github.v3.raw+json'
     }
   }
 

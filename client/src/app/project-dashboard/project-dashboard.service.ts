@@ -33,7 +33,7 @@ export class ProjectDashboardService {
       });
   }
 
-  fetchProjectForks(projectId): Observable<any> {
+  fetchProjectForks(projectId, owner, repo): Observable<any> {
     let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/projects/' + projectId + '/forks', options)
@@ -42,7 +42,7 @@ export class ProjectDashboardService {
       });
   }
 
-  fetchProjectContributors(projectId): Observable<any> {
+  fetchProjectContributors(projectId, owner, repo): Observable<any> {
     let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/projects/' + projectId + '/contributors', options)
@@ -51,7 +51,7 @@ export class ProjectDashboardService {
       });
   }
 
-  fetchProjectLanguages(projectId): Observable<any> {
+  fetchProjectLanguages(projectId, owner, repo): Observable<any> {
     let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/projects/' + projectId + '/languages', options)
@@ -60,12 +60,12 @@ export class ProjectDashboardService {
       });
   }
 
-  fetchProjectReadme(projectId): Observable<any> {
-    let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
-    let options = new RequestOptions({ headers: headers })
-    return this._http.get('/api/projects/' + projectId + '/readme', options)
-      .map((res: Response) => {
-        return res.json();
-      });
-  }
+  // fetchProjectReadme(projectId, owner, repo): Observable<any> {
+  //   let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
+  //   let options = new RequestOptions({ headers: headers })
+  //   return this._http.get('/api/projects/' + projectId + '/readme', options)
+  //     .map((res: Response) => {
+  //       return res.json();
+  //     });
+  // }
 }

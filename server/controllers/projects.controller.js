@@ -144,8 +144,14 @@ projectsController.GET_FORKS = (req, res) => {
   let repo = req.headers['repo']
 
   Projects.GET_FORKS(username, repo)
-    .then(result => {
-      res.status(200).send(result)
+    .then(results => {
+      let forks = (JSON.parse(results)).map(result => {
+        return {
+          owner: result.owner.login,
+          html_url: result.html_url
+        }
+      })
+      res.status(200).send(forks)
     })
 }
 
@@ -154,8 +160,15 @@ projectsController.GET_CONTRIBUTORS = (req, res) => {
   let repo = req.headers['repo']
 
   Projects.GET_CONTRIBUTORS(username, repo)
-    .then(result => {
-      res.status(200).send(result)
+    .then(results => {
+      let contributors = (JSON.parse(results)).map(result => {
+        return {
+          login: result.login,
+          avatar: result.avatar_url,
+          contributions: result.contributions
+        }
+      })
+      res.status(200).send(contributors)
     })
 }
 
@@ -164,8 +177,8 @@ projectsController.GET_LANGUAGES = (req, res) => {
   let repo = req.headers['repo']
 
   Projects.GET_LANGUAGES(username, repo)
-    .then(result => {
-      res.status(200).send(result)
+    .then(results => {
+      res.status(200).send(results)
     })
 }
 

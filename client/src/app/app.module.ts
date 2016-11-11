@@ -81,7 +81,7 @@ import { ProjectCommitsComponent } from './project-commits/project-commits.compo
     ProjectSidebarListService,
     LoginService,
     NewsfeedListService,
-    ProjectDashboardService    
+    ProjectDashboardService
   ],
   bootstrap: [AppComponent]
 })
