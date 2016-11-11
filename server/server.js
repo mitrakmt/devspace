@@ -45,6 +45,7 @@ passport.use(new Strategy({
       username: profile.login,
       email: profile.email,
       bio: profile.bio,
+      cashFlow: 0,
       location: profile.location,
       firstName: profile.firstName,
       lastName: profile.lastName,
@@ -87,6 +88,7 @@ app.get('/api/auth/github/callback',
         exp: moment().add(7, 'd').valueOf()
       }, process.env.GITHUB_SECRET);
       res.cookie('token', token);
+      
       let userObj = {
         username: req.user.username,
         userid: req.user.id
