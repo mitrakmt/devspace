@@ -28,7 +28,8 @@ import { LoginService } from './login/login.service';
 import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service';
 import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
+import { ProjectDashboardService } from './project-dashboard/project-dashboard.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProjectSidebarListComponent,
     ProjectSidebarItemComponent,
     LoginComponent,
-    NewpostComponent
+    NewpostComponent,
+    ProjectDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       { path: 'app', component: AppComponent },
       { path: 'login', component: LoginComponent },
       { path: 'auth/github/callback', redirectTo: '/home'},
-      { path: 'auth/github', children: []}
+      { path: 'auth/github', children: []},
+      { path: 'projects/:projectId', component: ProjectDashboardComponent }
     ])
   ],
   providers: [
@@ -75,7 +78,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     GithubListService,
     ProjectSidebarListService,
     LoginService,
-    NewsfeedListService
+    NewsfeedListService,
+    ProjectDashboardService    
   ],
   bootstrap: [AppComponent]
 })
