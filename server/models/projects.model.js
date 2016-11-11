@@ -1,5 +1,6 @@
 let projectsModel = {}
 let _ = require('lodash')
+let request = require('request-promise')
 let Projects = require('../db').Projects
 let UsersProjects = require('../db').UsersProjects
 
@@ -135,5 +136,111 @@ projectsModel.REMOVE_MEMBER = (userId, projectId, idToRemove) => {
     return 'Successfully removed admin'
   })
 }
+
+projectsModel.GET_COMMITS = (username, repo) => {
+  let options = {
+    url: `https://api.github.com/repos/${username}/${repo}/commits`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+   .then(result => {
+     return result
+   })
+   .catch(err => {
+     console.log(err)
+   })
+}
+
+projectsModel.GET_BRANCHES = (username, repo) => {
+  let options = {
+    url: `https://api.github.com/repos/${username}/${repo}/branches`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+   .then(result => {
+     return result
+   })
+   .catch(err => {
+     console.log(err)
+   })
+}
+
+projectsModel.GET_README = (username, repo) => {
+  let options = {
+    url: `https://api.github.com/repos/${username}/${repo}/readme`,
+    headers: {
+      'User-Agent': username,
+      'Accept': 'application/vnd.github.v3.raw+json'
+    }
+  }
+
+  return request.get(options)
+   .then(result => {
+     return result
+   })
+   .catch(err => {
+     console.log(err)
+   })
+}
+
+projectsModel.GET_FORKS = (username, repo) => {
+  let options = {
+    url: `https://api.github.com/repos/${username}/${repo}/forks`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+   .then(result => {
+     return result
+   })
+   .catch(err => {
+     console.log(err)
+   })
+}
+
+projectsModel.GET_CONTRIBUTORS = (username, repo) => {
+  let options = {
+    url: `https://api.github.com/repos/${username}/${repo}/contributors`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+   .then(result => {
+     return result
+   })
+   .catch(err => {
+     console.log(err)
+   })
+}
+
+projectsModel.GET_LANGUAGES = (username, repo) => {
+  let options = {
+    url: `https://api.github.com/repos/${username}/${repo}/languages`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+   .then(result => {
+     return result
+   })
+   .catch(err => {
+     console.log(err)
+   })
+}
+
+// MUST BE AUTHENTICATED
+// 'api.github.com/users/:username/events/orgs/:org'
 
 module.exports = projectsModel

@@ -1,6 +1,7 @@
 let Home = require('../models').homeModel
 let Projects = require('../models').projectsModel
 let Posts = require('../db').Posts
+let Follows = require('../db').Follows
 let homeController = {}
 
 homeController.GET_GITHUB_ACTIVITY = (req, res) => {
@@ -54,19 +55,43 @@ homeController.GET_GITHUB_ACTIVITY = (req, res) => {
 homeController.GET_USER_FEED = (req, res) => {
   let userId = req.headers['userid']
 
-  Posts.findAll({
+  Follows.findAll({
     where: {
-      userId: userId
-    },
-    include: [{
-      all: true
-    }],
-    order: [
-      ['createdAt', 'DESC']
-    ]
+      followerId: userId
+    }
   })
-  .then(posts => {
-    res.status(200).send(posts)
+  .then(follows => {
+    let promises = follows.map(follow => {
+      console.log('follow', follow.dataValues)
+      return new Promise((resolve, reject) => {
+        Posts.findAll({
+          where: {
+            userId: follow.userId
+          },
+          include: [{
+            all: true
+          }],
+          order: [
+            ['createdAt', 'DESC']
+          ]
+        })
+        .then(posts => {
+          console.log('posts', posts)
+          resolve(posts)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    })
+
+    Promise.all(promises)
+      .then(postObjs => {
+        res.status(200).send(postObjs)
+      })
+      .catch(postObjs => {
+        res.status(204).send(postObjs)
+      })
   })
 }
 

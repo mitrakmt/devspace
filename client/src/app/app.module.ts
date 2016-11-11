@@ -30,7 +30,9 @@ import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list
 import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.component';
-
+import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
+import { ProjectDashboardService } from './project-dashboard/project-dashboard.service';
+import { ProjectCommitsComponent } from './project-commits/project-commits.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.co
     ProjectSidebarItemComponent,
     LoginComponent,
     NewpostComponent,
-    NewcommentComponent
+    NewcommentComponent,
+    ProjectDashboardComponent,
+    ProjectCommitsComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,8 @@ import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.co
       { path: 'app', component: AppComponent },
       { path: 'login', component: LoginComponent },
       { path: 'auth/github/callback', redirectTo: '/home'},
-      { path: 'auth/github', children: []}
+      { path: 'auth/github', children: []},
+      { path: 'projects/:projectId', component: ProjectDashboardComponent }
     ])
   ],
   providers: [
@@ -79,7 +84,8 @@ import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.co
     ProjectSidebarListService,
     LoginService,
     NewsfeedListService,
-    AUTH_PROVIDERS
+    AUTH_PROVIDERS,
+    ProjectDashboardService
   ],
   bootstrap: [AppComponent]
 })

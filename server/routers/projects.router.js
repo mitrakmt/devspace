@@ -27,4 +27,28 @@ projectsRouter.route('/:projectId/member')
   .delete(projectsController.REMOVE_MEMBER)
     // Requires userId header, projectId in req url, idToRemove in req.body
 
+projectsRouter.route('/:projectId/commits')
+  .get(projectsController.GET_COMMITS)
+  // Requires username and repo name
+
+projectsRouter.route('/:projectId/branches')
+  .get(projectsController.GET_BRANCHES)
+  // Requires username and repo name
+
+projectsRouter.route('/:projectId/readme')
+  .get(projectsController.GET_README)
+  // Requires username and repo name
+
+projectsRouter.route('/:projectId/forks')
+  .get(projectsController.GET_FORKS)
+  // Requires username and repo name
+
+projectsRouter.route('/:projectId/contributors')
+  .get(projectsController.GET_CONTRIBUTORS)
+  // Requires username and repo name
+
+projectsRouter.route('/:projectId/languages')
+  .get(projectsController.GET_LANGUAGES)
+  // Requires username and repo name
+
 module.exports = projectsRouter
