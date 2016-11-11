@@ -26,13 +26,14 @@ export class NewsfeedListService {
       })
         .map((data) => data.json())
     }
-    sendNewComment(comment: any): Observable<any> {
+
+    sendNewComment(comment: any, postId: number): Observable<any> {
       let userid = localStorage.getItem('userid')
       let content = comment._value.content;
       let body = {'content': content};
       let headers = new Headers({'userid': userid});
       headers.append('Content-Type', 'application/json');
-      return this._http.post('/api/posts/comments/' + 1, body, {
+      return this._http.post('/api/posts/comments/' + postId, body, {
         headers: headers
       })
         .map((data) => data.json())
