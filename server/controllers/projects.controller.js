@@ -109,4 +109,64 @@ projectsController.REMOVE_MEMBER = (req, res) => {
     })
 }
 
+projectsController.GET_COMMITS = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_COMMITS(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.GET_BRANCHES = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_BRANCHES(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.GET_README = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_README(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.GET_FORKS = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_FORKS(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.GET_CONTRIBUTORS = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_CONTRIBUTORS(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+projectsController.GET_LANGUAGES = (req, res) => {
+  let username = req.headers['username']
+  let repo = req.headers['repo']
+
+  Projects.GET_LANGUAGES(username, repo)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
 module.exports = projectsController

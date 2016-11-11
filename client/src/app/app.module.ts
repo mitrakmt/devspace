@@ -30,6 +30,7 @@ import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectDashboardService } from './project-dashboard/project-dashboard.service';
+import { ProjectCommitsComponent } from './project-commits/project-commits.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ProjectDashboardService } from './project-dashboard/project-dashboard.s
     ProjectSidebarItemComponent,
     LoginComponent,
     NewpostComponent,
-    ProjectDashboardComponent
+    ProjectDashboardComponent,
+    ProjectCommitsComponent
   ],
   imports: [
     BrowserModule,
