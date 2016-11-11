@@ -45,6 +45,7 @@ passport.use(new Strategy({
       username: profile.login,
       email: profile.email,
       bio: profile.bio,
+      cashFlow: 0,
       location: profile.location,
       firstName: profile.firstName,
       lastName: profile.lastName,
@@ -53,7 +54,6 @@ passport.use(new Strategy({
     }
   })
   .then(user => {
-    console.log("USER", user)
     return done(null, user)
   })
 }))
@@ -80,20 +80,16 @@ app.get('/api/auth/github',
 app.get('/api/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/login' }),
     (req, res) => {
+      let userid = req.user[0].id
+      let username = req.user[0].username
+
       let token = jwt.sign({
-        username: req.user.username,
-        firstName: req.user.firstName,
-        iss: req.user.id,
+        userid: userid,
         exp: moment().add(7, 'd').valueOf()
       }, process.env.GITHUB_SECRET);
-      res.cookie('token', token);
-      let userObj = {
-        username: req.user.username,
-        userid: req.user.id
-      };
-      
-      res.status(200).cookie('user', JSON.stringify(userObj)).header('Auth', token).header('username', userObj.username).header('userId', userObj.userId)
 
+      res.cookie('userid', userid).cookie('token', token).cookie('username', username);
+    
       res.redirect('/home');
     }
   )
