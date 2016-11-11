@@ -29,14 +29,6 @@ export class HomeService {
       let payload = jwtHelper.decodeToken(token)
       console.log(payload)
     }
-
-      // var token = localStorage.getItem('token');
-    
-      // console.log(
-      //   this.jwtHelper.decodeToken(token),
-      //   this.jwtHelper.getTokenExpirationDate(token),
-      //   this.jwtHelper.isTokenExpired(token)
-      // );
   }
 
 }
