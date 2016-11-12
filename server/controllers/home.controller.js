@@ -4,6 +4,7 @@ let Posts = require('../db').Posts
 let Follows = require('../db').Follows
 let Comments = require('../db').Comments
 let Interactions = require('../db').Interactions
+let Users = require('../db').Users
 
 let homeController = {}
 
@@ -126,6 +127,9 @@ homeController.GET_FOLLOWED_USER_POSTS = (req, res) => {
           where: {
             userId: follow.userId
           },
+          include: [{
+            model: Users
+          }],
           order: [
             ['createdAt', 'DESC']
           ]
@@ -162,6 +166,9 @@ homeController.GET_POST_COMMENTS = (req, res) => {
     where: {
       postId: postId
     },
+    include: [{
+      model: Users
+    }],
     order: [
       ['createdAt', 'DESC']
     ]
@@ -178,6 +185,9 @@ homeController.GET_POST_INTERACTIONS = (req, res) => {
     where: {
       postId: postId
     },
+    include: [{
+      model: Users
+    }],
     order: [
       ['createdAt', 'DESC']
     ]
