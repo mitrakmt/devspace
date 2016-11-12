@@ -2,6 +2,9 @@ let Home = require('../models').homeModel
 let Projects = require('../models').projectsModel
 let Posts = require('../db').Posts
 let Follows = require('../db').Follows
+let Comments = require('../db').Comments
+let Interactions = require('../db').Interactions
+
 let homeController = {}
 
 homeController.GET_GITHUB_ACTIVITY = (req, res) => {
@@ -108,4 +111,79 @@ homeController.GET_PROJECT_SIDEBAR = (req, res) => {
     })
 }
 
+homeController.GET_FOLLOWED_USER_POSTS = (req, res) => {
+  let userId = req.headers['userid']
+
+  Follows.findAll({
+    where: {
+      followerId: userId
+    }
+  })
+  .then(follows => {
+    let promises = follows.map(follow => {
+      return new Promise((resolve, reject) => {
+        Posts.findAll({
+          where: {
+            userId: follow.userId
+          },
+          order: [
+            ['createdAt', 'DESC']
+          ]
+        })
+        .then(posts => {
+          resolve(posts)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    })
+
+    Promise.all(promises)
+      .then(postArrs => {
+        let result = postArrs.map(postArr => {
+          return postArr.map(postObj => {
+            return postObj
+          })
+        })
+        let mergedPosts = [].concat.apply([], result)
+        res.status(200).send(mergedPosts)
+      })
+      .catch(postArrs => {
+        res.status(204).send(postArrs)
+      })
+  })
+}
+
+homeController.GET_POST_COMMENTS = (req, res) => {
+  let postId = req.params['postId']
+
+  Comments.findAll({
+    where: {
+      postId: postId
+    },
+    order: [
+      ['createdAt', 'DESC']
+    ]
+  })
+  .then(comments => {
+    res.status(200).send(comments)
+  })
+}
+
+homeController.GET_POST_INTERACTIONS = (req, res) => {
+  let postId = req.params['postId']
+
+  Interactions.findAll({
+    where: {
+      postId: postId
+    },
+    order: [
+      ['createdAt', 'DESC']
+    ]
+  })
+  .then(interactions => {
+    res.status(200).send(interactions)
+  })
+}
 module.exports = homeController
