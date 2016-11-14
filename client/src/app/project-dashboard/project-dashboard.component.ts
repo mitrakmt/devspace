@@ -33,7 +33,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
     <div>
       <h3>Languages</h3>
-      <p *ngFor="let contributor of projectContributors">
+      <p *ngFor="let lang of projectLanguages">
         {{contributor}}:{{projectContributors.cont}}
         Github url: {{contributor.avatar}}
         {{contributor.contributions}}
@@ -88,12 +88,12 @@ export class ProjectDashboardComponent implements OnInit {
         return projectContributors;
       });
 
-    this.projectDashboardService.fetchProjectLanguages(this.projectId, this.owner, this.repo)
-      .subscribe(projectLanguages => {
-        this.projectLanguages = projectLanguages;
-        console.log('project Languages', this.projectLanguages);
-        return projectLanguages;
-      });
+    // this.projectDashboardService.fetchProjectLanguages(this.projectId, this.owner, this.repo)
+    //   .subscribe(projectLanguages => {
+    //     this.projectLanguages = projectLanguages;
+    //     console.log('project Languages', this.projectLanguages);
+    //     return projectLanguages;
+    //   });
 
     // this.projectDashboardService.fetchProjectReadme(this.projectId, this.owner, this.repo)
     //   .subscribe(projectReadme => {

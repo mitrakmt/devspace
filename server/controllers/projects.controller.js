@@ -26,10 +26,9 @@ projectsController.CREATE_PROJECT = (req, res) => {
 }
 
 projectsController.GET_PROJECT_FROM_DB = (req, res) => {
-  let userId = req.headers['userid']
   let projectId = req.params.projectId
 
-  Projects.GET_PROJECT_FROM_DB(userId, projectId)
+  Projects.GET_PROJECT_FROM_DB(projectId)
     .then(project => {
       res.status(200).send(project)
     })
@@ -110,22 +109,101 @@ projectsController.REMOVE_MEMBER = (req, res) => {
 }
 
 projectsController.GET_COMMITS = (req, res) => {
-  let username = req.headers['username']
-  let repo = req.headers['repo']
+  let projectId = req.params['projectId']
+  let sha = req.headers['sha']
 
-  Projects.GET_COMMITS(username, repo)
-    .then(result => {
-      res.status(200).send(result)
+  Projects.GET_PROJECT_FROM_DB(projectId)
+    .then(project => {
+      let username = project.users[0].username
+      let repo = project['name']
+
+      Projects.GET_COMMITS(username, repo, sha)
+        .then(data => {
+          data = JSON.parse(data)
+
+          let result = {
+            sha: data.sha,
+            date: data.committer.date,
+            message: data.commit.message,
+            url: data.html_url,
+            username: data.author.login,
+            total: data.stats.total,
+            additions: data.stats.additions,
+            deletions: data.stats.deletions
+          }
+          
+          res.status(200).send(result)
+        })
     })
+
+    //   Projects.GET_BRANCHES(username, repo)
+    //     .then(branches => {
+    //       let shas = JSON.parse(branches).map(branch => {
+    //         let sha = branch.commit.sha
+    //         return sha
+    //       })
+    //       return shas
+    //     })
+    //     .then(shas => {
+    //       let promises = shas.map(sha => {
+    //         return new Promise((resolve, reject) => {
+    //           Projects.GET_COMMITS(username, repo, sha)
+    //             .then(result => {
+    //               console.log('res in ctrl', result)
+    //               result = JSON.parse(result)
+    //               result = [].concat.apply([], result)
+    //               resolve(result)
+    //             })
+    //             .catch(err => {
+    //               reject(err)
+    //             })
+    //         })
+    //       })
+    //       Promise.all(promises)
+    //           .then(commitObjs => {
+    //             commitObjs = [].concat.apply([], commitObjs)
+    //             let result = commitObjs.map(commitObj => {
+    //               return {
+    //                 sha: commitObj.sha,
+    //                 username: commitObj.commit.author.name,
+    //                 date: commitObj.commit.author.date,
+    //                 message: commitObj.commit.message
+    //               }
+    //               return commitObj
+    //             })
+    //             res.status(200).send(result)
+    //           })
+    //           .catch(err => {
+    //             res.status(204).send({ err: err })
+    //           })
+    //     })
 }
 
 projectsController.GET_BRANCHES = (req, res) => {
-  let username = req.headers['username']
-  let repo = req.headers['repo']
+  let projectId = req.params['projectId']
 
-  Projects.GET_BRANCHES(username, repo)
-    .then(result => {
-      res.status(200).send(result)
+  Projects.GET_PROJECT_FROM_DB(projectId)
+    .then(project => {
+      let username = project.users[0].username
+      let repo = project['name']
+
+      Projects.GET_BRANCHES(username, repo)
+        .then(branches => {
+          let shas = JSON.parse(branches).map(branch => {
+            return {
+              sha: branch.commit.sha,
+              name: branch.name,
+              url: branch.commit.url
+            }
+          })
+          res.status(200).send(shas)
+        })
+        .catch(err => {
+          res.send({err: err})
+        })
+    })
+    .catch(err => {
+      res.send({err: err})
     })
 }
 

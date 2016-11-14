@@ -5,10 +5,12 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ProjectDashboardService {
+  private projectId;
 
   constructor(private _http: Http) { }
 
   fetchProjectInfo(projectId): Observable<any> {
+    this.projectId = projectId
     return this._http.get('/api/projects/' + projectId)
       .map((res: Response) => {
         return res.json();
@@ -16,9 +18,11 @@ export class ProjectDashboardService {
   }
 
   fetchProjectCommits(projectId): Observable<any> {
-    let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
-    let options = new RequestOptions({ headers: headers })
-    return this._http.get('/api/projects/' + projectId + '/commits', options)
+    // let username = localStorage.getItem('username')
+    // let userid = localStorage.getItem('userid')
+    // let headers = new Headers({ 'username': username, repo: 'devspace' });
+    // let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/projects/' + projectId + '/commits')//, options)
       .map((res: Response) => {
         return res.json();
       });
