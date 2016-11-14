@@ -26,6 +26,12 @@ export class NewsfeedListService {
       })
         .map((data) => data.json())
     }
+    fetchComments(postId: number): Observable<any> {
+      let headers = new Headers({ 'postId': postId })
+      let options = new RequestOptions({ headers: headers })
+      return this._http.get('/api/home/feed/comments/' + postId, options)
+        .map((res:Response) => res.json())
+    }
 
     sendNewComment(comment: any, postId: number): Observable<any> {
       let userid = localStorage.getItem('userid')
