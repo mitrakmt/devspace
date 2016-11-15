@@ -22,7 +22,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a>teams</a></li>
         <li class="dropdown">
-          <a class="dropdown-toggle" routerLink="/profile/:userId" routerLinkActive="active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile </a>
+          <a class="dropdown-toggle" [routerLink]="['/profile', username]" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile </a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

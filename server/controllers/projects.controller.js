@@ -122,10 +122,10 @@ projectsController.GET_COMMITS = (req, res) => {
           let commits = JSON.parse(data).map(commit => {
             return {
               sha: commit.sha,
-              date: commit.committer.date,
+              date: commit.commit.author.date,
               message: commit.commit.message,
               url: commit.html_url,
-              username: commit.author.login,
+              username: commit.author.login
               // total: commit.stats.total,
               // additions: commit.stats.additions,
               // deletions: commit.stats.deletions

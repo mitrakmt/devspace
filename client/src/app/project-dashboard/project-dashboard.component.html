@@ -1,4 +1,7 @@
 <app-search></app-search>
-<p>
-  project-dashboard works!
+<h1>{{ projectForks }}</h1>
+<h1>Readme</h1>
+<p *ngFor="let readme of projectReadme">
+  readme: {{readme?._body}}
+  url: {{commit?.url}}
 </p>

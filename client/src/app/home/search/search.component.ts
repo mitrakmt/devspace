@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  private username;
 
   constructor() { }
-
+  
   ngOnInit() {
+    this.username = localStorage.getItem('username');
   }
 
 }

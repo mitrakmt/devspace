@@ -10,6 +10,7 @@ export class ProfileFeedComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }
