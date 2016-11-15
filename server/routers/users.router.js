@@ -5,6 +5,9 @@ let passport = require('passport')
 usersRouter.route('/profile')
   .get(usersController.GET_PROFILE)
 
+usersRouter.route('/profile/code')
+  .get(usersController.GET_ALL_BYTES_OF_CODE)
+
 usersRouter.route('/logout')
   .get(usersController.LOGOUT)
 

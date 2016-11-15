@@ -1,6 +1,7 @@
 let Users = require('../models').usersModel
-let usersController = {}
+let Projects = require('../models').projectsModel
 
+let usersController = {}
 
 usersController.GET_PROFILE = (req, res) => {
   let userId = req.headers['userid']
@@ -46,4 +47,57 @@ usersController.DELETE_USER = (req, res) => {
     })
 }
 
+usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
+  let userId = req.headers['userid']
+  Users.GET_USER(userId)
+    .then(user => {
+      let username = user.username
+      Projects.GET_PROJECTS(userId)
+      .then(projects => {
+        let promises = projects.map(project => {
+          let repo = project.name
+          return new Promise((resolve, reject) => {
+            Projects.GET_LANGUAGES(username, repo)
+              .then(languages => {
+                if (Object.keys(languages).length === 0) {
+                  resolve(null)
+                }
+                console.log('languages in users controller', languages)
+                resolve(languages)
+              })
+              .catch(err => {
+                reject(err)
+              })
+          })
+        })
+
+        Promise.all(promises)
+          .then(langs => {
+            // sum up the total bytes of code in each language across all projects
+            let stats = {}
+            let langStats = []
+            let total = 0
+            langs.forEach(langObj => {
+              for (let key in langObj) {
+                if (!stats[key] && langObj[key] !== null) {
+                  stats[key] = langObj[key]
+                } else {
+                  stats[key] += langObj[key]
+                }
+              }
+            })
+
+            for (let key in stats) {
+              total += stats[key]
+              langStats.push({language: [key, stats[key]]})
+            }
+            langStats.push({language: ['total', total]})
+            res.status(200).send(langStats)
+          })
+          .catch(err => {
+            res.status(204).send(err)
+          })
+      })
+    })
+}
 module.exports = usersController

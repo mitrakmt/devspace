@@ -231,9 +231,9 @@ projectsModel.GET_CONTRIBUTORS = (username, repo) => {
 }
 
 projectsModel.GET_LANGUAGES = (username, repo) => {
+  console.log('username', username, 'repo', repo)
   let options = {
-    // url: `https://api.github.com/repos/${username}/${repo}/languages`,
-    url: `https://api.github.com/repos/hackersquare/devspace/languages`,
+    url: `https://api.github.com/repos/${username}/${repo}/languages`,
     headers: {
       'User-Agent': username
     }
@@ -241,6 +241,8 @@ projectsModel.GET_LANGUAGES = (username, repo) => {
 
   return request.get(options)
    .then(result => {
+     console.log(result, 'result in projectsmodel')
+     result = JSON.parse(result)
      return result
    })
    .catch(err => {

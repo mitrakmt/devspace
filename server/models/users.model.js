@@ -73,4 +73,18 @@ usersModel.DELETE_USER = (userId) => {
   })
 }
 
+usersModel.GET_USER = (userId) => {
+  return Users.findOne({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    return user
+  })
+  .catch(err => {
+    return { err: err }
+  })
+}
+
 module.exports = usersModel
