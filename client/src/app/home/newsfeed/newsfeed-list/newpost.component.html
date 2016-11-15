@@ -1,9 +1,0 @@
-<form [formGroup]="myPost" (ngSubmit)="onSubmit($event)">
-  <div class="form-group">
-    <label for="post">Post</label>
-    <input type="text"
-            id="content"
-            formControlName="content">
-  </div> 
-  <button type="submit" class="btn btn-primary" [disabled]="!myPost.valid">Submit</button>
-</form>

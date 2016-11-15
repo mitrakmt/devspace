@@ -1,25 +1,41 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { NgForm } from "@angular/forms";
 import { NewsfeedListService } from './newsfeed-list.service';
+import { NewsfeedPost } from '../newsfeed-post';
 
 @Component({
   selector: 'app-newpost',
-  templateUrl: './newpost.component.html',
+  template: `
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="form-group">
+          <label for="post">Post</label>
+          <input 
+            type="text"
+            id="post"
+            name="post"
+            [(ngModel)]="post.content"
+            #post = "ngModel"
+            required
+            >
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">post</button>
+      </form>
+  `
 })
 export class NewpostComponent {
-  myPost: FormGroup;
-  constructor(private newsfeedListService: NewsfeedListService) {
-    this.myPost = new FormGroup({
-      content: new FormControl('', Validators.required)
-    })
-  }
-  onSubmit(event) {
-    event.preventDefault()
-    console.log("this my post!!", this.myPost);
-    
-    this.newsfeedListService.sendNewsfeedUpdate(this.myPost)
+  post = {'content': ''}
+  newsfeedPosts: NewsfeedPost = null;
+  constructor(private _newsfeedListService: NewsfeedListService) {  }
+  onSubmit(form: NgForm) {
+    let newPost = form.value.post
+    form.reset()
+    // console.log(newPost)
+    this._newsfeedListService.sendNewsfeedUpdate(newPost)
       .subscribe(
-        data => console.log("post data===", data)
-      )
+        data => {
+          console.log("post data===", data)
+          this._newsfeedListService.newsfeedPosts.unshift(data)
+          return data
+          })
   }
 }

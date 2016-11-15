@@ -5,7 +5,13 @@ import { NewsfeedPost } from '../newsfeed-post';
 
 @Component({
   selector: 'app-newsfeed-list',
-  templateUrl: './newsfeed-list.component.html'
+  template: `
+        <div>NewsFeed</div>
+        <hr>
+        <app-newpost></app-newpost>
+        <ul>
+          <app-newsfeed-post *ngFor="let newsfeedPost of newsfeedListService.newsfeedPosts" [newsfeedPost]="newsfeedPost"></app-newsfeed-post>
+        </ul>`
 })
 export class NewsfeedListComponent implements OnInit {
   newsfeedPosts: NewsfeedPost[] = [];
@@ -18,6 +24,8 @@ export class NewsfeedListComponent implements OnInit {
         data => {
           console.log('newsfeed data', data)
           this.newsfeedPosts = data
+          this.newsfeedListService.newsfeedPosts = data
+          console.log("newsfeedserviceposts", this.newsfeedListService.newsfeedPosts)
           return data
         }
       )

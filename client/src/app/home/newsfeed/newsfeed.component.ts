@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-newsfeed',
-  templateUrl: './newsfeed.component.html'
+  template:`
+      <div>
+        <app-newsfeed-list></app-newsfeed-list>
+      </div>`
 })
 export class NewsfeedComponent implements OnInit {
 
