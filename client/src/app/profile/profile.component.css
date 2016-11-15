@@ -1,0 +1,36 @@
+.background-image {
+    min-width: 100%;
+    max-height: 200px;
+    opacity: .7;
+}
+
+.top-grid {
+    height: 100px;
+}
+
+.bottom-grid {
+    margin-top: -90px;
+}
+
+.bottom-grid-box {
+    width: 50%;
+    border-top: 1px solid black;
+    float: left;
+    text-align: center;
+}
+
+.profile-image {
+    border-radius: 50%;
+    text-align: center;
+    height: 230px;
+    z-index: 10;
+    border: 6px solid white;
+}
+
+.background-overlay {
+    margin-top: -120px;
+}
+
+md-grid-tile h3 {
+    margin-top: 40px;
+}

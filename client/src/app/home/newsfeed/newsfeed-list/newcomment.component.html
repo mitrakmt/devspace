@@ -3,7 +3,8 @@
     <label for="comment">Comment</label>
     <input type="text"
             id="content"
+            style="width: 50%"
             formControlName="content">
+    <button type="submit" class="btn btn-primary" style="margin-left: 10px;" [disabled]="!myComment.valid">comment</button>
   </div> 
-  <button type="submit" class="btn btn-primary" [disabled]="!myComment.valid">comment</button>
 </form>

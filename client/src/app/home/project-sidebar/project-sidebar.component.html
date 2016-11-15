@@ -1,1 +1,9 @@
 <app-project-sidebar-list></app-project-sidebar-list>
+<div class="dropdown">
+  <button class="dropbtn">Add Project</button>
+  <div class="dropdown-content">
+    <md-input placeholder="Github name" style="width: 100%"></md-input>
+    <md-input placeholder="Github url" style="width: 100%"></md-input>
+    <button md-raised-button class="md-raised md-primary" (click)="addProject()">Add Project</button>
+  </div>
+</div>

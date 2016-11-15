@@ -3,7 +3,8 @@
     <label for="post">Post</label>
     <input type="text"
             id="content"
+            style="width: 70%"
             formControlName="content">
+    <button type="submit" class="btn btn-primary" style="margin-left: 10px;" [disabled]="!myPost.valid">Submit</button>
   </div> 
-  <button type="submit" class="btn btn-primary" [disabled]="!myPost.valid">Submit</button>
 </form>
