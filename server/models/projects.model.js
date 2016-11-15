@@ -141,14 +141,13 @@ projectsModel.REMOVE_MEMBER = (userId, projectId, idToRemove) => {
   })
 }
 
-projectsModel.GET_COMMITS = (username, repo, sha) => {
+projectsModel.GET_COMMITS = (username, repo, branch) => {
   let options = {
-    url: `https://api.github.com/repos/${username}/${repo}/commits/${sha}`,
+    url: `https://api.github.com/repos/${username}/${repo}/commits?sha=${branch}`,
     headers: {
       'User-Agent': username
     }
   }
-  //console.log(username, repo, sha)
   return request.get(options)
    .then(result => {
      return result
@@ -233,7 +232,8 @@ projectsModel.GET_CONTRIBUTORS = (username, repo) => {
 
 projectsModel.GET_LANGUAGES = (username, repo) => {
   let options = {
-    url: `https://api.github.com/repos/${username}/${repo}/languages`,
+    // url: `https://api.github.com/repos/${username}/${repo}/languages`,
+    url: `https://api.github.com/repos/hackersquare/devspace/languages`,
     headers: {
       'User-Agent': username
     }

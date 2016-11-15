@@ -5,7 +5,10 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ProjectDashboardService {
-  private projectId;
+  public projectInfo;
+  public projectId;
+  public owner;
+  public repo;
 
   constructor(private _http: Http) { }
 
@@ -13,63 +16,54 @@ export class ProjectDashboardService {
     this.projectId = projectId
     return this._http.get('/api/projects/' + projectId)
       .map((res: Response) => {
+        this.projectInfo = res;
+        this.owner = this.projectInfo.owner;
+        this.repo = this.projectInfo.name;
         return res.json();
       });
   }
 
-  fetchProjectCommits(projectId): Observable<any> {
-    // let username = localStorage.getItem('username')
-    // let userid = localStorage.getItem('userid')
-    // let headers = new Headers({ 'username': username, repo: 'devspace' });
-    // let options = new RequestOptions({ headers: headers })
-    return this._http.get('/api/projects/' + projectId + '/commits')//, options)
+  fetchProjectCommits(projectId, branch): Observable<any> {
+    let headers = new Headers({ branch: branch });
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/projects/' + projectId + '/commits', options)
       .map((res: Response) => {
         return res.json();
       });
   }
 
   fetchProjectBranches(projectId): Observable<any> {
-    let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
-    let options = new RequestOptions({ headers: headers })
-    return this._http.get('/api/projects/' + projectId + '/branches', options)
+    return this._http.get('/api/projects/' + projectId + '/branches')
       .map((res: Response) => {
         return res.json();
       });
   }
 
-  fetchProjectForks(projectId, owner, repo): Observable<any> {
-    let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
-    let options = new RequestOptions({ headers: headers })
-    return this._http.get('/api/projects/' + projectId + '/forks', options)
+  fetchProjectForks(projectId): Observable<any> {
+    return this._http.get('/api/projects/' + projectId + '/forks')
       .map((res: Response) => {
         return res.json();
       });
   }
 
-  fetchProjectContributors(projectId, owner, repo): Observable<any> {
-    let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
-    let options = new RequestOptions({ headers: headers })
-    return this._http.get('/api/projects/' + projectId + '/contributors', options)
+  fetchProjectContributors(projectId): Observable<any> {
+    return this._http.get('/api/projects/' + projectId + '/contributors')
       .map((res: Response) => {
         return res.json();
       });
   }
 
-  fetchProjectLanguages(projectId, owner, repo): Observable<any> {
-    let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
-    let options = new RequestOptions({ headers: headers })
-    return this._http.get('/api/projects/' + projectId + '/languages', options)
+  fetchProjectLanguages(projectId): Observable<any> {
+    return this._http.get('/api/projects/' + projectId + '/languages')
       .map((res: Response) => {
         return res.json();
       });
   }
 
-  // fetchProjectReadme(projectId, owner, repo): Observable<any> {
-  //   let headers = new Headers({ 'username': 'hackersquare', repo: 'devspace' });
-  //   let options = new RequestOptions({ headers: headers })
-  //   return this._http.get('/api/projects/' + projectId + '/readme', options)
-  //     .map((res: Response) => {
-  //       return res.json();
-  //     });
-  // }
+  fetchProjectReadme(projectId): Observable<any> {
+    return this._http.get('/api/projects/' + projectId + '/readme')
+      .map((res: Response) => {
+        return res;
+      });
+  }
 }
