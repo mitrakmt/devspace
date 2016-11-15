@@ -25,6 +25,8 @@
     "request": "^2.78.0",
     "request-promise": "^4.1.1",
     "sequelize": "^3.24.7",
+    "socket.io": "^1.5.1",
+    "socket.io-client": "^1.5.1",
     "stripe": "^4.12.0"
   },
   "devDependencies": {},
