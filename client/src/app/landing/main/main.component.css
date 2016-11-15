@@ -1,3 +1,6 @@
+@import url('http://fonts.googleapis.com/css?family=Raleway:400,200');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,300,700');
+
 .main {
     text-align: center;
 }
@@ -7,12 +10,18 @@
     width: 100%;
     margin-top: 0;
     padding-top: 50px;
-    min-height: 500px;
+    min-height: 340px;
     background-image: url("https://drscdn.500px.org/photo/82236245/m%3D2048/9c6d0a7d999e918a134bfbce1871d0b5");
 }
 
 .landing h1 {
-    padding-top: 50px;
+    padding-top: 30px;
+    color: white;
+}
+
+.landing h2 {
+    padding-top: 5px;
+    margin-top: 25px;
     color: white;
 }
 
@@ -31,8 +40,264 @@
 
 .team p {
     color: black;
+    background-image: url('http://williamoldacre.com/wp-content/uploads/2011/09/red-black-colorful-shapes-abstract-photograph-thinking-dark-thoughts-2007-William-Oldacre-20051105.1651.a2.f-630x150.jpg');
 }
 
-.team-circle {
+.mike-image {
+    border-radius: 50%;
+    height: 200px;
+    width: 190px;
+    background-image: url('https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAARZAAAAJGNiZGI5Yzk2LTIzOWMtNDZlYy1hYThjLWYxMzk4ZTQxYWY1ZQ.jpg');
+}
 
+.david-image {
+    border-radius: 50%;
+    height: 200px;
+    width: 190px;
+    background-image: url('https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAO7AAAAJDQ4MmY5YzdiLWVjMTItNGUzYi1iOGI4LTJmMGJhOGMyNzQ0Ng.jpg')
+}
+
+.dianne-image {
+    border-radius: 50%;
+    height: 200px;
+    width: 190px;
+    background-image: url('https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAO7AAAAJDQ4MmY5YzdiLWVjMTItNGUzYi1iOGI4LTJmMGJhOGMyNzQ0Ng.jpg')
+}
+
+.feature-image {
+    background-image: url('');
+}
+
+.features {
+    margin-bottom: 100px;
+}
+
+/* Feature card */
+
+body { 
+    font-family: Helvetica, san-serif; 
+}
+
+.transition { 
+    transition: .3s cubic-bezier(.3, 0, 0, 1.3);
+}
+
+.card {
+    background-color: #fff;
+    bottom: 0;
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.3);
+    height: 320px;
+    left: 0;
+    margin: auto;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 300px;
+}
+
+.card:hover {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    height: 450px;
+    width: 300px;
+}
+
+.card:hover .cta-container {
+    display: inline;
+    left: 0;
+    margin-left: 8%;
+    margin-top: 380px;
+}
+
+.card:hover .card_circle {
+    background-size: cover;
+    border-radius: 0;
+    margin-top: -130px;
+}
+
+.card:hover h2 {
+    background: #E74749;
+    color: #fff;
+    margin-top: 100px;
+    padding: 5px;
+}
+
+.card:hover h2 small { color: #fff }
+
+.card:hover p { margin-top: 300px }
+
+.card_circle {
+    background-color: #E74749;
+    background-size: cover;
+    border-radius: 50%;
+    height: 400px;
+    margin-left: -75px;
+    margin-top: -270px;
+    position: absolute;
+    width: 450px;
+}
+
+.visualization {
+    background: url('http://marcinignac.com/projects/quantified-other/quantified-other-thumb.jpg') no-repeat center bottom;
+}
+
+.network {
+    background: url('http://allthingsgraphed.com/public/images/twitter/twitter-follower-graph-avatars.png') no-repeat center bottom;
+}
+
+.projects {
+    background: url('http://lanet-vi.fi.uba.ar/images/fig/Airportsc_colored_w-bgn_k-cores.png') no-repeat center bottom;
+}
+
+h2 {
+    color: #E74749;
+    font-family: 'Raleway', sans-serif;
+    font-size: 24px;
+    font-weight: 200;
+    margin-top: 150px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 9999;
+}
+
+p {
+    color: rgba(0,0,0,.6);
+    font-family: 'Raleway', sans-serif;
+    font-size: 100%;
+    font-weight: normal;
+    margin-top: 200px;
+    position: absolute;
+    text-align: center;
+    z-index: 9999;
+}
+
+.cta-container {
+    display: none;
+    margin-top: 320px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 9999;
+}
+
+.cta {
+    -moz-border-radius: 2px;
+    -moz-transition: 0.2s ease-out;
+    -ms-transition: 0.2s ease-out;
+    -o-transition: 0.2s ease-out;
+    -webkit-border-radius: 2px;
+    -webkit-transition: 0.2s ease-out;
+    background-clip: padding-box;
+    border: 2px solid #E74749;
+    border-radius: 2px;
+    color: #E74749;
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    height: 36px;
+    margin-right: 50px;
+    letter-spacing: 0.5px;
+    line-height: 36px;
+    margin-bottom: 15px;
+    padding: 0 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.2s ease-out;
+}
+
+.cta:hover {
+    background-color: #E74749;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #fff;
+    -moz-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* TEAM */
+
+#card {
+  overflow:hidden;
+  text-align:center;
+  width:320px;
+  height:535px;
+  background: url(http://www.riccardotartaglia.it/img/nature.jpg);
+  background-size:cover;
+  background-position:center center;
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  margin:auto;
+  margin-bottom: 30px;
+  box-shadow: 
+    0px 30px 30px -20px rgba(0,0,0,1), 
+    inset 0 0 0 1000px rgba(67,52,109,.6);
+  transition: all .4s cubic-bezier(.37,.26,.35,1)
+}
+#card:hover { 
+  box-shadow: 
+    0px 30px 30px -20px rgba(0,0,0,.9), 
+    inset 0 0 0 1000px rgba(67,52,109,.2);
+}
+#card:hover #avatar {
+  animation:none;
+  box-shadow:0;
+  width:200px; 
+  height:200px;
+}
+
+#card:hover #profile{
+  opacity:1;
+  bottom:0;
+}
+#profile {
+  transition: all .5s cubic-bezier(.37,.26,.35,1);
+  opacity:0;
+  position:absolute; 
+  bottom:20px; 
+  width:100%;
+}
+#profile h1 {
+  color:#fff;
+  padding:0;
+  margin:0;
+}
+
+#profile h3 {
+  color:#aaa;
+  padding:0;
+  margin:5px 0 40px 0; 
+  font-size:.9em
+}
+#avatar {
+  transition: all .4s cubic-bezier(.37,.26,.35,1);
+  animation: circleAn 4s infinite;
+  width:150px; height:150px;
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  margin:auto;
+  background:url(https://dl.dropboxusercontent.com/u/99892820/male-users/men48-photo-by-Tom-Coates.jpg);
+  background-size:cover;
+  background-position:center center;
+  border-radius:100%;
+  box-shadow:0px 30px 30px -25px rgba(0,0,0,0.6);
+}
+@keyframes circleAn {
+  0%   { 
+    box-shadow:
+      0px 30px 30px -25px rgba(0,0,0,0.6), 
+      0px 0px 0px 0px rgba(102,52,105,1), 
+      0px 0px 0px 0px rgba(102,52,105,.7),
+      0px 0px 0px 0px rgba(102,52,105,.5);
+  }
+ 100% { 
+   box-shadow:
+     0px 30px 30px -25px rgba(0,0,0,0.6), 
+     0px 0px 0px 70px rgba(102,52,105,0),
+     0px 0px 0px 200px rgba(102,52,105,0),
+     0px 0px 0px 300px rgba(102,52,105,0);
+  }
 }

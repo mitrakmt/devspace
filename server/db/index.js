@@ -65,12 +65,12 @@ Users.belongsToMany(Projects, {through: UsersProjects, foreignKey: 'userId'})
 // Posts:Users (1:1)
 // Users:Posts (1:n)
 Posts.belongsTo(Users)
-Users.hasMany(Posts, {foreignKey: 'userId'})
+Users.hasMany(Posts, {foreignKey: 'userId', onDelete: 'cascade'})
 
 // Comments:Users (1:1)
 // Users:Comments (1:n)
 Comments.belongsTo(Users)
-Users.hasMany(Comments, {foreignKey: 'userId'})
+Users.hasMany(Comments, {foreignKey: 'userId', onDelete: 'cascade'})
 
 // Interactions:Users (1:1)
 // Users:Interactions (1:n)
@@ -80,12 +80,12 @@ Users.hasMany(Interactions, {foreignKey: 'userId'})
 // Comments:Posts (1:1)
 // Posts:Comments (1:n)
 Comments.belongsTo(Posts)
-Posts.hasMany(Comments, {foreignKey: 'postId'})
+Posts.hasMany(Comments, {foreignKey: 'postId', onDelete: 'cascade'})
 
 // Interactions:Posts (1:1)
 // Posts:Interactions (1:n)
 Interactions.belongsTo(Posts)
-Posts.hasMany(Interactions, {foreignKey: 'postId'})
+Posts.hasMany(Interactions, {foreignKey: 'postId', onDelete: 'cascade'})
 
 /* *
 * ChatRooms:Chats:Users
@@ -94,7 +94,7 @@ Posts.hasMany(Interactions, {foreignKey: 'postId'})
 // Chats:Users (1:1)
 // Users:Chats (1:n)
 Chats.belongsTo(Users)
-Users.hasMany(Chats, {foreignKey: 'userId'})
+Users.hasMany(Chats, {foreignKey: 'userId', onDelete: 'cascade'})
 
 /* *
 * Follows:Users

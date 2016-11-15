@@ -59,7 +59,6 @@ passport.use(new Strategy({
     }
   })
   .then(user => {
-    console.log("USERRRRRR ", user)
     Follows.findOne({
       where: {
         userId: user[0].id,

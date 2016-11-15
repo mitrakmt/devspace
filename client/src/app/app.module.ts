@@ -4,6 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -15,26 +18,28 @@ import { NewsfeedPostComponent } from './home/newsfeed/newsfeed-list/newsfeed-po
 import { NewsfeedListComponent } from './home/newsfeed/newsfeed-list/newsfeed-list.component';
 import { GithubListComponent } from './home/github/github-list/github-list.component';
 import { GithubItemComponent } from './home/github/github-list/github-item.component';
-import { LandingComponent } from './landing/landing.component';
-import { NavbarComponent } from './landing/navbar/navbar.component';
-import { MainComponent } from './landing/main/main.component';
+import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.component';
+import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfeed-comments.component';
+import { ProjectSidebarService } from './home/project-sidebar/project-sidebar.service';
 import { HomeService } from './home/home.service';
-import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { GithubListService } from './home/github/github-list/github-list.service';
 import { ProjectSidebarListService } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.service';
 import { ProjectSidebarListComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.component';
 import { ProjectSidebarItemComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-item.component';
-import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
 import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service';
 import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.component';
+import { LandingComponent } from './landing/landing.component';
+import { NavbarComponent } from './landing/navbar/navbar.component';
+import { MainComponent } from './landing/main/main.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectDashboardService } from './project-dashboard/project-dashboard.service';
 import { ProjectCommitsComponent } from './project-dashboard/project-commits/project-commits.component';
-import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfeed-comments.component';
-
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileService } from './profile/profile.service';
+import { ProfileFeedComponent } from './profile/profile-feed/profile-feed.component';
+import { ProfileFeedService } from './profile/profile-feed/profile-feed.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +63,9 @@ import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfee
     NewcommentComponent,
     ProjectDashboardComponent,
     ProjectCommitsComponent,
-    NewsfeedCommentsComponent
+    NewsfeedCommentsComponent,
+    ProfileComponent,
+    ProfileFeedComponent
   ],
   imports: [
     BrowserModule,
@@ -69,13 +76,14 @@ import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfee
     RouterModule.forRoot([
       {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/landing',
         pathMatch: 'full'
       },
       { path: 'landing', component: LandingComponent },
       { path: 'home', component: HomeComponent },
       { path: 'app', component: AppComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'profile/:userId', component: ProfileComponent },
       { path: 'signup', component: LoginComponent },
       { path: 'auth/github/callback', redirectTo: '/home'},
       { path: 'auth/github', children: []},
@@ -87,9 +95,12 @@ import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfee
     GithubListService,
     ProjectSidebarListService,
     LoginService,
+    ProfileService,
     NewsfeedListService,
     AUTH_PROVIDERS,
-    ProjectDashboardService
+    ProjectDashboardService,
+    ProjectSidebarService,
+    ProfileFeedService
   ],
   bootstrap: [AppComponent]
 })

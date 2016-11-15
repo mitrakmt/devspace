@@ -33,6 +33,7 @@ usersModel.GET_COMMENTS_AND_INTERACTIONS = (userId, posts) => {
     id: postIds
   })
   .then(comments => {
+    console.log("COMMENTS", comments)
     return comments
   })
 
