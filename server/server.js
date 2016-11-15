@@ -17,6 +17,20 @@ let Follows = require('./db').Follows
 let jwt = require('jsonwebtoken')
 let cookieParser = require('cookie-parser')
 let PORT = process.env.PORT || 8000
+let http = require('http').Server(app)
+let io = require('socket.io')(http)
+
+//socketio calls
+io.on('connection', (socket)=>{
+  console.log('socket connected');
+  socket.on('disconnect', ()=>{
+    console.log('socket disconnected');
+  });
+  socket.on('chat message', (msg)=>{
+    io.emit('chat message server', msg)
+    console.log('chat message', msg);
+  })
+})
 
 passport.serializeUser((user, done) => {
   done(null, user)
@@ -120,6 +134,6 @@ app.use('/test', (req, res) => {
 
 app.use('/api', rootRouter)
 
-app.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log('Listening on port ', PORT)
 })
