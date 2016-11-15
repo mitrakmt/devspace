@@ -5,21 +5,17 @@ import { NewsfeedListService } from './newsfeed-list.service';
 
 @Component({
   selector: 'app-newsfeed-comments',
-  templateUrl: './newsfeed-comments.component.html',
+  template: `
+        <md-card style="margin-bottom: 20px" md-padding md-margin>
+         <div *ngFor="let comment of comments">
+          <p>{{comment.username}}: {{comment.content}}</p>
+         </div>           
+        </md-card>`
 })
-export class NewsfeedCommentsComponent implements OnInit {
-@Input('postId') postId: number;
-@Input() comment: string;
-newsfeedComments: NewsfeedComment[] = [];
-  constructor(private newsfeedListService: NewsfeedListService) { }
-  ngOnInit() {
-    this.newsfeedListService.fetchComments(this.postId)
-      .subscribe(
-        data => {
-          console.log('comments data', data)
-          this.newsfeedComments = data
-          return data
-        }
-      )
-  }
+export class NewsfeedCommentsComponent {
+@Input('comments') comments: any;
+  constructor(private newsfeedListService: NewsfeedListService) {
+   }
+  newsfeedComments: NewsfeedComment[];
+  
 }
