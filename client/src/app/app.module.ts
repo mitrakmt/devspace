@@ -35,7 +35,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectDashboardService } from './project-dashboard/project-dashboard.service';
-import { ProjectCommitsComponent } from './project-commits/project-commits.component';
+import { ProjectCommitsComponent } from './project-dashboard/project-commits/project-commits.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './profile/profile.service';
 import { ProfileFeedComponent } from './profile/profile-feed/profile-feed.component';
