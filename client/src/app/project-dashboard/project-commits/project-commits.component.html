@@ -1,0 +1,11 @@
+<p>
+  project-commits works!
+</p>
+<div>
+  <h3>Commits</h3>
+  <p *ngFor="let commit of projectCommits">
+    message: {{commit?.message}}
+    url: {{commit?.url}}
+    username: {{commit?.username}}
+  </p>
+</div> 

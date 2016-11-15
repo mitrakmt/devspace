@@ -2,6 +2,7 @@ let projectsModel = {}
 let _ = require('lodash')
 let request = require('request-promise')
 let Projects = require('../db').Projects
+let Users = require('../db').Users
 let UsersProjects = require('../db').UsersProjects
 
 projectsModel.CREATE_PROJECT = (userId, owner, name, url, description) => {
@@ -46,11 +47,14 @@ projectsModel.GET_PROJECTS = (userId) => {
   })
 }
 
-projectsModel.GET_PROJECT_FROM_DB = (userId, projectId) => {
+projectsModel.GET_PROJECT_FROM_DB = (projectId) => {
   return Projects.findOne({
     where: {
       id: projectId
-    }
+    },
+    include: [{
+      model: Users
+    }],
   })
   .then(project => {
     return project
@@ -137,20 +141,22 @@ projectsModel.REMOVE_MEMBER = (userId, projectId, idToRemove) => {
   })
 }
 
-projectsModel.GET_COMMITS = (username, repo) => {
+projectsModel.GET_COMMITS = (username, repo, branch) => {
   let options = {
-    url: `https://api.github.com/repos/${username}/${repo}/commits`,
+    url: `https://api.github.com/repos/${username}/${repo}/commits?sha=${branch}`,
     headers: {
       'User-Agent': username
     }
   }
-
   return request.get(options)
    .then(result => {
      return result
    })
    .catch(err => {
-     console.log(err)
+     return {
+       title: 'Err in retrieving commits',
+       err: err
+     }
    })
 }
 
@@ -164,6 +170,7 @@ projectsModel.GET_BRANCHES = (username, repo) => {
 
   return request.get(options)
    .then(result => {
+     console.log('inside model',result)
      return result
    })
    .catch(err => {
@@ -225,7 +232,8 @@ projectsModel.GET_CONTRIBUTORS = (username, repo) => {
 
 projectsModel.GET_LANGUAGES = (username, repo) => {
   let options = {
-    url: `https://api.github.com/repos/${username}/${repo}/languages`,
+    // url: `https://api.github.com/repos/${username}/${repo}/languages`,
+    url: `https://api.github.com/repos/hackersquare/devspace/languages`,
     headers: {
       'User-Agent': username
     }
