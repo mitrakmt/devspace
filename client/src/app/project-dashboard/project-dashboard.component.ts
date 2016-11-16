@@ -37,10 +37,17 @@ import { MaterialModule } from '@angular/material';
       </p>
     </div>
 
+    <div>
+      <h3>Branches</h3>
+      <p *ngFor="let branch of projectBranches">
+        {{branch?.name}}
+      </p>
+    </div>
+
     <div class="readme">
       <h3>Readme</h3>
       {{projectReadme?._body}}
-    </div> 
+    </div>
 
     <app-project-commits [projectId]="projectId"></app-project-commits>
   `,
@@ -49,8 +56,8 @@ import { MaterialModule } from '@angular/material';
 export class ProjectDashboardComponent implements OnInit {
   private projectId: number;
   private projectInfo = this.projectDashboardService.projectInfo;
-  private branchSHA = '37e7f629e751fa0b0a079fb623a825fd0283c913';
   private projectCommits;
+  private projectBranches;
   private projectForks;
   private owner;
   private repo;
@@ -85,6 +92,13 @@ export class ProjectDashboardComponent implements OnInit {
         this.projectForks = projectForks;
         console.log('project forks', this.projectForks);
         return projectForks;
+      });
+
+    this.projectDashboardService.fetchProjectBranches(this.projectId)
+      .subscribe(projectBranches => {
+        this.projectBranches = projectBranches;
+        console.log('project Branches', this.projectBranches);
+        return projectBranches;
       });
 
     this.projectDashboardService.fetchProjectContributors(this.projectId)
