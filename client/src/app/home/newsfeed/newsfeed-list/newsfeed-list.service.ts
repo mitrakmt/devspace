@@ -9,6 +9,7 @@ import * as io from 'socket.io-client';
 // let socket = io("http://localhost:8000")
 
 
+
 @Injectable()
 
 export class NewsfeedListService {
@@ -31,8 +32,8 @@ newsfeedPosts: NewsfeedPost[] = [];
     sendNewsfeedUpdate(post: any): Observable<any> {
       let userid = localStorage.getItem('userid')
       let username = localStorage.getItem('username')
-      console.log('username in service', username)
-      let body = {'content': post};
+
+      let body = {'content': post };
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
       console.log("body", body, headers)
