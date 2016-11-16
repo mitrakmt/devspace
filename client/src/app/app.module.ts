@@ -31,6 +31,7 @@ import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.componen
 import { LandingComponent } from './landing/landing.component';
 import { NavbarComponent } from './landing/navbar/navbar.component';
 import { MainComponent } from './landing/main/main.component';
+import { MainService } from './landing/main/main.service';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
@@ -100,7 +101,8 @@ import { ProfileFeedService } from './profile/profile-feed/profile-feed.service'
     AUTH_PROVIDERS,
     ProjectDashboardService,
     ProjectSidebarService,
-    ProfileFeedService
+    ProfileFeedService,
+    MainService
   ],
   bootstrap: [AppComponent]
 })

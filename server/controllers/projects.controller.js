@@ -1,6 +1,8 @@
 let Projects = require('../models').projectsModel
 let Users = require('../db').Users
 let projectsController = {}
+let showdown  = require('showdown')
+let converter = new showdown.Converter()
 
 projectsController.GET_PROJECTS = (req, res) => {
   let userId = req.headers['userid']
@@ -177,7 +179,8 @@ projectsController.GET_README = (req, res) => {
 
       Projects.GET_README(username, repo)
         .then(result => {
-          res.status(200).send(result)
+          let resultHTML = converter.makeHtml(result)
+          res.status(200).send(resultHTML)
         })
     })
 }

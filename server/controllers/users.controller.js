@@ -1,5 +1,7 @@
 let Users = require('../models').usersModel
 let Projects = require('../models').projectsModel
+let request = require('request')
+
 
 let usersController = {}
 
@@ -12,6 +14,18 @@ usersController.GET_PROFILE = (req, res) => {
     .then(allPosts => {
       res.status(200).send(allPosts)
     })
+}
+
+usersController.LOGIN = (req, res) => {
+  let options = {
+    'redirect_uri': 'localhost:4200/home'
+  }
+
+  res.redirect('https://github.com/login/oauth/authorize?scope=user:email&client_id=' + process.env.GITHUB_ID + '&redirect_uri=localhost:4200/home')
+  // request.get('https://github.com/login/oauth/authorize?scope=user:email&client_id=' + process.env.GITHUB_ID, options, response => {
+  //   console.log('response', response)
+  //   res.status(200).send(response)
+  // })
 }
 
 usersController.EDIT = (req, res) => {

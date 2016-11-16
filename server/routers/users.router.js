@@ -11,6 +11,9 @@ usersRouter.route('/profile/code')
 usersRouter.route('/logout')
   .get(usersController.LOGOUT)
 
+usersRouter.route('/login')
+  .get(usersController.LOGIN)
+
 usersRouter.route('/')
   .put(usersController.EDIT)
   .delete(usersController.DELETE_USER)
