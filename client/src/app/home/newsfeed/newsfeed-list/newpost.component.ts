@@ -29,7 +29,6 @@ export class NewpostComponent {
   onSubmit(form: NgForm) {
     let newPost = form.value.post
     form.reset()
-    // console.log(newPost)
     this._newsfeedListService.sendNewsfeedUpdate(newPost)
       .subscribe(
         data => {
