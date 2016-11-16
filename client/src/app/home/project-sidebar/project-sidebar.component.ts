@@ -10,11 +10,11 @@ import { Observable } from 'rxjs/Observable';
 export class ProjectSidebarComponent implements OnInit {
 
   constructor(private projectSidebarService: ProjectSidebarService) { 
-    this.projectSidebarService.addProject = ():Observable<any> => {
-      console.log('project sidebar asdf');
-      let baseball = 'baseball'
-      return baseball
-    }
+    // this.projectSidebarService.addProject = ():Observable<any> => {
+    //   console.log('project sidebar asdf');
+    //   let baseball = 'baseball'
+    //   return baseball
+    // }
   }
 
   ngOnInit() {

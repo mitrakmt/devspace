@@ -9,9 +9,7 @@ export class MainService {
   constructor(private _http: Http) { }
 
     login(): Observable<any> {
-      let headers = new Headers({ 'client_id': 'b83b7a6429ff48c6fd4e', 'redirect_uri': 'http://localhost:4200/api/auth/github/callback', 'allow_signup': 'false' })
-      let options = new RequestOptions({ headers: headers })
-      return this._http.get('https://github.com/login/oauth/authorize', options)
+      return this._http.get('/api/users/login')
         .map((res: Response) => {
           console.log("RES", res)
           return res.json();
