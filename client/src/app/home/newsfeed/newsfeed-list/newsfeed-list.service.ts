@@ -7,7 +7,7 @@ import { NewsfeedPost } from '../newsfeed-post';
 
 
 import * as io from 'socket\.io-client';
-let socket = io("http://localhost:8000")
+// let socket = io("http://localhost:8000")
 
 
 @Injectable()
@@ -31,6 +31,7 @@ newsfeedPosts: NewsfeedPost[] = [];
     sendNewsfeedUpdate(post: any): Observable<any> {
       let userid = localStorage.getItem('userid')
       let username = localStorage.getItem('username')
+      console.log('username in service', username)
       let body = {'content': post};
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
@@ -52,11 +53,12 @@ newsfeedPosts: NewsfeedPost[] = [];
         headers: headers
       })
         .map((data) => data.json())
+        
     }
-    socketServer(callback){
-      socket.on('chat message server', function(msg) {
-    console.log('msg: ', msg);
-    callback(msg)
-  })
-    }
+  //   socketServer(callback){
+  //     socket.on('chat message server', function(msg) {
+  //   console.log('msg: ', msg);
+  //   callback(msg)
+  // })
+  //   }
 }

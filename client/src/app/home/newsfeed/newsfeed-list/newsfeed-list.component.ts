@@ -22,7 +22,7 @@ export class NewsfeedListComponent implements OnInit {
     this.newsfeedListService.fetchNewsfeedUpdates()
       .subscribe(
         data => {
-          console.log('newsfeed data', data)
+          // console.log('newsfeed data', data)
           this.newsfeedPosts = data
           this.newsfeedListService.newsfeedPosts = data
           console.log("newsfeedserviceposts", this.newsfeedListService.newsfeedPosts)
