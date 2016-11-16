@@ -5,8 +5,7 @@ import 'rxjs/add/operator/map';
 import { NewsfeedComment } from '../newsfeed-comment';
 import { NewsfeedPost } from '../newsfeed-post';
 
-
-import * as io from 'socket\.io-client';
+import * as io from 'socket.io-client';
 // let socket = io("http://localhost:8000")
 
 
@@ -25,8 +24,9 @@ newsfeedPosts: NewsfeedPost[] = [];
         .map((res:Response) => {this.newsfeedPosts = res.json();
           return this.newsfeedPosts
       })
-        .catch(err=> {return Observable.throw(err.json());
-          })
+        .catch(err=> { 
+          return Observable.throw(err.json()) 
+        })
     }
     sendNewsfeedUpdate(post: any): Observable<any> {
       let userid = localStorage.getItem('userid')
@@ -53,7 +53,14 @@ newsfeedPosts: NewsfeedPost[] = [];
         headers: headers
       })
         .map((data) => data.json())
-        
+    }
+
+    likePost(postId, userid): Observable<any> {
+      let headers = new Headers({'userid': userid});
+      headers.append('Content-Type', 'application/json');
+      return this._http.put('/api/posts/interactions/' + postId, {}, {
+        headers: headers
+      })
     }
   //   socketServer(callback){
   //     socket.on('chat message server', function(msg) {
