@@ -12,7 +12,18 @@ postsModel.CREATE_POST = (userId, content, paid, likes) => {
     likes: likes
   })
   .then(post => {
-    return post
+    return Posts.findOne({
+      where: {
+        id: post.id
+      },
+      include: [{
+        model: Users
+      }]
+    })
+    .then(foundPost => {
+      // console.log('++++foundpost!', foundPost)
+      return foundPost
+    })
   })
 }
 

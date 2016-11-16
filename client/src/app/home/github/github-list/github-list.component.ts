@@ -78,7 +78,7 @@ githubposts: Github[] = [];
             }
           })
           this.githubposts = data
-          console.log('github data', data)
+          // console.log('github data', data)
           return data
         }
       )

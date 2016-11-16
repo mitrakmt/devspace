@@ -3,6 +3,7 @@ let postsController = {}
 
 postsController.CREATE_POST = (req, res) => {
   let userId = req.headers['userid']
+  // let username = req.headers['username']
   let content = req.body.content
   let paid = false
   let likes = 0
@@ -11,6 +12,7 @@ postsController.CREATE_POST = (req, res) => {
       if (!result) {
         res.status(500).send('Server error')
       }
+      console.log("++++results in ctrl", result)
       res.status(200).send(result)
     })
 }

@@ -29,14 +29,14 @@ export class NewcommentComponent{
 
   constructor(private _newsfeedListService: NewsfeedListService) {  }
   onSubmit(form: NgForm) {
-    console.log("postid in submit", this.postId)
+    // console.log("postid in submit", this.postId)
     let newComment = form.value.comment
     form.reset()
-    console.log(newComment)
+    // console.log(newComment)
     this._newsfeedListService.sendNewComment(newComment, this.postId)
       .subscribe(
         data => {
-          console.log("comment data===", data)
+          // console.log("comment data===", data)
           this._newsfeedListService.newsfeedPosts.map((post)=>{
             console.log("post is", post)
           if(post.id === this.postId){
