@@ -41,6 +41,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './profile/profile.service';
 import { ProfileFeedComponent } from './profile/profile-feed/profile-feed.component';
 import { ProfileFeedService } from './profile/profile-feed/profile-feed.service';
+import { TeamDashboardComponent } from './team-dashboard/team-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ProfileFeedService } from './profile/profile-feed/profile-feed.service'
     ProjectCommitsComponent,
     NewsfeedCommentsComponent,
     ProfileComponent,
-    ProfileFeedComponent
+    ProfileFeedComponent,
+    TeamDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +91,7 @@ import { ProfileFeedService } from './profile/profile-feed/profile-feed.service'
       { path: 'auth/github/callback', redirectTo: '/home'},
       { path: 'auth/github', children: []},
       { path: 'projects/:projectId', component: ProjectDashboardComponent }
+      { path: 'teams', component: TeamDashboardComponent }
     ])
   ],
   providers: [
