@@ -133,7 +133,7 @@ postsModel.UPDATE_INTERACTION = (userId, postId) => {
         })
         .then(post => {
           post.increment('likes')
-          return post
+          return 'Increment'
         })
       })
     } else {
@@ -148,7 +148,7 @@ postsModel.UPDATE_INTERACTION = (userId, postId) => {
         return post
       })
       .then(post => {
-        return post
+        return 'Decrement'
       })
     }
   })

@@ -48,7 +48,12 @@ postsController.UPDATE_INTERACTION = (req, res) => {
   } else {
     Posts.UPDATE_INTERACTION(userid, postId)
     .then(post => {
-      res.status(200).send(post)
+      console.log("POSTPOSTPOST", post)
+      if (post === 'Increment') {
+        res.status(201).send(post)
+      } else {
+        res.status(205).send(post)
+      }
     })
   }
 }

@@ -23,26 +23,8 @@ export class ProjectSidebarComponent implements OnInit {
           .subscribe(
             data => {
               return data
-              // this._newsfeedListService.newsfeedPosts.map((post)=>{
-              //   console.log("post is", post)
-              // if(post.id === this.postId){
-              //   post.comments.unshift(data)
-              // }
-              // return post
-              // })
       })
     }
-
-  // importProject = () => {
-  //   let userId = localStorage.getItem('userid');
-  //   let projectName = 'blah';
-  //   this.projectSidebarService.importProject(userId, projectName)
-  //     .subscribe(
-  //       data => {
-  //         return data
-  //       }
-  //     )
-  // }
 
   ngOnInit() {
     
