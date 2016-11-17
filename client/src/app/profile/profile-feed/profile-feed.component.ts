@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile-feed',
-  templateUrl: './profile-feed.component.html',
-  styleUrls: ['./profile-feed.component.css']
+  templateUrl: `
+        <div>
+          <app-profile-list></app-profile-list>
+        </div>
+  `
 })
 export class ProfileFeedComponent implements OnInit {
 
