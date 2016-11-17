@@ -1,0 +1,11 @@
+.time {
+    float: right; 
+    font-size: 11px; 
+    margin-bottom: -15px; 
+    color: gray;
+}
+
+.card {
+    margin-bottom: 20px; 
+    background-color: white;
+}
