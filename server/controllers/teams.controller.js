@@ -5,6 +5,9 @@ teamsController.GET_TEAMS = (req, res) => {
   let userId = req.headers['userid']
 
   Teams.GET_TEAMS(userId)
+    .then(teams => {
+      res.status(200).send(teams)
+    })
 }
 
 teamsController.CREATE_TEAM = (req, res) => {
@@ -14,6 +17,9 @@ teamsController.CREATE_TEAM = (req, res) => {
   let teamAdmins = req.body.teamAdmins
 
   Teams.CREATE_TEAM(userId, teamName, teamDescription, teamAdmins)
+    .then(team => {
+      res.status(200).send(team)
+    })
 }
 
 teamsController.GET_TEAM = (req, res) => {
@@ -21,6 +27,9 @@ teamsController.GET_TEAM = (req, res) => {
   let teamId = req.params.teamId
 
   Teams.GET_TEAM(userId, teamId)
+    .then(team => {
+      res.status(200).send(team)
+    })
 }
 
 teamsController.DELETE_TEAM = (req, res) => {
@@ -29,6 +38,9 @@ teamsController.DELETE_TEAM = (req, res) => {
   let idToAdd = req.body.idToAdd
 
   Teams.DELETE_TEAM(userId, teamId)
+    .then(team => {
+      res.status(200).send(team)
+    })
 }
 
 teamsController.ADD_ADMIN = (req, res) => {
@@ -81,8 +93,30 @@ teamsController.GET_TEAM_PROJECTS = (req, res) => {
 
   Teams.GET_TEAM_PROJECTS(userId, teamId)
     .then(projects => {
+      console.log('get team projects ctrl', projects)
       res.status(200).send(projects)
     })
 }
 
+teamsController.GET_TEAM_PROJECTS = (req, res) => {
+  let userId = req.headers['userid']
+  let teamId = req.params.teamId
+
+  Teams.GET_TEAM_PROJECTS(userId, teamId)
+    .then(projects => {
+      console.log('get team projects ctrl', projects)
+      res.status(200).send(projects)
+    })
+}
+
+teamsController.ADD_PROJECT_TO_TEAM = (req, res) => {
+  let projectId = req.headers['projectid']
+  let teamId = req.params.teamId
+
+  Teams.ADD_PROJECT_TO_TEAM(projectId, teamId)
+    .then(projects => {
+      console.log('get team projects ctrl', projects)
+      res.status(200).send(projects)
+    })
+}
 module.exports = teamsController

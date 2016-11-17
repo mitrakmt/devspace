@@ -41,7 +41,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './profile/profile.service';
 import { ProfileFeedComponent } from './profile/profile-feed/profile-feed.component';
 import { ProfileFeedService } from './profile/profile-feed/profile-feed.service';
-import { TeamDashboardComponent } from './team-dashboard/team-dashboard.component';
+import { TeamDashboardComponent } from './teams/team-dashboard/team-dashboard.component';
+import { TeamService } from './teams/team.service';
+import { TeamProjectComponent } from './teams/team-project/team-project.component';
+import { TeamsComponent } from './teams/teams.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,9 @@ import { TeamDashboardComponent } from './team-dashboard/team-dashboard.componen
     NewsfeedCommentsComponent,
     ProfileComponent,
     ProfileFeedComponent,
-    TeamDashboardComponent
+    TeamDashboardComponent,
+    TeamProjectComponent,
+    TeamsComponent
   ],
   imports: [
     BrowserModule,
@@ -90,8 +95,9 @@ import { TeamDashboardComponent } from './team-dashboard/team-dashboard.componen
       { path: 'signup', component: LoginComponent },
       { path: 'auth/github/callback', redirectTo: '/home'},
       { path: 'auth/github', children: []},
-      { path: 'projects/:projectId', component: ProjectDashboardComponent }
-      { path: 'teams', component: TeamDashboardComponent }
+      { path: 'projects/:projectId', component: ProjectDashboardComponent },
+      { path: 'teams', component: TeamsComponent },
+      { path: 'teams/:teamId', component: TeamDashboardComponent }
     ])
   ],
   providers: [
@@ -105,7 +111,8 @@ import { TeamDashboardComponent } from './team-dashboard/team-dashboard.componen
     ProjectDashboardService,
     ProjectSidebarService,
     ProfileFeedService,
-    MainService
+    MainService,
+    TeamDashboardService
   ],
   bootstrap: [AppComponent]
 })

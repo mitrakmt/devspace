@@ -40,12 +40,15 @@ projectsController.UPDATE_PROJECT = (req, res) => {
   let userId = req.headers['userid']
   let deadline = req.body.deadline
   let projectId = req.params.projectId
-  let projectName = req.params.projectName
+  let projectName = req.body.projectName
+  let teamId = req.body.teamId
+  
   let url = req.body.url
   let projectDataToUpdate = {
     deadline: deadline,
     projectName: projectName,
-    url: url
+    url: url,
+    teamId: teamId
   }
 
   Projects.UPDATE_PROJECT(userId, projectId, projectDataToUpdate)

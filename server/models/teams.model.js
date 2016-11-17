@@ -1,5 +1,6 @@
 let Users = require('../db').Users
 let Teams = require('../db').Teams
+let Projects = require('../db').Projects
 let UsersTeams = require('../db').UsersTeams
 let teamsModel = {}
 
@@ -20,11 +21,18 @@ teamsModel.GET_TEAMS = (userId) => {
 teamsModel.CREATE_TEAM = (userId, teamName, teamDescription, teamAdmins) => {
   return Teams.create({
     name: teamName,
-    description: teamDescription
+    description: teamDescription,
+    owner: userId
   })
   .then(team => {
-    team.setUsers(userId)
-    return team
+    return UsersTeams.create({
+      isAdmin: true,
+      teamId: team.id,
+      userId: userId
+    })
+    .then(() => {
+      return team
+    })
   })
 }
 
@@ -57,7 +65,7 @@ teamsModel.ADD_ADMIN = (userId, teamId, idToAdd) => {
   return UsersTeams.create({
     userId: idToAdd,
     teamId: teamId,
-    isAdmin: false
+    isAdmin: true
   })
   .then(result => {
     return result
@@ -108,6 +116,7 @@ teamsModel.GET_TEAM_PROJECTS = (userId, teamId) => {
     }
   })
   .then(projects => {
+    console.log('projects', projects)
     return projects
   })
 }
