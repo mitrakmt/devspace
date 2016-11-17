@@ -37,9 +37,14 @@ import { ProjectDashboardComponent } from './project-dashboard/project-dashboard
 import { ProjectDashboardService } from './project-dashboard/project-dashboard.service';
 import { ProjectCommitsComponent } from './project-dashboard/project-commits/project-commits.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ProfileService } from './profile/profile.service';
 import { ProfileFeedComponent } from './profile/profile-feed/profile-feed.component';
+import { ProfileService } from './profile/profile.service'
 import { ProfileFeedService } from './profile/profile-feed/profile-feed.service';
+import { ProfileListComponent } from './profile/profile-feed/profile-list.component';
+import { NewProfilePostComponent } from './profile/profile-feed/newpost.component';
+import { NewProfileCommentComponent } from './profile/profile-feed/newcomment.component';
+import { ProfilePostComponent } from './profile/profile-feed/profile-post.component';
+import { ProfileCommentsComponent } from './profile/profile-feed/profile-comments.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +70,12 @@ import { ProfileFeedService } from './profile/profile-feed/profile-feed.service'
     ProjectCommitsComponent,
     NewsfeedCommentsComponent,
     ProfileComponent,
-    ProfileFeedComponent
+    ProfileFeedComponent,
+    ProfileListComponent,
+    NewpostComponent,
+    NewcommentComponent,
+    ProfilePostComponent,
+    ProfileCommentsComponent
   ],
   imports: [
     BrowserModule,

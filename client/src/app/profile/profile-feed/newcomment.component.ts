@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { NewsfeedListService } from './newsfeed-list.service';
-import { NewsfeedComment } from '../newsfeed-comment';
+import { ProfileFeedService } from './profile-feed.service';
+import { ProfileComment } from './profile-comment';
 
 @Component({
   selector: 'app-newcomment',
@@ -22,19 +22,22 @@ import { NewsfeedComment } from '../newsfeed-comment';
       </form>
   `
 })
-export class NewcommentComponent{
+export class NewProfileCommentComponent{
   @Input("postId") postId: number;
   comment = {'content': ''}
-  newsfeedComment: NewsfeedComment = null;
+  profileComment: ProfileComment = null;
 
-  constructor(private _newsfeedListService: NewsfeedListService) {  }
+  constructor(private _profileFeedService: ProfileFeedService) {  }
   onSubmit(form: NgForm) {
+    // console.log("postid in submit", this.postId)
     let newComment = form.value.comment
     form.reset()
-    this._newsfeedListService.sendNewComment(newComment, this.postId)
+    // console.log(newComment)
+    this._profileFeedService.sendNewComment(newComment, this.postId)
       .subscribe(
         data => {
-          this._newsfeedListService.newsfeedPosts.map((post)=>{
+          // console.log("comment data===", data)
+          this._profileFeedService.profilePosts.map((post)=>{
             console.log("post is", post)
           if(post.id === this.postId){
             post.comments.unshift(data)
