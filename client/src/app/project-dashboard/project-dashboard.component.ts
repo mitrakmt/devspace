@@ -43,11 +43,7 @@ import { MaterialModule } from '@angular/material';
         {{branch?.name}}
       </p>
     </div>
-
-    <select *ngFor="let branch in projectBranches">
-      <option value="{{branch.name}}">{{branch.name}}</option>
-    </select>
-
+    
     <div class="readme">
       <h3>Readme</h3>
       {{projectReadme?._body}}
