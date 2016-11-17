@@ -13,12 +13,24 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left">
+
+      <form class="navbar-form navbar-left"  (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search Users">
+          <input 
+            class="form-control" 
+            placeholder="Username"
+            style="width: 100%"
+            type="text"
+            id="searchTerm"
+            name="searchTerm"
+            [(ngModel)]="searchTerm.text"
+            #searchTerm = "ngModel"
+            required>
         </div>
-        <button type="submit" class="btn btn-default"><a href="/auth/github">search</a></button>
+        <button md-raised-button type="submit" [disabled]="!f.valid" class="md-raised md-primary">Search Users</button>
+
       </form>
+
       <ul class="nav navbar-nav navbar-right">
         <li><a>teams</a></li>
         <li class="dropdown">

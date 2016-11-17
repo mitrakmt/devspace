@@ -9,6 +9,9 @@ homeRouter.route('/feed')
   // Requires req.headers.userid
   .get(homeController.GET_USER_FEED)
 
+homeRouter.route('/search/:searchTerm')
+  .get(homeController.SEARCH_USERS)
+
 homeRouter.route('/feed/posts')
   // Requires req.headers.userid
   .get(homeController.GET_FOLLOWED_USER_POSTS)

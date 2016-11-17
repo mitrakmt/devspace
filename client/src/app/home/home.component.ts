@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from './home.service'
+import { HomeService } from './home.service';
+import { Observable } from 'rxjs/Observable';
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,21 @@ import { HomeService } from './home.service'
 })
 export class HomeComponent implements OnInit {
 
+  project = {'name': ''}
+
   constructor(private homeService: HomeService) { }
+
+      onSubmit(form: NgForm) {
+          let projectName = form.value.project;
+          console.log(projectName)
+          let userId = localStorage.getItem('userid');
+          form.reset()
+          this.projectSidebarService.importProject(userId, projectName)
+            .subscribe(
+              data => {
+                return data
+        })
+      }
 
   ngOnInit() {
     this.homeService.convertCookieToToken()

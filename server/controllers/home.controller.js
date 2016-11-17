@@ -5,6 +5,7 @@ let Follows = require('../db').Follows
 let Comments = require('../db').Comments
 let Interactions = require('../db').Interactions
 let Users = require('../db').Users
+let request = require('request-promise')
 
 let homeController = {}
 
@@ -53,6 +54,27 @@ homeController.GET_GITHUB_ACTIVITY = (req, res) => {
         }
       })
       res.status(200).send(result)
+    })
+}
+
+homeController.SEARCH_USERS = (req, res) => {
+  let searchTerm = req.params.searchTerm
+  let username = req.headers['username']
+  let options = {
+    url: `https://api.github.com/users/${searchTerm}`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+    .then(user => {
+      let parsedUsers = JSON.parse(user)
+      console.log(parsedUsers)
+      res.status(200).send(parsedUsers)
+    })
+    .catch(err => {
+      return `Err in getting user profile`
     })
 }
 

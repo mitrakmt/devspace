@@ -25,7 +25,6 @@ usersModel.GET_COMMENTS_AND_INTERACTIONS = (userId, posts) => {
     id: postIds
   })
   .then(interactions => {
-    console.log(interactions)
     return interactions
   })
 
@@ -33,7 +32,6 @@ usersModel.GET_COMMENTS_AND_INTERACTIONS = (userId, posts) => {
     id: postIds
   })
   .then(comments => {
-    console.log("COMMENTS", comments)
     return comments
   })
 
@@ -74,10 +72,10 @@ usersModel.DELETE_USER = (userId) => {
   })
 }
 
-usersModel.GET_USER = (userId) => {
+usersModel.GET_USER = (username) => {
   return Users.findOne({
     where: {
-      id: userId
+      username: username
     }
   })
   .then(user => {

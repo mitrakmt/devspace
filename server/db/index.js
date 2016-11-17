@@ -122,12 +122,12 @@ Users.hasMany(Transactions, { as: 'sales', foreignKey: 'sellerId', onDelete: 'ca
 Users.hasMany(Transactions, { as: 'purchases', foreignKey: 'buyerId', onDelete: 'cascade', hooks: true })
 
 // // HELPER TO DROP ALL TABLES
-db.sync({force: true}).then(() => {
-  console.log('Tables have been dropped')
-})
-// db.sync().then(() => {
-//   console.log('Tables have been Created')
+// db.sync({force: true}).then(() => {
+//   console.log('Tables have been dropped')
 // })
+db.sync().then(() => {
+  console.log('Tables have been Created')
+})
 
 // Users.create({
 //   firstName: "CHRIS",

@@ -1,7 +1,6 @@
 let Users = require('../models').usersModel
 let Projects = require('../models').projectsModel
-let request = require('request')
-
+const request = require('request-promise')
 
 let usersController = {}
 
@@ -22,10 +21,6 @@ usersController.LOGIN = (req, res) => {
   }
 
   res.redirect('https://github.com/login/oauth/authorize?scope=user:email&client_id=' + process.env.GITHUB_ID + '&redirect_uri=localhost:4200/home')
-  // request.get('https://github.com/login/oauth/authorize?scope=user:email&client_id=' + process.env.GITHUB_ID, options, response => {
-  //   console.log('response', response)
-  //   res.status(200).send(response)
-  // })
 }
 
 usersController.EDIT = (req, res) => {
@@ -61,6 +56,51 @@ usersController.DELETE_USER = (req, res) => {
     })
 }
 
+usersController.GET_USER = (req, res) => {
+  let username = req.headers['username']
+  Users.GET_USER(username)
+    .then(user => {
+      res.status(200).send({
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "username": user.username,
+        "bio": user.bio,
+        "imageUrl": user.imageUrl,
+        "followerCount": user.followerCount,
+        "followingCount": user.followingCount,
+        "userId": user.id
+      })
+    })
+}
+
+usersController.GET_USER_GITHUB = (req, res) => {
+  let currentUser = req.headers['currentUser']
+  let username = req.headers['username']
+  let options = {
+    url: `https://api.github.com/users/${username}`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+    .then(user => {
+      let parsedUser = JSON.parse(user)
+      res.status(200).send({
+        "avatar_url": parsedUser.avatar_url,
+        "url": parsedUser.url,
+        "company": parsedUser.company,
+        "blog": parsedUser.blog,
+        "location": parsedUser.location,
+        "public_repos": parsedUser.public_repos,
+        "public_gists": parsedUser.public_gists
+      })
+    })
+    .catch(err => {
+      return `Err in getting user profile`
+    })
+}
+
 usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
   let userId = req.headers['userid']
   Users.GET_USER(userId)
@@ -76,7 +116,6 @@ usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
                 if (Object.keys(languages).length === 0) {
                   resolve(null)
                 }
-                console.log('languages in users controller', languages)
                 resolve(languages)
               })
               .catch(err => {

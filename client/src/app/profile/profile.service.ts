@@ -9,23 +9,22 @@ export class ProfileService {
 
   constructor(private _http: Http) {  }
 
-    // fetchUserInfo(): Observable<any> {
-    //   let username = localStorage.getItem('username')
-    //   let username = localStorage.getItem('userid')
-    //   let headers = new Headers({ 'username': username, 'userid': userid })
-    //   let options = new RequestOptions({ headers: headers })
-    //   return this._http.get('/api/home/github', options)
-    //     .map((res:Response) => res.json())
-    // }
+    userData: {};
+    githubData: {};
 
-    // fetchGithubUserInfo(): Observable<any> {
-    //   let username = localStorage.getItem('username')
-    //   let username = localStorage.getItem('userid')
-    //   let headers = new Headers({ 'username': username, 'userid': userid })
-    //   let options = new RequestOptions({ headers: headers })
-    //   return this._http.get('/api/home/github', options)
-    //     .map((res:Response) => res.json())
-    // }
+    fetchUserInfo(username): Observable<any> {
+      let headers = new Headers({ 'username': username })
+      let options = new RequestOptions({ headers: headers })
+      return this._http.get('/api/users/userProfile', options)
+        .map((data:Response) => data.json())
+    }
+
+    fetchGithubUserInfo(username, currentUser): Observable<any> {
+      let headers = new Headers({ 'username': username, 'currentUser': currentUser })
+      let options = new RequestOptions({ headers: headers })
+      return this._http.get('/api/users/userProfileGithub', options)
+        .map((data:Response) => data.json())
+    }
 
   follow(followedUsername, userid):Observable<any> {
       let headers = new Headers({'userid': userid});

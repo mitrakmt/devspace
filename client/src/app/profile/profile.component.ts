@@ -10,37 +10,39 @@ import { Router, CanActivate } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private profileService: ProfileService, private router: Router) { }
+  constructor(private _profileService: ProfileService, private router: Router) { }
 
   follow = () => {
     let followedUsername = this.router.url.slice(9);
     let userId = localStorage.getItem('userid');
-    this.profileService.follow(followedUsername, userId)
+    this._profileService.follow(followedUsername, userId)
       .subscribe(
         data => {
-          console.log('data', data)
           return data
         }
       )
   }
 
   ngOnInit() {
-    // this.profileService.fetchUserInfo()
-    //   .subscribe(
-    //     data => {
-    //       data.forEach((item) => {
-    //         console.log(item)
-    //       })
-    //     }
-    //   )
+    let username = this.router.url.slice(9);
+    let currentUser = localStorage.getItem('username');
 
-    // this.profileService.fetchGithubUserInfo()
-    //   .subscribe(
-    //     data => {
-    //       data.forEach((item) => {
-    //         console.log(item)
-    //       })
-    //     }
-    //   )
+    this._profileService.fetchUserInfo(username)
+      .subscribe(
+        data => {
+          this._profileService.userData = data;
+          console.log(this._profileService.userData)
+          return data
+        }
+      )
+
+    this._profileService.fetchGithubUserInfo(username, currentUser)
+      .subscribe(
+        data => {
+          this._profileService.githubData = data;
+          console.log('This', this._profileService.githubData)
+          return data
+        }
+      )
   }
 }

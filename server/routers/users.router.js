@@ -5,6 +5,12 @@ let passport = require('passport')
 usersRouter.route('/profile')
   .get(usersController.GET_PROFILE)
 
+usersRouter.route('/userProfile')
+  .get(usersController.GET_USER)
+
+usersRouter.route('/userProfileGithub')
+  .get(usersController.GET_USER_GITHUB)
+
 usersRouter.route('/profile/code')
   .get(usersController.GET_ALL_BYTES_OF_CODE)
 
