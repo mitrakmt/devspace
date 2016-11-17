@@ -30,10 +30,10 @@ followsController.GET_FOLLOWING = (req, res) => {
 }
 
 followsController.POST_FOLLOWING = (req, res) => {
+  let followedUsername = req.body.followedUsername
   let userId = req.params.userId
-  let followerId = req.body.followerId
 
-  Follows.POST_FOLLOWING(userId, followerId)
+  Follows.POST_FOLLOWING(followedUsername, userId)
     .then(followStatus => {
       res.status(200).send(followStatus)
     })
