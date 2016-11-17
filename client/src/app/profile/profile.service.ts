@@ -7,7 +7,7 @@ import { AuthHttp, JwtHelper } from 'angular2-jwt';
 @Injectable()
 export class ProfileService {
 
-  constructor(private _http: Http) { 
+  constructor(private _http: Http) {  }
 
     // fetchUserInfo(): Observable<any> {
     //   let username = localStorage.getItem('username')
@@ -27,6 +27,12 @@ export class ProfileService {
     //     .map((res:Response) => res.json())
     // }
 
+  follow(followedUsername, userid):Observable<any> {
+      let headers = new Headers({'userid': userid});
+      headers.append('Content-Type', 'application/json');
+      return this._http.post('/api/follows/' + userid + '/following', {'followedUsername': followedUsername}, {
+        headers: headers
+      })
   }
 
 }
