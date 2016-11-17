@@ -44,6 +44,10 @@ import { MaterialModule } from '@angular/material';
       </p>
     </div>
 
+    <select *ngFor="let branch in projectBranches">
+      <option value="{{branch.name}}">{{branch.name}}</option>
+    </select>
+
     <div class="readme">
       <h3>Readme</h3>
       {{projectReadme?._body}}
@@ -94,13 +98,6 @@ export class ProjectDashboardComponent implements OnInit {
         return projectForks;
       });
 
-    this.projectDashboardService.fetchProjectBranches(this.projectId)
-      .subscribe(projectBranches => {
-        this.projectBranches = projectBranches;
-        console.log('project Branches', this.projectBranches);
-        return projectBranches;
-      });
-
     this.projectDashboardService.fetchProjectContributors(this.projectId)
       .subscribe(projectContributors => {
         this.projectContributors = projectContributors;
@@ -133,7 +130,13 @@ export class ProjectDashboardComponent implements OnInit {
         console.log('project Readme', this.projectReadme);
         return projectReadme;
       });
-
+    
+    this.projectDashboardService.fetchProjectBranches(this.projectId)
+      .subscribe(projectBranches => {
+        this.projectBranches = projectBranches;
+        console.log('project Branches', this.projectBranches);
+        return projectBranches;
+      });
     });
   }
 }
