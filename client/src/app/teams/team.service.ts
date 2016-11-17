@@ -9,20 +9,22 @@ export class TeamService {
   private userId;
   public teamProjects;
   public teams;
+  public teamMembers;
+  public teamContributions;
 
   constructor(private _http: Http) { }
 
-  // fetchProjects(teamId): Observable<any> {
-  //   this.teamId = teamId;
-  //   let username = localStorage.getItem('username')
-  //   let headers = new Headers({ 'username': username })
-  //   let options = new RequestOptions({ headers: headers })
-  //   return this._http.get('/api/teams/' + teamId + '/projects', options)
-  //     .map((res: Response) => {
-  //       this.teamProjects = res;
-  //       return res.json();
-  //     });
-  // }
+  fetchProjects(teamId): Observable<any> {
+    this.teamId = teamId;
+    let userId = localStorage.getItem('userid')
+    let headers = new Headers({ 'userid': userId })
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/teams/' + teamId + '/projects', options)
+      .map((res: Response) => {
+        this.teamProjects = res.json();
+        return res.json();
+      });
+  }
 
   fetchTeams(userId): Observable<any> {
     this.userId = userId;
@@ -30,9 +32,44 @@ export class TeamService {
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/teams', options)
       .map((res: Response) => {
-        this.teams = res;
-        console.log('res in fetchTeams', res)
+        this.teams = res.json();
         return res.json();
       });
+  }
+
+    fetchTeamMembers(teamId): Observable<any> {
+    this.teamId = teamId;
+    return this._http.get('/api/teams/' + teamId + '/member')
+      .map((res: Response) => {
+        this.teamMembers = res.json();
+        return res.json();
+      });
+  }
+
+    createTeam(teamInfo){
+      console.log(teamInfo, 'teamInfo')
+      let userid = localStorage.getItem('userid')
+      let body = {
+        teamName: teamInfo.teamName,
+        teamDescription: teamInfo.teamDescription || null,
+       };
+      let headers = new Headers({'userid': userid});
+      headers.append('Content-Type', 'application/json');
+      return this._http.post('/api/teams', body, {
+        headers: headers
+      })
+        .map((data) => data.json())
+    }
+
+    fetchTeamContributions(teamId): Observable<any> {
+      this.teamId = teamId;
+      let userId = localStorage.getItem('userid')
+      let headers = new Headers({ 'userid': userId })
+      let options = new RequestOptions({ headers: headers })
+      return this._http.get('/api/teams/' + teamId + '/contributions', options)
+        .map((res: Response) => {
+          this.teamContributions = res.json();
+          return res.json();
+        });
   }
 }

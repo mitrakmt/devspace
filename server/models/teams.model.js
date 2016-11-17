@@ -110,15 +110,24 @@ teamsModel.REMOVE_MEMBER = (userId, teamId, idToRemove) => {
 }
 
 teamsModel.GET_TEAM_PROJECTS = (userId, teamId) => {
-  Projects.findAll({
+  return Projects.findAll({
     where: {
       teamId: teamId
     }
   })
   .then(projects => {
-    console.log('projects', projects)
     return projects
   })
 }
 
+teamsModel.GET_TEAM_MEMBERS = (teamId) => {
+  return Teams.find({
+    where: {
+      id: teamId
+    }
+  })
+  .then(teams => {
+    return teams.getUsers()
+  })
+}
 module.exports = teamsModel

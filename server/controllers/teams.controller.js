@@ -1,4 +1,5 @@
 let Teams = require('../models').teamsModel
+let Projects = require('../models').projectsModel
 let teamsController = {}
 
 teamsController.GET_TEAMS = (req, res) => {
@@ -93,18 +94,6 @@ teamsController.GET_TEAM_PROJECTS = (req, res) => {
 
   Teams.GET_TEAM_PROJECTS(userId, teamId)
     .then(projects => {
-      console.log('get team projects ctrl', projects)
-      res.status(200).send(projects)
-    })
-}
-
-teamsController.GET_TEAM_PROJECTS = (req, res) => {
-  let userId = req.headers['userid']
-  let teamId = req.params.teamId
-
-  Teams.GET_TEAM_PROJECTS(userId, teamId)
-    .then(projects => {
-      console.log('get team projects ctrl', projects)
       res.status(200).send(projects)
     })
 }
@@ -115,8 +104,61 @@ teamsController.ADD_PROJECT_TO_TEAM = (req, res) => {
 
   Teams.ADD_PROJECT_TO_TEAM(projectId, teamId)
     .then(projects => {
-      console.log('get team projects ctrl', projects)
       res.status(200).send(projects)
     })
 }
+
+teamsController.GET_TEAM_MEMBERS = (req, res) => {
+  let teamId = req.params.teamId
+
+  Teams.GET_TEAM_MEMBERS(teamId)
+    .then(members => {
+      res.status(200).send(members)
+    })
+}
+
+teamsController.GET_TEAM_CONTRIBUTIONS = (req, res) => {
+  let userId = req.headers['userid']
+  let teamId = req.params.teamId
+  let teamProjects
+  let teamName
+  Teams.GET_TEAM(userId, teamId)
+    .then(team => {
+      teamName = team.name
+      return team
+    })
+    .then(team => {
+      return Teams.GET_TEAM_PROJECTS(userId, teamId)
+        .then(projects => {
+          teamProjects = projects
+          return teamProjects
+        })
+    })
+    .then(teamProjects => {
+      let promises = teamProjects.map(project => {
+        return new Promise((resolve, reject) => {
+          Projects.GET_CONTRIBUTORS(teamName, project.name)
+            .then(contributors => {
+              resolve(contributors)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        })
+      })
+      Promise.all(promises)
+        .then(results => {
+          let mergedContributors = []
+          results = results.map(result => {
+            mergedContributors.push(JSON.parse(result))
+          })
+          mergedContributors = [].concat.apply([], mergedContributors)
+          res.status(200).send(mergedContributors)
+        })
+        .catch(err => {
+          res.send({err: err})
+        })
+    })
+}
+
 module.exports = teamsController

@@ -97,7 +97,8 @@ import { TeamsComponent } from './teams/teams.component';
       { path: 'auth/github', children: []},
       { path: 'projects/:projectId', component: ProjectDashboardComponent },
       { path: 'teams', component: TeamsComponent },
-      { path: 'teams/:teamId', component: TeamDashboardComponent }
+      { path: 'teams/:teamId', component: TeamDashboardComponent },
+      { path: 'teams/:teamId/:teamProjectId', component: TeamProjectComponent}
     ])
   ],
   providers: [
@@ -112,7 +113,7 @@ import { TeamsComponent } from './teams/teams.component';
     ProjectSidebarService,
     ProfileFeedService,
     MainService,
-    TeamDashboardService
+    TeamService
   ],
   bootstrap: [AppComponent]
 })
