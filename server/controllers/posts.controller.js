@@ -39,13 +39,18 @@ postsController.DELETE_POST = (req, res) => {
 }
 
 postsController.UPDATE_INTERACTION = (req, res) => {
-  let userId = req.headers['userid']
+  console.log(req.headers.userid)
+  let userid = req.headers['userid']
   let postId = req.params.postId
-
-  Posts.UPDATE_INTERACTION(userId, postId)
+  console.log(userid)
+  if (!userid) {
+    res.status(400).send('Bad request: missing userid')
+  } else {
+    Posts.UPDATE_INTERACTION(userid, postId)
     .then(post => {
       res.status(200).send(post)
     })
+  }
 }
 
 postsController.CREATE_COMMENT = (req, res) => {

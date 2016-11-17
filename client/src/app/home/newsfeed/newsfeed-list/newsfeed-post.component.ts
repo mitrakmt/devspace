@@ -12,7 +12,7 @@ import { NewsfeedListService } from './newsfeed-list.service';
       <div>
           <h4><a href="{{newsfeedPost.user.username}}">{{newsfeedPost.user.username}}</a>: {{newsfeedPost.content}}</h4>
           <p>{{newsfeedPost.createdAt | date:'medium'}}</p>
-          <p>likes: {{newsfeedPost.likes}}</p>
+          <p><span class="like-button" (click)="likePost()" style="color: white; background-color: #377BB5;border: 1px solid #377BB5; padding: 3px;">+1</span> | likes: {{newsfeedPost.likes}}</p>
           <app-newcomment [postId]="postId"></app-newcomment>
       </div>
       <div *ngIf="newsfeedPost.comments.length > 0">
@@ -26,6 +26,17 @@ export class NewsfeedPostComponent implements OnInit {
   @Input('postId') postId: number;
   constructor(private newsfeedListService: NewsfeedListService) { }
   newsfeedComments: NewsfeedComment[] = [];
+
+  likePost = () => {
+    let postId = this.postId
+    let userId = localStorage.getItem('userid');
+    this.newsfeedListService.likePost(postId, userId)
+      .subscribe(
+        response => {
+          console.log(response)
+        }
+      )
+  }
 
   ngOnInit() {
     this.postId = this.newsfeedPost.id;
