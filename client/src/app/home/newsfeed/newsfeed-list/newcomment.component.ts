@@ -12,13 +12,14 @@ import { NewsfeedComment } from '../newsfeed-comment';
           <input 
             type="text"
             id="comment"
+            style="width: 55%;"
             name="comment"
             [(ngModel)]="comment.content"
             #comment = "ngModel"
             required
             >
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">comment</button>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">comment</button>
       </form>
   `
 })

@@ -77,7 +77,7 @@ import { ProfileFeedService } from './profile/profile-feed/profile-feed.service'
     RouterModule.forRoot([
       {
         path: '',
-        redirectTo: '/landing',
+        redirectTo: '/home',
         pathMatch: 'full'
       },
       { path: 'landing', component: LandingComponent },

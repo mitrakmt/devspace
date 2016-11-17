@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { MomentModule } from 'angular2-moment';
 import { NewsfeedPost } from '../newsfeed-post';
 import { NewsfeedComment } from '../newsfeed-comment'
 import { NewsfeedListService } from './newsfeed-list.service';
@@ -7,12 +7,17 @@ import { NewsfeedListService } from './newsfeed-list.service';
 
 @Component({
   selector: 'app-newsfeed-post',
+  styleUrls: ['./newsfeed-post.component.css'],
   template: `
-    <md-card style="margin-bottom: 20px" md-padding md-margin>
-      <div>
-          <h4><a href="{{newsfeedPost.user.username}}">{{newsfeedPost.user.username}}</a>: {{newsfeedPost.content}}</h4>
-          <p>{{newsfeedPost.createdAt | date:'medium'}}</p>
-          <p><span class="like-button" (click)="likePost()" style="color: white; background-color: #377BB5;border: 1px solid #377BB5; padding: 3px;">+1</span> | likes: {{newsfeedPost.likes}}</p>
+    <md-card class="card" md-padding md-margin>
+      <p class="time">{{newsfeedPost.createdAt | date:'short'}}</p>
+      <br>
+      <div style="margin-top: -3px;">
+          <p><a [routerLink]="['/profile', newsfeedPost.user.username]" style="font-size: 16px;"><strong>{{newsfeedPost.user.username}}</strong></a>: {{newsfeedPost.content}}</p>
+          <p>
+            <span class="like-button" (click)="likePost()"> +</span> 
+            Likes: {{newsfeedPost.likes}} 
+          </p>
           <app-newcomment [postId]="postId"></app-newcomment>
       </div>
       <div *ngIf="newsfeedPost.comments.length > 0">
@@ -33,7 +38,7 @@ export class NewsfeedPostComponent implements OnInit {
     this.newsfeedListService.likePost(postId, userId)
       .subscribe(
         response => {
-          console.log(response)
+          console.log(response)  
         }
       )
   }
