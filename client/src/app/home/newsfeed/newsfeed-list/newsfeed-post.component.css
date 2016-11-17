@@ -1,0 +1,26 @@
+.like-button {
+    color: #377BB5; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    border: 1px solid #377BB5; 
+    padding: 0 5px 3px 5px; 
+    margin-right: 3px;
+}
+
+.like-button:hover {
+    background-color: #377BB5;
+    color: white;
+}
+
+.time {
+    float: right; 
+    font-size: 11px; 
+    margin-bottom: -15px; 
+    color: gray;
+}
+
+.card {
+    margin-bottom: 20px; 
+    background-color: white;
+}
+
