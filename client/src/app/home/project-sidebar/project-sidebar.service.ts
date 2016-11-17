@@ -8,14 +8,11 @@ export class ProjectSidebarService {
 
   constructor(private _http: Http) { }
 
-  addProject(): Observable<any> {
-    // make some call to add project
-    let username = localStorage.getItem('username')
-    let userid = localStorage.getItem('userid')
-    let headers = new Headers({ 'userid': userid, username: username })
+  importProject(userid, projectName): Observable<any> {
+    let headers = new Headers({ 'userid': userid})
     let options = new RequestOptions({ headers: headers })
     
-    return this._http.post('/api/projects', options)
+    return this._http.post('/api/projects', {"name": projectName}, options)
       .map((res:Response) => res.json())
   }
 

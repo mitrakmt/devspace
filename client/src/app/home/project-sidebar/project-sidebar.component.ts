@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectSidebarService } from './project-sidebar.service'
 import { Observable } from 'rxjs/Observable';
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-project-sidebar',
@@ -9,13 +10,21 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ProjectSidebarComponent implements OnInit {
 
-  constructor(private projectSidebarService: ProjectSidebarService) { 
-    // this.projectSidebarService.addProject = ():Observable<any> => {
-    //   console.log('project sidebar asdf');
-    //   let baseball = 'baseball'
-    //   return baseball
-    // }
-  }
+  project = {'name': ''}
+
+  constructor(private projectSidebarService: ProjectSidebarService) { }
+
+    onSubmit(form: NgForm) {
+        let projectName = form.value.project;
+        console.log(projectName)
+        let userId = localStorage.getItem('userid');
+        form.reset()
+        this.projectSidebarService.importProject(userId, projectName)
+          .subscribe(
+            data => {
+              return data
+      })
+    }
 
   ngOnInit() {
     

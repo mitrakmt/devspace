@@ -38,7 +38,18 @@ export class NewsfeedPostComponent implements OnInit {
     this.newsfeedListService.likePost(postId, userId)
       .subscribe(
         response => {
-          console.log(response)  
+          console.log('response', response)
+          this.newsfeedListService.newsfeedPosts.map((post)=>{
+            console.log("post is", post)
+          if(post.id === this.postId){
+            if (response.status === 201) {
+              post.likes++
+            } else {
+              post.likes--
+            }
+          }
+          return post
+          }) 
         }
       )
   }
