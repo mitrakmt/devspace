@@ -7,7 +7,10 @@ homeRouter.route('/github')
 
 homeRouter.route('/feed')
   // Requires req.headers.userid
-  .get(homeController.GET_USER_FEED)
+  .get(homeController.GET_CURR_USER_FEED)
+
+homeRouter.route('/search/:searchTerm')
+  .get(homeController.SEARCH_USERS)
 
 homeRouter.route('/feed/posts')
   // Requires req.headers.userid

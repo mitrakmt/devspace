@@ -46,6 +46,7 @@ import { NewProfilePostComponent } from './profile/profile-feed/newpost.componen
 import { NewProfileCommentComponent } from './profile/profile-feed/newcomment.component';
 import { ProfilePostComponent } from './profile/profile-feed/profile-post.component';
 import { ProfileCommentsComponent } from './profile/profile-feed/profile-comments.component';
+import { SearchService } from './home/search/search.service';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,7 @@ import { ProfileCommentsComponent } from './profile/profile-feed/profile-comment
       { path: 'home', component: HomeComponent },
       { path: 'app', component: AppComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'profile/:userId', component: ProfileComponent },
+      { path: 'dev/:userId', component: ProfileComponent },
       { path: 'signup', component: LoginComponent },
       { path: 'auth/github/callback', redirectTo: '/home'},
       { path: 'auth/github', children: []},
@@ -112,7 +113,8 @@ import { ProfileCommentsComponent } from './profile/profile-feed/profile-comment
     ProjectDashboardService,
     ProjectSidebarService,
     ProfileFeedService,
-    MainService
+    MainService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

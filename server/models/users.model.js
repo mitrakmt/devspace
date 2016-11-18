@@ -1,5 +1,6 @@
 let _ = require('lodash')
 let Users = require('../db').Users
+let Follows = require('../db').Follows
 let Posts = require('../db').Posts
 let Comments = require('../db').Comments
 let Interactions = require('../db').Interactions
@@ -25,7 +26,6 @@ usersModel.GET_COMMENTS_AND_INTERACTIONS = (userId, posts) => {
     id: postIds
   })
   .then(interactions => {
-    console.log(interactions)
     return interactions
   })
 
@@ -33,7 +33,6 @@ usersModel.GET_COMMENTS_AND_INTERACTIONS = (userId, posts) => {
     id: postIds
   })
   .then(comments => {
-    console.log("COMMENTS", comments)
     return comments
   })
 
@@ -74,10 +73,10 @@ usersModel.DELETE_USER = (userId) => {
   })
 }
 
-usersModel.GET_USER = (userId) => {
+usersModel.GET_USER = (username) => {
   return Users.findOne({
     where: {
-      id: userId
+      username: username
     }
   })
   .then(user => {
@@ -85,6 +84,62 @@ usersModel.GET_USER = (userId) => {
   })
   .catch(err => {
     return { err: err }
+  })
+}
+
+usersModel.GET_USER_PROFILE_FEED = (username, userId) => {
+  return Users.findOne({
+    where: {
+      'username': username
+    }
+  })
+  .then(user => {
+    if (user) {
+      return Follows.findAll({
+        where: {
+          followerId: user.id
+        }
+      })
+      .then(follows => {
+        let promises = follows.map(follow => {
+          return new Promise((resolve, reject) => {
+            Posts.findAll({
+              where: {
+                userId: follow.userId
+              },
+              include: [{
+                all: true
+              }],
+              order: [
+                ['createdAt', 'DESC']
+              ]
+            })
+            .then(posts => {
+              resolve(posts)
+            })
+            .catch(err => {
+              reject(err)
+            })
+          })
+        })
+
+        return Promise.all(promises)
+          .then(postArrs => {
+            let result = postArrs.map(postArr => {
+              return postArr.map(postObj => {
+                return postObj
+              })
+            })
+            let mergedPosts = [].concat.apply([], result)
+            return mergedPosts
+          })
+          .catch(postArrs => {
+            return false
+          })
+      })
+    } else {
+      return false
+    }
   })
 }
 

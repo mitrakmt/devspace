@@ -10,37 +10,56 @@ import { Router, CanActivate } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private profileService: ProfileService, private router: Router) { }
+  public githubData = {};
+  public userData = {};
+  public languages = ['Languages: '];
+
+  constructor(private _profileService: ProfileService, private router: Router) { }
 
   follow = () => {
-    let followedUsername = this.router.url.slice(9);
+    let followedUsername = this.router.url.slice(5);
     let userId = localStorage.getItem('userid');
-    this.profileService.follow(followedUsername, userId)
+    this._profileService.follow(followedUsername, userId)
       .subscribe(
         data => {
-          console.log('data', data)
           return data
         }
       )
   }
 
   ngOnInit() {
-    // this.profileService.fetchUserInfo()
-    //   .subscribe(
-    //     data => {
-    //       data.forEach((item) => {
-    //         console.log(item)
-    //       })
-    //     }
-    //   )
+    let username = this.router.url.slice(5);
+    let currentUser = localStorage.getItem('username');
 
-    // this.profileService.fetchGithubUserInfo()
-    //   .subscribe(
-    //     data => {
-    //       data.forEach((item) => {
-    //         console.log(item)
-    //       })
-    //     }
-    //   )
+    this._profileService.fetchBytes(username)
+      .subscribe(
+        data => {
+          console.log(data)
+          for (var i = 1; i < data.length; i++) {
+            this.languages.push(data[i].language[0])
+          }
+
+          this._profileService.bytesStat = data[0].language[1]
+        }
+      )
+
+    this._profileService.fetchGithubUserInfo(username, currentUser)
+      .subscribe(
+        data => {
+          this._profileService.githubData = data;
+          this.githubData = data;
+          console.log('This', this._profileService.githubData)
+
+        }
+      )
+
+    this._profileService.fetchUserInfo(username)
+      .subscribe(
+        data => {
+          this._profileService.userData = data;
+          this.userData = data;
+          console.log("USER DATAAAAAA", this._profileService.userData)
+        }
+      )
   }
 }

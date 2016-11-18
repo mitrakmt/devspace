@@ -69,7 +69,7 @@ passport.use(new Strategy({
       firstName: profile.firstName,
       lastName: profile.lastName,
       followerCount: profile.followers,
-      followingCount: profile.following
+      followingCount: 0
     }
   })
   .then(user => {

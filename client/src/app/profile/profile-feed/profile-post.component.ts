@@ -7,18 +7,22 @@ import { ProfileFeedService } from './profile-feed.service';
 
 @Component({
   selector: 'app-profile-post',
+  styleUrls: ['/profile-post.component.css'],
   template: `
-    <md-card style="margin-bottom: 20px" md-padding md-margin>
-      <div>
-          <h4><a href="{{profilePost.user.username}}">{{profilePost.user.username}}</a>: {{profilePost.content}}</h4>
-          <p>{{profilePost.createdAt | date:'medium'}}</p>
-          <p>likes: {{profilePost.likes}}</p>
+    <md-card class="card" md-padding md-margin>
+      <p class="time">{{profilePost.createdAt | date:'short'}}</p>
+      <br>
+      <div style="margin-top: -3px;">
+          <p><a [routerLink]="['/profile', profilePost.user.username]" style="font-size: 16px;"><strong>{{profilePost.user.username}}</strong></a>: {{profilePost.content}}</p>
+          <p>
+            Likes: {{profilePost.likes}} 
+          </p>
           <app-newcomment [postId]="postId"></app-newcomment>
       </div>
       <div *ngIf="profilePost.comments.length > 0">
           <app-profile-comments [comments]="profilePost.comments"> </app-profile-comments>
       </div>
-  </md-card>
+    </md-card>
   `
 })
 export class ProfilePostComponent implements OnInit {

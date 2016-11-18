@@ -241,12 +241,12 @@ projectsModel.GET_LANGUAGES = (username, repo) => {
 
   return request.get(options)
    .then(result => {
-     console.log(result, 'result in projectsmodel')
+    //  console.log(result, 'result in projectsmodel')
      result = JSON.parse(result)
      return result
    })
    .catch(err => {
-     console.log(err)
+     console.log("err", err)
    })
 }
 

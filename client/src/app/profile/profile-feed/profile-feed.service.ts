@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Router, CanActivate } from '@angular/router';
 import 'rxjs/add/operator/map';
 import { ProfileComment } from './profile-comment';
 import { ProfilePost } from './profile-post';
@@ -13,18 +14,26 @@ import * as io from 'socket\.io-client';
 export class ProfileFeedService {
 profilePosts: ProfilePost[] = [];
 
-  constructor(private _http: Http) { }
+  constructor(private _http: Http, private router: Router ) { }
 
     fetchProfileFeed(): Observable<any> {
       let userid = localStorage.getItem('userid')
-      let headers = new Headers({ 'userid': userid })
+      let username = this.router.url.slice(5);
+      let headers = new Headers({ 'userid': userid, 'username': username })
       let options = new RequestOptions({ headers: headers })
-      return this._http.get('/api/home/feed', options)
-        .map((res:Response) => {this.profilePosts = res.json();
-          return this.profilePosts
-      })
-        .catch(err=> {return Observable.throw(err.json());
-          })
+      return this._http.get('/api/users/profile/feed', options)
+        .map((res:Response) => {
+          console.log(res)
+          if (res) {
+            this.profilePosts = res.json();
+            return this.profilePosts
+          } else {
+            return
+          }
+        })
+        .catch(err=> {
+          return Observable.throw(err.json());
+        })
     }
     sendNewPost(post: any): Observable<any> {
       let userid = localStorage.getItem('userid')

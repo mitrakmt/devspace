@@ -1,7 +1,6 @@
 let Users = require('../models').usersModel
 let Projects = require('../models').projectsModel
-let request = require('request')
-
+let request = require('request-promise')
 
 let usersController = {}
 
@@ -22,10 +21,6 @@ usersController.LOGIN = (req, res) => {
   }
 
   res.redirect('https://github.com/login/oauth/authorize?scope=user:email&client_id=' + process.env.GITHUB_ID + '&redirect_uri=localhost:4200/home')
-  // request.get('https://github.com/login/oauth/authorize?scope=user:email&client_id=' + process.env.GITHUB_ID, options, response => {
-  //   console.log('response', response)
-  //   res.status(200).send(response)
-  // })
 }
 
 usersController.EDIT = (req, res) => {
@@ -61,11 +56,70 @@ usersController.DELETE_USER = (req, res) => {
     })
 }
 
-usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
-  let userId = req.headers['userid']
-  Users.GET_USER(userId)
+usersController.GET_USER = (req, res) => {
+  let username = req.headers['username']
+  Users.GET_USER(username)
     .then(user => {
-      let username = user.username
+      res.status(200).send({
+        "followingCount": user.followingCount
+      })
+    })
+}
+
+usersController.GET_USER_GITHUB = (req, res) => {
+  let currentUser = req.headers['currentUser']
+  let username = req.headers['username']
+  let options = {
+    url: `https://api.github.com/users/${username}`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+    .then(user => {
+      console.log(user)
+      let parsedUser = JSON.parse(user)
+      res.status(200).send({
+        "avatar_url": parsedUser.avatar_url,
+        "url": parsedUser.url,
+        "name": parsedUser.name,
+        "username": parsedUser.login,
+        "bio": parsedUser.bio,
+        "followers": parsedUser.followers,
+        "company": parsedUser.company,
+        "blog": parsedUser.blog,
+        "location": parsedUser.location,
+        "public_repos": parsedUser.public_repos,
+        "public_gists": parsedUser.public_gists
+      })
+    })
+    .catch(err => {
+      return `Err in getting user profile`
+    })
+}
+
+usersController.GET_USER_PROFILE_FEED = (req, res) => {
+  let userId = req.headers['userid']
+  let username = req.headers['username']
+  
+  Users.GET_USER_PROFILE_FEED(username, userId)
+    .then(response => {
+      console.log('RESPONSE IN USER CONTROLLER', response)
+      if (response) {
+        res.status(200).send(response)
+      } else {
+        res.status(204).send('No found user')
+      }
+    })
+}
+
+usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
+  let username = req.headers['username']
+  Users.GET_USER(username)
+    .then(user => {
+      console.log('user', user.id)
+      let userId = user.id
       Projects.GET_PROJECTS(userId)
       .then(projects => {
         let promises = projects.map(project => {
@@ -76,7 +130,6 @@ usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
                 if (Object.keys(languages).length === 0) {
                   resolve(null)
                 }
-                console.log('languages in users controller', languages)
                 resolve(languages)
               })
               .catch(err => {
@@ -85,7 +138,7 @@ usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
           })
         })
 
-        Promise.all(promises)
+        return Promise.all(promises)
           .then(langs => {
             // sum up the total bytes of code in each language across all projects
             let stats = {}
@@ -105,7 +158,7 @@ usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
               total += stats[key]
               langStats.push({language: [key, stats[key]]})
             }
-            langStats.push({language: ['total', total]})
+            langStats.unshift({language: ['total', total]})
             res.status(200).send(langStats)
           })
           .catch(err => {

@@ -9,23 +9,37 @@ export class ProfileService {
 
   constructor(private _http: Http) {  }
 
-    // fetchUserInfo(): Observable<any> {
-    //   let username = localStorage.getItem('username')
-    //   let username = localStorage.getItem('userid')
-    //   let headers = new Headers({ 'username': username, 'userid': userid })
-    //   let options = new RequestOptions({ headers: headers })
-    //   return this._http.get('/api/home/github', options)
-    //     .map((res:Response) => res.json())
-    // }
+    public userData: {};
+    public githubData: {};
+    public bytesStat: 0;
+    public languages: {};
 
-    // fetchGithubUserInfo(): Observable<any> {
-    //   let username = localStorage.getItem('username')
-    //   let username = localStorage.getItem('userid')
-    //   let headers = new Headers({ 'username': username, 'userid': userid })
-    //   let options = new RequestOptions({ headers: headers })
-    //   return this._http.get('/api/home/github', options)
-    //     .map((res:Response) => res.json())
-    // }
+    fetchBytes(username): Observable<any> {
+      let headers = new Headers({ 'username': username })
+      let options = new RequestOptions({ headers: headers })
+      return this._http.get('/api/users/profile/code', options)
+        .map((data:Response) => data.json())
+    }
+
+    fetchUserInfo(username): Observable<any> {
+      let headers = new Headers({ 'username': username })
+      let options = new RequestOptions({ headers: headers })
+      return this._http.get('/api/users/userProfile', options)
+        .map((data:Response) => data.json())
+        .catch(err => {
+          throw Observable.throw(err.json())
+        })
+    }
+
+    fetchGithubUserInfo(username, currentUser): Observable<any> {
+      let headers = new Headers({ 'username': username, 'currentUser': currentUser })
+      let options = new RequestOptions({ headers: headers })
+      return this._http.get('/api/users/userProfileGithub', options)
+        .map((data:Response) => data.json())
+        .catch(err => {
+          throw Observable.throw(err.json())
+        })
+    }
 
   follow(followedUsername, userid):Observable<any> {
       let headers = new Headers({'userid': userid});
