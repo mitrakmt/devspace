@@ -95,47 +95,20 @@ usersModel.GET_USER_PROFILE_FEED = (username, userId) => {
   })
   .then(user => {
     if (user) {
-      return Follows.findAll({
+      return Posts.findAll({
         where: {
-          followerId: user.id
-        }
+          userId: user.id
+        },
+        include: [{
+          all: true
+        }],
+        order: [
+          ['createdAt', 'DESC']
+        ]
       })
-      .then(follows => {
-        let promises = follows.map(follow => {
-          return new Promise((resolve, reject) => {
-            Posts.findAll({
-              where: {
-                userId: follow.userId
-              },
-              include: [{
-                all: true
-              }],
-              order: [
-                ['createdAt', 'DESC']
-              ]
-            })
-            .then(posts => {
-              resolve(posts)
-            })
-            .catch(err => {
-              reject(err)
-            })
-          })
-        })
-
-        return Promise.all(promises)
-          .then(postArrs => {
-            let result = postArrs.map(postArr => {
-              return postArr.map(postObj => {
-                return postObj
-              })
-            })
-            let mergedPosts = [].concat.apply([], result)
-            return mergedPosts
-          })
-          .catch(postArrs => {
-            return false
-          })
+      .then(posts => {
+        console.log('posts', posts)
+        return posts
       })
     } else {
       return false

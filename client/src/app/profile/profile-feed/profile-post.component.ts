@@ -18,16 +18,18 @@ import { ProfileFeedService } from './profile-feed.service';
             <h5 md-line style="margin-bottom: 0; margin-left: 5px; padding-bottom: 0;"><strong>{{ profilePost.user.firstName }} {{ profilePost.user.lastName }}</strong></h5>
             <p class="time">{{profilePost.createdAt | date:'short'}}</p>
 
-            <p md-line><a [routerLink]="['/dev', profilePost.user.username]" style="font-size: 12px; margin: 0; padding: 2px; margin-left: 10px;"> {{ profilePost.user.username }}</a></p>
+            <p md-line><a [routerLink]="['/dev', profilePost.user.username]" style="font-size: 12px; margin: 0; padding: 2px; margin-left: 10px;"> @{{ profilePost.user.username }}</a></p>
           </md-list-item>
         </md-list>       
 
          <md-list>
           <md-list-item>
             <p md-line style="font-size: 17px"> <span> {{profilePost.content}} </span></p>
-            <p md-line style="margin-top: 15px;"><span> Likes: {{profilePost.likes}} </span></p>
+            <p md-line style="margin-top: 15px; padding: 5px;"><span class="like-button" (click)="likePost()"> +</span> <span> Likes: {{profilePost.likes}} </span></p>
           </md-list-item>
-        </md-list>               
+        </md-list>  
+
+        <br>             
 
         <app-profile-newcomment [postId]="postId"></app-profile-newcomment>
       </div>
