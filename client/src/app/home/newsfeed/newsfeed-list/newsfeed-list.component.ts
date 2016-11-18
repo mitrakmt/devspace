@@ -24,7 +24,6 @@ export class NewsfeedListComponent implements OnInit {
         data => {
           this.newsfeedPosts = data
           this.newsfeedListService.newsfeedPosts = data
-          console.log("newsfeedserviceposts", this.newsfeedListService.newsfeedPosts)
           return data
         }
       )

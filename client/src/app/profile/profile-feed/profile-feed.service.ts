@@ -23,7 +23,6 @@ profilePosts: ProfilePost[] = [];
       let options = new RequestOptions({ headers: headers })
       return this._http.get('/api/users/profile/feed', options)
         .map((res:Response) => {
-          console.log(res)
           if (res) {
             this.profilePosts = res.json();
             return this.profilePosts
@@ -38,11 +37,9 @@ profilePosts: ProfilePost[] = [];
     sendNewPost(post: any): Observable<any> {
       let userid = localStorage.getItem('userid')
       let username = localStorage.getItem('username')
-      console.log('username in service', username)
       let body = {'content': post};
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
-      console.log("body", body, headers)
       return this._http.post('/api/posts', body, {
         headers: headers
       })

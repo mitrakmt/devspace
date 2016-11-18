@@ -77,27 +77,22 @@ export class ProjectDashboardComponent implements OnInit {
 
       this.projectDashboardService.fetchProjectInfo(this.projectId)
         .subscribe(projectInfo => {
-          console.log('proj info1: ', projectInfo)
           this.projectInfo = this.projectDashboardService.projectInfo;
           this.projectName = projectInfo.name;
-          console.log('projectName', this.projectName)
           this.owner = this.projectDashboardService.owner;
           this.repo = this.projectDashboardService.repo;
-          console.log('project info', this.projectInfo);
           return projectInfo;
         });
       
     this.projectDashboardService.fetchProjectForks(this.projectId)
       .subscribe(projectForks => {
         this.projectForks = projectForks;
-        console.log('project forks', this.projectForks);
         return projectForks;
       });
 
     this.projectDashboardService.fetchProjectContributors(this.projectId)
       .subscribe(projectContributors => {
         this.projectContributors = projectContributors;
-        console.log('project Contributors', this.projectContributors);
         return projectContributors;
       });
 
@@ -116,21 +111,18 @@ export class ProjectDashboardComponent implements OnInit {
         // projectLanguages.forEach(language => {
         //   language.language.push(images[language.language[0]]);
         // })
-        console.log('project Languages', this.projectLanguages);
         return projectLanguages;
       });
 
     this.projectDashboardService.fetchProjectReadme(this.projectId)
       .subscribe(projectReadme => {
         this.projectReadme = projectReadme;
-        console.log('project Readme', this.projectReadme);
         return projectReadme;
       });
     
     this.projectDashboardService.fetchProjectBranches(this.projectId)
       .subscribe(projectBranches => {
         this.projectBranches = projectBranches;
-        console.log('project Branches', this.projectBranches);
         return projectBranches;
       });
     });

@@ -14,7 +14,6 @@ export class ProjectSidebarListComponent implements OnInit {
     this.projectSidebarListService.getSidebarProjects()
       .subscribe(
         (data) => {
-          console.log('project sidebar data', data);
           this.sidebarProjects = data;
           return data;
         }

@@ -70,7 +70,6 @@ homeController.SEARCH_USERS = (req, res) => {
   return request.get(options)
     .then(user => {
       let parsedUsers = JSON.parse(user)
-      console.log(parsedUsers)
       res.status(200).send(parsedUsers)
     })
     .catch(err => {

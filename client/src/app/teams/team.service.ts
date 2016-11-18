@@ -47,7 +47,6 @@ export class TeamService {
   }
 
     createTeam(teamInfo){
-      console.log(teamInfo, 'teamInfo')
       let userid = localStorage.getItem('userid')
       let body = {
         teamName: teamInfo.teamName,

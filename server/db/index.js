@@ -129,28 +129,6 @@ db.sync().then(() => {
   console.log('Tables have been Created')
 })
 
-// Users.create({
-//   firstName: "CHRIS",
-//   lastName: "Mitrakos",
-//   email: "mtm@gmail.com",
-//   password: "test123",
-//   bio: "Sup",
-//   followerCount: 0,
-//   followingCount: 0,
-//   username: "mitrakmt"
-// })
-//
-// Users.create({
-//   firstName: "David",
-//   lastName: "Kim",
-//   email: "test@gmail.com",
-//   password: "test123",
-//   bio: "Sup",
-//   followerCount: 0,
-//   followingCount: 0,
-//   username: "davidkim310"
-// })
-
 module.exports = {
   db: db,
   Companies: Companies,

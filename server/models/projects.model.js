@@ -31,7 +31,6 @@ projectsModel.GET_PROJECTS = (userId) => {
     }
   })
   .then(projects => {
-    // console.log(projects)
     let mappedProjects = _.map(projects, (project) => {
       return project.projectId
     })
@@ -170,7 +169,6 @@ projectsModel.GET_BRANCHES = (username, repo) => {
 
   return request.get(options)
    .then(result => {
-     console.log('inside model',result)
      return result
    })
    .catch(err => {
@@ -231,7 +229,6 @@ projectsModel.GET_CONTRIBUTORS = (username, repo) => {
 }
 
 projectsModel.GET_LANGUAGES = (username, repo) => {
-  console.log('username', username, 'repo', repo)
   let options = {
     url: `https://api.github.com/repos/${username}/${repo}/languages`,
     headers: {
@@ -241,7 +238,6 @@ projectsModel.GET_LANGUAGES = (username, repo) => {
 
   return request.get(options)
    .then(result => {
-    //  console.log(result, 'result in projectsmodel')
      result = JSON.parse(result)
      return result
    })

@@ -34,7 +34,6 @@ export class ProfileComponent implements OnInit {
     this._profileService.fetchBytes(username)
       .subscribe(
         data => {
-          console.log(data)
           for (var i = 1; i < data.length; i++) {
             this.languages.push(data[i].language[0])
           }
@@ -48,8 +47,6 @@ export class ProfileComponent implements OnInit {
         data => {
           this._profileService.githubData = data;
           this.githubData = data;
-          console.log('This', this._profileService.githubData)
-
         }
       )
 
@@ -58,7 +55,6 @@ export class ProfileComponent implements OnInit {
         data => {
           this._profileService.userData = data;
           this.userData = data;
-          console.log("USER DATAAAAAA", this._profileService.userData)
         }
       )
   }

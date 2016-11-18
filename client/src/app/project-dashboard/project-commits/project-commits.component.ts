@@ -17,7 +17,6 @@ export class ProjectCommitsComponent implements OnInit {
     this.projectDashboardService.fetchProjectCommits(this.projectId, this.branch)
       .subscribe(projectCommits => {
         this.projectCommits = projectCommits;
-        console.log('project commits', projectCommits);
         return projectCommits;
       });
   }

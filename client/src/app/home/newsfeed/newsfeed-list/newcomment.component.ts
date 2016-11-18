@@ -35,8 +35,7 @@ export class NewcommentComponent{
     this._newsfeedListService.sendNewComment(newComment, this.postId)
       .subscribe(
         data => {
-          this._newsfeedListService.newsfeedPosts.map((post)=>{
-            console.log("post is", post)
+          this._newsfeedListService.newsfeedPosts.map((post) =>{ 
           if(post.id === this.postId){
             post.comments.unshift(data)
           }

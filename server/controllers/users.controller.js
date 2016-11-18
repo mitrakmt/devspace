@@ -82,7 +82,6 @@ usersController.GET_USER_GITHUB = (req, res) => {
 
   return request.get(options)
     .then(user => {
-      console.log(user)
       let parsedUser = JSON.parse(user)
       res.status(200).send({
         "avatar_url": parsedUser.avatar_url,
@@ -109,7 +108,6 @@ usersController.GET_USER_PROFILE_FEED = (req, res) => {
   
   Users.GET_USER_PROFILE_FEED(username, userId)
     .then(response => {
-      console.log('RESPONSE IN USER CONTROLLER', response)
       if (response) {
         res.status(200).send(response)
       } else {

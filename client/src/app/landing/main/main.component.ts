@@ -16,7 +16,6 @@ export class MainComponent implements OnInit {
     this.mainService.login()
       .subscribe(
         data => {
-          console.log('data', data)
           return data
         }
       )

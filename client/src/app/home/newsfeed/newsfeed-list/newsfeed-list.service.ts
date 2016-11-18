@@ -36,7 +36,6 @@ newsfeedPosts: NewsfeedPost[] = [];
       let body = {'content': post };
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
-      console.log("body", body, headers)
       return this._http.post('/api/posts', body, {
         headers: headers
       })
