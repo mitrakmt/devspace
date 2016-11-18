@@ -104,8 +104,12 @@ teamsModel.REMOVE_MEMBER = (userId, teamId, idToRemove) => {
     }
   })
   .then(result => {
-    result.destroy()
-    return 'Successfully removed member'
+    if (result) {
+      result.destroy()
+      return 'Successfully removed member'
+    } else {
+      return 'Bad request'
+    }
   })
 }
 
