@@ -83,13 +83,10 @@ import { TeamsComponent } from './teams/teams.component';
     NewcommentComponent,
     ProfilePostComponent,
     ProfileCommentsComponent,
-<<<<<<< HEAD
     TeamDashboardComponent,
     TeamProjectComponent,
-    TeamsComponent
-=======
+    TeamsComponent,
     ProfileEditComponent
->>>>>>> [client-feat]-adds profile edit form
   ],
   imports: [
     BrowserModule,

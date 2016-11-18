@@ -3,8 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css']
+  templateUrl: './profile-edit.component.html'
 })
 export class ProfileEditComponent implements OnInit {
   profileForm: FormGroup;
