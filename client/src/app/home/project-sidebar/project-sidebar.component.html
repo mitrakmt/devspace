@@ -8,12 +8,12 @@
         style="width: 100%"
         type="text"
         id="project"
-        name="project"
+        name="Name"
         [(ngModel)]="project.name"
         #project = "ngModel"
         required
       ></md-input>
-      <button md-raised-button type="submit" [disabled]="!f.valid" class="md-raised md-primary">Import Project</button>
+      <button md-raised md-button type="submit" [disabled]="!f.valid" class="dropdownButton">Import Project</button>
     </form>
   </div>
 </div>

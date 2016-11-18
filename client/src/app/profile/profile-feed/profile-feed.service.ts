@@ -26,6 +26,7 @@ profilePosts: ProfilePost[] = [];
         .map((res:Response) => {
           if (res) {
             this.profilePosts = res.json();
+            console.log('posts', this.profilePosts)
             return this.profilePosts
           } else {
             return

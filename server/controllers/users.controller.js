@@ -62,7 +62,8 @@ usersController.GET_USER = (req, res) => {
     .then(user => {
       if (user) {
         res.status(200).send({
-          "followingCount": user.followingCount
+          "followingCount": user.followingCount,
+          "followerCount": user.followerCount
         })
       } else {
         res.status(204).send('User not found')
@@ -89,8 +90,9 @@ usersController.GET_USER_GITHUB = (req, res) => {
         "name": parsedUser.name,
         "username": parsedUser.login,
         "bio": parsedUser.bio,
-        "followers": parsedUser.followers,
         "company": parsedUser.company,
+        "followers": parsedUser.followers,
+        "following": parsedUser.following,
         "blog": parsedUser.blog,
         "location": parsedUser.location,
         "public_repos": parsedUser.public_repos,
@@ -109,6 +111,7 @@ usersController.GET_USER_PROFILE_FEED = (req, res) => {
   Users.GET_USER_PROFILE_FEED(username, userId)
     .then(response => {
       if (response) {
+        console.log(response)
         res.status(200).send(response)
       } else {
         res.status(204).send('No found user')

@@ -55,9 +55,9 @@ export class ProfileService {
       return this._http.get('/api/follows/' + userid + '/following')
         .map((res:Response) => {
           if (res) {
-            this.following = res.json();
+            this['following'] = res.json();
             // console.log("this.following", this.following)
-            return this.following
+            return this['following']
           }
         })
 

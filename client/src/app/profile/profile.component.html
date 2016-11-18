@@ -37,8 +37,8 @@
     <p>Location: {{ githubData.location }}</p>
     <p>Bio: {{ githubData.bio }}</p>
     <p>Company: {{ githubData.company }}</p>
-    <p>Followers: {{ githubData.followers }}</p>
-    <p>Following: {{ userData.followingCount }}</p>
+    <p>Followers: {{ userData.followerCount || githubData.followers }}</p>
+    <p>Following: {{ userData.followingCount || githubData.following }}</p>
   </div>
 </div>
 
