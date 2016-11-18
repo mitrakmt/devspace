@@ -7,7 +7,7 @@
   <md-grid-list cols="3" class="top-grid"  rowHeight="280px">
     <md-grid-tile>
       <br>
-      <h3>Bytes of code written: {{ this._profileService.bytesStat }}</h3>
+      <h3>Bytes of code written: {{ this._profileService.bytesStat || 0 }}</h3>
     </md-grid-tile>
 
     <md-grid-tile>

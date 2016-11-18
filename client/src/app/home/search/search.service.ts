@@ -8,12 +8,16 @@ export class SearchService {
 
   constructor(private _http: Http) { }
 
-  searchUser(username, searchTerm): Observable<any> {
+  searchUser(username:string, searchTerm:string): Observable<any> {
     let headers = new Headers({ 'username': username })
     let options = new RequestOptions({ headers: headers })
+    headers.append('Content-Type', 'application/json');
     
     return this._http.get('/api/home/search/' + searchTerm, options)
       .map((res:Response) => res.json())
   }
 
 }
+
+
+

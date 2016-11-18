@@ -60,9 +60,13 @@ usersController.GET_USER = (req, res) => {
   let username = req.headers['username']
   Users.GET_USER(username)
     .then(user => {
-      res.status(200).send({
-        "followingCount": user.followingCount
-      })
+      if (user) {
+        res.status(200).send({
+          "followingCount": user.followingCount
+        })
+      } else {
+        res.status(204).send('User not found')
+      }
     })
 }
 
@@ -118,53 +122,56 @@ usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
   let username = req.headers['username']
   Users.GET_USER(username)
     .then(user => {
-      console.log('user', user.id)
-      let userId = user.id
-      Projects.GET_PROJECTS(userId)
-      .then(projects => {
-        let promises = projects.map(project => {
-          let repo = project.name
-          return new Promise((resolve, reject) => {
-            Projects.GET_LANGUAGES(username, repo)
-              .then(languages => {
-                if (Object.keys(languages).length === 0) {
-                  resolve(null)
-                }
-                resolve(languages)
-              })
-              .catch(err => {
-                reject(err)
-              })
-          })
-        })
-
-        return Promise.all(promises)
-          .then(langs => {
-            // sum up the total bytes of code in each language across all projects
-            let stats = {}
-            let langStats = []
-            let total = 0
-            langs.forEach(langObj => {
-              for (let key in langObj) {
-                if (!stats[key] && langObj[key] !== null) {
-                  stats[key] = langObj[key]
-                } else {
-                  stats[key] += langObj[key]
-                }
-              }
+      if (user) {
+        let userId = user.id
+        Projects.GET_PROJECTS(userId)
+        .then(projects => {
+          let promises = projects.map(project => {
+            let repo = project.name
+            return new Promise((resolve, reject) => {
+              Projects.GET_LANGUAGES(username, repo)
+                .then(languages => {
+                  if (Object.keys(languages).length === 0) {
+                    resolve(null)
+                  }
+                  resolve(languages)
+                })
+                .catch(err => {
+                  reject(err)
+                })
             })
+          })
 
-            for (let key in stats) {
-              total += stats[key]
-              langStats.push({language: [key, stats[key]]})
-            }
-            langStats.unshift({language: ['total', total]})
-            res.status(200).send(langStats)
-          })
-          .catch(err => {
-            res.status(204).send(err)
-          })
-      })
+          return Promise.all(promises)
+            .then(langs => {
+              // sum up the total bytes of code in each language across all projects
+              let stats = {}
+              let langStats = []
+              let total = 0
+              langs.forEach(langObj => {
+                for (let key in langObj) {
+                  if (!stats[key] && langObj[key] !== null) {
+                    stats[key] = langObj[key]
+                  } else {
+                    stats[key] += langObj[key]
+                  }
+                }
+              })
+
+              for (let key in stats) {
+                total += stats[key]
+                langStats.push({language: [key, stats[key]]})
+              }
+              langStats.unshift({language: ['total', total]})
+              res.status(200).send(langStats)
+            })
+            .catch(err => {
+              res.status(204).send(err)
+            })
+        })
+      } else {
+        res.status(204).send('No found user')
+      }
     })
 }
 module.exports = usersController
