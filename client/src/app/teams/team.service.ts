@@ -46,11 +46,10 @@ export class TeamService {
       });
   }
 
-    createTeam(teamInfo){
+    createTeam(teamName, userId){
       let userid = localStorage.getItem('userid')
       let body = {
-        teamName: teamInfo.teamName,
-        teamDescription: teamInfo.teamDescription || null,
+        teamName: teamName
        };
       let headers = new Headers({'userid': userid});
       headers.append('Content-Type', 'application/json');
@@ -70,5 +69,30 @@ export class TeamService {
           this.teamContributions = res.json();
           return res.json();
         });
+  }
+
+    importTeamProject(projectName, teamId): Observable<any> {
+      let userid = localStorage.getItem('userid')
+      let headers = new Headers({ userid: userid })
+      let options = new RequestOptions({ headers: headers })
+      let body = {
+        name: projectName,
+        teamId: teamId
+    };
+
+    return this._http.post('/api/projects', body, options)
+      .map((res:Response) => res.json())
+  }
+
+    addTeamMember(username, teamId): Observable<any> {
+      let userid = localStorage.getItem('userid')
+      let headers = new Headers({ userid: userid })
+      let options = new RequestOptions({ headers: headers })
+      let body = {
+        username: username
+      };
+
+    return this._http.post('/api/teams/' + teamId + '/member', body, options)
+      .map((res:Response) => res.json())
   }
 }

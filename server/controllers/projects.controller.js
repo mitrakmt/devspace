@@ -20,8 +20,9 @@ projectsController.CREATE_PROJECT = (req, res) => {
   let name = req.body.name
   let url = req.body.url || null
   let description = req.body.description
+  let teamId = req.body.teamId
 
-  Projects.CREATE_PROJECT(userId, owner, name, url, description)
+  Projects.CREATE_PROJECT(userId, owner, name, url, description, teamId)
     .then(project => {
       res.status(200).send(project)
     })
@@ -42,7 +43,7 @@ projectsController.UPDATE_PROJECT = (req, res) => {
   let projectId = req.params.projectId
   let projectName = req.body.projectName
   let teamId = req.body.teamId
-  
+
   let url = req.body.url
   let projectDataToUpdate = {
     deadline: deadline,
