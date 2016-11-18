@@ -35,6 +35,7 @@ profilePosts: ProfilePost[] = [];
           return Observable.throw(err.json());
         })
     }
+    
     sendNewPost(post: any): Observable<any> {
       let userid = localStorage.getItem('userid')
       let username = localStorage.getItem('username')
