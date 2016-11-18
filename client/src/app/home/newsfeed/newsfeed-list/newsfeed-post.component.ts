@@ -18,16 +18,18 @@ import { NewsfeedListService } from './newsfeed-list.service';
             <h5 md-line style="margin-bottom: 0; margin-left: 5px; padding-bottom: 0;"><strong>{{ newsfeedPost.user.firstName }} {{ newsfeedPost.user.lastName }}</strong></h5>
             <p class="time">{{newsfeedPost.createdAt | date:'short'}}</p>
 
-            <p md-line><a [routerLink]="['/dev', newsfeedPost.user.username]" style="font-size: 12px; margin: 0; padding: 2px; margin-left: 10px;"> {{ newsfeedPost.user.username }}</a></p>
+            <p md-line><a [routerLink]="['/dev', newsfeedPost.user.username]" style="font-size: 12px; margin: 0; padding: 2px; margin-left: 10px;"> @{{ newsfeedPost.user.username }}</a></p>
           </md-list-item>
         </md-list>       
 
          <md-list>
           <md-list-item>
             <p md-line style="font-size: 17px"> <span> {{newsfeedPost.content}} </span></p>
-            <p md-line style="margin-top: 15px;"><span> Likes: {{newsfeedPost.likes}} </span></p>
+            <p md-line style="margin-top: 15px; padding: 5px;"><span class="like-button" (click)="likePost()"> +</span> <span> Likes: {{newsfeedPost.likes}} </span></p>
           </md-list-item>
-        </md-list>               
+        </md-list>      
+
+        <br>        
 
         <app-newcomment [postId]="postId"></app-newcomment>
       </div>

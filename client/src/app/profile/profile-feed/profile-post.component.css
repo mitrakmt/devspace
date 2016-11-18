@@ -24,3 +24,7 @@
     background-color: white;
 }
 
+.postImage {
+    height: 55px;
+    border-radius: 50%;
+}
