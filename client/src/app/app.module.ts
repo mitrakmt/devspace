@@ -7,7 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
-
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NewsfeedComponent } from './home/newsfeed/newsfeed.component';
@@ -52,6 +52,7 @@ import { TeamDashboardComponent } from './teams/team-dashboard/team-dashboard.co
 import { TeamService } from './teams/team.service';
 import { TeamProjectComponent } from './teams/team-project/team-project.component';
 import { TeamsComponent } from './teams/teams.component';
+import { BarChartComponent } from './teams/team-dashboard/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -86,13 +87,15 @@ import { TeamsComponent } from './teams/teams.component';
     TeamDashboardComponent,
     TeamProjectComponent,
     TeamsComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
+    ChartsModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {
