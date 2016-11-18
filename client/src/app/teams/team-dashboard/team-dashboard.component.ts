@@ -12,7 +12,7 @@ import { NgForm } from "@angular/forms";
     teamid: {{teamId}}
     <h1>Team Members</h1>
     <div *ngFor="let member of teamMembers">
-      member: {{member.firstName}} {{member.lastName}} @{{member.username}}
+      member: {{member.firstName}} {{member.lastName}} @{{member.username}} <button (click)="this.teamService.removeTeamMember(member.id, teamId)">Remove Team Member</button>
     </div>
 
     <h1>Projects</h1>
