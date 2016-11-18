@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   public githubData = {};
   public userData = {};
   public languages = [];
+  public isOwnProfile = false;
 
   constructor(private _profileService: ProfileService, private router: Router) { }
 
@@ -30,6 +31,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     let username = this.router.url.slice(5);
     let currentUser = localStorage.getItem('username');
+
+    if (currentUser === username) {
+      this.isOwnProfile = true;
+    }
 
     this._profileService.fetchBytes(username)
       .subscribe(

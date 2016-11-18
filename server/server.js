@@ -65,10 +65,11 @@ passport.use(new Strategy({
       email: profile.email,
       bio: profile.bio,
       cashFlow: 0,
+      imageUrl: profile.avatar_url,
       location: profile.location,
       firstName: profile.firstName,
       lastName: profile.lastName,
-      followerCount: profile.followers,
+      followerCount: 0,
       followingCount: 0
     }
   })

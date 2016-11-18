@@ -10,14 +10,26 @@ import { ProfileFeedService } from './profile-feed.service';
   styleUrls: ['/profile-post.component.css'],
   template: `
     <md-card class="card" md-padding md-margin>
-      <p class="time">{{profilePost.createdAt | date:'short'}}</p>
-      <br>
-      <div style="margin-top: -3px;">
-          <p><a [routerLink]="['/profile', profilePost.user.username]" style="font-size: 16px;"><strong>{{profilePost.user.username}}</strong></a>: {{profilePost.content}}</p>
-          <p>
-            Likes: {{profilePost.likes}} 
-          </p>
-          <app-profile-newcomment [postId]="postId"></app-profile-newcomment>
+      <div style="margin-top: -13px;">
+
+         <md-list>
+          <md-list-item>
+            <img md-list-avatar src="{{ profilePost.user.imageUrl }}">
+            <h5 md-line style="margin-bottom: 0; margin-left: 5px; padding-bottom: 0;"><strong>{{ profilePost.user.firstName }} {{ profilePost.user.lastName }}</strong></h5>
+            <p class="time">{{profilePost.createdAt | date:'short'}}</p>
+
+            <p md-line><a [routerLink]="['/dev', profilePost.user.username]" style="font-size: 12px; margin: 0; padding: 2px; margin-left: 10px;"> {{ profilePost.user.username }}</a></p>
+          </md-list-item>
+        </md-list>       
+
+         <md-list>
+          <md-list-item>
+            <p md-line style="font-size: 17px"> <span> {{profilePost.content}} </span></p>
+            <p md-line style="margin-top: 15px;"><span> Likes: {{profilePost.likes}} </span></p>
+          </md-list-item>
+        </md-list>               
+
+        <app-profile-newcomment [postId]="postId"></app-profile-newcomment>
       </div>
       <div *ngIf="profilePost.comments.length > 0">
           <app-profile-comments [comments]="profilePost.comments"> </app-profile-comments>
@@ -28,8 +40,14 @@ import { ProfileFeedService } from './profile-feed.service';
 export class ProfilePostComponent implements OnInit {
   @Input() profilePost: any;
   @Input('postId') postId: number;
+
   constructor(private profileService: ProfileFeedService) { }
+
   profileComments: ProfileComment[] = [];
+
+  forceRender = () => {
+    location.reload();
+  }
 
   ngOnInit() {
     this.postId = this.profilePost.id;

@@ -195,6 +195,7 @@ homeController.GET_POST_COMMENTS = (req, res) => {
     ]
   })
   .then(comments => {
+    console.log('comments', comments)
     res.status(200).send(comments)
   })
 }

@@ -8,8 +8,6 @@ import { NewsfeedPost } from '../newsfeed-post';
 import * as io from 'socket.io-client';
 // let socket = io("http://localhost:8000")
 
-
-
 @Injectable()
 
 export class NewsfeedListService {
@@ -22,7 +20,9 @@ newsfeedPosts: NewsfeedPost[] = [];
       let headers = new Headers({ 'userid': userid })
       let options = new RequestOptions({ headers: headers })
       return this._http.get('/api/home/feed', options)
-        .map((res:Response) => {this.newsfeedPosts = res.json();
+        .map((res:Response) => {
+          console.log(res)
+          this.newsfeedPosts = res.json();
           return this.newsfeedPosts
       })
         .catch(err=> { 

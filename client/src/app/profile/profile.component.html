@@ -13,7 +13,7 @@
 
     <md-grid-tile>
         <img class="profile-image" src="{{ githubData.avatar_url }}" />
-        <button class="follow-button" md-button md-raised (click)="follow()">Follow</button>
+        <button class="follow-button" md-button md-raised (click)="follow()" *ngIf="!isOwnProfile">Follow</button>
     </md-grid-tile>
 
     <md-grid-tile>
