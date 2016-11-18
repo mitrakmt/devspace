@@ -78,9 +78,9 @@ homeController.SEARCH_USERS = (req, res) => {
     })
 }
 
-homeController.GET_USER_FEED = (req, res) => {
+homeController.GET_CURR_USER_FEED = (req, res) => {
   let userId = req.headers['userid']
-
+  
   Follows.findAll({
     where: {
       followerId: userId

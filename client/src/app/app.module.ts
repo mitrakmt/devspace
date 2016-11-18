@@ -95,7 +95,7 @@ import { SearchService } from './home/search/search.service';
       { path: 'home', component: HomeComponent },
       { path: 'app', component: AppComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'profile/:userId', component: ProfileComponent },
+      { path: 'dev/:userId', component: ProfileComponent },
       { path: 'signup', component: LoginComponent },
       { path: 'auth/github/callback', redirectTo: '/home'},
       { path: 'auth/github', children: []},

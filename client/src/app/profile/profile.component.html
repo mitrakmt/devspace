@@ -7,17 +7,17 @@
   <md-grid-list cols="3" class="top-grid"  rowHeight="280px">
     <md-grid-tile>
       <br>
-      <h3>82,000 Bytes of Code</h3>
+      <h3>Bytes of code written: {{ this._profileService.bytesStat }}</h3>
     </md-grid-tile>
 
     <md-grid-tile>
-        <img class="profile-image" src="http://i.imgur.com/3V78H8J.jpg" />
+        <img class="profile-image" src="{{ githubData.avatar_url }}" />
         <button md-button md-raised (click)="follow()">Follow</button>
     </md-grid-tile>
 
     <md-grid-tile>
       <br>
-      <h3>Languages</h3>
+      <p class="language" *ngFor="let language of languages">{{ language }}</p>
     </md-grid-tile>
   </md-grid-list>
 </div>
@@ -27,8 +27,17 @@
     <app-profile-feed></app-profile-feed>
   </div>
 
-  <div class="bottom-grid-box" flex="150" style="background-color: #F8F8F8;" layout-padding>
+  <div class="bottom-grid-box" flex="150" style="background-color: #F8F8F8; height: 400px;" layout-padding>
     <h1>Projects</h1>
+
+    <p>Name: {{ githubData.name }}</p>
+    <p>Username: {{ githubData.username }}</p>
+    <p>Blog: {{ githubData.blog }}</p>
+    <p>Location: {{ githubData.location }}</p>
+    <p>Bio: {{ githubData.bio }}</p>
+    <p>Company: {{ githubData.company }}</p>
+    <p>Followers: {{ githubData.followers }}</p>
+    <p>Following: {{ userData.followingCount }}</p>
   </div>
 </div>
 

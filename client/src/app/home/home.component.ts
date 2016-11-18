@@ -21,18 +21,6 @@ export class HomeComponent implements OnInit {
 
   constructor(private homeService: HomeService) { }
 
-      onSubmit(form: NgForm) {
-          let projectName = form.value.project;
-          console.log(projectName)
-          let userId = localStorage.getItem('userid');
-          form.reset()
-          this.projectSidebarService.importProject(userId, projectName)
-            .subscribe(
-              data => {
-                return data
-        })
-      }
-
   ngOnInit() {
     this.homeService.convertCookieToToken()
   }

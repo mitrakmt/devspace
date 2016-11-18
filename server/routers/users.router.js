@@ -11,6 +11,9 @@ usersRouter.route('/userProfile')
 usersRouter.route('/userProfileGithub')
   .get(usersController.GET_USER_GITHUB)
 
+usersRouter.route('/profile/feed')
+  .get(usersController.GET_USER_PROFILE_FEED)
+
 usersRouter.route('/profile/code')
   .get(usersController.GET_ALL_BYTES_OF_CODE)
 

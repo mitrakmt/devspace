@@ -1,6 +1,6 @@
 let Users = require('../models').usersModel
 let Projects = require('../models').projectsModel
-const request = require('request-promise')
+let request = require('request-promise')
 
 let usersController = {}
 
@@ -61,14 +61,7 @@ usersController.GET_USER = (req, res) => {
   Users.GET_USER(username)
     .then(user => {
       res.status(200).send({
-        "firstName": user.firstName,
-        "lastName": user.lastName,
-        "username": user.username,
-        "bio": user.bio,
-        "imageUrl": user.imageUrl,
-        "followerCount": user.followerCount,
-        "followingCount": user.followingCount,
-        "userId": user.id
+        "followingCount": user.followingCount
       })
     })
 }
@@ -85,10 +78,15 @@ usersController.GET_USER_GITHUB = (req, res) => {
 
   return request.get(options)
     .then(user => {
+      console.log(user)
       let parsedUser = JSON.parse(user)
       res.status(200).send({
         "avatar_url": parsedUser.avatar_url,
         "url": parsedUser.url,
+        "name": parsedUser.name,
+        "username": parsedUser.login,
+        "bio": parsedUser.bio,
+        "followers": parsedUser.followers,
         "company": parsedUser.company,
         "blog": parsedUser.blog,
         "location": parsedUser.location,
@@ -101,11 +99,27 @@ usersController.GET_USER_GITHUB = (req, res) => {
     })
 }
 
-usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
+usersController.GET_USER_PROFILE_FEED = (req, res) => {
   let userId = req.headers['userid']
-  Users.GET_USER(userId)
+  let username = req.headers['username']
+  
+  Users.GET_USER_PROFILE_FEED(username, userId)
+    .then(response => {
+      console.log('RESPONSE IN USER CONTROLLER', response)
+      if (response) {
+        res.status(200).send(response)
+      } else {
+        res.status(204).send('No found user')
+      }
+    })
+}
+
+usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
+  let username = req.headers['username']
+  Users.GET_USER(username)
     .then(user => {
-      let username = user.username
+      console.log('user', user.id)
+      let userId = user.id
       Projects.GET_PROJECTS(userId)
       .then(projects => {
         let promises = projects.map(project => {
@@ -124,7 +138,7 @@ usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
           })
         })
 
-        Promise.all(promises)
+        return Promise.all(promises)
           .then(langs => {
             // sum up the total bytes of code in each language across all projects
             let stats = {}
@@ -144,7 +158,7 @@ usersController.GET_ALL_BYTES_OF_CODE = (req, res) => {
               total += stats[key]
               langStats.push({language: [key, stats[key]]})
             }
-            langStats.push({language: ['total', total]})
+            langStats.unshift({language: ['total', total]})
             res.status(200).send(langStats)
           })
           .catch(err => {

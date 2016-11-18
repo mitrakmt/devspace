@@ -4,6 +4,11 @@
     opacity: .7;
 }
 
+.language {
+    margin: 5px;
+    margin-top: 13px;
+}
+
 .body {
     background-color: #F8F8F8;
 }
