@@ -31,7 +31,9 @@
       </form>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a>teams</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" [routerLink]="['/teams']" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams </a>
+        </li>
         <li class="dropdown">
           <a class="dropdown-toggle" [routerLink]="['/dev', username]" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile </a>
         </li>

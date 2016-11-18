@@ -47,6 +47,10 @@ import { NewProfileCommentComponent } from './profile/profile-feed/newcomment.co
 import { ProfilePostComponent } from './profile/profile-feed/profile-post.component';
 import { ProfileCommentsComponent } from './profile/profile-feed/profile-comments.component';
 import { SearchService } from './home/search/search.service';
+import { TeamDashboardComponent } from './teams/team-dashboard/team-dashboard.component';
+import { TeamService } from './teams/team.service';
+import { TeamProjectComponent } from './teams/team-project/team-project.component';
+import { TeamsComponent } from './teams/teams.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +81,10 @@ import { SearchService } from './home/search/search.service';
     NewpostComponent,
     NewcommentComponent,
     ProfilePostComponent,
-    ProfileCommentsComponent
+    ProfileCommentsComponent,
+    TeamDashboardComponent,
+    TeamProjectComponent,
+    TeamsComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +106,10 @@ import { SearchService } from './home/search/search.service';
       { path: 'signup', component: LoginComponent },
       { path: 'auth/github/callback', redirectTo: '/home'},
       { path: 'auth/github', children: []},
-      { path: 'projects/:projectId', component: ProjectDashboardComponent }
+      { path: 'projects/:projectId', component: ProjectDashboardComponent },
+      { path: 'teams', component: TeamsComponent },
+      { path: 'teams/:teamId', component: TeamDashboardComponent },
+      { path: 'teams/:teamId/:teamProjectId', component: TeamProjectComponent}
     ])
   ],
   providers: [
@@ -114,7 +124,8 @@ import { SearchService } from './home/search/search.service';
     ProjectSidebarService,
     ProfileFeedService,
     MainService,
-    SearchService
+    SearchService,
+    TeamService
   ],
   bootstrap: [AppComponent]
 })
