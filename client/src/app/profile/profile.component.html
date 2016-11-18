@@ -18,7 +18,8 @@
 
     <md-grid-tile>
       <br>
-      <p class="language" *ngFor="let language of languages">{{ language }}</p>
+      <p>Languages: </p>
+      <div class="language" *ngFor="let language of languages"><img src={{language}} style="height: 50px;"></div>
     </md-grid-tile>
   </md-grid-list>
 </div>

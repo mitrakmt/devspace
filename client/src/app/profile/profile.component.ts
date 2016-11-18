@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
 
   public githubData = {};
   public userData = {};
-  public languages = ['Languages: '];
+  public languages = [];
 
   constructor(private _profileService: ProfileService, private router: Router) { }
 
@@ -35,7 +35,16 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         data => {
           for (var i = 1; i < data.length; i++) {
-            this.languages.push(data[i].language[0])
+            if(data[i].language[0] === 'JavaScript'){
+            this.languages.push("https://wp-andypiapps.rhcloud.com/wp-content/uploads/2016/08/js4560_450.png")
+            }
+            if(data[i].language[0] === 'HTML'){
+            this.languages.push("https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/200px-HTML5_logo_and_wordmark.svg.png")
+            }
+            if(data[i].language[0] === 'TypeScript'){
+            this.languages.push("https://chocolatey.org/content/packageimages/typescript.vs.1.0.1.png")
+            }
+            
           }
 
           this._profileService.bytesStat = data[0].language[1]
