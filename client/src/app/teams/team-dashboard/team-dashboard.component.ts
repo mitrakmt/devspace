@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TeamService } from '../team.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MaterialModule } from '@angular/material';
-import { NgForm } from "@angular/forms";
+import { NgForm } from '@angular/forms';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 @Component({
   selector: 'app-team-dashboard',
@@ -12,7 +13,7 @@ import { NgForm } from "@angular/forms";
     teamid: {{teamId}}
     <h1>Team Members</h1>
     <div *ngFor="let member of teamMembers">
-      member: {{member.firstName}} {{member.lastName}} @{{member.username}}
+      member: {{member.firstName}} {{member.lastName}} @{{member.username}} <button (click)="this.teamService.removeTeamMember(member.id, teamId)">Remove Team Member</button>
     </div>
 
     <h1>Projects</h1>
@@ -54,6 +55,8 @@ import { NgForm } from "@angular/forms";
       </md-input>
       <button md-raised-button type="submit" [disabled]="!f.valid" class="md-raised md-primary">Add a team member</button>
     </form>
+
+    <app-bar-chart></app-bar-chart>
   `,
   styleUrls: ['./team-dashboard.component.css']
 })

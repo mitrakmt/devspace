@@ -15,6 +15,9 @@ export class TeamService {
   public teamProjectId;
   public teamOwner;
   public teamRepo;
+  public teamContributors;
+  public chartContributors = [];
+  public contributionScore = [];
 
   constructor(private _http: Http) { }
 
@@ -61,6 +64,17 @@ export class TeamService {
       .map((data) => data.json())
   }
 
+  deleteTeam(teamId) {
+    console.log('inside team service', teamId)
+    let userid = localStorage.getItem('userid')
+    let headers = new Headers({'userid': userid});
+    headers.append('Content-Type', 'application/json');
+    return this._http.delete('/api/teams/' + teamId, {
+      headers: headers
+    })
+      .subscribe(result => { console.log('deleted team') });
+  }
+
   fetchTeamContributions(teamId): Observable<any> {
     this.teamId = teamId;
     let userId = localStorage.getItem('userid')
@@ -69,6 +83,11 @@ export class TeamService {
     return this._http.get('/api/teams/' + teamId + '/contributions', options)
       .map((res: Response) => {
         this.teamContributions = res.json();
+        this.teamContributions.forEach(contribution => {
+          this.chartContributors.push(contribution.login)
+          this.contributionScore.push(contribution.contributions)
+        })
+        console.log(this.chartContributors, this.contributionScore)
         return res.json();
       });
   }
@@ -96,6 +115,15 @@ export class TeamService {
 
     return this._http.post('/api/teams/' + teamId + '/member', body, options)
       .map((res:Response) => res.json())
+  }
+
+  removeTeamMember(idToRemove, teamId) {
+    let userid = localStorage.getItem('userid')
+    let headers = new Headers({ userid: userid, idtoremove: idToRemove })
+    let options = new RequestOptions({ headers: headers })
+    console.log('removeTeamMember, idToRemve: ',idToRemove, 'teamId: ', teamId)
+    return this._http.delete('/api/teams/' + teamId + '/member', options)
+      .subscribe(result => { console.log('deleted member') });
   }
 
   fetchProjectInfo(projectId): Observable<any> {
