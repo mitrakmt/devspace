@@ -90,7 +90,7 @@ teamsController.ADD_MEMBER = (req, res) => {
 teamsController.REMOVE_MEMBER = (req, res) => {
   let userId = req.headers['userid']
   let teamId = req.params.teamId
-  let idToRemove = req.headers['idToRemove']
+  let idToRemove = req.headers['idtoremove']
 
   Teams.REMOVE_MEMBER(userId, teamId, idToRemove)
     .then(result => {

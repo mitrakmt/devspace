@@ -111,7 +111,7 @@ export class TeamService {
 
   removeTeamMember(idToRemove, teamId) {
     let userid = localStorage.getItem('userid')
-    let headers = new Headers({ userid: userid, idToRemove: idToRemove })
+    let headers = new Headers({ userid: userid, idtoremove: idToRemove })
     let options = new RequestOptions({ headers: headers })
     console.log('removeTeamMember, idToRemve: ',idToRemove, 'teamId: ', teamId)
     return this._http.delete('/api/teams/' + teamId + '/member', options)
