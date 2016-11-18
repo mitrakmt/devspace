@@ -119,12 +119,21 @@ export class TeamService {
       });
   }
 
-  fetchProjectBranches(projectId): Observable<any> {
-    return this._http.get('/api/projects/' + projectId + '/branches')
+  fetchProjectBranches(projectId, teamId): Observable<any> {
+    let headers = new Headers({ projectid: projectId });
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/teams/' + teamId + '/branches', options)
       .map((res: Response) => {
+        console.log(res.json())
         return res.json();
       });
   }
+  //  fetchProjectBranches(projectId): Observable<any> {
+  //   return this._http.get('/api/projects/' + projectId + '/branches')
+  //     .map((res: Response) => {
+  //       return res.json();
+  //     });
+  // }
 
   fetchProjectForks(projectId): Observable<any> {
     return this._http.get('/api/projects/' + projectId + '/forks')
