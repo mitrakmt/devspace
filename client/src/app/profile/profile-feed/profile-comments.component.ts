@@ -7,11 +7,12 @@ import { ProfileFeedService } from './profile-feed.service';
   selector: 'app-profile-comments',
   template: `
         <md-card style="margin-bottom: 20px; background-color: #F8F8F8;" md-padding md-margin>
-         <div *ngFor="let comment of comments">
-          <p style="font-size: 12px; font-color: gray; margin-bottom: 0px">{{comment.createdAt | date:'short'}}:</p>
-          <p style="margin-left: 9px; font-size: 16px;">{{comment.username}}: {{comment.content}}</p>
-         </div>           
-        </md-card>`
+          <div *ngFor="let comment of comments" style="border-bottom: 1px solid lightgray; margin-bottom: 10px;">
+            <p style="margin-left: 9px; font-size: 16px;"> {{ comment.firstName }} {{ comment.lastName }} <a [routerLink]="['/dev', comment.username]"><strong>{{comment.username}}</strong></a>:</p>
+            <p style="margin-left: 9px; font-size: 16px;"> {{comment.content}} </p>
+            <p style="font-size: 11px; margin-top: -5px; font-color: gray; margin-bottom: 0px">{{comment.createdAt | date:'short'}}</p>
+          </div>       
+        </md-card>`    
 })
 export class ProfileCommentsComponent {
 @Input('comments') comments: any;

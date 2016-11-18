@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ProjectSidebarService } from '../project-sidebar.service';
+import { Project } from '../project';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class ProjectSidebarListService {
 
-  constructor(private _http: Http) { }
+  sidebarProjects: Project[] = [];
+
+  constructor(private _http: Http, private projectSidebarService: ProjectSidebarService) { }
 
   getSidebarProjects(): Observable<any> {
     let username = localStorage.getItem('username')

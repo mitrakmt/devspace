@@ -8,7 +8,7 @@ import {ProfilePost } from './profile-post';
   template: `
         <h1 style="text-align: center;">My Feed</h1>
         <hr>
-        <app-profile-newpost></app-profile-newpost>
+        <app-profile-newpost *ngIf="isOwnProfile"></app-profile-newpost>
         <ul>
           <app-profile-post *ngFor="let profilePost of _profileFeedService.profilePosts" [profilePost]="profilePost"></app-profile-post>
         </ul>`
