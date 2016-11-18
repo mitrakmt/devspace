@@ -12,7 +12,6 @@ postsController.CREATE_POST = (req, res) => {
       if (!result) {
         res.status(500).send('Server error')
       }
-      console.log("++++results in ctrl", result)
       res.status(200).send(result)
     })
 }
@@ -39,16 +38,13 @@ postsController.DELETE_POST = (req, res) => {
 }
 
 postsController.UPDATE_INTERACTION = (req, res) => {
-  console.log(req.headers.userid)
   let userid = req.headers['userid']
   let postId = req.params.postId
-  console.log(userid)
   if (!userid) {
     res.status(400).send('Bad request: missing userid')
   } else {
     Posts.UPDATE_INTERACTION(userid, postId)
     .then(post => {
-      console.log("POSTPOSTPOST", post)
       if (post === 'Increment') {
         res.status(201).send(post)
       } else {

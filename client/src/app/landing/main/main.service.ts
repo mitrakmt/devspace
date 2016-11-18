@@ -11,7 +11,6 @@ export class MainService {
     login(): Observable<any> {
       return this._http.get('/api/users/login')
         .map((res: Response) => {
-          console.log("RES", res)
           return res.json();
         });
     }

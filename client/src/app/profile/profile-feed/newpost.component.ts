@@ -30,12 +30,10 @@ export class NewProfilePostComponent {
   onSubmit(form: NgForm) {
     let newPost = form.value.post
     form.reset()
-    // console.log(newPost)
     this._profileFeedService.sendNewPost(newPost)
       .subscribe(
         data => {
           data.comments = []
-          console.log("post data===", data)
           this._profileFeedService.profilePosts.unshift(data)
           return data
           })

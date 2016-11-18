@@ -33,8 +33,6 @@ export class ProfilePostComponent implements OnInit {
 
   ngOnInit() {
     this.postId = this.profilePost.id;
-    // console.log("id-->", this.postId);
-    // console.log("posts feed", this.newsfeedPost)
   }
 
 }

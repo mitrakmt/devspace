@@ -29,16 +29,12 @@ export class NewProfileCommentComponent{
 
   constructor(private _profileFeedService: ProfileFeedService) {  }
   onSubmit(form: NgForm) {
-    // console.log("postid in submit", this.postId)
     let newComment = form.value.comment
     form.reset()
-    // console.log(newComment)
     this._profileFeedService.sendNewComment(newComment, this.postId)
       .subscribe(
         data => {
-          // console.log("comment data===", data)
           this._profileFeedService.profilePosts.map((post)=>{
-            console.log("post is", post)
           if(post.id === this.postId){
             post.comments.unshift(data)
           }

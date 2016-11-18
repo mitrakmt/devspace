@@ -41,7 +41,6 @@ export class TeamsComponent implements OnInit {
     this.teamService.fetchTeams(this.userId)
       .subscribe(teams => {
         this.teams = this.teamService.teams;
-        console.log('teams in teams.component', this.teams)
         return teams;
       });
   

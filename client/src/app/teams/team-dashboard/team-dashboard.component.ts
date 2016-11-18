@@ -43,21 +43,18 @@ export class TeamDashboardComponent implements OnInit {
       this.teamService.fetchProjects(this.teamId)
           .subscribe(projects => {
             this.teamProjects = this.teamService.teamProjects;
-            console.log('team projects', this.teamProjects)
             return projects;
           });
 
       this.teamService.fetchTeamMembers(this.teamId)
         .subscribe(teamMembers => {
           this.teamMembers = this.teamService.teamMembers;
-          console.log('users in teamService', this.teamMembers)
           return teamMembers;
         });
 
       this.teamService.fetchTeamContributions(this.teamId)
         .subscribe(teamContributions => {
           this.teamContributions = this.teamService.teamContributions;
-          console.log('team contributions', this.teamContributions)
           return teamContributions;
         });
       }

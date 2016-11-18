@@ -21,7 +21,6 @@ postsModel.CREATE_POST = (userId, content, paid, likes) => {
       }]
     })
     .then(foundPost => {
-      // console.log('++++foundpost!', foundPost)
       return foundPost
     })
   })

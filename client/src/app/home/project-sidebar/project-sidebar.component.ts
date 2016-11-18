@@ -16,7 +16,6 @@ export class ProjectSidebarComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         let projectName = form.value.project;
-        console.log(projectName)
         let userId = localStorage.getItem('userid');
         form.reset()
         this.projectSidebarService.importProject(userId, projectName)
