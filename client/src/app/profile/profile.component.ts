@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
         }
       )
   }
+  
   toggle = () => {
     if(this.isNotFollowing === false){
       this._profileService.followStatus = "Unfollow";
