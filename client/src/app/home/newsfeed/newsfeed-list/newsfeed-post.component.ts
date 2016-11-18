@@ -52,11 +52,11 @@ export class NewsfeedPostComponent implements OnInit {
       .subscribe(
         response => {
           this.newsfeedListService.newsfeedPosts.map((post) => {
-          if(post.id === this.postId){
+          if(post['id'] === this.postId){
             if (response.status === 201) {
-              post.likes++
+              post['likes']++
             } else {
-              post.likes--
+              post['likes']--
             }
           }
           return post

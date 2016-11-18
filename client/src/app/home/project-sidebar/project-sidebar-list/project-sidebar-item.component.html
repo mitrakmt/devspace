@@ -1,5 +1,6 @@
 <div>
   <div>
-    <p><a href="/projects/{{project.id}}" style="font-weight: bold; font-size: 18px;">{{project.name}}</a></p>
+    <p *ngIf="project.teamId === null"><a href="/projects/{{project.id}}" style="font-weight: bold; font-size: 18px;">{{project.name}}</a></p>
+    <p *ngIf="project.teamId !== null"><a href="/teams/{{project.teamId}}/{{project.id}}" style="font-weight: bold; font-size: 18px;">{{project.name}}</a></p>    
   </div>
 </div>

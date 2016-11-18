@@ -171,4 +171,7 @@ teamsController.GET_TEAM_CONTRIBUTIONS = (req, res) => {
     })
 }
 
+// teamsController.GET_ALL_BRANCHES = (req, res) => {
+//   let teamId = req.params['teamId']
+// }
 module.exports = teamsController

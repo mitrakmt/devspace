@@ -7,6 +7,7 @@ import { NgForm } from "@angular/forms";
 @Component({
   selector: 'app-teams',
   template: `
+      <app-search></app-search>
       <form (ngSubmit)="createTeam(f)" #f="ngForm">
         <div class="form-group">
           <label for="team">Team</label>

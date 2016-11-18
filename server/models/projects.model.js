@@ -6,23 +6,39 @@ let Users = require('../db').Users
 let UsersProjects = require('../db').UsersProjects
 
 projectsModel.CREATE_PROJECT = (userId, owner, name, url, description, teamId) => {
-  return Projects.create({
-    owner: owner,
-    name: name,
-    url: url,
-    description: description,
-    teamId: teamId
+  return Projects.find({
+    where: {
+      owner: owner,
+      name: name
+    }
   })
   .then(project => {
-    return UsersProjects.create({
-      isAdmin: true,
-      projectId: project.id,
-      userId: userId
-    })
-    .then(() => {
-      return project
-    })
+    if (!project) {
+      return Projects.create({
+        owner: owner,
+        name: name,
+        url: url,
+        description: description,
+        teamId: teamId
+      })
+      .then(project => {
+        return UsersProjects.create({
+          isAdmin: true,
+          projectId: project.id,
+          userId: userId
+        })
+        .then(() => {
+          return project
+        })
+      })
+    } else {
+      return { err: 'Project already exists' }
+    }
   })
+  .catch(err => {
+    return err
+  })
+
 }
 
 projectsModel.GET_PROJECTS = (userId) => {
