@@ -23,7 +23,7 @@ teamsRouter.route('/:teamId/member')
   .get(teamsController.GET_TEAM_MEMBERS)
   .post(teamsController.ADD_MEMBER)
     // Requires userId header, teamId in req url, idToAdd in req.body
-  .delete(teamsController.REMOVE_ADMIN)
+  .delete(teamsController.REMOVE_MEMBER)
     // Requires userId header, teamId in req url, idToRemove to remove in req.body
 
 teamsRouter.route('/:teamId/projects')

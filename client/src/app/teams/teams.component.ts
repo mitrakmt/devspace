@@ -24,7 +24,7 @@ import { NgForm } from "@angular/forms";
         </div>
       </form>
     <div *ngFor="let team of teams">
-      team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a>
+      team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a> <button (click)="this.teamService.deleteTeam(team.id)">Delete Team</button>
     </div>
   `,
   styleUrls: ['./teams.component.css']
@@ -38,6 +38,11 @@ export class TeamsComponent implements OnInit {
 
   fetchTeams() {
     this.teamService.fetchTeams(this.userId)
+  }
+
+  deleteTeam(teamId) {
+    console.log('inside teams component ts', teamId)
+    this.teamService.deleteTeam(teamId)
   }
     project = {name: ''}
 

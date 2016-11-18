@@ -37,7 +37,7 @@ import { NgForm } from "@angular/forms";
     <div>
       <h3>Branches</h3>
       <p *ngFor="let branch of teamProjectBranches">
-        {{branch?.name}}
+       {{branch?.name}} {{branch?.login}}
       </p>
     </div>
     
@@ -60,6 +60,7 @@ export class TeamProjectComponent implements OnInit {
   private teamProjectLanguages;
   private teamProjectReadme;
   private teamProjectBranches;
+  public repoLength;
 
   constructor(private route: ActivatedRoute, private teamService: TeamService) { }
 
@@ -72,6 +73,7 @@ export class TeamProjectComponent implements OnInit {
         .subscribe(teamProjectInfo => {
           this.teamProjectInfo = this.teamService.teamProjectInfo;
           this.teamRepo = this.teamService.teamRepo;
+          this.repoLength = this.teamRepo.length + 1
           this.teamOwner = this.teamService.teamOwner;
           this.teamRepo = this.teamService.teamRepo;
           return teamProjectInfo;
@@ -103,7 +105,10 @@ export class TeamProjectComponent implements OnInit {
     
       this.teamService.fetchProjectBranches(this.teamProjectId, this.teamId)
         .subscribe(projectBranches => {
-          this.teamProjectBranches = projectBranches;
+          projectBranches.forEach(branch => {
+            branch.login = branch.commit.url.slice(29, (-49 - this.repoLength))
+          });
+          this.teamProjectBranches = projectBranches
           return projectBranches;
       });
     });
