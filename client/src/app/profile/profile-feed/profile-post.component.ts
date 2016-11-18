@@ -45,8 +45,24 @@ export class ProfilePostComponent implements OnInit {
 
   profileComments: ProfileComment[] = [];
 
-  forceRender = () => {
-    location.reload();
+likePost = () => {
+    let postId = this.postId
+    let userId = localStorage.getItem('userid');
+    this.profileService.likePost(postId, userId)
+      .subscribe(
+        response => {
+          this.profileService.profilePosts.map((post) => {
+          if(post.id === this.postId){
+            if (response.status === 201) {
+              post.likes++
+            } else {
+              post.likes--
+            }
+          }
+          return post
+          }) 
+        }
+      )
   }
 
   ngOnInit() {
