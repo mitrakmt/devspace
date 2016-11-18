@@ -13,13 +13,12 @@
 
     <md-grid-tile>
         <img class="profile-image" src="{{ githubData.avatar_url }}" />
-        <button class="follow-button" md-button md-raised (click)="follow()" *ngIf="!isOwnProfile">Follow</button>
+        <button class="follow-button" md-button md-raised (click)="follow()" *ngIf="username !== currentUser">Follow</button>
     </md-grid-tile>
 
     <md-grid-tile>
       <br>
-      <p styles="margin-top: 30px; padding-top:15px;">Languages: </p>
-      <div class="language" *ngFor="let language of languages"><img src={{language}} style="height: 50px; margin-top: 17px;"></div>
+      <div class="language" *ngFor="let language of languages"><img src="{{ language }}" style="height: 50px; margin-top: 17px;"></div>
     </md-grid-tile>
   </md-grid-list>
 </div>

@@ -7,20 +7,21 @@ import { ProfilePost } from './profile-post';
   selector: 'app-profile-newpost',
   template: `
       <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div class="form-group">
-          <label for="post">Post</label>
+        <h3 style="margin-left: 38px;">New Post</h3>
+        <div class="form-group" style="width: 100%;">
           <input 
             type="text"
             id="post"
+            placeholder="What's on your mind?"
+            style="width: 70%; padding: 10px; margin-left: 38px;"
             name="post"
             [(ngModel)]="post.content"
             #post = "ngModel"
             required
             >
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">post</button>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">post</button>
-      </form>
-  `
+      </form>`
 })
 export class ProfileNewPostComponent {
   post = {'content': ''}

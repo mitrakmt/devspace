@@ -6,12 +6,13 @@ import 'rxjs/add/operator/map';
 import { ProfileComment } from './profile-comment';
 import { ProfilePost } from './profile-post';
 
-import * as io from 'socket\.io-client';
+// import * as io from 'socket\.io-client';
 // let socket = io("http://localhost:8000")
 
 @Injectable()
 
 export class ProfileFeedService {
+
 profilePosts: ProfilePost[] = [];
 
   constructor(private _http: Http, private router: Router ) { }

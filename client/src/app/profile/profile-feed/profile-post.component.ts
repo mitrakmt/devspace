@@ -54,11 +54,11 @@ likePost = () => {
       .subscribe(
         response => {
           this.profileService.profilePosts.map((post) => {
-          if(post.id === this.postId){
+          if(post['id'] === this.postId){
             if (response.status === 201) {
-              post.likes++
+              post['likes']++
             } else {
-              post.likes--
+              post['likes']--
             }
           }
           return post
