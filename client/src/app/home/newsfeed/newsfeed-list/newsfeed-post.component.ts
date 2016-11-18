@@ -40,8 +40,10 @@ import { NewsfeedListService } from './newsfeed-list.service';
   `
 })
 export class NewsfeedPostComponent implements OnInit {
+
   @Input() newsfeedPost: any;
   @Input('postId') postId: number;
+
   constructor(private newsfeedListService: NewsfeedListService) { }
   newsfeedComments: NewsfeedComment[] = [];
 
