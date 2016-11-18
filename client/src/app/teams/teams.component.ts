@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TeamService } from './team.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MaterialModule } from '@angular/material';
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-teams',
@@ -37,6 +38,21 @@ export class TeamsComponent implements OnInit {
   fetchTeams() {
     this.teamService.fetchTeams(this.userId)
   }
+    project = {name: ''}
+
+  createTeam(form: NgForm) {
+      let teamName = form.value.team;
+      console.log(teamName)
+      let userId = localStorage.getItem('userid');
+      form.reset()
+      this.teamService.createTeam(teamName, userId)
+        .subscribe(
+          data => {
+            console.log(data, 'data')
+            return data
+    })
+  }
+
   ngOnInit() {
     this.teamService.fetchTeams(this.userId)
       .subscribe(teams => {
