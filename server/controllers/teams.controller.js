@@ -171,7 +171,56 @@ teamsController.GET_TEAM_CONTRIBUTIONS = (req, res) => {
     })
 }
 
-// teamsController.GET_ALL_BRANCHES = (req, res) => {
-//   let teamId = req.params['teamId']
-// }
+teamsController.GET_ALL_BRANCHES = (req, res) => {
+  let userId
+  let teamId = +req.params['teamId']
+  let projectId = +req.headers['projectid']
+  let teamName
+
+  Teams.GET_TEAM(userId, teamId)
+    .then(team => {
+      teamName = team.name
+      console.log('teamName', teamName)
+      return teamName
+    })
+    .then(teamName => {
+      Projects.GET_PROJECT_FROM_DB(projectId)
+      .then(project => {
+        let repo = project['name']
+        console.log('repo', repo)
+        Projects.GET_CONTRIBUTORS(teamName, repo)
+        .then(contributors => {
+          return JSON.parse(contributors)
+        })
+        .then(contributors => {
+          let promises = contributors.map(contributor => {
+            return new Promise((resolve, reject) => {
+              Projects.GET_BRANCHES(contributor.login, repo)
+              .then(branches => {
+                resolve(branches)
+              })
+              .catch(err => {
+                reject(err)
+              })
+            })
+          })
+          return promises
+        })
+        .then(promises => {
+          Promise.all(promises)
+          .then(results => {
+            let mergedBranches = []
+            results = results.map(result => {
+              mergedBranches.push(JSON.parse(result))
+            })
+            mergedBranches = [].concat.apply([], mergedBranches)
+            res.status(200).send(mergedBranches)
+          })
+          .catch(err => {
+            res.send({err: err})
+          })
+        })
+      })
+    })
+}
 module.exports = teamsController
