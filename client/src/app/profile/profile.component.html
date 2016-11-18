@@ -1,4 +1,5 @@
 <!--// Add nav component here-->
+<app-search></app-search>
 <div class="background-image">
   <img class="background-image" src="http://www.markgray.com.au/images/gallery/large/desert-light.jpg" />
 </div>
@@ -12,7 +13,7 @@
 
     <md-grid-tile>
         <img class="profile-image" src="{{ githubData.avatar_url }}" />
-        <button md-button md-raised (click)="follow()">Follow</button>
+        <button class="follow-button" md-button md-raised (click)="follow()">Follow</button>
     </md-grid-tile>
 
     <md-grid-tile>
@@ -28,7 +29,7 @@
   </div>
 
   <div class="bottom-grid-box" flex="150" style="background-color: #F8F8F8; height: 400px;" layout-padding>
-    <h1>Projects</h1>
+    <h1 style="text-align: center;">Projects</h1>
 
     <p>Name: {{ githubData.name }}</p>
     <p>Username: {{ githubData.username }}</p>

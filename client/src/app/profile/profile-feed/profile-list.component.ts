@@ -6,7 +6,7 @@ import {ProfilePost } from './profile-post';
 @Component({
   selector: 'app-profile-list',
   template: `
-        <h1>My Feed</h1>
+        <h1 style="text-align: center;">My Feed</h1>
         <hr>
         <app-newpost></app-newpost>
         <ul>
