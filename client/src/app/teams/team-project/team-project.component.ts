@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-team-project',
-  templateUrl: './team-project.component.html',
+  template:`
+    <app-search></app-search>
+    team-project works!
+  `,
   styleUrls: ['./team-project.component.css']
 })
 export class TeamProjectComponent implements OnInit {

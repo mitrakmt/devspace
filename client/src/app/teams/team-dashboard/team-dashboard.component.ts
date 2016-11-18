@@ -7,6 +7,7 @@ import { NgForm } from "@angular/forms";
 @Component({
   selector: 'app-team-dashboard',
   template: `
+   <app-search></app-search>
     hello world
     teamid: {{teamId}}
     <h1>Team Members</h1>
