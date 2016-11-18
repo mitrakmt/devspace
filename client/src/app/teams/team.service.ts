@@ -15,6 +15,9 @@ export class TeamService {
   public teamProjectId;
   public teamOwner;
   public teamRepo;
+  public teamContributors;
+  public chartContributors = [];
+  public contributionScore = [];
 
   constructor(private _http: Http) { }
 
@@ -80,6 +83,11 @@ export class TeamService {
     return this._http.get('/api/teams/' + teamId + '/contributions', options)
       .map((res: Response) => {
         this.teamContributions = res.json();
+        this.teamContributions.forEach(contribution => {
+          this.chartContributors.push(contribution.login)
+          this.contributionScore.push(contribution.contributions)
+        })
+        console.log(this.chartContributors, this.contributionScore)
         return res.json();
       });
   }
