@@ -28,10 +28,6 @@ export class ProfileListComponent implements OnInit {
     let username = this.router.url.slice(5);
     let currentUser = localStorage.getItem('username');
 
-    if (currentUser === username) {
-      this.isOwnProfile = true;
-    }
-
     this._profileFeedService.fetchProfileFeed()
       .subscribe(
         data => {
