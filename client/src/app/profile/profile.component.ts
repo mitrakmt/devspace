@@ -13,9 +13,8 @@ export class ProfileComponent implements OnInit {
   public githubData = {};
   public userData = {};
   public languages = [];
-  public isOwnProfile = true;
   public stockImage = 'https://pbs.twimg.com/profile_images/603994727260749824/zpLtrulD.png';
-  public isOwnProfile = false;
+  public isOwnProfile = true;
   public isNotFollowing: boolean;
   public followStatus;
 
@@ -48,8 +47,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     let username = this.router.url.slice(5);
-    let currentUser = localStorage.getItem('username');
-    // let userid = localStorage.getItem('userid')
+    let currentUser = localStorage.getItem('username')
 
     this._profileService.fetchBytes(username)
       .subscribe(
