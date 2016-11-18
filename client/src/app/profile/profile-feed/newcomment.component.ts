@@ -12,13 +12,14 @@ import { ProfileComment } from './profile-comment';
           <input 
             type="text"
             id="comment"
+            style="width: 55%;"
             name="comment"
             [(ngModel)]="comment.content"
             #comment = "ngModel"
             required
             >
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">comment</button>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">comment</button>
       </form>
   `
 })
@@ -35,8 +36,8 @@ export class ProfileNewCommentComponent{
       .subscribe(
         data => {
           this._profileFeedService.profilePosts.map((post)=>{
-          if(post.id === this.postId){
-            post.comments.unshift(data)
+          if(post['id'] === this.postId){
+            post['comments'].unshift(data)
           }
           return post
           })

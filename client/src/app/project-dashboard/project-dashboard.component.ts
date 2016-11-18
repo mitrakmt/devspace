@@ -99,18 +99,6 @@ export class ProjectDashboardComponent implements OnInit {
     this.projectDashboardService.fetchProjectLanguages(this.projectId)
       .subscribe(projectLanguages => {
         this.projectLanguages = projectLanguages;
-        // let images = {
-        //   'Angular': 'https://i.ytimg.com/i/bn1OgGei-DV7aSRo_HaAiw/mq1.jpg?v=57d9f2ca',
-        //   'HTML': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/200px-HTML5_logo_and_wordmark.svg.png',
-        //   'CSS': 'https://platform-user-uploads.s3.amazonaws.com/blog/category/logo/364/CSS.png',
-        //   'JavaScript': 'http://www.w3devcampus.com/wp-content/uploads/logoAndOther/logo_JavaScript.png',
-        //   'TypeScript': 'https://raw.githubusercontent.com/remojansen/logo.ts/master/ts.png',
-        //   'Python': 'https://www.python.org/static/opengraph-icon-200x200.png',
-        //   'Java': 'https://ignite.apache.org/images/java.png'
-        // }
-        // projectLanguages.forEach(language => {
-        //   language.language.push(images[language.language[0]]);
-        // })
         return projectLanguages;
       });
 
