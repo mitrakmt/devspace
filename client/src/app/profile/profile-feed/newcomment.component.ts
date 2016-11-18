@@ -4,7 +4,7 @@ import { ProfileFeedService } from './profile-feed.service';
 import { ProfileComment } from './profile-comment';
 
 @Component({
-  selector: 'app-newcomment',
+  selector: 'app-profile-newcomment',
   template: `
       <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="form-group">
@@ -22,7 +22,7 @@ import { ProfileComment } from './profile-comment';
       </form>
   `
 })
-export class NewProfileCommentComponent{
+export class ProfileNewCommentComponent{
   @Input("postId") postId: number;
   comment = {'content': ''}
   profileComment: ProfileComment = null;

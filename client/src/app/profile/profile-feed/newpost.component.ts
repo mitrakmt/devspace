@@ -4,7 +4,7 @@ import { ProfileFeedService } from './profile-feed.service';
 import { ProfilePost } from './profile-post';
 
 @Component({
-  selector: 'app-newpost',
+  selector: 'app-profile-newpost',
   template: `
       <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="form-group">
@@ -22,7 +22,7 @@ import { ProfilePost } from './profile-post';
       </form>
   `
 })
-export class NewProfilePostComponent {
+export class ProfileNewPostComponent {
   post = {'content': ''}
   profilePosts: ProfilePost = null;
   constructor(private _profileFeedService: ProfileFeedService) {  }

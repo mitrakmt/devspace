@@ -42,8 +42,8 @@ import { ProfileFeedComponent } from './profile/profile-feed/profile-feed.compon
 import { ProfileService } from './profile/profile.service'
 import { ProfileFeedService } from './profile/profile-feed/profile-feed.service';
 import { ProfileListComponent } from './profile/profile-feed/profile-list.component';
-import { NewProfilePostComponent } from './profile/profile-feed/newpost.component';
-import { NewProfileCommentComponent } from './profile/profile-feed/newcomment.component';
+import { ProfileNewPostComponent } from './profile/profile-feed/newpost.component';
+import { ProfileNewCommentComponent } from './profile/profile-feed/newcomment.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfilePostComponent } from './profile/profile-feed/profile-post.component';
 import { ProfileCommentsComponent } from './profile/profile-feed/profile-comments.component';
@@ -79,8 +79,8 @@ import { TeamsComponent } from './teams/teams.component';
     ProfileComponent,
     ProfileFeedComponent,
     ProfileListComponent,
-    NewpostComponent,
-    NewcommentComponent,
+    ProfileNewPostComponent,
+    ProfileNewCommentComponent,
     ProfilePostComponent,
     ProfileCommentsComponent,
     TeamDashboardComponent,
