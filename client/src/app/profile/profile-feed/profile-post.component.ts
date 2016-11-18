@@ -17,7 +17,7 @@ import { ProfileFeedService } from './profile-feed.service';
           <p>
             Likes: {{profilePost.likes}} 
           </p>
-          <app-newcomment [postId]="postId"></app-newcomment>
+          <app-profile-newcomment [postId]="postId"></app-profile-newcomment>
       </div>
       <div *ngIf="profilePost.comments.length > 0">
           <app-profile-comments [comments]="profilePost.comments"> </app-profile-comments>
