@@ -1,5 +1,6 @@
 let Teams = require('../models').teamsModel
 let Projects = require('../models').projectsModel
+let Users = require('../db').Users
 let teamsController = {}
 
 teamsController.GET_TEAMS = (req, res) => {
@@ -69,12 +70,21 @@ teamsController.REMOVE_ADMIN = (req, res) => {
 teamsController.ADD_MEMBER = (req, res) => {
   let userId = req.headers['userid']
   let teamId = req.params.teamId
-  let idToAdd = req.body.idToAdd
+  //let idToAdd = req.body.idToAdd
+  let username = req.body.username
 
-  Teams.ADD_MEMBER(userId, teamId, idToAdd)
-    .then(result => {
-      res.status(200).send(result)
-    })
+  Users.findOne({
+    where: {
+      username: username
+    }
+  })
+  .then(userToAdd => {
+    let idToAdd = userToAdd.id
+    Teams.ADD_MEMBER(userId, teamId, idToAdd)
+      .then(result => {
+        res.status(200).send(result)
+      })
+  })
 }
 
 teamsController.REMOVE_MEMBER = (req, res) => {

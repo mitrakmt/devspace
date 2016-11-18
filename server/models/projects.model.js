@@ -5,12 +5,13 @@ let Projects = require('../db').Projects
 let Users = require('../db').Users
 let UsersProjects = require('../db').UsersProjects
 
-projectsModel.CREATE_PROJECT = (userId, owner, name, url, description) => {
+projectsModel.CREATE_PROJECT = (userId, owner, name, url, description, teamId) => {
   return Projects.create({
     owner: owner,
     name: name,
     url: url,
-    description: description
+    description: description,
+    teamId: teamId
   })
   .then(project => {
     return UsersProjects.create({
