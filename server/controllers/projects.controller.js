@@ -21,11 +21,14 @@ projectsController.CREATE_PROJECT = (req, res) => {
   let url = req.body.url || null
   let description = req.body.description
   let teamId = req.body.teamId
-
-  Projects.CREATE_PROJECT(userId, owner, name, url, description, teamId)
-    .then(project => {
-      res.status(200).send(project)
-    })
+  if (name) {
+    Projects.CREATE_PROJECT(userId, owner, name, url, description, teamId)
+      .then(project => {
+        res.status(200).send(project)
+      })
+  } else {
+    res.status(400).send({ err: 'Invalid project name' })
+  }
 }
 
 projectsController.GET_PROJECT_FROM_DB = (req, res) => {
