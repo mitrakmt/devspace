@@ -57,6 +57,13 @@ profilePosts: ProfilePost[] = [];
       })
         .map((data) => data.json())      
     }
+    likePost(postId, userid): Observable<any> {
+      let headers = new Headers({'userid': userid});
+      headers.append('Content-Type', 'application/json');
+      return this._http.put('/api/posts/interactions/' + postId, {}, {
+        headers: headers
+      })
+    }
   //   socketServer(callback){
   //     socket.on('chat message server', function(msg) {
   //   console.log('msg: ', msg);
