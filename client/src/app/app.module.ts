@@ -44,6 +44,7 @@ import { ProfileFeedService } from './profile/profile-feed/profile-feed.service'
 import { ProfileListComponent } from './profile/profile-feed/profile-list.component';
 import { NewProfilePostComponent } from './profile/profile-feed/newpost.component';
 import { NewProfileCommentComponent } from './profile/profile-feed/newcomment.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfilePostComponent } from './profile/profile-feed/profile-post.component';
 import { ProfileCommentsComponent } from './profile/profile-feed/profile-comments.component';
 import { SearchService } from './home/search/search.service';
@@ -84,7 +85,8 @@ import { TeamsComponent } from './teams/teams.component';
     ProfileCommentsComponent,
     TeamDashboardComponent,
     TeamProjectComponent,
-    TeamsComponent
+    TeamsComponent,
+    ProfileEditComponent
   ],
   imports: [
     BrowserModule,
