@@ -14,10 +14,13 @@ export class ProfileComponent implements OnInit {
   public userData = {};
   public languages = [];
   public isOwnProfile = false;
+  public isNotFollowing: boolean;
+  public followStatus;
 
   constructor(private _profileService: ProfileService, private router: Router) { }
 
   follow = () => {
+    console.log("follow triggered")
     let followedUsername = this.router.url.slice(5);
     let userId = localStorage.getItem('userid');
     this._profileService.follow(followedUsername, userId)
@@ -27,10 +30,21 @@ export class ProfileComponent implements OnInit {
         }
       )
   }
+  toggle = () => {
+    if(this.isNotFollowing === false){
+      this._profileService.followStatus = "Unfollow";
+      this.followStatus = "Unfollow";
+    }
+    if(this.isNotFollowing === true){
+      this._profileService.followStatus = "Follow";
+      this.followStatus = "Follow";
+    }
+  }
 
   ngOnInit() {
     let username = this.router.url.slice(5);
     let currentUser = localStorage.getItem('username');
+    // let userid = localStorage.getItem('userid')
 
     if (currentUser === username) {
       this.isOwnProfile = true;
@@ -71,5 +85,29 @@ export class ProfileComponent implements OnInit {
           this.userData = data;
         }
       )
+
+     this._profileService.fetchFollowing()
+
+      .subscribe(
+        data => {
+          for (var i = 0; i < data.length; i++) {
+              if(data[i].username === username){
+                console.log("username to user", data[i].username, username)
+                this._profileService.isNotFollowing = false;
+                this.isNotFollowing = false;
+                this._profileService.followStatus = "Unfollow";
+                this.followStatus = "Unfollow"
+                console.log("are you already following?", this.isNotFollowing)
+            }
+            else {
+              this._profileService.isNotFollowing = true;
+              this.isNotFollowing = true;
+              this._profileService.followStatus = "Follow";
+              this.followStatus = "Follow"
+              
+            }
+          }
+        }
+      ) 
   }
 }

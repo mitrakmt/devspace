@@ -15,10 +15,12 @@ import {ProfilePost } from './profile-post';
 })
 export class ProfileListComponent implements OnInit {
   profilePosts: ProfilePost[] = [];
+  following = []
   private profileComments
   constructor(private _profileFeedService: ProfileFeedService) { }
 
   ngOnInit() {
+   let userid = localStorage.getItem('userid')
     this._profileFeedService.fetchProfileFeed()
       .subscribe(
         data => {
@@ -27,5 +29,6 @@ export class ProfileListComponent implements OnInit {
           return data
         }
       )
+ 
   }
 }
