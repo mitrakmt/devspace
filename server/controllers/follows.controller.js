@@ -1,4 +1,5 @@
 let Follows = require('../models').followsModel
+let Users = require('../db').Users
 let followsController = {}
 
 followsController.GET_FOLLOWERS = (req, res) => {
@@ -24,8 +25,31 @@ followsController.GET_FOLLOWING = (req, res) => {
   let userId = req.params.userId
 
   Follows.GET_FOLLOWING(userId)
-    .then(followedUsers => {
-      res.status(200).send(followedUsers)
+    .then(follows => {
+      let promises = follows.map(follow => {
+        return new Promise((resolve, reject) => {
+          Users.findAll({
+            where: {
+              id: follow.userId
+            }
+          })
+          .then(users => {
+            resolve(users)
+          })
+          .catch(err => {
+            reject(err)
+          })
+        })
+      })
+
+      Promise.all(promises)
+        .then(followedUsers => {
+          followedUsers = [].concat.apply([], followedUsers)
+          res.status(200).send(followedUsers)
+        })
+        .catch(err => {
+          res.status(204).send({err: err})
+        })
     })
 }
 

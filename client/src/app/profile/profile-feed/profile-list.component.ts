@@ -20,6 +20,7 @@ export class ProfileListComponent implements OnInit {
   currentUser = localStorage.getItem('username');
 
   profilePosts: ProfilePost[] = [];
+  following = []
   private profileComments
 
   constructor(private _profileFeedService: ProfileFeedService, public router: Router) { }
@@ -27,6 +28,7 @@ export class ProfileListComponent implements OnInit {
   ngOnInit() {
     let username = this.router.url.slice(5);
     let currentUser = localStorage.getItem('username');
+    let userid = localStorage.getItem('userid')
 
     this._profileFeedService.fetchProfileFeed()
       .subscribe(
@@ -36,5 +38,6 @@ export class ProfileListComponent implements OnInit {
           return data
         }
       )
+ 
   }
 }
