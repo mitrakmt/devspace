@@ -79,23 +79,23 @@ export class TeamDashboardComponent implements OnInit {
     })
   }
 
-    submitTeamMember(form: NgForm) {
-      let memberUsername = form.value.member;
-      console.log(memberUsername)
-      let userId = localStorage.getItem('userid');
-      form.reset()
-      this.teamService.addTeamMember(memberUsername, this.teamId)
-        .subscribe(
-          data => {
-            console.log(data, 'data')
-            return data
+  submitTeamMember(form: NgForm) {
+    let memberUsername = form.value.member;
+    console.log(memberUsername)
+    let userId = localStorage.getItem('userid');
+    form.reset()
+    this.teamService.addTeamMember(memberUsername, this.teamId)
+      .subscribe(
+        data => {
+          console.log(data, 'data')
+          return data
     })
   }
 
-  constructor(private route: ActivatedRoute, private teamService: TeamService) {
-   }
+  constructor(private route: ActivatedRoute, private teamService: TeamService) { }
 
   ngOnInit() {
+
     return this.route.params.subscribe(params => {
       this.teamId = +params['teamId'];
 
@@ -117,5 +117,6 @@ export class TeamDashboardComponent implements OnInit {
           return teamContributions;
         });
       }
+
     }
 }

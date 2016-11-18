@@ -13,7 +13,6 @@ export class ProfileComponent implements OnInit {
   public githubData = {};
   public userData = {};
   public languages = [];
-  public stockImage = 'https://pbs.twimg.com/profile_images/603994727260749824/zpLtrulD.png';
   public isOwnProfile = true;
   public isNotFollowing: boolean;
   public followStatus;
@@ -24,7 +23,6 @@ export class ProfileComponent implements OnInit {
   currentUser = localStorage.getItem('username');
 
   follow = () => {
-    console.log("follow triggered")
     let followedUsername = this.router.url.slice(5);
     let userId = localStorage.getItem('userid');
     this._profileService.follow(followedUsername, userId)
@@ -34,7 +32,7 @@ export class ProfileComponent implements OnInit {
         }
       )
   }
-  
+
   toggle = () => {
     if(this.isNotFollowing === false){
       this._profileService.followStatus = "Unfollow";
@@ -95,20 +93,16 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         data => {
           for (var i = 0; i < data.length; i++) {
-              if(data[i].username === username){
-                console.log("username to user", data[i].username, username)
-                this._profileService.isNotFollowing = false;
-                this.isNotFollowing = false;
-                this._profileService.followStatus = "Unfollow";
-                this.followStatus = "Unfollow"
-                console.log("are you already following?", this.isNotFollowing)
-            }
-            else {
+            if(data[i].username === username) {
+              this._profileService.isNotFollowing = false;
+              this.isNotFollowing = false;
+              this._profileService.followStatus = "Unfollow";
+              this.followStatus = "Unfollow"
+            } else {
               this._profileService.isNotFollowing = true;
               this.isNotFollowing = true;
               this._profileService.followStatus = "Follow";
               this.followStatus = "Follow"
-              
             }
           }
         }
