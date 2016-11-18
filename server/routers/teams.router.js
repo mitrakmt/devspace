@@ -33,9 +33,9 @@ teamsRouter.route('/:teamId/projects')
 teamsRouter.route('/:teamId/contributions')
   .get(teamsController.GET_TEAM_CONTRIBUTIONS)
 
-// teamsRouter.route('/:teamId/branches')
-//   .get(teamsController.GET_ALL_BRANCHES)
-//
+teamsRouter.route('/:teamId/branches')
+  .get(teamsController.GET_ALL_BRANCHES)
+
 module.exports = teamsRouter
 
 
