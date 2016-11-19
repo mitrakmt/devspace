@@ -11,8 +11,8 @@ import { ProfileFeedService } from './profile-feed.service';
             <p style="margin-left: 9px; font-size: 16px;"> {{ comment.firstName }} {{ comment.lastName }} <a [routerLink]="['/dev', comment.username]"><strong>{{comment.username}}</strong></a>:</p>
             <p style="margin-left: 9px; font-size: 16px;"> {{comment.content}} </p>
             <p style="font-size: 11px; margin-top: -2px; font-color: gray; margin-bottom: 0px">{{comment.createdAt | date:'short'}}</p>
-          </div>       
-        </md-card>`    
+          </div>
+        </md-card>`
 })
 export class ProfileCommentsComponent {
 @Input('comments') comments: any;

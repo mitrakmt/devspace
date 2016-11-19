@@ -104,6 +104,23 @@ usersController.GET_USER_GITHUB = (req, res) => {
     })
 }
 
+usersController.SEARCH_USERS = (req, res) => {
+  let searchText = req.headers['searchText']
+  let username = req.headers['username']
+  let sortBy = 'followers'
+  let options = {
+    url: `https://api.github.com/search/users?q=${searchText}+sort=${sortBy}`,
+    headers: {
+      'User-Agent': username
+    }
+  }
+
+  return request.get(options)
+    .then(users => {
+      res.status(200).send(users)
+    })
+}
+
 usersController.GET_USER_PROFILE_FEED = (req, res) => {
   let userId = req.headers['userid']
   let username = req.headers['username']

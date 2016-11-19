@@ -17,6 +17,9 @@ usersRouter.route('/profile/feed')
 usersRouter.route('/profile/code')
   .get(usersController.GET_ALL_BYTES_OF_CODE)
 
+usersRouter.route('/search')
+  .get(usersController.SEARCH_USERS)
+  
 usersRouter.route('/logout')
   .get(usersController.LOGOUT)
 

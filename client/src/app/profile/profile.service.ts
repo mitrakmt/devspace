@@ -48,6 +48,7 @@ export class ProfileService {
         headers: headers
       })
   }
+  
   fetchFollowing(){
       let userid = localStorage.getItem('userid')
       return this._http.get('/api/follows/' + userid + '/following')

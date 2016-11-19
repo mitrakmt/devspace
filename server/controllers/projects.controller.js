@@ -3,6 +3,10 @@ let Users = require('../db').Users
 let projectsController = {}
 let showdown  = require('showdown')
 let converter = new showdown.Converter()
+converter.setOption('tables', true)
+converter.setOption('simplifiedAutoLink', true)
+converter.setOption('tasklists', true)
+// converter.setOption('smartIndentationFix', true) 
 
 projectsController.GET_PROJECTS = (req, res) => {
   let userId = req.headers['userid']
@@ -252,6 +256,7 @@ projectsController.GET_LANGUAGES = (req, res) => {
               langs.push({language: [key, results[key]]})
             }
           }
+          console.log("languages", langs)
           res.status(200).send(langs)
         })
     })
