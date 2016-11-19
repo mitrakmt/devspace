@@ -14,7 +14,6 @@ export class ProfileComponent implements OnInit {
   public userData = {};
   public languages = [];
   public isOwnProfile = true;
-  public isNotFollowing: boolean;
   public followStatus;
 
   constructor(private _profileService: ProfileService, private router: Router) { }
@@ -39,17 +38,6 @@ export class ProfileComponent implements OnInit {
         }
       )
   }
-
-  // toggle = () => {
-  //   if(this.isNotFollowing === false){
-  //     this._profileService.followStatus = "Unfollow";
-  //     this.followStatus = "Unfollow";
-  //   }
-  //   if(this.isNotFollowing === true){
-  //     this._profileService.followStatus = "Follow";
-  //     this.followStatus = "Follow";
-  //   }
-  // }
 
   ngOnInit() {
     let username = this.router.url.slice(5);
@@ -101,14 +89,8 @@ export class ProfileComponent implements OnInit {
         data => {
           for (var i = 0; i < data.length; i++) {
             if(data[i].username === username) {
-              this._profileService.isNotFollowing = false;
-              this.isNotFollowing = false;
-              this._profileService.followStatus = "Unfollow";
               this.followStatus = "Unfollow"
             } else {
-              this._profileService.isNotFollowing = true;
-              this.isNotFollowing = true;
-              this._profileService.followStatus = "Follow";
               this.followStatus = "Follow"
             }
           }
