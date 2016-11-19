@@ -6,8 +6,6 @@ import { AuthHttp, JwtHelper } from 'angular2-jwt';
 
 @Injectable()
 export class ProfileService {
-  public isNotFollowing: boolean;
-  public followStatus;
 
   constructor(private _http: Http) {  }
 
@@ -56,7 +54,6 @@ export class ProfileService {
         .map((res:Response) => {
           if (res) {
             this['following'] = res.json();
-            // console.log("this.following", this.following)
             return this['following']
           }
         })
