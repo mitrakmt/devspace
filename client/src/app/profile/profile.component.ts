@@ -28,21 +28,28 @@ export class ProfileComponent implements OnInit {
     this._profileService.follow(followedUsername, userId)
       .subscribe(
         data => {
+          console.log("data in follow", data._body)
+          if(data._body ==="Deleted follow"){
+            this.followStatus = "Follow";
+          }
+          if(data._body.includes('Successfully followed')){
+            this.followStatus = "Unfollow"
+          }
           return data
         }
       )
   }
 
-  toggle = () => {
-    if(this.isNotFollowing === false){
-      this._profileService.followStatus = "Unfollow";
-      this.followStatus = "Unfollow";
-    }
-    if(this.isNotFollowing === true){
-      this._profileService.followStatus = "Follow";
-      this.followStatus = "Follow";
-    }
-  }
+  // toggle = () => {
+  //   if(this.isNotFollowing === false){
+  //     this._profileService.followStatus = "Unfollow";
+  //     this.followStatus = "Unfollow";
+  //   }
+  //   if(this.isNotFollowing === true){
+  //     this._profileService.followStatus = "Follow";
+  //     this.followStatus = "Follow";
+  //   }
+  // }
 
   ngOnInit() {
     let username = this.router.url.slice(5);
