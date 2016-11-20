@@ -11,9 +11,9 @@ export class SearchUsersService {
 
   constructor(private _http: Http, private router: Router ) { }
 
-    searchUsers(searchText): Observable<any> {
+    searchUsers(searchTerm): Observable<any> {
       let username = localStorage.getItem('username')
-      let headers = new Headers({ 'searchText': searchText, 'username': username })
+      let headers = new Headers({ 'searchText': searchTerm, 'username': username })
       let options = new RequestOptions({ headers: headers })
       
       return this._http.get('/api/users/search', options)

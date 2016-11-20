@@ -3,31 +3,17 @@
 <div md-margin md-padding>
   <h1 class="heading">Search</h1>
   <md-card layout-align="center" class="search-container">
-    <form class="search-form" (ngSubmit)="onSubmit(f)" #f="ngForm" name="search">
-      <md-input class="search-area" placeholder="Search Users" type="text" id="search" [(ngModel)]="search.text" #search="ngModel"></md-input>
-      <button md-button md-raised type="submit" [disabled]="!f.valid">Search</button>
+    <form class="search-form">
+      <md-input class="search-area" placeholder="Search Users" type="text" [value]="searchTerm" (input)="searchTerm = $event.target.value"></md-input>
+      <button md-button md-raised (click)="searchUsers(searchTerm)">Search</button>
     </form>
   </md-card>
 
   <template ngFor let-user [ngForOf]="searchedUsers">
-    <md-card class="card card-1">
-      <md-grid-list cols="5" rowHeight="40px">
-        <md-grid-tile>
-          <img src="{{ user.avatar_url }}" /> {{ user.name }} <span style="font-size:11px;" ><a>@{{ user.login }}</a></span>
-        </md-grid-tile>
-        <md-grid-tile>
-          Followers: {{ user.followers }}  - Following: {{ user.following }}
-        </md-grid-tile>
-        <md-grid-tile>
-          {{ user.bio }}
-        </md-grid-tile>
-        <md-grid-tile>
-          <a href="{{ user.blog }}">Website</a>
-        </md-grid-tile>
-        <md-grid-tile>
-          <button md-button md-raised (click)="follow()">Follow</button>
-        </md-grid-tile>
-      </md-grid-list>
+    <md-card class="card card-1 user-card" md-margin md-padding>
+      <img src="{{ user.avatar_url }}" class="user-avatar" />
+      <br>
+      <span style="font-size:22px;"><a [routerLink]="['/dev', user.login]">@{{ user.login }}</a></span>
     </md-card>
   </template>
 </div>

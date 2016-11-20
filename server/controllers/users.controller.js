@@ -105,11 +105,11 @@ usersController.GET_USER_GITHUB = (req, res) => {
 }
 
 usersController.SEARCH_USERS = (req, res) => {
-  let searchText = req.headers['searchText']
+  let searchText = req.headers['searchtext']
   let username = req.headers['username']
   let sortBy = 'followers'
   let options = {
-    url: `https://api.github.com/search/users?q=${searchText}+sort=${sortBy}`,
+    url: `https://api.github.com/search/users?q=${searchText}&sort=${sortBy}`,
     headers: {
       'User-Agent': username
     }

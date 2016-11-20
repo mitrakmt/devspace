@@ -11,28 +11,34 @@ import { NgForm } from "@angular/forms";
 export class SearchUsersComponent implements OnInit {
 
   public searchedUsers = [];
+  public followStatus;
 
-  constructor(private _searchUsersService: SearchUsersService) { }
+  constructor(private _searchUsersService: SearchUsersService, public router: Router) { }
 
-    follow = () => {
-        let followedUsername = 'mitrakmt'
-        let userId = localStorage.getItem('userid');
-        this._searchUsersService.follow(followedUsername, userId)
-          .subscribe(
-            data => {
-              return data
-            }
-          )
-      }
+  follow = (followedUsername) => {
+    let userId = localStorage.getItem('userid');
+    this._searchUsersService.follow(followedUsername, userId)
+      .subscribe(
+        data => {
+          console.log("data in follow", data._body)
+          if(data._body ==="Deleted follow"){
+            this.followStatus = "Follow";
+          }
+          if(data._body.includes('Successfully followed')){
+            this.followStatus = "Unfollow"
+          }
+          return data
+        }
+      )
+  }
 
-  onSubmit(form: NgForm) {
-    let searchText = form.value.searchText;
-
-    this._searchUsersService.searchUsers(searchText)
+  searchUsers = (searchTerm) => {
+    this._searchUsersService.searchUsers(searchTerm)
         .subscribe(
           data => {
-            console.log(data);
-            return data
+            console.log(data)
+            this.searchedUsers = data.items;
+            this._searchUsersService.searchedUsers = data.items;
           }
         )
   }

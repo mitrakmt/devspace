@@ -49,3 +49,15 @@ button {
     color: white;
     border-radius: 4px;
 }
+
+.user-avatar {
+    border-radius: 50%;
+    height: 200px;
+}
+
+.user-card {
+    margin-left: 23px;
+    width: 30%;
+    height: 320px;
+    float: left;
+}
