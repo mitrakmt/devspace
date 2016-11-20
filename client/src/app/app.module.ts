@@ -53,6 +53,8 @@ import { TeamService } from './teams/team.service';
 import { TeamProjectComponent } from './teams/team-project/team-project.component';
 import { TeamsComponent } from './teams/teams.component';
 import { BarChartComponent } from './teams/team-dashboard/bar-chart/bar-chart.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
+import { SearchUsersService } from './search-users/search-users.service';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,8 @@ import { BarChartComponent } from './teams/team-dashboard/bar-chart/bar-chart.co
     TeamProjectComponent,
     TeamsComponent,
     ProfileEditComponent,
-    BarChartComponent
+    BarChartComponent,
+    SearchUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -109,12 +112,13 @@ import { BarChartComponent } from './teams/team-dashboard/bar-chart/bar-chart.co
       { path: 'login', component: LoginComponent },
       { path: 'dev/:userId', component: ProfileComponent },
       { path: 'signup', component: LoginComponent },
-      { path: 'auth/github/callback', redirectTo: '/home'},
-      { path: 'auth/github', children: []},
+      { path: 'auth/github/callback', redirectTo: '/home' },
+      { path: 'auth/github', children: [] },
       { path: 'projects/:projectId', component: ProjectDashboardComponent },
       { path: 'teams', component: TeamsComponent },
       { path: 'teams/:teamId', component: TeamDashboardComponent },
-      { path: 'teams/:teamId/:teamProjectId', component: TeamProjectComponent}
+      { path: 'teams/:teamId/:teamProjectId', component: TeamProjectComponent },
+      { path: 'search', component: SearchUsersComponent }
     ])
   ],
   providers: [
@@ -130,7 +134,8 @@ import { BarChartComponent } from './teams/team-dashboard/bar-chart/bar-chart.co
     ProfileFeedService,
     MainService,
     SearchService,
-    TeamService
+    TeamService,
+    SearchUsersService
   ],
   bootstrap: [AppComponent]
 })

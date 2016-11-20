@@ -63,7 +63,8 @@ export class ProjectDashboardService {
   fetchProjectReadme(projectId): Observable<any> {
     return this._http.get('/api/projects/' + projectId + '/readme')
       .map((res: Response) => {
-        return res;
+        console.log(res)
+        return res['_body'];
       });
   }
 }

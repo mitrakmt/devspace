@@ -46,7 +46,7 @@ import { MaterialModule } from '@angular/material';
     
     <div class="readme">
       <h3>Readme</h3>
-      <p><span [outerHTML]="projectReadme"></span></p>
+      <p><span [innerHTML]="projectReadme"></span></p>
     </div>
 
     <app-project-commits [projectId]="projectId"></app-project-commits>

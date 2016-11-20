@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
     this._profileService.fetchBytes(username)
       .subscribe(
         data => {
-          for (var i = 1; i < data.length; i++) {
+          for (var i = 0; i < data.length; i++) {
             if (data[i].language[0] === 'JavaScript') {
               this.languages.push("https://wp-andypiapps.rhcloud.com/wp-content/uploads/2016/08/js4560_450.png")
             } else if (data[i].language[0] === 'HTML') {
