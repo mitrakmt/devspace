@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { CollapseModule } from 'ng2-bootstrap/components/collapse';
+import { EmojifyModule } from 'angular2-emojify';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NewsfeedComponent } from './home/newsfeed/newsfeed.component';
@@ -100,7 +100,7 @@ import { SearchUsersService } from './search-users/search-users.service';
     HttpModule,
     ReactiveFormsModule,
     ChartsModule,
-    CollapseModule,
+    EmojifyModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {
