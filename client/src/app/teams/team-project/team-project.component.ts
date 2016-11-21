@@ -67,18 +67,16 @@ export class TeamProjectComponent implements OnInit {
     
       this.teamService.fetchProjectBranches(this.teamProjectId, this.teamId)
         .subscribe(projectBranches => {
+          var store = {};
           projectBranches.forEach(branch => {
             branch.login = branch.commit.url.slice(29, (-49 - this.repoLength))
-          });
-
-          let store = {};
-          projectBranches.forEach(branch => {
             if (!store[branch.login]) {
-              store[branch.login] = [branch.name]
+              store[branch.login] = [branch]
             } else {
-              store[branch.login].push(branch.name)
+              store[branch.login].push(branch)
             }
-          })
+          });
+          console.log('store in fetchProjectBranches', store)
           this.branchesByContributor = store;
           this.teamProjectBranches = projectBranches
           return projectBranches;
