@@ -60,11 +60,12 @@ export class ProfileService {
         })
     }
 
-  fetchFollowStatus(followerId): Observable<any> {
-    let headers = new Headers({ 'followerId': followerId })
+  fetchFollowStatus(followedUsername): Observable<any> {
+    let headers = new Headers({ 'followedusername': followedUsername })
     let options = new RequestOptions({ headers: headers })
     let userid = localStorage.getItem('userid')
-    return this._http.get('/api/follows/' + userid + '/followStatus')
+    console.log('followerid', followedUsername)
+    return this._http.get('/api/follows/' + userid + '/followStatus', options)
       .map((res:Response) => {
         return res
       })
