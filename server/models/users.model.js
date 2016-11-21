@@ -74,7 +74,7 @@ usersModel.DELETE_USER = (userId) => {
 }
 
 usersModel.GET_AVATAR = (username) => {
-  Users.findOne({
+  return Users.findOne({
     where: {
       "username": username
     }
