@@ -6,11 +6,11 @@ import { NewsfeedComment } from '../newsfeed-comment';
 import { NewsfeedPost } from '../newsfeed-post';
 
 import * as io from 'socket.io-client';
-// let socket = io("http://localhost:8000")
 
 @Injectable()
 
 export class NewsfeedListService {
+socket = io("http://localhost:8000")
 newsfeedPosts: NewsfeedPost[] = [];
 
   constructor(private _http: Http) { }
@@ -36,6 +36,7 @@ newsfeedPosts: NewsfeedPost[] = [];
       let body = {'content': post };
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
+      this.socket.emit('post', {'user': {'username': username}, 'content': post, 'userId': userid, 'comments': [], 'likes': 0})
       return this._http.post('/api/posts', body, {
         headers: headers
       })
@@ -48,7 +49,6 @@ newsfeedPosts: NewsfeedPost[] = [];
       let body = {'content': comment};
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
-      // socket.emit('chat message', {'username': username, 'content': comment.content, 'userId': userid, 'postId': postId})
       return this._http.post('/api/posts/comments/' + postId, body, {
         headers: headers
       })
@@ -62,10 +62,12 @@ newsfeedPosts: NewsfeedPost[] = [];
         headers: headers
       })
     }
-  //   socketServer(callback){
-  //     socket.on('chat message server', function(msg) {
-  //   console.log('msg: ', msg);
-  //   callback(msg)
-  // })
-  //   }
+
+    socketRecieve(callback){
+      this.socket.on('post server', (post) => {
+      console.log('post in socketReceive: ', post);
+      callback(post)
+      })
+    }
+
 }
