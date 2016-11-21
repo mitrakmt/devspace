@@ -2,18 +2,7 @@
 <div class="dropdown">
   <button class="dropbtn">Import Github Project</button>
   <div class="dropdown-content">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-      <md-input 
-        placeholder="Github project name" 
-        style="width: 100%"
-        type="text"
-        id="project"
-        name="project"
-        [(ngModel)]="project.name"
-        #project = "ngModel"
-        required
-      ></md-input>
-      <button md-raised md-button type="submit" [disabled]="!f.valid" class="dropdownButton">Import Project</button>
-    </form>
+    <md-input class="add-project-input" placeholder="Import project" type="text" [value]="project" (input)="project = $event.target.value"></md-input>
+    <button md-button md-raised (click)="importProject(project)" class="main-button">Import</button>
   </div>
 </div>

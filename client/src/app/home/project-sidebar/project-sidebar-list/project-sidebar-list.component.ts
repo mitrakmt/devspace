@@ -7,17 +7,13 @@ import { ProjectSidebarListService } from './project-sidebar-list.service'
 })
 export class ProjectSidebarListComponent implements OnInit {
 
-  private sidebarProjects
-
   constructor(private projectSidebarListService: ProjectSidebarListService) { }
 
   ngOnInit() {
     this.projectSidebarListService.getSidebarProjects()
       .subscribe(
         (data) => {
-          this.sidebarProjects = data;
           this.projectSidebarListService.sidebarProjects = data;
-          return data;
         }
     );
   }

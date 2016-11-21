@@ -7,7 +7,7 @@ import { ProfilePost } from './profile-post';
 @Component({
   selector: 'app-profile-list',
   template: `
-        <h1 style="text-align: center;">My Feed</h1>
+        <h1 style="text-align: center;">Posts</h1>
         <hr>
         <app-profile-newpost *ngIf="username === currentUser"></app-profile-newpost>
         <ul>

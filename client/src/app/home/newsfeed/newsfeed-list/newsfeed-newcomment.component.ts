@@ -4,7 +4,7 @@ import { NewsfeedListService } from './newsfeed-list.service';
 import { NewsfeedComment } from '../newsfeed-comment';
 
 @Component({
-  selector: 'app-newcomment',
+  selector: 'app-newsfeed-newcomment',
   template: `
       <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="form-group">
@@ -18,7 +18,7 @@ import { NewsfeedComment } from '../newsfeed-comment';
             #comment = "ngModel"
             required
             >
-            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">comment</button>
+            <button type="submit" md-button md-raised class="main-button" [disabled]="!f.valid">comment</button>
         </div>
       </form>
   `
@@ -29,6 +29,7 @@ export class NewcommentComponent{
   newsfeedComment: NewsfeedComment = null;
 
   constructor(private _newsfeedListService: NewsfeedListService) {  }
+
   onSubmit(form: NgForm) {
     let newComment = form.value.comment
     form.reset()
@@ -36,11 +37,12 @@ export class NewcommentComponent{
       .subscribe(
         data => {
           this._newsfeedListService.newsfeedPosts.map((post) =>{ 
-          if(post['id'] === this.postId){
-            post['comments'].unshift(data)
-          }
-          return post
+            if(post['id'] === this.postId){
+              post['comments'].unshift(data)
+            }
+            return post
           })
-  })
-}
+        }
+      )
+    }
 }

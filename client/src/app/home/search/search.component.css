@@ -1,9 +1,37 @@
 .navbar-default {
     margin-bottom: 0;
+    background-color: #512DA8;
+    color: white;
 }
 
 button {
-    background-color: #79A6CE;
+    background-color: #673AB7;
     color: white;
     border-radius: 4px;
+}
+
+.search-icon {
+    height: 35px;
+    margin-top: -2px;
+    position: fixed;
+    color: white;
+    -webkit-transition: height 0.5s;
+    transition: height 0.5s;
+}
+
+.search-icon:hover {
+    height: 42px;
+}
+
+.dropdown a {
+    color: white;
+}
+
+.dropdown a:hover {
+    color: #9E9E9E;
+}
+
+.avatar {
+    border-radius: 50%;
+    height: 30px;
 }

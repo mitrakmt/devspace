@@ -8,8 +8,7 @@ import { Router, CanActivate } from '@angular/router';
 @Injectable()
 export class HomeService {
 
-  constructor(private router: Router) { 
-  }
+  constructor(private router: Router, private _http: Http) { }
 
   convertCookieToToken(): void {
     let found = false;
@@ -27,7 +26,19 @@ export class HomeService {
 
     if (!found) {
       this.router.navigate(['/login']);
-    }
+    } 
+
+    // this.fetchAvatar()
   }
+
+  // fetchAvatar() {
+  //   let username = localStorage.getItem('username')
+  //   let headers = new Headers({ 'username': username })
+  //   let options = new RequestOptions({ headers: headers })
+  //   return this._http.get('/api/users/avatar', options)
+  //     .map((res) => {
+  //       console.log(res)
+  //     })
+  // }
 
 }

@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { CollapseModule } from 'ng2-bootstrap/components/collapse';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NewsfeedComponent } from './home/newsfeed/newsfeed.component';
@@ -18,7 +19,7 @@ import { NewsfeedPostComponent } from './home/newsfeed/newsfeed-list/newsfeed-po
 import { NewsfeedListComponent } from './home/newsfeed/newsfeed-list/newsfeed-list.component';
 import { GithubListComponent } from './home/github/github-list/github-list.component';
 import { GithubItemComponent } from './home/github/github-list/github-item.component';
-import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newcomment.component';
+import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newsfeed-newcomment.component';
 import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfeed-comments.component';
 import { ProjectSidebarService } from './home/project-sidebar/project-sidebar.service';
 import { HomeService } from './home/home.service';
@@ -27,7 +28,7 @@ import { ProjectSidebarListService } from './home/project-sidebar/project-sideba
 import { ProjectSidebarListComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-list.component';
 import { ProjectSidebarItemComponent } from './home/project-sidebar/project-sidebar-list/project-sidebar-item.component';
 import { NewsfeedListService } from './home/newsfeed/newsfeed-list/newsfeed-list.service';
-import { NewpostComponent } from './home/newsfeed/newsfeed-list/newpost.component';
+import { NewpostComponent } from './home/newsfeed/newsfeed-list/newsfeed-newpost.component';
 import { LandingComponent } from './landing/landing.component';
 import { NavbarComponent } from './landing/navbar/navbar.component';
 import { MainComponent } from './landing/main/main.component';
@@ -99,6 +100,7 @@ import { SearchUsersService } from './search-users/search-users.service';
     HttpModule,
     ReactiveFormsModule,
     ChartsModule,
+    CollapseModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {

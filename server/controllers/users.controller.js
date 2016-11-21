@@ -121,6 +121,16 @@ usersController.SEARCH_USERS = (req, res) => {
     })
 }
 
+usersController.GET_AVATAR = (req, res) => {
+  let username = req.headers['username']
+
+  Users.GET_AVATAR(username)
+    .then(userAvatar => {
+      console.log('avatar', userAvatar)
+      res.status(200).send(userAvatar)
+    })
+}
+
 usersController.GET_USER_PROFILE_FEED = (req, res) => {
   let userId = req.headers['userid']
   let username = req.headers['username']

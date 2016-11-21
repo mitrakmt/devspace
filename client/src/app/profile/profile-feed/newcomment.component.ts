@@ -18,7 +18,7 @@ import { ProfileComment } from './profile-comment';
             #comment = "ngModel"
             required
             >
-            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">comment</button>
+            <button type="submit" md-button md-raised class="main-button" [disabled]="!f.valid">comment</button>
         </div>
       </form>
   `

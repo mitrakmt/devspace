@@ -1,7 +1,7 @@
 <!--// Add nav component here-->
 <app-search></app-search>
 <div class="background-image">
-  <img class="background-image" src="http://www.markgray.com.au/images/gallery/large/desert-light.jpg" />
+  <img class="background-image" src="https://drscdn.500px.org/photo/90183267/m%3D2048/ac63373c3029c2552cea0cc7add18fb9" />
 </div>
 <!--// Make this below a component?-->
 <div class="background-overlay" layout="row" layout-align="center" style="background-color: #F8F8F8">
@@ -12,8 +12,8 @@
     </md-grid-tile>
 
     <md-grid-tile>
-        <img class="profile-image" src="{{ githubData.avatar_url }}" />
-        <button  class="follow-button" md-button md-raised (click)="follow()" *ngIf="currentUser !== username">{{followStatus}}</button>
+      <img class="profile-image" src="{{ githubData.avatar_url }}" />
+      <button  class="follow-button" md-button md-raised (click)="follow()" *ngIf="currentUser !== username">{{followStatus}}</button>
     </md-grid-tile>
 
     <md-grid-tile>
@@ -28,17 +28,22 @@
     <app-profile-feed></app-profile-feed>
   </div>
 
-  <div class="bottom-grid-box" flex="150" style="background-color: #F8F8F8; height: 400px;" layout-padding>
-    <h1 style="text-align: center;">Profile</h1>
+  <div class="bottom-grid-box profile-info" flex="150" style="background-color: #F8F8F8; height: 400px;" layout-padding>
+    <h1 style="text-align:center;">{{ githubData.name }}</h1>
+    <md-grid-list cols="2" rowHeight="70px">
+      <md-grid-tile>
+        <h3>Followers: {{ userData.followerCount || githubData.followers }}</h3>
+      </md-grid-tile>
+      <md-grid-tile>
+        <h3>Following: {{ userData.followingCount || githubData.following }}</h3>
+      </md-grid-tile>
+    </md-grid-list>
 
-    <p>Name: {{ githubData.name }}</p>
-    <p>Username: {{ githubData.username }}</p>
     <p>Blog: {{ githubData.blog }}</p>
     <p>Location: {{ githubData.location }}</p>
     <p>Bio: {{ githubData.bio }}</p>
     <p>Company: {{ githubData.company }}</p>
-    <p>Followers: {{ userData.followerCount || githubData.followers }}</p>
-    <p>Following: {{ userData.followingCount || githubData.following }}</p>
+
 
     <h1 style="text-align: center;">Projects</h1>
   </div>

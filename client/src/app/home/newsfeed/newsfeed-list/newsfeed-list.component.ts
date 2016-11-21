@@ -8,7 +8,7 @@ import { NewsfeedPost } from '../newsfeed-post';
   template: `
         <div>NewsFeed</div>
         <hr>
-        <app-newpost></app-newpost>
+        <app-newsfeed-newpost></app-newsfeed-newpost>
         <ul>
           <app-newsfeed-post *ngFor="let newsfeedPost of newsfeedListService.newsfeedPosts" [newsfeedPost]="newsfeedPost"></app-newsfeed-post>
         </ul>`

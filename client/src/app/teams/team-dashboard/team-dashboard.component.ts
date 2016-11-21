@@ -120,6 +120,6 @@ export class TeamDashboardComponent implements OnInit {
           return teamContributions;
         });
       }
-
+      
     }
 }

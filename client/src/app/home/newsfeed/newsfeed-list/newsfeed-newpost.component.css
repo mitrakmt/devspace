@@ -1,0 +1,27 @@
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: #ccc;
+  font-style: italic;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #ccc;
+  font-style: italic;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #ccc;
+  font-style: italic;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #ccc !important;
+  font-style: italic;  
+}
+
+#postform {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.searchfield {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: auto;
+}
