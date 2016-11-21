@@ -19,7 +19,7 @@ export class NewsfeedListComponent implements OnInit {
   constructor(private newsfeedListService: NewsfeedListService) { }
 
   ngOnInit() {
-    let callback = (data) => this.newsfeedPosts.push(data)
+    let callback = (data) => this.newsfeedListService.newsfeedPosts.unshift(data)
     this.newsfeedListService.socketRecieve(callback)
     this.newsfeedListService.fetchNewsfeedUpdates()
       .subscribe(
@@ -46,5 +46,4 @@ export class NewsfeedListComponent implements OnInit {
         }
       )
   }
-
 }

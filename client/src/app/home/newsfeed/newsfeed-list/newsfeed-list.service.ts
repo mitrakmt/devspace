@@ -35,7 +35,7 @@ newsfeedPosts: NewsfeedPost[] = [];
       let body = {'content': post };
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
-      this.socket.emit('post', {'user': {'username': username}, 'content': post, 'userId': userid, 'comments': [], 'likes': 0})
+      this.socket.emit('post', {'createdAt': new Date(), 'user': {'username': username}, 'content': post, 'userId': userid, 'comments': [], 'likes': 0})
       return this._http.post('/api/posts', body, {
         headers: headers
       })
