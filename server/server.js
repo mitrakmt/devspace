@@ -26,9 +26,9 @@ io.on('connection', (socket)=>{
   socket.on('disconnect', ()=>{
     console.log('socket disconnected');
   });
-  socket.on('chat message', (msg)=>{
-    io.emit('chat message server', msg)
-    console.log('chat message', msg);
+  socket.on('post', (post)=>{
+    io.emit('post server', post)
+    console.log('post------>', post);
   })
 })
 
