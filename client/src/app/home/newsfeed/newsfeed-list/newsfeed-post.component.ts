@@ -24,8 +24,7 @@ import { NewsfeedListService } from './newsfeed-list.service';
 
          <md-list>
           <div>
-            <div md-line style="font-size: 17px" [innerHTML]="newsfeedPost.content" style="border: 1px solid lightgray; padding: 8px; padding-bottom: 2px;">
-            </div>
+            <div md-line style="font-size: 17px" [innerHTML]="newsfeedPost.content" style="border: 1px solid lightgray; padding: 8px; padding-bottom: 0;"></div>
             <p md-line style="margin-top: 15px; padding: 5px;"><span class="like-button" (click)="likePost()"> +</span> Likes: {{newsfeedPost.likes}}</p>
           </div>
         </md-list>

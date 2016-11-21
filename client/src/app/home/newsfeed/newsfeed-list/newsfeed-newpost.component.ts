@@ -9,7 +9,7 @@ import { NewsfeedPost } from '../newsfeed-post';
   template: `
     <form (ngSubmit)="onSubmit(f)" #f="ngForm" id="postform">
       <h3 style="margin-left: 38px;">New Post</h3>
-      <div class="form-group fieldcontainer" style="width: 100%;">
+      <div class="form-group" style="width: 100%;">
         <input 
           type="text"
           id="post"
@@ -45,8 +45,6 @@ export class NewpostComponent {
             }
             return word
           }).join(' ');      
-
-          console.log(newData)  
         
           data.content = '<p>' + newData + '</p>'
 

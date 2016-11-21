@@ -6,14 +6,15 @@ import { ProfilePost } from './profile-post';
 @Component({
   selector: 'app-profile-newpost',
   template: `
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" id="postform">
       <h3 style="margin-left: 38px;">New Post</h3>
       <div class="form-group" style="width: 100%;">
         <input 
           type="text"
           id="post"
+          class="searchfield"
           placeholder="What's on your mind?"
-          style="width: 70%; padding: 10px; margin-left: 38px;"
+          style="width: 70%; padding: 6px; margin-left: 38px;"
           name="post"
           [(ngModel)]="post.content"
           #post = "ngModel"
@@ -35,6 +36,17 @@ export class ProfileNewPostComponent {
       .subscribe(
         data => {
           data.comments = []
+
+          let newArray = []
+          let newData = data.content.split(' ').map(word => {
+            if (word.indexOf('www.') !== -1 || word.indexOf('.com') !== -1) {
+              word = '<a src="' + word + '" target="_blank" class="link">' + word + '</a>'
+            }
+            return word
+          }).join(' ');      
+        
+          data.content = '<p>' + newData + '</p>'
+
           this._profileFeedService.profilePosts.unshift(data)
           return data
           })

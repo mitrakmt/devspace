@@ -33,6 +33,23 @@ export class ProfileListComponent implements OnInit {
     this._profileFeedService.fetchProfileFeed()
       .subscribe(
         data => {
+
+          let newArray = []
+          let newData = data.map(post => {
+            return post.content.split(' ').map(word => {
+              if (word.indexOf('http') !== -1) {
+                word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
+              } else if (word.indexOf('www.') !== -1) {
+                word = '<a href="http://' + word + '" target="_blank" class="link">' + word + '</a>'
+              }
+              return word
+            }).join(' ');        
+          })
+          
+          for (var i = 0; i < data.length; i++) {
+            data[i].content = '<p>' + newData[i] + '</p>'
+          }
+
           this.profilePosts = data
           this._profileFeedService.profilePosts = data
           return data

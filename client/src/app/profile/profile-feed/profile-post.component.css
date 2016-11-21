@@ -28,3 +28,14 @@
     height: 55px;
     border-radius: 50%;
 }
+
+#postform {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.searchfield {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: auto;
+}
