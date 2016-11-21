@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { ProfileFeedService } from './profile-feed.service';
 import { ProfilePost } from './profile-post';
 

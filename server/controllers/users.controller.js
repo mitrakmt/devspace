@@ -123,7 +123,7 @@ usersController.SEARCH_USERS = (req, res) => {
 
 usersController.GET_AVATAR = (req, res) => {
   let username = req.headers['username']
-  console.log('avatar username', username)
+
   Users.GET_AVATAR(username)
     .then(userAvatar => {
       console.log('avatar', userAvatar)
