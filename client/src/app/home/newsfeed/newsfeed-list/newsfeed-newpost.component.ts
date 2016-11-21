@@ -15,7 +15,7 @@ import { NewsfeedPost } from '../newsfeed-post';
           id="post"
           class="searchfield"
           placeholder="What's on your mind?"
-          style="width: 70%; padding: 0; margin-left: 38px;"
+          style="width: 70%; padding: 0; padding-left: 7px;margin-left: 38px;"
           name="post"
           [(ngModel)]="post.content"
           #post = "ngModel"

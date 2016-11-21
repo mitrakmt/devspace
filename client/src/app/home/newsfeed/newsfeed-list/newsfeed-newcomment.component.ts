@@ -14,7 +14,7 @@ import { NewsfeedComment } from '../newsfeed-comment';
             id="comment"
             class="searchfield"
             placeholder="Go ahead, type something!"
-            style="width: 55%; padding: 7px;"
+            style="width: 55%; padding: 6px;"
             name="comment"
             [(ngModel)]="comment.content"
             #comment = "ngModel"
