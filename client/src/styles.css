@@ -15,3 +15,7 @@ button {
 .main-button {
     color: white !important;
 }
+
+.link {
+    cursor: pointer;
+}

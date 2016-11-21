@@ -6,13 +6,15 @@ import { NewsfeedComment } from '../newsfeed-comment';
 @Component({
   selector: 'app-newsfeed-newcomment',
   template: `
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm" style="display: block; margin-bottom: 12px;">
         <div class="form-group">
           <label for="comment">Comment</label>
           <input 
             type="text"
             id="comment"
-            style="width: 55%;"
+            class="searchfield"
+            placeholder="Go ahead, type something!"
+            style="width: 55%; padding: 7px;"
             name="comment"
             [(ngModel)]="comment.content"
             #comment = "ngModel"

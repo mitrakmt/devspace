@@ -10,7 +10,11 @@ export class HomeService {
 
   constructor(private router: Router, private _http: Http) { }
 
-  convertCookieToToken(): void {
+  convertCookieToToken() {
+    if (localStorage.getItem('token')) {
+      return
+    }
+    
     let found = false;
     let splitCookie = document.cookie.split(';')
     splitCookie.forEach(cookie => {
@@ -27,18 +31,20 @@ export class HomeService {
     if (!found) {
       this.router.navigate(['/login']);
     } 
+    
+    if (localStorage.getItem('username')) {
+      console.log('inside the if')
+      console.log("SUP")
+      let username = localStorage.getItem('username')
+      console.log(username)
+      let headers = new Headers({ 'username': username })
+      let options = new RequestOptions({ headers: headers })
+      return this._http.get('/api/users/avatar', options)
+        .map((res: Response) => {
+          console.log(res)
+        })
+    }
 
-    // this.fetchAvatar()
   }
-
-  // fetchAvatar() {
-  //   let username = localStorage.getItem('username')
-  //   let headers = new Headers({ 'username': username })
-  //   let options = new RequestOptions({ headers: headers })
-  //   return this._http.get('/api/users/avatar', options)
-  //     .map((res) => {
-  //       console.log(res)
-  //     })
-  // }
 
 }

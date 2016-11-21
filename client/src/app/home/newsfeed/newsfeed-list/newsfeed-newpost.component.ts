@@ -15,7 +15,7 @@ import { NewsfeedPost } from '../newsfeed-post';
           id="post"
           class="searchfield"
           placeholder="What's on your mind?"
-          style="width: 70%; padding: 10px; margin-left: 38px;"
+          style="width: 70%; padding: 0; margin-left: 38px;"
           name="post"
           [(ngModel)]="post.content"
           #post = "ngModel"
@@ -35,7 +35,21 @@ export class NewpostComponent {
     this._newsfeedListService.sendNewsfeedUpdate(newPost)
       .subscribe(
         data => {
+          console.log(data)
           data.comments = []
+  
+          let newArray = []
+          let newData = data.content.split(' ').map(word => {
+            if (word.indexOf('www.') !== -1 || word.indexOf('.com') !== -1) {
+              word = '<a src="' + word + '" target="_blank" class="link">' + word + '</a>'
+            }
+            return word
+          }).join(' ');      
+
+          console.log(newData)  
+        
+          data.content = '<p>' + newData + '</p>'
+
           this._newsfeedListService.newsfeedPosts.unshift(data)
           return data
           })
