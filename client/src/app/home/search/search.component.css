@@ -13,7 +13,7 @@ button {
 .search-icon {
     height: 35px;
     margin-top: -2px;
-    position: fixed;
+    position: absolute;
     color: white;
     -webkit-transition: height 0.5s;
     transition: height 0.5s;
