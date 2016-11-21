@@ -119,7 +119,6 @@ usersModel.GET_USER_PROFILE_FEED = (username, userId) => {
         ]
       })
       .then(posts => {
-        console.log('posts', posts)
         return posts
       })
     } else {

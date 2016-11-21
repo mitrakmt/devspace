@@ -27,7 +27,6 @@ export class ProfileComponent implements OnInit {
     this._profileService.follow(followedUsername, userId)
       .subscribe(
         data => {
-          console.log("data in follow", data._body)
           if(data._body ==="Deleted follow"){
             this.followStatus = "Follow";
           }
@@ -83,18 +82,31 @@ export class ProfileComponent implements OnInit {
         }
       )
 
-     this._profileService.fetchFollowing()
-
+    this._profileService.fetchFollowStatus(username)
       .subscribe(
-        data => {
-          for (var i = 0; i < data.length; i++) {
-            if(data[i].username === username) {
-              this.followStatus = "Unfollow"
-            } else {
-              this.followStatus = "Follow"
-            }
+        followed => {
+          console.log('followed', followed._body)
+          if (followed._body == "true") {
+            console.log("Inside followed")
+            this.followStatus = "Unfollow"
+          } else {
+            console.log("Inside not followed")
+            this.followStatus = "Follow"
           }
         }
-      ) 
+      )
+
+    //  this._profileService.fetchFollowing()
+    //   .subscribe(
+    //     data => {
+    //       for (var i = 0; i < data.length; i++) {
+    //         if(data[i].username === username) {
+    //           this.followStatus = "Unfollow"
+    //         } else {
+    //           this.followStatus = "Follow"
+    //         }
+    //       }
+    //     }
+    //   ) 
   }
 }

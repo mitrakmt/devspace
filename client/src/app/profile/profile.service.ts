@@ -41,7 +41,7 @@ export class ProfileService {
         })
     }
 
-  follow(followedUsername, userid):Observable<any> {
+  follow(followedUsername, userid): Observable<any> {
       let headers = new Headers({'userid': userid});
       headers.append('Content-Type', 'application/json');
       return this._http.post('/api/follows/' + userid + '/following', {'followedUsername': followedUsername}, {
@@ -49,7 +49,7 @@ export class ProfileService {
       })
   }
   
-  fetchFollowing(){
+  fetchFollowing() {
       let userid = localStorage.getItem('userid')
       return this._http.get('/api/follows/' + userid + '/following')
         .map((res:Response) => {
@@ -58,8 +58,16 @@ export class ProfileService {
             return this['following']
           }
         })
-
-
     }
+
+  fetchFollowStatus(followerId): Observable<any> {
+    let headers = new Headers({ 'followerId': followerId })
+    let options = new RequestOptions({ headers: headers })
+    let userid = localStorage.getItem('userid')
+    return this._http.get('/api/follows/' + userid + '/followStatus')
+      .map((res:Response) => {
+        return res
+      })
+  }
 
 }

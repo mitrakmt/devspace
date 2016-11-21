@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit {
   public username = localStorage.getItem('username')
   public disabled:boolean = false;
   public status:{isopen:boolean} = {isopen: false};
-  // public avatar = localStorage.getItem('userAvatar')
+  public avatar = localStorage.getItem('userAvatar')
 
   public collapsed(event:any):void {
     console.log(event);
