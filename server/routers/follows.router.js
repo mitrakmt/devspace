@@ -13,4 +13,7 @@ followsRouter.route('/:userId/following')
   // Follow or unfollow a user, requires req.params.userId and req.body.followerId
   .post(followsController.POST_FOLLOWING)
 
+followsRouter.route('/:userId/followStatus')
+  .get(followsController.GET_FOLLOW_STATUS)
+
 module.exports = followsRouter

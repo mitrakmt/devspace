@@ -44,6 +44,18 @@ followsController.DELETE_FOLLOWER = (req, res) => {
     })
 }
 
+followsController.GET_FOLLOW_STATUS = (req, res) => {
+  let userId = req.params.userId
+  let followerId = req.body.followerid
+  console.log(req.body)
+
+  Follows.GET_FOLLOW_STATUS(userId, followerId)
+    .then(status => {
+      res.status(200).send(status)
+    })
+
+}
+
 followsController.GET_FOLLOWING = (req, res) => {
   let userId = req.params.userId
 

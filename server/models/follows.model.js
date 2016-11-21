@@ -34,6 +34,26 @@ followsModel.GET_FOLLOWING = (userId) => {
   })
 }
 
+followsModel.GET_FOLLOW_STATUS = (userId, followerId) => {
+  console.log('userid', userId)
+  console.log('followerId', followerId)
+  return Follows.findAll({
+    where: {
+      userId: userId
+    }
+  })
+  .then(follows => {
+    console.log('follows', follows)
+    for (var i = 0; i < follows.length; i++) {
+      if (follows[i].followerId === userId) {
+        return true
+      }
+    }
+
+    return false
+  })
+}
+
 followsModel.POST_FOLLOWING = (followedUsername, followerId) => {
   return Users.findOne({
     where: {

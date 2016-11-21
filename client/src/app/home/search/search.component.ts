@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
+  public username = localStorage.getItem('username')
+  public avatar = localStorage.getItem('userAvatar')
 
   public username
   public avatar
-
 
   constructor(public router: Router) { }
 
