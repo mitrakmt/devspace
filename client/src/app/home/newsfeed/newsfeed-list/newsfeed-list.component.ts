@@ -8,7 +8,7 @@ import { NewsfeedPost } from '../newsfeed-post';
   template: `
         <div>NewsFeed</div>
         <hr>
-        <app-newpost></app-newpost>
+        <app-newsfeed-newpost></app-newsfeed-newpost>
         <ul>
           <app-newsfeed-post *ngFor="let newsfeedPost of newsfeedListService.newsfeedPosts" [newsfeedPost]="newsfeedPost"></app-newsfeed-post>
         </ul>`
@@ -24,6 +24,22 @@ export class NewsfeedListComponent implements OnInit {
     this.newsfeedListService.fetchNewsfeedUpdates()
       .subscribe(
         data => {
+          let newArray = []
+          let newData = data.map(post => {
+            return post.content.split(' ').map(word => {
+              if (word.indexOf('http') !== -1) {
+                word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
+              } else if (word.indexOf('www.') !== -1) {
+                word = '<a href="http://' + word + '" target="_blank" class="link">' + word + '</a>'
+              }
+              return word
+            }).join(' ');        
+          })
+          
+          for (var i = 0; i < data.length; i++) {
+            data[i].content = '<p>' + newData[i] + '</p>'
+          }
+
           this.newsfeedPosts = data
           this.newsfeedListService.newsfeedPosts = data
           return data

@@ -2,42 +2,23 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" style="color: #377BB5" href="#">DevSpace</a>
+      <a class="navbar-brand" style="color: white" [routerLink]="['/home']">DevSpace</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-      <form class="navbar-form navbar-left"  (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div class="form-group">
-          <input 
-            class="form-control" 
-            placeholder="Username"
-            style="width: 100%"
-            type="text"
-            id="searchTerm"
-            name="searchTerm"
-            [(ngModel)]="searchTerm.text"
-            #searchTerm = "ngModel"
-            required>
-        </div>
-        <button md-raised-button type="submit" [disabled]="!f.valid" class="md-raised md-primary">Search Users</button>
-      </form>
+      <a [routerLink]="['/search']" class="navbar-form navbar-left">
+        <img src="https://www.materialui.co/materialIcons/action/search_white_216x216.png" class="search-icon" />
+      </a>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a class="dropdown-toggle" [routerLink]="['/teams']" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams </a>
         </li>
         <li class="dropdown">
+          <img class="avatar" src="avatar" />
+        </li>
+        <li class="dropdown">
           <a class="dropdown-toggle" [routerLink]="['/dev', username]" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile </a>
         </li>
       </ul>
     </div>
-  </div>
 </nav>

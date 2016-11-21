@@ -20,18 +20,18 @@ import { NewsfeedListService } from './newsfeed-list.service';
 
             <p md-line><a [routerLink]="['/dev', newsfeedPost.user.username]" style="font-size: 12px; margin: 0; padding: 2px; margin-left: 10px;"> @{{ newsfeedPost.user.username }}</a></p>
           </md-list-item>
-        </md-list>       
+        </md-list>
 
          <md-list>
-          <md-list-item>
-            <p md-line style="font-size: 17px"> <span> {{newsfeedPost.content}} </span></p>
-            <p md-line style="margin-top: 15px; padding: 5px;"><span class="like-button" (click)="likePost()"> +</span> <span> Likes: {{newsfeedPost.likes}} </span></p>
-          </md-list-item>
-        </md-list>      
+          <div>
+            <div md-line style="font-size: 17px" [innerHTML]="newsfeedPost.content | emojify" style="border: 1px solid lightgray; padding: 8px; padding-bottom: 0;"></div>
+            <p md-line style="margin-top: 15px; padding: 5px;"><span class="like-button" (click)="likePost()"> +</span> Likes: {{newsfeedPost.likes}}</p>
+          </div>
+        </md-list>
 
-        <br>        
+        <br>
 
-        <app-newcomment [postId]="postId"></app-newcomment>
+        <app-newsfeed-newcomment [postId]="postId"></app-newsfeed-newcomment>
       </div>
       <div *ngIf="newsfeedPost.comments.length > 0">
           <app-newsfeed-comments [comments]="newsfeedPost.comments"> </app-newsfeed-comments>
@@ -45,6 +45,7 @@ export class NewsfeedPostComponent implements OnInit {
   @Input('postId') postId: number;
 
   constructor(private newsfeedListService: NewsfeedListService) { }
+
   newsfeedComments: NewsfeedComment[] = [];
 
   likePost = () => {
@@ -52,16 +53,17 @@ export class NewsfeedPostComponent implements OnInit {
     let userId = localStorage.getItem('userid');
     this.newsfeedListService.likePost(postId, userId)
       .subscribe(
-        response => {
-          this.newsfeedListService.newsfeedPosts.map((post) => {
-          if(post['id'] === this.postId){
-            if (response.status === 201) {
-              post['likes']++
-            } else {
-              post['likes']--
+        response => { 
+          this.newsfeedListService.newsfeedPosts.map(post => {
+            if(post['id'] === this.postId) {
+              if (response.status === 201) {
+                post['likes']++
+              } else {
+                post['likes']--
+              }
             }
-          }
-          return post
+            
+            return post
           }) 
         }
       )

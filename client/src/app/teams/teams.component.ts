@@ -65,8 +65,6 @@ export class TeamsComponent implements OnInit {
         this.teams = this.teamService.teams;
         return teams;
       });
-  
-
   }
 
 }

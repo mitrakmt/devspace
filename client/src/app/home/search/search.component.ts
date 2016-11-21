@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { SearchService } from './search.service';
-import { NgForm } from "@angular/forms";
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
+import { CollapseDirective } from 'ng2-bootstrap'
 
 @Component({
   selector: 'app-search',
@@ -10,26 +9,24 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  private username;
-  searchTerm = {'name': ''}
 
-  constructor(private _searchService: SearchService, public router: Router) { }
+  public username = localStorage.getItem('username')
+  public disabled:boolean = false;
+  public status:{isopen:boolean} = {isopen: false};
+  // public avatar = localStorage.getItem('userAvatar')
 
-  onSubmit(form: NgForm) {
-    let searchTerm = form.value.searchTerm;
-    this.router.navigateByUrl('/dev/' + searchTerm);
-    // let username = localStorage.getItem('username');
-    // form.reset()
-    // this._searchService.searchUser(username, searchTerm)
-    //   .subscribe(
-    //     data => {
-
-    //       this.router.navigateByUrl('/dev/' + );
-    //     })
+  public collapsed(event:any):void {
+    console.log(event);
+  }
+ 
+  public expanded(event:any):void {
+    console.log(event);
   }
 
+  constructor() { }
+
   ngOnInit() {
-    this.username = localStorage.getItem('username');
+
   }
 
 }

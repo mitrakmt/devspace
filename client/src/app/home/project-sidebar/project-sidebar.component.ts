@@ -3,6 +3,7 @@ import { ProjectSidebarService } from './project-sidebar.service'
 import { Observable } from 'rxjs/Observable';
 import { ProjectSidebarListService } from './project-sidebar-list/project-sidebar-list.service';
 import { NgForm } from "@angular/forms";
+import { Project } from './project';
 
 @Component({
   selector: 'app-project-sidebar',
@@ -10,19 +11,17 @@ import { NgForm } from "@angular/forms";
   styleUrls: ['./project-sidebar.component.css']
 })
 export class ProjectSidebarComponent implements OnInit {
-  sidebarProjects;
-  project = {'name': ''}
+  sidebarProjects: Project[] = [];
 
   constructor(private projectSidebarService: ProjectSidebarService, private projectSidebarListService: ProjectSidebarListService) { }
 
-    onSubmit(form: NgForm) {
-        let projectName = form.value.project;
+    importProject  = (projectName) => {
         let userId = localStorage.getItem('userid');
-        form.reset()
         this.projectSidebarService.importProject(userId, projectName)
           .subscribe(
             data => {
               this.projectSidebarListService.sidebarProjects.push(data.name)
+              this.sidebarProjects.push(data.name)
       })
     }
 

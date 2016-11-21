@@ -73,6 +73,18 @@ usersModel.DELETE_USER = (userId) => {
   })
 }
 
+usersModel.GET_AVATAR = (username) => {
+  Users.findOne({
+    where: {
+      "username": username
+    }
+  })
+  .then(user => {
+    console.log('user', user)
+    return user.imageUrl
+  })
+}
+
 usersModel.GET_USER = (username) => {
   return Users.findOne({
     where: {

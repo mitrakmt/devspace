@@ -7,7 +7,7 @@
            src="{{githubpost.avatar}}"
            style="max-height: 60px; float: left; border-radius: 50%;"/>
         <div style="margin-left: 80px;" layout="column">
-          <p class="md-display"><strong>@{{githubpost.username}}</strong></p>
+          <p class="md-display"><strong><a [routerLink]="['/dev', githubpost.username]">@{{githubpost.username}}</a></strong></p>
           <div>
             <p class="md-display">
               <span *ngIf="githubpost.action === 'opened'">Opened </span>

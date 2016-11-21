@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+a {
+    color: #673AB7;
+}
+
+a:hover {
+    color: #553A66;
+    text-decoration: none;
+}
+
+button {
+    background-color: #673AB7;
+}
+
+.main-button {
+    color: white !important;
+}
+
+.link {
+    cursor: pointer;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: #ccc;
+  font-style: italic;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #ccc;
+  font-style: italic;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #ccc;
+  font-style: italic;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #ccc !important;
+  font-style: italic;  
+}
