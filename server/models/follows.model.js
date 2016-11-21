@@ -34,23 +34,33 @@ followsModel.GET_FOLLOWING = (userId) => {
   })
 }
 
-followsModel.GET_FOLLOW_STATUS = (userId, followerId) => {
+followsModel.GET_FOLLOW_STATUS = (userId, followedUsername) => {
   console.log('userid', userId)
-  console.log('followerId', followerId)
-  return Follows.findAll({
+  console.log('followedUsername', followedUsername)
+  return Users.findOne({
     where: {
-      userId: userId
+      username: followedUsername
     }
   })
-  .then(follows => {
-    console.log('follows', follows)
-    for (var i = 0; i < follows.length; i++) {
-      if (follows[i].followerId === userId) {
-        return true
-      }
-    }
+  .then(followed => {
+    console.log('followed', followed)
+    // This is dianne's user
+      return Follows.findAll({
+        where: {
+          userId: followed.id
+        }
+      })
+      // dianne's follows', who she followed
+      .then(follows => {
+        console.log('follows', follows)
+        for (var i = 0; i < follows.length; i++) {
+          if (follows[i].followerId == userId) {
+            return true
+          }
+        }
 
-    return false
+        return false
+      })
   })
 }
 
