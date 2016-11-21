@@ -117,13 +117,16 @@ app.get('/api/auth/github/callback',
     (req, res) => {
       let userid = req.user[0].id
       let username = req.user[0].username
+      let firstname = req.user[0].firstName
+      let lastname = req.user[0].lastName
+      console.log("req.user[0]--->", req.user[0])
 
       let token = jwt.sign({
         userid: userid,
         exp: moment().add(7, 'd').valueOf()
       }, process.env.GITHUB_SECRET);
 
-      res.cookie('userid', userid).cookie('token', token).cookie('username', username);
+      res.cookie('userid', userid).cookie('token', token).cookie('username', username).cookie('firstname', firstname).cookie('lastname', lastname);
     
       res.redirect('/home');
     }

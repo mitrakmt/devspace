@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise'
 import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import { Router, CanActivate } from '@angular/router';
 
@@ -10,7 +11,7 @@ export class HomeService {
 
   constructor(private router: Router, private _http: Http) { }
 
-  convertCookieToToken() {
+  convertCookieToToken(): Promise <any> {
     if (localStorage.getItem('token')) {
       return
     }
@@ -25,7 +26,11 @@ export class HomeService {
         localStorage.setItem("userid", cookie.slice(7));
       } else if (cookie.indexOf('username') !== -1) {
         localStorage.setItem('username', cookie.slice(10));
-      }
+      } else if (cookie.indexOf('firstname') !== -1) {
+        localStorage.setItem('firstname', cookie.slice(11));
+      } else if (cookie.indexOf('lastname') !== -1) {
+        localStorage.setItem('lastname', cookie.slice(10));
+      } 
     })
 
     if (!found) {
@@ -33,16 +38,13 @@ export class HomeService {
     } 
     
     if (localStorage.getItem('username')) {
-      console.log('inside the if')
-      console.log("SUP")
       let username = localStorage.getItem('username')
       console.log(username)
       let headers = new Headers({ 'username': username })
       let options = new RequestOptions({ headers: headers })
       return this._http.get('/api/users/avatar', options)
-        .map((res: Response) => {
-          console.log(res)
-        })
+        .toPromise()
+        .then((data)=>localStorage.setItem('imageUrl', data._body))
     }
 
   }

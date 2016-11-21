@@ -24,18 +24,20 @@ newsfeedPosts: NewsfeedPost[] = [];
           this.newsfeedPosts = res.json();
           return this.newsfeedPosts
       })
-        .catch(err=> { 
+        .catch(err=> {
           return Observable.throw(err.json()) 
         })
     }
     sendNewsfeedUpdate(post: any): Observable<any> {
       let userid = localStorage.getItem('userid')
       let username = localStorage.getItem('username')
-
+      let avatar = localStorage.getItem('imageUrl')
+      let firstname = localStorage.getItem('firstname')
+      let lastname = localStorage.getItem('lastname')
       let body = {'content': post };
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
-      this.socket.emit('post', {'user': {'username': username}, 'content': post, 'userId': userid, 'comments': [], 'likes': 0})
+      this.socket.emit('post', {'createdAt': new Date(), 'user': {'username': username, 'imageUrl': avatar, 'firstName': firstname, 'lastName': lastname}, 'content': post, 'userId': userid, 'comments': [], 'likes': 0})
       return this._http.post('/api/posts', body, {
         headers: headers
       })

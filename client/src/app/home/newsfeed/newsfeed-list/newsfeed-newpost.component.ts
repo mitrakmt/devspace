@@ -48,7 +48,7 @@ export class NewpostComponent {
         
           data.content = '<p>' + newData + '</p>'
 
-          this._newsfeedListService.newsfeedPosts.unshift(data)
+          // this._newsfeedListService.newsfeedPosts.unshift(data)
           return data
           })
   }
