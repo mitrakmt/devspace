@@ -19,6 +19,8 @@ export class NewsfeedListComponent implements OnInit {
   constructor(private newsfeedListService: NewsfeedListService) { }
 
   ngOnInit() {
+    let callback = (data) => this.newsfeedPosts.push(data)
+    this.newsfeedListService.socketRecieve(callback)
     this.newsfeedListService.fetchNewsfeedUpdates()
       .subscribe(
         data => {

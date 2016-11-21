@@ -35,6 +35,7 @@ export class NewpostComponent {
       .subscribe(
         data => {
           data.comments = []
+          console.log("data is --->", data)
           this._newsfeedListService.newsfeedPosts.unshift(data)
           return data
           })
