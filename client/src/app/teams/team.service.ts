@@ -200,6 +200,7 @@ export class TeamService {
         return res.json();
       });
   }
+  
   //  fetchProjectBranches(projectId): Observable<any> {
   //   return this._http.get('/api/projects/' + projectId + '/branches')
   //     .map((res: Response) => {
