@@ -18,6 +18,9 @@ export class TeamService {
   public teamContributors;
   public chartContributors = [];
   public contributionScore = [];
+  public averageContribution;
+  public medianContribution;
+  public modeContribution;
 
   constructor(private _http: Http) { }
 
@@ -82,12 +85,53 @@ export class TeamService {
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/teams/' + teamId + '/contributions', options)
       .map((res: Response) => {
-        this.teamContributions = res.json();
-        this.teamContributions.forEach(contribution => {
-          this.chartContributors.push(contribution.login)
-          this.contributionScore.push(contribution.contributions)
+        let result = res.json();
+
+        // add up overall team contributions and frequencies across all projects
+        let sum = {};
+        let frequency = {};
+        result.forEach(contribution => {
+
+          // sum up contributions
+          if (!sum[contribution.login]) {
+            sum[contribution.login] = contribution.contributions;
+          } else {
+            sum[contribution.login] += contribution.contributions;
+          }
+
+          // count frequencies
+          if (!frequency[contribution.contributions]) {
+            frequency[contribution.contributions] = 1;
+          } else {
+            frequency[contribution.contributions]++;
+          }
         })
-        console.log(this.chartContributors, this.contributionScore)
+
+        // separate contributors from contributions to render with chartjs
+        for (let contributor in sum) {
+          console.log(contributor, sum[contributor])
+          this.chartContributors.push(contributor);
+          this.contributionScore.push(sum[contributor])
+        }
+        
+        // calculate average
+        let total = this.contributionScore.reduce((acc, curr) => {
+          return acc + curr;
+        }, 0)
+
+        this.averageContribution = total/(this.chartContributors.length);
+
+        // calculate median
+        let sortedContributions = this.contributionScore.slice().sort((a,b) => {
+          return a - b;
+        })
+        let lowMiddle = Math.floor((sortedContributions.length - 1) / 2);
+        let highMiddle = Math.ceil((sortedContributions.length - 1) / 2);
+        this.medianContribution = (sortedContributions[lowMiddle] + sortedContributions[highMiddle]) / 2;
+        
+        // calculate mode
+        let freqArr = Object.keys(frequency).map( key => { return frequency[key]; });
+        this.modeContribution = Math.max.apply( null, freqArr );
         return res.json();
       });
   }

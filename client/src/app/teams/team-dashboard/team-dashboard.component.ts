@@ -57,6 +57,9 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     </form>
 
     <app-bar-chart></app-bar-chart>
+    Average Contribution: {{this.teamService.averageContribution}}
+    Median Contribution: {{this.teamService.medianContribution}}
+    Mode Contribution: {{this.teamService.modeContribution}}
   `,
   styleUrls: ['./team-dashboard.component.css']
 })
