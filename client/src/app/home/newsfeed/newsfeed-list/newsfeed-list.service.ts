@@ -21,6 +21,7 @@ newsfeedPosts: NewsfeedPost[] = [];
       let options = new RequestOptions({ headers: headers })
       return this._http.get('/api/home/feed', options)
         .map((res:Response) => {
+          console.log("RES FROM FETCH NEWS FEED UPDATES RESPONSE +++++++>", res)
           this.newsfeedPosts = res.json();
           return this.newsfeedPosts
       })

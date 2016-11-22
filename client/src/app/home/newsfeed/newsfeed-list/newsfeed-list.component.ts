@@ -47,8 +47,20 @@ export class NewsfeedListComponent implements OnInit {
     this.newsfeedListService.fetchNewsfeedUpdates()
       .subscribe(
         data => {
+          let userId = localStorage.getItem('userid')
           // let newArray = []
           // this.convertLink(data)
+          console.log("DATA IN NF POSTS", data)
+          for (var i = 0; i < data.length; i++) {
+            data[i].liked = false
+            for (var j = 0; j < data[i].interactions.length; j++) {
+              if (data[i].interactions[j].userId == userId) {
+                data[i].liked = true
+                console.log("Liked post", data[i])
+              }
+            }
+          }
+
           this.newsfeedPosts = data
           this.newsfeedListService.newsfeedPosts = data
           return data
