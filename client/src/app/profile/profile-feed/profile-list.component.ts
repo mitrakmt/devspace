@@ -43,6 +43,10 @@ export class ProfileListComponent implements OnInit {
                 word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
               } else if (word.indexOf('www.') !== -1) {
                 word = '<a href="http://' + word + '" target="_blank" class="link">' + word + '</a>'
+              } else if (word === ':)') {
+                word = ':smiley:'
+              } else if (word === '<3') {
+                word = ':heart:'
               }
               return word
             }).join(' ');        

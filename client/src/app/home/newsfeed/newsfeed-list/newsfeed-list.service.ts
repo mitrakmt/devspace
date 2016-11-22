@@ -12,6 +12,7 @@ import * as io from 'socket.io-client';
 export class NewsfeedListService {
 socket = io("http://localhost:8000")
 newsfeedPosts: NewsfeedPost[] = [];
+secondaryList: NewsfeedPost[] = [];
 
   constructor(private _http: Http) { }
 
@@ -21,7 +22,6 @@ newsfeedPosts: NewsfeedPost[] = [];
       let options = new RequestOptions({ headers: headers })
       return this._http.get('/api/home/feed', options)
         .map((res:Response) => {
-          console.log("RES FROM FETCH NEWS FEED UPDATES RESPONSE +++++++>", res)
           this.newsfeedPosts = res.json();
           return this.newsfeedPosts
       })
@@ -67,7 +67,6 @@ newsfeedPosts: NewsfeedPost[] = [];
 
     socketRecieve(callback){
       this.socket.on('post server', (post) => {
-      console.log('post in socketReceive: ', post);
       callback(post)
       })
     }

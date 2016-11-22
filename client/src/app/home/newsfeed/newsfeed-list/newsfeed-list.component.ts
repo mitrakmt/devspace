@@ -15,54 +15,92 @@ import { NewsfeedPost } from '../newsfeed-post';
 })
 export class NewsfeedListComponent implements OnInit {
   newsfeedPosts: NewsfeedPost[] = [];
+  secondaryList: NewsfeedPost[] = [];
+
   private newsfeedComments
   constructor(private newsfeedListService: NewsfeedListService) { }
 
-  // convertLink = (data) => {
-  //   let newData = data.map(post => {
-  //     return post.content.split(' ').map(word => {
-  //       if (word.indexOf('http') !== -1) {
-  //         word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
-  //       } else if (word.indexOf('www.') !== -1) {
-  //         word = '<a href="http://' + word + '" target="_blank" class="link">' + word + '</a>'
-  //       }
-  //       return word
-  //     }).join(' ');        
-  //   })
+  convertLink = (data) => {
+    let tempArray = [];
+    let newData = data.map(post => {
+      return post.content.split(' ').map(word => {
+        if (word.indexOf('http') !== -1) {
+          word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
+        } else if (word.indexOf('www.') !== -1) {
+          word = '<a href="http://' + word + '" target="_blank" class="link">' + word + '</a>'
+        } else if (word === ':)') {
+          word = ':smiley:'
+        } else if (word === '<3') {
+          word = ':heart:'
+        }
+
+        return word
+      }).join(' ');        
+    })
     
-  //   for (var i = 0; i < data.length; i++) {
-  //     data[i].content = '<p>' + newData[i] + '</p>'
-  //   }
-  //   console.log("data is covertLink", data)
-  //   return data
+    for (var i = 0; i < data.length; i++) {
+      data[i].content = '<p>' + newData[i] + '</p>'
+    }
+    return data
+  }
+
+  // This will show 25 more posts below the first list
+  // showSecondaryList = () => {
+  //   this.newsfeedPosts = this.newsfeedPosts.concat(this.secondaryList)
   // }
   
   ngOnInit() {
+
     let callback = (data) => {
-      // let newData = this.convertLink(data)
-      // console.log("newdata--->", newData)
+      console.log("INSIDE CALLBACK", data)
+      
+
+      let newData = data.content.split(' ').map(word => {
+        if (word.indexOf('http') !== -1) {
+          word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
+        } else if (word.indexOf('www.') !== -1) {
+          word = '<a href="http://' + word + '" target="_blank" class="link">' + word + '</a>'
+        } else if (word === ':)') {
+          word = ':smiley:'
+        } else if (word === '<3') {
+          word = ':heart:'
+        }
+
+        return word
+      }).join(' ');        
+    
+      data.content = '<p>' + newData + '</p>'
+
       this.newsfeedListService.newsfeedPosts.unshift(data)
     }
+
     this.newsfeedListService.socketRecieve(callback)
     this.newsfeedListService.fetchNewsfeedUpdates()
       .subscribe(
         data => {
           let userId = localStorage.getItem('userid')
-          // let newArray = []
-          // this.convertLink(data)
-          console.log("DATA IN NF POSTS", data)
+          let newArray = []
+          this.convertLink(data)
+
           for (var i = 0; i < data.length; i++) {
             data[i].liked = false
             for (var j = 0; j < data[i].interactions.length; j++) {
               if (data[i].interactions[j].userId == userId) {
                 data[i].liked = true
-                console.log("Liked post", data[i])
               }
             }
           }
 
           this.newsfeedPosts = data
           this.newsfeedListService.newsfeedPosts = data
+
+          // Use these when we do pagination
+          // this.secondaryList = data.slice(25)
+          // this.newsfeedPosts = data.slice(0, 25)
+
+          // this.newsfeedListService.secondaryList = data.slice(25)
+          // this.newsfeedListService.newsfeedPosts = data.splice(0, 25)
+
           return data
         }
       )

@@ -35,20 +35,22 @@ export class NewpostComponent {
     this._newsfeedListService.sendNewsfeedUpdate(newPost)
       .subscribe(
         data => {
-          console.log(data)
           data.comments = []
   
           let newArray = []
           let newData = data.content.split(' ').map(word => {
             if (word.indexOf('www.') !== -1 || word.indexOf('.com') !== -1) {
               word = '<a src="' + word + '" target="_blank" class="link">' + word + '</a>'
+            } else if (word === ':)') {
+              word = ':smiley:'
+            } else if (word === '<3') {
+              word = ':heart:'
             }
             return word
           }).join(' ');      
         
           data.content = '<p>' + newData + '</p>'
 
-          // this._newsfeedListService.newsfeedPosts.unshift(data)
           return data
           })
   }
