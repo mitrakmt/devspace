@@ -63,7 +63,7 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 
     <h1>Most Recent Commit</h1>
     <div *ngFor="let contributor of this.teamService.mostRecentCommits">
-      <p>{{contributor}}: {{contributor.message}} {{contributor.date}}</p>
+      <p>{{contributor[0]}}: {{contributor[1]}} {{contributor[2]}}</p>
     </div>
 
     <h1>Most Productive Day By Contributor</h1>
