@@ -17,6 +17,9 @@ usersRouter.route('/avatar')
 usersRouter.route('/profile/feed')
   .get(usersController.GET_USER_PROFILE_FEED)
 
+usersRouter.route('/getMemberStatus')
+  .get(usersController.GET_MEMBER_STATUS)
+
 usersRouter.route('/profile/code')
   .get(usersController.GET_ALL_BYTES_OF_CODE)
 

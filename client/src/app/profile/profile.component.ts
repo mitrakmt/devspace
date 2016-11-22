@@ -13,12 +13,13 @@ export class ProfileComponent implements OnInit {
   public githubData = {};
   public userData = {};
   public languages = [];
+  public member;
   public isOwnProfile = true;
   public followStatus;
 
   constructor(private _profileService: ProfileService, private router: Router) { }
 
-  username = this.router.url.slice(5);
+  public username;
   currentUser = localStorage.getItem('username');
 
   follow = () => {
@@ -41,6 +42,18 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     let username = this.router.url.slice(5);
     let currentUser = localStorage.getItem('username')
+
+    this._profileService.checkMemberStatus(username)
+      .subscribe(
+        status => {
+          console.log('status', status)
+          if (status._body == "true") {
+            this.member = true
+          } else {
+            this.member = false
+          }
+        }
+      )
 
     this._profileService.fetchBytes(username)
       .subscribe(
@@ -85,12 +98,9 @@ export class ProfileComponent implements OnInit {
     this._profileService.fetchFollowStatus(username)
       .subscribe(
         followed => {
-          console.log('followed', followed._body)
           if (followed._body == "true") {
-            console.log("Inside followed")
             this.followStatus = "Unfollow"
           } else {
-            console.log("Inside not followed")
             this.followStatus = "Follow"
           }
         }

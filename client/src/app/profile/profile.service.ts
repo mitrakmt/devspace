@@ -60,11 +60,19 @@ export class ProfileService {
         })
     }
 
+  checkMemberStatus(username): Observable<any> {
+    let headers = new Headers({ 'username': username })
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/users/getMemberStatus', options)
+      .map((res:Response) => {
+        return res
+      })    
+  }
+
   fetchFollowStatus(followedUsername): Observable<any> {
     let headers = new Headers({ 'followedusername': followedUsername })
     let options = new RequestOptions({ headers: headers })
     let userid = localStorage.getItem('userid')
-    console.log('followerid', followedUsername)
     return this._http.get('/api/follows/' + userid + '/followStatus', options)
       .map((res:Response) => {
         return res

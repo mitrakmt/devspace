@@ -41,20 +41,24 @@ followsModel.GET_FOLLOW_STATUS = (userId, followedUsername) => {
     }
   })
   .then(followed => {
-      return Follows.findAll({
-        where: {
-          userId: followed.id
+    if (!followed) {
+      return false
+    }
+    
+    return Follows.findAll({
+      where: {
+        userId: followed.id
+      }
+    })
+    .then(follows => {
+      for (var i = 0; i < follows.length; i++) {
+        if (follows[i].followerId == userId) {
+          return true
         }
-      })
-      .then(follows => {
-        for (var i = 0; i < follows.length; i++) {
-          if (follows[i].followerId == userId) {
-            return true
-          }
-        }
+      }
 
-        return false
-      })
+      return false
+    })
   })
 }
 
