@@ -24,7 +24,10 @@ export class TeamService {
   public mostRecentCommits = [];
   public commitDayContributors = [];
   public commitDays = [];
-  public commitHour;
+  public productiveDayByContributor = [];
+  public commitHourContributors = [];
+  public commitHours = [];
+  public productiveHourByContributor = [];
 
   constructor(private _http: Http) { }
 
@@ -113,7 +116,6 @@ export class TeamService {
 
         // separate contributors from contributions to render with chartjs
         for (let contributor in sum) {
-          console.log(contributor, sum[contributor])
           this.chartContributors.push(contributor);
           this.contributionScore.push(sum[contributor])
         }
@@ -180,33 +182,63 @@ export class TeamService {
       .map((res: Response) => {
         let result = res.json();
 
-        // most recent commit by each contributor
+        /* most recent commit by each contributor */
         for (let contributor in result.mostRecentCommit) {
           this.mostRecentCommits.push(contributor);
         }
 
+        /* most productive day by contributor */
         // group contributors and their day freq
         var temp = [];
         for (let contributor in result.commitDay) {
           this.commitDayContributors.push(contributor)
-          // var test = Object.keys(contributor).reduce(function(a, b){ return contributor[a] > contributor[b] ? a : b });
-          // tests.push(test)
           temp.push(result.commitDay[contributor])
         }
-        
+
         // map day freq to arrays
-        var dayArrs = [];
         temp.forEach(obj => {
-          var dayArr = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
-          dayArrs.push(dayArr)
+          let UTCdays = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
+          this.commitDays.push(UTCdays)
         })
+
+        // convert to SMTWTFS
+        let daysOfWeek = {
+          0: 'Sunday',
+          1: 'Monday',
+          2: 'Tuesday',
+          3: 'Wednesday',
+          4: 'Thursday',
+          5: 'Friday',
+          6: 'Saturday',
+          7: 'Sunday'
+        }
         
-        // get day of most commits for each contributor
-        let mostCommitedDay = dayArrs.map(week => {
-          return Math.max.apply(null, week)
+        let mostCommitDays = this.commitDays.map(UTCday => {
+          return daysOfWeek[UTCday]
         })
-    
-        this.commitHour = result.commitHour;
+
+        // this.commitDays and this.commitDayContributors are available to render with chartjs
+        // productiveDayByContributor is to render by string interpolation
+        for (let i = 0; i < this.commitDayContributors.length; i++) {
+          this.productiveDayByContributor.push([this.commitDayContributors[i], mostCommitDays[i]])
+        }
+        
+        /* most productive hour by contributor */
+        var temps = [];
+        for (let contributor in result.commitHour) {
+          this.commitHourContributors.push(contributor)
+          temps.push(result.commitHour[contributor])
+        }
+
+        // map hour freq to arrays
+        temps.forEach(obj => {
+          let UTChours = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
+          this.commitHours.push(UTChours)
+        })
+
+        for (let i = 0; i < this.commitHourContributors.length; i++) {
+          this.productiveHourByContributor.push([this.commitHourContributors[i], Number(this.commitHours[i])])
+        }
         return res.json();
       });
   }

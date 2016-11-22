@@ -65,6 +65,16 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     <div *ngFor="let contributor of this.teamService.mostRecentCommits">
       <p>{{contributor}}: {{contributor.message}} {{contributor.date}}</p>
     </div>
+
+    <h1>Most Productive Day By Contributor</h1>
+    <div *ngFor="let contributor of this.teamService.productiveDayByContributor">
+      <p>{{contributor[0]}}:{{contributor[1]}}</p>
+    </div>
+
+    <h1>Most Productive Time By Contributor</h1>
+    <div *ngFor="let contributor of this.teamService.productiveHourByContributor">
+      <p>{{contributor[0]}}:{{contributor[1]}}:00</p>
+    </div>
   `,
   styleUrls: ['./team-dashboard.component.css']
 })
@@ -129,6 +139,7 @@ export class TeamDashboardComponent implements OnInit {
       this.teamService.fetchTeamCommitFrequency(this.teamId)
         .subscribe(commitFreqs => {
           console.log(commitFreqs, 'commitFreqs')
+          return commitFreqs;
         })
       }
     }
