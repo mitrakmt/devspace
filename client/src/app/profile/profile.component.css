@@ -69,3 +69,38 @@ md-grid-tile h3 {
 .profile-info p {
     text-align: center;
 }
+
+.follower {
+    margin-bottom: 20px;
+}
+
+.follower a {
+    font-size: 22px;
+    color: #2ea890;
+    font-weight: 400;
+}
+
+.following {
+    margin-bottom: 20px;
+}
+
+.following a {
+    font-size: 18px;
+    color: #2ea890;
+    font-weight: 400;
+}
+
+div .ui .header {
+    font-size: 35px;
+}
+
+.divider {
+    margin-bottom: 25px;
+}
+
+.friend-image {
+    height: 55px;
+    border-radius: 50%;
+    margin-right: 15px;
+    display: inline-block;
+}

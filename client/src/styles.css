@@ -12,6 +12,10 @@ a {
 
 a:hover {
     color: #2a9b84;
+}
+
+a:hover {
+    color: #2a9b84;
     text-decoration: none;
 }
 
