@@ -72,7 +72,12 @@ export class ProfileService {
   fetchFollowStatus(followedUsername): Observable<any> {
     let headers = new Headers({ 'followedusername': followedUsername })
     let options = new RequestOptions({ headers: headers })
+    let username = localStorage.getItem('username')
     let userid = localStorage.getItem('userid')
+    // if (followedUsername === username) {
+    //   return false
+    // }
+
     return this._http.get('/api/follows/' + userid + '/followStatus', options)
       .map((res:Response) => {
         return res
