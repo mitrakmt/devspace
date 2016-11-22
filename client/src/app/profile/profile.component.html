@@ -34,10 +34,20 @@
     <p style="text-align: center; font-style: italic; font-size: 17px; margin-top: 25px;">{{ githubData.bio }}</p>
     <md-grid-list cols="2" rowHeight="70px">
       <md-grid-tile>
-        <h3>Followers: {{ userData.followerCount || githubData.followers }}</h3>
+        <button class="ui button #F8F8F8" (click)="followers.show()">Followers: {{ userData.followerCount-2 || githubData.followers }}</button>
+        <sm-modal title="Followers" class="basic" #followers>
+            <modal-content>
+                <div *ngFor="let friend of followerList">{{friend.username}}</div>
+            </modal-content>
+        </sm-modal>
       </md-grid-tile>
       <md-grid-tile>
-        <h3>Following: {{ userData.followingCount || githubData.following }}</h3>
+        <button class="ui button #F8F8F8" (click)="myModal.show()">Following: {{ userData.followingCount || githubData.following }}</button>
+        <sm-modal title="Following" class="basic" #myModal>
+            <modal-content>
+                <div *ngFor="let friend of followingList">{{friend.username}}</div>
+            </modal-content>
+        </sm-modal>
       </md-grid-tile>
     </md-grid-list>
 

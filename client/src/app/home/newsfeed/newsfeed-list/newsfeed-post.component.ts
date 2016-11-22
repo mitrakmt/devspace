@@ -63,7 +63,6 @@ export class NewsfeedPostComponent implements OnInit {
                 post['likes']--
               }
             }
-            
             return post
           }) 
         }

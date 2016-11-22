@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { ProfileService } from './profile.service';
 import { Router, CanActivate } from '@angular/router';
+import { Overlay } from 'angular2-modal';
+import { NgSemanticModule } from 'ng-semantic';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +18,8 @@ export class ProfileComponent implements OnInit {
   public member;
   public isOwnProfile = true;
   public followStatus;
+  public followingList;
+  public followerList;
 
   constructor(private _profileService: ProfileService, private router: Router) { }
 
@@ -38,6 +42,8 @@ export class ProfileComponent implements OnInit {
         }
       )
   }
+
+  
 
   ngOnInit() {
     let username = this.router.url.slice(5);
@@ -106,17 +112,25 @@ export class ProfileComponent implements OnInit {
         }
       )
 
-    //  this._profileService.fetchFollowing()
-    //   .subscribe(
-    //     data => {
-    //       for (var i = 0; i < data.length; i++) {
-    //         if(data[i].username === username) {
-    //           this.followStatus = "Unfollow"
-    //         } else {
-    //           this.followStatus = "Follow"
-    //         }
-    //       }
-    //     }
-    //   ) 
+     this._profileService.fetchFollowing()
+      .subscribe(
+        data => {
+          this.followingList = data
+          for (var i = 0; i < data.length; i++) {
+            if(data[i].username === username) {
+              this.followStatus = "Unfollow"
+            } else {
+              this.followStatus = "Follow"
+            }
+          }
+        }
+      ) 
+      this._profileService.fetchFollowers()
+      .subscribe(
+        data => {
+          this.followerList = data
+          console.log("followerlist", this.followerList)
+        }
+      )
   }
 }

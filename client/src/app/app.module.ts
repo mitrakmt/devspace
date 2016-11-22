@@ -7,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { EmojifyModule } from 'angular2-emojify';
 import { AppComponent } from './app.component';
@@ -19,8 +20,10 @@ import { NewsfeedPostComponent } from './home/newsfeed/newsfeed-list/newsfeed-po
 import { NewsfeedListComponent } from './home/newsfeed/newsfeed-list/newsfeed-list.component';
 import { GithubListComponent } from './home/github/github-list/github-list.component';
 import { GithubItemComponent } from './home/github/github-list/github-item.component';
+import { ModalModule } from 'ng2-modal';
 import { NewcommentComponent } from './home/newsfeed/newsfeed-list/newsfeed-newcomment.component';
 import { NewsfeedCommentsComponent } from './home/newsfeed/newsfeed-list/newsfeed-comments.component';
+import { NgSemanticModule } from 'ng-semantic';
 import { ProjectSidebarService } from './home/project-sidebar/project-sidebar.service';
 import { HomeService } from './home/home.service';
 import { GithubListService } from './home/github/github-list/github-list.service';
@@ -101,6 +104,9 @@ import { SearchUsersService } from './search-users/search-users.service';
     ReactiveFormsModule,
     ChartsModule,
     EmojifyModule,
+    ModalModule,
+    NgSemanticModule,
+    BootstrapModalModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {
