@@ -59,6 +59,7 @@ followsModel.GET_FOLLOW_STATUS = (userId, followedUsername) => {
 
       return false
     })
+
   })
 }
 

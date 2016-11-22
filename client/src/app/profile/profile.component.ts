@@ -98,9 +98,18 @@ export class ProfileComponent implements OnInit {
     this._profileService.fetchFollowStatus(username)
       .subscribe(
         followed => {
+<<<<<<< HEAD
           if (followed._body == "true") {
             this.followStatus = "Unfollow"
           } else {
+=======
+          console.log('followed', followed._body)
+          if (followed._body == "true") {
+            console.log("Inside followed")
+            this.followStatus = "Unfollow"
+          } else {
+            console.log("Inside not followed")
+>>>>>>> 1d77345b6d164c3bfdb48698cf273c011af66306
             this.followStatus = "Follow"
           }
         }
