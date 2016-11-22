@@ -33,7 +33,6 @@ export class NewsfeedListComponent implements OnInit {
         } else if (word === '<3') {
           word = ':heart:'
         }
-
         return word
       }).join(' ');        
     })

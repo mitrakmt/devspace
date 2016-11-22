@@ -14,10 +14,12 @@ import { NewsfeedListService } from './newsfeed-list.service';
           </div>       
         </md-card>`
 })
-export class NewsfeedCommentsComponent {
+export class NewsfeedCommentsComponent implements OnInit {
 @Input('comments') comments: any;
   constructor(private newsfeedListService: NewsfeedListService) {
    }
   newsfeedComments: NewsfeedComment[];
-  
+  ngOnInit() {
+    // console.log("comments", this.comments)
+  }
 }

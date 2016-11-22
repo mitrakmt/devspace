@@ -71,6 +71,7 @@ export class NewsfeedPostComponent implements OnInit {
 
   ngOnInit() {
     this.postId = this.newsfeedPost.id;
+    console.log(this.newsfeedPost)
   }
 
 }
