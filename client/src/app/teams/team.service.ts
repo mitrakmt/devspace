@@ -171,7 +171,6 @@ export class TeamService {
     let userid = localStorage.getItem('userid')
     let headers = new Headers({ userid: userid, idtoremove: idToRemove })
     let options = new RequestOptions({ headers: headers })
-    console.log('removeTeamMember, idToRemve: ',idToRemove, 'teamId: ', teamId)
     return this._http.delete('/api/teams/' + teamId + '/member', options)
       .subscribe(result => { console.log('deleted member') });
   }
@@ -270,7 +269,6 @@ export class TeamService {
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/teams/' + teamId + '/branches', options)
       .map((res: Response) => {
-        console.log(res.json())
         return res.json();
       });
   }
