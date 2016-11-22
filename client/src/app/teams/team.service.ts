@@ -183,10 +183,11 @@ export class TeamService {
         let result = res.json();
 
         /* most recent commit by each contributor */
-        for (let contributor in result.mostRecentCommit) {
-          this.mostRecentCommits.push(contributor);
+        let committers = Object.keys(result.mostRecentCommit)
+        for (let i = 0; i < committers.length; i++) {
+          this.mostRecentCommits.push([committers[i], result.mostRecentCommit[committers[i]].date, result.mostRecentCommit[committers[i]].message]);
         }
-
+        
         /* most productive day by contributor */
         // group contributors and their day freq
         var temp = [];
