@@ -1,7 +1,7 @@
 <!--// Add nav component here-->
 <app-search></app-search>
-<div class="background-image">
-  <img class="background-image" src="http://www.wallpapers4u.org/wp-content/uploads/purple_blue_white_spot_65576_1364x768.jpg" />
+<div class="background-image" layout-align="center">
+  <img src="http://i66.tinypic.com/2uyq547.png" class="logo">
 </div>
 <!--// Make this below a component?-->
 <div class="background-overlay" layout="row" layout-align="center" style="background-color: #F8F8F8">
@@ -34,18 +34,27 @@
     <p style="text-align: center; font-style: italic; font-size: 17px; margin-top: 25px;">{{ githubData.bio }}</p>
     <md-grid-list cols="2" rowHeight="70px">
       <md-grid-tile>
-        <button class="ui button #F8F8F8" (click)="followers.show()">Followers: {{ userData.followerCount-2 || githubData.followers }}</button>
+        <button md-button md-raised class="main-button" (click)="followers.show()">Followers: {{ userData.followerCount - 2 || githubData.followers }}</button>
         <sm-modal title="Followers" class="basic" #followers>
             <modal-content>
-                <div *ngFor="let friend of followerList">{{friend.username}}</div>
+                <md-divider class="divider"></md-divider>
+                <!--<img class="profile-image" src="{{ friend.avatar_url }}" />-->
+                <div *ngFor="let friend of followerList" class="follower">
+                  <img src="{{friend.imageUrl}}" class="friend-image" />
+                  <a [routerLink]="['/dev', friend.username]">{{ friend.firstName }} {{ friend.lastName }}</a> - <a [routerLink]="['/dev', friend.username]" style="font-size: 15px; color: white;">@{{friend.username}}</a>
+                </div>
             </modal-content>
         </sm-modal>
       </md-grid-tile>
       <md-grid-tile>
-        <button class="ui button #F8F8F8" (click)="myModal.show()">Following: {{ userData.followingCount || githubData.following }}</button>
+        <button md-button md-raised class="main-button" (click)="myModal.show()">Following: {{ userData.followingCount || githubData.following }}</button>
         <sm-modal title="Following" class="basic" #myModal>
             <modal-content>
-                <div *ngFor="let friend of followingList">{{friend.username}}</div>
+                <md-divider class="divider"></md-divider>
+                <div *ngFor="let friend of followingList" class="following">
+                  <img src="{{friend.imageUrl}}" class="friend-image" />
+                  <a [routerLink]="['/dev', friend.username]">{{ friend.firstName }} {{ friend.lastName }}</a> - <a [routerLink]="['/dev', friend.username]" style="font-size: 15px; color: white;">@{{friend.username}}</a>
+                </div>
             </modal-content>
         </sm-modal>
       </md-grid-tile>
