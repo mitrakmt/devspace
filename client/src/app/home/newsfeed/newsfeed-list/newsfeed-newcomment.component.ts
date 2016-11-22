@@ -40,7 +40,7 @@ export class NewcommentComponent{
         data => {
           this._newsfeedListService.newsfeedPosts.map((post) =>{ 
             if(post['id'] === this.postId){
-              console.log("what is data", data)
+              // console.log("what is data", data)
               post['comments'].unshift(data)
             }
             return post
