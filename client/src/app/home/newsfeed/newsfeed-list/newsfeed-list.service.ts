@@ -48,8 +48,11 @@ secondaryList: NewsfeedPost[] = [];
     sendNewComment(comment: any, postId: number): Observable<any> {
       let userid = localStorage.getItem('userid')
       let username = localStorage.getItem('username')
+      let avatar = localStorage.getItem('imageUrl')
+      let firstname = localStorage.getItem('firstname')
+      let lastname = localStorage.getItem('lastname')
       let body = {'content': comment};
-      let headers = new Headers({'userid': userid, 'username': username});
+      let headers = new Headers({'userid': userid, 'username': username, 'firstName': firstname, 'lastName': lastname});
       headers.append('Content-Type', 'application/json');
       return this._http.post('/api/posts/comments/' + postId, body, {
         headers: headers
