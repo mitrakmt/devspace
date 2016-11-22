@@ -39,3 +39,8 @@
   word-wrap: break-word;
   overflow: auto;
 }
+
+.likedStyle {
+    background-color: #673AB7;
+    color: white;
+}

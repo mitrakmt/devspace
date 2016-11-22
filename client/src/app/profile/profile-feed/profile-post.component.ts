@@ -26,7 +26,7 @@ import { ProfileFeedService } from './profile-feed.service';
           <div>
             <div md-line style="font-size: 17px" [innerHTML]="profilePost.content | emojify" style="border: 1px solid lightgray; padding: 8px; padding-bottom: 0;"></div>
 
-            <p md-line style="margin-top: 15px; padding: 5px;"><span class="like-button" (click)="likePost()"> +</span> <span> Likes: {{profilePost.likes}} </span></p>
+            <p md-line style="margin-top: 15px; padding: 5px;"><span class="like-button" (click)="likePost()" [ngClass]="{ 'likedStyle': profilePost.liked }"> +</span> <span> Likes: {{profilePost.likes}} </span></p>
           </div>
         </md-list>  
 
@@ -51,6 +51,7 @@ export class ProfilePostComponent implements OnInit {
 likePost = () => {
     let postId = this.postId
     let userId = localStorage.getItem('userid');
+    this.profilePost.liked = !this.profilePost.liked
     this.profileService.likePost(postId, userId)
       .subscribe(
         response => {

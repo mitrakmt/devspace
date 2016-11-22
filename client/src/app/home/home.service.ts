@@ -39,12 +39,14 @@ export class HomeService {
     
     if (localStorage.getItem('username')) {
       let username = localStorage.getItem('username')
-      console.log(username)
       let headers = new Headers({ 'username': username })
       let options = new RequestOptions({ headers: headers })
       return this._http.get('/api/users/avatar', options)
         .toPromise()
-        .then((data)=>localStorage.setItem('imageUrl', data._body))
+        .then(data => {
+          console.log('data', data)
+          localStorage.setItem('imageUrl', data['_body'])
+        })
     }
 
   }

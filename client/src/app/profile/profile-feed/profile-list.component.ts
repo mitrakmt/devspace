@@ -34,7 +34,9 @@ export class ProfileListComponent implements OnInit {
     this._profileFeedService.fetchProfileFeed()
       .subscribe(
         data => { 
+          let userId = localStorage.getItem('userid')
           let newArray = []
+
           let newData = data.map(post => {
             return post.content.split(' ').map(word => {
               if (word.indexOf('http') !== -1) {
@@ -48,6 +50,16 @@ export class ProfileListComponent implements OnInit {
           
           for (var i = 0; i < data.length; i++) {
             data[i].content = '<p>' + newData[i] + '</p>'
+          }
+
+          for (var i = 0; i < data.length; i++) {
+            data[i].liked = false
+            for (var j = 0; j < data[i].interactions.length; j++) {
+              if (data[i].interactions[j].userId == userId) {
+                data[i].liked = true
+                console.log("Liked post", data[i])
+              }
+            }
           }
 
           this.profilePosts = data
