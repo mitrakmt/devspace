@@ -224,7 +224,7 @@ teamsController.GET_ALL_BRANCHES = (req, res) => {
     })
 }
 
-teamsController.GET_PRODUCTIVE_HOURS = (req, res) => {
+teamsController.GET_COMMIT_FREQ = (req, res) => {
   let userId = req.headers['userid']
   let teamId = req.params.teamId
   let teamProjects
@@ -255,7 +255,6 @@ teamsController.GET_PRODUCTIVE_HOURS = (req, res) => {
       })
       Promise.all(promises)
         .then(results => {
-          console.log(results)
           let mergedCommits = []
           results = results.map(result => {
             mergedCommits.push(JSON.parse(result))
@@ -272,7 +271,7 @@ teamsController.GET_PRODUCTIVE_HOURS = (req, res) => {
             var hour = date.getUTCHours().toString()
             var day = date.getUTCDay().toString()
             if (!mostRecentCommit[commit.author.login]) {
-              mostRecentCommit[commit.author.login] = {message: commit.commit.message, date: commit.commit.author.date };
+              mostRecentCommit[commit.author.login] = { message: commit.commit.message, date: commit.commit.author.date };
               commitDay[commit.author.login] = {
                 0: 0,
                 1: 0,

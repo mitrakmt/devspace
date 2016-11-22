@@ -60,6 +60,11 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     Average Contribution: {{this.teamService.averageContribution}}
     Median Contribution: {{this.teamService.medianContribution}}
     Mode Contribution: {{this.teamService.modeContribution}}
+
+    <h1>Most Recent Commit</h1>
+    <div *ngFor="let contributor of this.teamService.mostRecentCommits">
+      <p>{{contributor}}: {{contributor.message}} {{contributor.date}}</p>
+    </div>
   `,
   styleUrls: ['./team-dashboard.component.css']
 })
@@ -69,8 +74,6 @@ export class TeamDashboardComponent implements OnInit {
   private teamMembers;
   private userId = localStorage.getItem('userid')
   private teamContributions;
-
-  project = {name: ''}
 
   submitTeamProject(form: NgForm) {
       let projectName = form.value.project;
@@ -122,6 +125,11 @@ export class TeamDashboardComponent implements OnInit {
           this.teamContributions = this.teamService.teamContributions;
           return teamContributions;
         });
+
+      this.teamService.fetchTeamCommitFrequency(this.teamId)
+        .subscribe(commitFreqs => {
+          console.log(commitFreqs, 'commitFreqs')
+        })
       }
     }
 }

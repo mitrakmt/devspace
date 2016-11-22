@@ -21,6 +21,10 @@ export class TeamService {
   public averageContribution;
   public medianContribution;
   public modeContribution;
+  public mostRecentCommits = [];
+  public commitDayContributors = [];
+  public commitDays = [];
+  public commitHour;
 
   constructor(private _http: Http) { }
 
@@ -168,6 +172,43 @@ export class TeamService {
     console.log('removeTeamMember, idToRemve: ',idToRemove, 'teamId: ', teamId)
     return this._http.delete('/api/teams/' + teamId + '/member', options)
       .subscribe(result => { console.log('deleted member') });
+  }
+
+  fetchTeamCommitFrequency(teamId): Observable<any> {
+    this.teamId = teamId;
+    return this._http.get('/api/teams/' + teamId + '/commit-freq')
+      .map((res: Response) => {
+        let result = res.json();
+
+        // most recent commit by each contributor
+        for (let contributor in result.mostRecentCommit) {
+          this.mostRecentCommits.push(contributor);
+        }
+
+        // group contributors and their day freq
+        var temp = [];
+        for (let contributor in result.commitDay) {
+          this.commitDayContributors.push(contributor)
+          // var test = Object.keys(contributor).reduce(function(a, b){ return contributor[a] > contributor[b] ? a : b });
+          // tests.push(test)
+          temp.push(result.commitDay[contributor])
+        }
+        
+        // map day freq to arrays
+        var dayArrs = [];
+        temp.forEach(obj => {
+          var dayArr = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
+          dayArrs.push(dayArr)
+        })
+        
+        // get day of most commits for each contributor
+        let mostCommitedDay = dayArrs.map(week => {
+          return Math.max.apply(null, week)
+        })
+    
+        this.commitHour = result.commitHour;
+        return res.json();
+      });
   }
 
   fetchProjectInfo(projectId): Observable<any> {

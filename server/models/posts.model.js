@@ -153,4 +153,17 @@ postsModel.UPDATE_INTERACTION = (userId, postId) => {
   })
 }
 
+postsModel.DELETE_COMMENTS_AND_POSTS = () => {
+  return Comments.destroy({
+    where: {}
+  })
+  .then(numDeleted => {
+    Posts.destroy({
+      where: {}
+    })
+    .then(res => {
+      return 'Successfully deleted posts'
+    })
+  }) 
+}
 module.exports = postsModel

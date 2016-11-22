@@ -88,4 +88,11 @@ postsController.DELETE_COMMENT = (req, res) => {
       res.status(200).send(comment)
     })
 }
+
+postsController.DELETE_COMMENTS_AND_POSTS = (req, res) => {
+  Posts.DELETE_POSTS()
+    .then(numDeleted => {
+      res.status(200).send('Deleted all posts')
+    })
+}
 module.exports = postsController
