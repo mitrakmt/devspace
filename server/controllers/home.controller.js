@@ -100,7 +100,6 @@ homeController.GET_CURR_USER_FEED = (req, res) => {
           ]
         })
         .then(posts => {
-          // console.log("POSTS INSIDE HOME CONTROLLER GET CURR FEED +++++++++>", posts)
           resolve(posts)
         })
         .catch(err => {
@@ -111,14 +110,12 @@ homeController.GET_CURR_USER_FEED = (req, res) => {
 
     Promise.all(promises)
       .then(postArrs => {
-        // console.log("POSTS ARRS INSIDE HOME CONTROLLER GET CURR FEED PROMISE ALL+++++++++>", postArrs[0].interactions)
         let result = postArrs.map(postArr => {
           return postArr.map(postObj => {
             return postObj
           })
         })
         let mergedPosts = [].concat.apply([], result)
-        console.log("POSTS INSIDE HOME CONTROLLER GET CURR FEED AFTER MERGE +++++++++>", mergedPosts[0].interactions)
         res.status(200).send(mergedPosts)
       })
       .catch(postArrs => {
@@ -198,7 +195,6 @@ homeController.GET_POST_COMMENTS = (req, res) => {
     ]
   })
   .then(comments => {
-    console.log('comments', comments)
     res.status(200).send(comments)
   })
 }
