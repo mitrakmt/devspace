@@ -99,6 +99,21 @@ usersModel.GET_USER = (username) => {
   })
 }
 
+usersModel.GET_MEMBER_STATUS = (username) => {
+  return Users.findOne({
+    where: {
+      username: username
+    }
+  })
+  .then(user => {
+    if (user) {
+      return true
+    }
+
+    return false
+  })
+}
+
 usersModel.GET_USER_PROFILE_FEED = (username, userId) => {
   return Users.findOne({
     where: {
@@ -106,7 +121,10 @@ usersModel.GET_USER_PROFILE_FEED = (username, userId) => {
     }
   })
   .then(user => {
-    if (user) {
+    console.log("USERUSERUSER ------>", user)
+    if (user == null) {
+      return false
+    } else {
       return Posts.findAll({
         where: {
           userId: user.id
@@ -119,11 +137,8 @@ usersModel.GET_USER_PROFILE_FEED = (username, userId) => {
         ]
       })
       .then(posts => {
-        console.log('posts', posts)
         return posts
       })
-    } else {
-      return false
     }
   })
 }

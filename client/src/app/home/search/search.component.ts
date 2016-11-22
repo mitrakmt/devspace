@@ -9,10 +9,8 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
-
-  public username
-  public avatar
-
+  public username;
+  public avatar;
 
   constructor(public router: Router) { }
 

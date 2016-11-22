@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { ProfileFeedService } from './profile-feed.service';
 import { ProfilePost } from './profile-post';
 
@@ -26,14 +25,15 @@ export class ProfileListComponent implements OnInit {
   constructor(private _profileFeedService: ProfileFeedService, public router: Router) { }
 
   ngOnInit() {
+    this.profilePosts = []
+    this._profileFeedService.profilePosts = []
     let username = this.router.url.slice(5);
     let currentUser = localStorage.getItem('username');
     let userid = localStorage.getItem('userid')
 
     this._profileFeedService.fetchProfileFeed()
       .subscribe(
-        data => {
-
+        data => { 
           let newArray = []
           let newData = data.map(post => {
             return post.content.split(' ').map(word => {

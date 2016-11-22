@@ -1,7 +1,7 @@
 <!--// Add nav component here-->
 <app-search></app-search>
 <div class="background-image">
-  <img class="background-image" src="https://drscdn.500px.org/photo/90183267/m%3D2048/ac63373c3029c2552cea0cc7add18fb9" />
+  <img class="background-image" src="http://www.wallpapers4u.org/wp-content/uploads/purple_blue_white_spot_65576_1364x768.jpg" />
 </div>
 <!--// Make this below a component?-->
 <div class="background-overlay" layout="row" layout-align="center" style="background-color: #F8F8F8">
@@ -13,7 +13,7 @@
 
     <md-grid-tile>
       <img class="profile-image" src="{{ githubData.avatar_url }}" />
-      <button  class="follow-button" md-button md-raised (click)="follow()" *ngIf="currentUser !== username">{{followStatus}}</button>
+      <button class="follow-button" (click)="follow()" *ngIf="member && currentUser !== username" md-button md-raised>{{followStatus}}</button>
     </md-grid-tile>
 
     <md-grid-tile>

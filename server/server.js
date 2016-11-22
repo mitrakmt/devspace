@@ -82,10 +82,22 @@ passport.use(new Strategy({
     })
     .then(follow => {
       if (follow === null) {
-        return Follows.create({
+        return Follows.bulkCreate([{
           userId: user[0].id,
           followerId: user[0].id
-        })
+        },
+        {
+          userId: 1,
+          followerId: user[0].id
+        },
+        {
+          userId: 2,
+          followerId: user[0].id
+        },
+        {
+          userId: 3,
+          followerId: user[0].id
+        }])
       }
     })
 

@@ -13,12 +13,13 @@ export class ProfileComponent implements OnInit {
   public githubData = {};
   public userData = {};
   public languages = [];
+  public member;
   public isOwnProfile = true;
   public followStatus;
 
   constructor(private _profileService: ProfileService, private router: Router) { }
 
-  username = this.router.url.slice(5);
+  public username;
   currentUser = localStorage.getItem('username');
 
   follow = () => {
@@ -27,7 +28,6 @@ export class ProfileComponent implements OnInit {
     this._profileService.follow(followedUsername, userId)
       .subscribe(
         data => {
-          console.log("data in follow", data._body)
           if(data._body ==="Deleted follow"){
             this.followStatus = "Follow";
           }
@@ -42,6 +42,18 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     let username = this.router.url.slice(5);
     let currentUser = localStorage.getItem('username')
+
+    this._profileService.checkMemberStatus(username)
+      .subscribe(
+        status => {
+          console.log('status', status)
+          if (status._body == "true") {
+            this.member = true
+          } else {
+            this.member = false
+          }
+        }
+      )
 
     this._profileService.fetchBytes(username)
       .subscribe(
@@ -83,18 +95,37 @@ export class ProfileComponent implements OnInit {
         }
       )
 
-     this._profileService.fetchFollowing()
-
+    this._profileService.fetchFollowStatus(username)
       .subscribe(
-        data => {
-          for (var i = 0; i < data.length; i++) {
-            if(data[i].username === username) {
-              this.followStatus = "Unfollow"
-            } else {
-              this.followStatus = "Follow"
-            }
+        followed => {
+<<<<<<< HEAD
+          if (followed._body == "true") {
+            this.followStatus = "Unfollow"
+          } else {
+=======
+          console.log('followed', followed._body)
+          if (followed._body == "true") {
+            console.log("Inside followed")
+            this.followStatus = "Unfollow"
+          } else {
+            console.log("Inside not followed")
+>>>>>>> 1d77345b6d164c3bfdb48698cf273c011af66306
+            this.followStatus = "Follow"
           }
         }
-      ) 
+      )
+
+    //  this._profileService.fetchFollowing()
+    //   .subscribe(
+    //     data => {
+    //       for (var i = 0; i < data.length; i++) {
+    //         if(data[i].username === username) {
+    //           this.followStatus = "Unfollow"
+    //         } else {
+    //           this.followStatus = "Follow"
+    //         }
+    //       }
+    //     }
+    //   ) 
   }
 }

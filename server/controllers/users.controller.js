@@ -8,6 +8,9 @@ usersController.GET_PROFILE = (req, res) => {
   let userId = req.headers['userid']
   Users.GET_POSTS(userId)
     .then(posts => {
+      if (!posts) {
+        res.status(204).send(false)
+      }
       return Users.GET_COMMENTS_AND_INTERACTIONS(userId, posts)
     })
     .then(allPosts => {
@@ -83,6 +86,10 @@ usersController.GET_USER_GITHUB = (req, res) => {
 
   return request.get(options)
     .then(user => {
+      if (!user) {
+        return false
+      }
+      
       let parsedUser = JSON.parse(user)
       res.status(200).send({
         "avatar_url": parsedUser.avatar_url,
@@ -104,6 +111,7 @@ usersController.GET_USER_GITHUB = (req, res) => {
     })
 }
 
+// Check if on platform, true or false
 usersController.SEARCH_USERS = (req, res) => {
   let searchText = req.headers['searchtext']
   let username = req.headers['username']
@@ -121,9 +129,18 @@ usersController.SEARCH_USERS = (req, res) => {
     })
 }
 
+usersController.GET_MEMBER_STATUS = (req, res) => {
+  let username = req.headers['username']
+
+  Users.GET_MEMBER_STATUS(username)
+    .then(status => {
+      res.status(200).send(status)
+    })
+}
+
 usersController.GET_AVATAR = (req, res) => {
   let username = req.headers['username']
-  console.log('avatar username', username)
+
   Users.GET_AVATAR(username)
     .then(userAvatar => {
       console.log('avatar', userAvatar)
@@ -138,7 +155,6 @@ usersController.GET_USER_PROFILE_FEED = (req, res) => {
   Users.GET_USER_PROFILE_FEED(username, userId)
     .then(response => {
       if (response) {
-        console.log(response)
         res.status(200).send(response)
       } else {
         res.status(204).send('No found user')
