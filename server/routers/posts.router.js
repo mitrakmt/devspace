@@ -22,5 +22,5 @@ postsRouter.route('/:postId')
 postsRouter.route('/')
   .post(postsController.CREATE_POST)
     // Requires userId, content
-
+  .delete(postsController.DELETE_COMMENTS_AND_POSTS)
 module.exports = postsRouter

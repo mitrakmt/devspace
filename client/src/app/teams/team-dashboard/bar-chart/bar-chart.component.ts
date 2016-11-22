@@ -30,10 +30,7 @@ export class BarChartComponent implements OnInit {
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
 
-  // public barChartData:any[] = [
-  //   {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
-  // ];
-  public barChartData:any[] = [{data: this.teamService.contributionScore}];
+  public barChartData:any[] = [{data: this.teamService.contributionScore, label: 'Contribution Score'}];
   // events
   public chartClicked(e:any):void {
     console.log(e);
