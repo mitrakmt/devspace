@@ -223,4 +223,103 @@ teamsController.GET_ALL_BRANCHES = (req, res) => {
       })
     })
 }
+
+teamsController.GET_COMMIT_FREQ = (req, res) => {
+  let userId = req.headers['userid']
+  let teamId = req.params.teamId
+  let teamProjects
+  let teamName
+  Teams.GET_TEAM(userId, teamId)
+    .then(team => {
+      teamName = team.name
+      return team
+    })
+    .then(team => {
+      return Teams.GET_TEAM_PROJECTS(userId, teamId)
+        .then(projects => {
+          teamProjects = projects
+          return teamProjects
+        })
+    })
+    .then(teamProjects => {
+      let promises = teamProjects.map(project => {
+        return new Promise((resolve, reject) => {
+          Projects.GET_COMMITS(teamName, project.name, 'master')
+            .then(commits => {
+              resolve(commits)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        })
+      })
+      Promise.all(promises)
+        .then(results => {
+          let mergedCommits = []
+          results = results.map(result => {
+            mergedCommits.push(JSON.parse(result))
+          })
+          // github returns most recent 60 commits
+          mergedCommits = [].concat.apply([], mergedCommits)
+
+          var mostRecentCommit = {};
+          var commitHour = {};
+          var commitDay = {};
+
+          mergedCommits.forEach(commit => {
+            var date = new Date(commit.commit.author.date)
+            var hour = date.getUTCHours().toString()
+            var day = date.getUTCDay().toString()
+            if (!mostRecentCommit[commit.author.login]) {
+              mostRecentCommit[commit.author.login] = { message: commit.commit.message, date: commit.commit.author.date };
+              commitDay[commit.author.login] = {
+                0: 0,
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0
+              }
+              commitHour[commit.author.login] = {
+                0: 0,
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0,
+                7: 0,
+                8: 0,
+                9: 0,
+                10: 0,
+                11: 0,
+                12: 0,
+                13: 0,
+                14: 0,
+                15: 0,
+                16: 0,
+                17: 0,
+                18: 0,
+                19: 0,
+                20: 0,
+                21: 0,
+                22: 0,
+                23: 0
+              }
+              commitDay[commit.author.login][day] = 1;
+              commitHour[commit.author.login][hour] = 1;
+            } else {
+              commitDay[commit.author.login][day]++
+              commitHour[commit.author.login][hour]++
+            }
+          })
+          let commitBundle = {mostRecentCommit: mostRecentCommit, commitDay: commitDay, commitHour: commitHour}
+          res.status(200).send(commitBundle)
+        })
+        .catch(err => {
+          res.send({err: err})
+        })
+    })
+}
 module.exports = teamsController

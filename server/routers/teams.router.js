@@ -36,6 +36,9 @@ teamsRouter.route('/:teamId/contributions')
 teamsRouter.route('/:teamId/branches')
   .get(teamsController.GET_ALL_BRANCHES)
 
+teamsRouter.route('/:teamId/commit-freq')
+  .get(teamsController.GET_COMMIT_FREQ)
+
 module.exports = teamsRouter
 
 
