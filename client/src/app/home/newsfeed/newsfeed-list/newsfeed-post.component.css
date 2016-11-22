@@ -1,14 +1,14 @@
 .like-button {
-    color: #673AB7; 
+    color: #2ea890; 
     border-radius: 50%; 
     cursor: pointer; 
-    border: 1px solid #673AB7; 
+    border: 1px solid #2ea890; 
     padding: 0 5px 3px 5px; 
     margin-right: 3px;
 }
 
 .like-button:hover {
-    background-color: #673AB7;
+    background-color: #2ea890;
     color: white;
 }
 
@@ -25,6 +25,6 @@
 }
 
 .likedStyle {
-    background-color: #673AB7;
+    background-color: #2ea890;
     color: white;
 }
