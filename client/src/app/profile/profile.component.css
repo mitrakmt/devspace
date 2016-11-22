@@ -1,9 +1,14 @@
 .background-image {
     min-width: 100%;
-    max-height: 200px;
-    opacity: .7;
-    background-position: 0 0, center;
-    background-size: cover;
+    height: 225px;
+    text-align: center;
+    background-color: white;
+}
+
+.logo {
+    height: 50px;
+    top: 0;
+    margin-bottom: 50px;
 }
 
 .language {
