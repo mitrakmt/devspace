@@ -53,6 +53,7 @@ export class ProfileService {
       let userid = localStorage.getItem('userid')
       return this._http.get('/api/follows/' + userid + '/following')
         .map((res:Response) => {
+          console.log("res in service following", res.json())
           if (res) {
             this['following'] = res.json();
             return this['following']
@@ -84,4 +85,16 @@ export class ProfileService {
       })
   }
 
+  fetchFollowers() {
+     let userid = localStorage.getItem('userid')
+     return this._http.get('/api/follows/' + userid + '/followers')
+      .map((res:Response) => {
+        console.log("res in service followers", res.json())
+        if(res) {
+          this['followers'] = res.json();
+          console.log("in servce", this['followers'])
+          return this['followers']
+        }
+      })
+  }
 }
