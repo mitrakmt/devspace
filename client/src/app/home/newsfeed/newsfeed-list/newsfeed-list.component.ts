@@ -71,9 +71,6 @@ export class NewsfeedListComponent implements OnInit {
   ngOnInit() {
 
     let callback = (data) => {
-      console.log("INSIDE CALLBACK", data)
-      
-
       let newData = data.content.split(' ').map(word => {
         if (word.indexOf('http') !== -1) {
           word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'

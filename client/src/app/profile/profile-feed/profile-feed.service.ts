@@ -54,7 +54,6 @@ profilePosts: ProfilePost[] = [];
       let body = {'content': comment};
       let headers = new Headers({'userid': userid, 'username': username});
       headers.append('Content-Type', 'application/json');
-      // socket.emit('chat message', {'username': username, 'content': comment.content, 'userId': userid, 'postId': postId})
       return this._http.post('/api/posts/comments/' + postId, body, {
         headers: headers
       })
@@ -68,10 +67,4 @@ profilePosts: ProfilePost[] = [];
         headers: headers
       })
     }
-  //   socketServer(callback){
-  //     socket.on('chat message server', function(msg) {
-  //   console.log('msg: ', msg);
-  //   callback(msg)
-  // })
-  //   }
 }

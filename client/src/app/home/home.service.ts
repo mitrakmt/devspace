@@ -44,7 +44,6 @@ export class HomeService {
       return this._http.get('/api/users/avatar', options)
         .toPromise()
         .then(data => {
-          console.log('data', data)
           localStorage.setItem('imageUrl', data['_body'])
         })
     }

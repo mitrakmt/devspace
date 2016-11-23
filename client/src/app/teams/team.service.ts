@@ -76,7 +76,6 @@ export class TeamService {
   }
 
   deleteTeam(teamId) {
-    console.log('inside team service', teamId)
     let userid = localStorage.getItem('userid')
     let headers = new Headers({'userid': userid});
     headers.append('Content-Type', 'application/json');
@@ -259,7 +258,6 @@ export class TeamService {
         this.teamProjectInfo = res.json();
         this.teamOwner = this.teamProjectInfo.owner;
         this.teamRepo = this.teamProjectInfo.name;
-         console.log('res in fetchProjectInfo', this.teamProjectInfo, this.teamOwner, this.teamRepo)
         return res.json();
       });
   }

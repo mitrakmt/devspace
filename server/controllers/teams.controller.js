@@ -180,14 +180,12 @@ teamsController.GET_ALL_BRANCHES = (req, res) => {
   Teams.GET_TEAM(userId, teamId)
     .then(team => {
       teamName = team.name
-      console.log('teamName', teamName)
       return teamName
     })
     .then(teamName => {
       Projects.GET_PROJECT_FROM_DB(projectId)
       .then(project => {
         let repo = project['name']
-        console.log('repo', repo)
         Projects.GET_CONTRIBUTORS(teamName, repo)
         .then(contributors => {
           return JSON.parse(contributors)

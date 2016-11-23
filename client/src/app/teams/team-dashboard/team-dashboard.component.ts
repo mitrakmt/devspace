@@ -25,7 +25,6 @@ export class TeamDashboardComponent implements OnInit {
     this.teamService.importTeamProject(projectName, this.teamId)
       .subscribe(
         data => {
-          console.log(data, 'imported project');
           return data;
     })
   }
@@ -37,7 +36,6 @@ export class TeamDashboardComponent implements OnInit {
     this.teamService.addTeamMember(memberUsername, this.teamId)
       .subscribe(
         data => {
-          console.log(data, 'imported member');
           return data;
     })
   }

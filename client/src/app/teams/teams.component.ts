@@ -22,13 +22,11 @@ export class TeamsComponent implements OnInit {
   }
 
   deleteTeam(teamId) {
-    console.log('inside teams component ts', teamId)
     this.teamService.deleteTeam(teamId)
   }
 
   createTeam(form: NgForm) {
       let teamName = form.value.team;
-      // console.log(teamName)
       let userId = localStorage.getItem('userid');
       this.teamService.createTeam(teamName, userId)
         .subscribe(

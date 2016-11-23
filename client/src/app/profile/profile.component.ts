@@ -55,7 +55,6 @@ export class ProfileComponent implements OnInit {
     this._profileService.checkMemberStatus(username)
       .subscribe(
         status => {
-          console.log('status', status)
           if (status._body == "true") {
             this.member = true
           } else {
@@ -118,7 +117,6 @@ export class ProfileComponent implements OnInit {
      this._profileService.fetchFollowing()
       .subscribe(
         data => {
-          console.log('following list data', data)
           for(var i = 0; i < data.length; i++) {
             if (data[i].username === username) {
               data.splice(i, 1)

@@ -20,7 +20,5 @@ export class NewsfeedCommentsComponent implements OnInit {
   constructor(private newsfeedListService: NewsfeedListService) {
    }
   newsfeedComments: NewsfeedComment[];
-  ngOnInit() {
-    // console.log("comments", this.comments)
-  }
+  ngOnInit() { }
 }

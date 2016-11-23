@@ -80,7 +80,6 @@ usersModel.GET_AVATAR = (username) => {
     }
   })
   .then(user => {
-    console.log('user', user)
     return user.imageUrl
   })
 }

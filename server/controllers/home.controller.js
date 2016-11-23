@@ -100,6 +100,8 @@ homeController.GET_CURR_USER_FEED = (req, res) => {
           ]
         })
         .then(posts => {
+          posts.forEach(post => {
+          })
           resolve(posts)
         })
         .catch(err => {
