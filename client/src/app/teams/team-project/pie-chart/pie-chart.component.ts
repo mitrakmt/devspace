@@ -1,24 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TeamService } from '../../team.service';
 
 @Component({
   selector: 'app-pie-chart',
-  templateUrl: './pie-chart.component.html',
+  template: `
+    <div>
+      <div style="display: block">
+        <canvas baseChart
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType">
+        </canvas>
+      </div>
+    </div>
+  `,
   styleUrls: ['./pie-chart.component.css']
 })
 
-export class PieChartComponent {
+  
+export class PieChartComponent implements OnInit {
+  constructor(private teamService: TeamService) { }
   // Pie
-  public pieChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public pieChartData:number[] = [350, 450, 100];
+  // public pieChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  // @Input() pieChartLabelsIn:string[]
+  // @Input() pieChartDataIn:number[];
+  public pieChartLabels:string[] = this.teamService.teamProjectPieChartContributors;
+  public pieChartData:number[] = this.teamService.teamProjectPieChartScore;
   public pieChartType:string = 'pie';
 
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    console.log(e);
+  ngOnInit() {
+    console.log(this.pieChartLabels, this.pieChartData)
   }
 }

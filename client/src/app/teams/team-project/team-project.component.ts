@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { TeamService } from '../team.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MaterialModule } from '@angular/material';
@@ -17,6 +17,7 @@ export class TeamProjectComponent implements OnInit {
   private teamProjectInfo;
   private teamOwner;
   private teamRepo;
+  private teamName;
   private teamProjectForks;
   private teamProjectContributors;
   private teamProjectLanguages;
@@ -24,6 +25,10 @@ export class TeamProjectComponent implements OnInit {
   private teamProjectBranches;
   public repoLength;
   private branchesByContributor;
+  private contributorsArr = [];
+  private contributorsScore = [];
+  // @Output() contributorsArr = [];
+  // @Output() contributorsScore = [];
 
   constructor(private route: ActivatedRoute, private teamService: TeamService) { }
 
@@ -31,13 +36,15 @@ export class TeamProjectComponent implements OnInit {
     return this.route.params.subscribe(params => {
       this.teamId = +params['teamId'];
       this.teamProjectId = +params['teamProjectId']
-      this.teamService.fetchProjectInfo(this.teamProjectId)
+      console.log(this.teamId, this.teamProjectId)
+      this.teamService.fetchTeamProjectInfo(this.teamProjectId, this.teamId)
         .subscribe(teamProjectInfo => {
           this.teamProjectInfo = this.teamService.teamProjectInfo;
           this.teamRepo = this.teamService.teamRepo;
           this.repoLength = this.teamRepo.length + 1
           this.teamOwner = this.teamService.teamOwner;
           this.teamRepo = this.teamService.teamRepo;
+          this.teamName = this.teamService.teamName;
           return teamProjectInfo;
       });
 
@@ -50,6 +57,13 @@ export class TeamProjectComponent implements OnInit {
       this.teamService.fetchProjectContributors(this.teamProjectId)
         .subscribe(projectContributors => {
           this.teamProjectContributors = projectContributors;
+          projectContributors.forEach(contributor => {
+            this.contributorsArr.push(contributor.login)
+            this.contributorsScore.push(contributor.contributions)
+            this.teamService.teamProjectPieChartContributors.push(contributor.login)
+            this.teamService.teamProjectPieChartScore.push(contributor.contribution)
+          })
+          console.log('projectContributors', this.contributorsArr, this.contributorsScore)
           return projectContributors;
       });
 

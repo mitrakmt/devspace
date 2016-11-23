@@ -123,11 +123,14 @@ projectsController.REMOVE_MEMBER = (req, res) => {
 
 projectsController.GET_COMMITS = (req, res) => {
   let projectId = req.params['projectId']
-  let branch = req.headers['branch']
+  let branch = req.headers['branch'] || 'master'
+  let username = req.headers['username']
 
   Projects.GET_PROJECT_FROM_DB(projectId)
     .then(project => {
-      let username = project.users[0].username
+      if (!username) {
+        username = project.users[0].username
+      }
       let repo = project['name']
 
       Projects.GET_COMMITS(username, repo, branch)
@@ -139,9 +142,6 @@ projectsController.GET_COMMITS = (req, res) => {
               message: commit.commit.message,
               url: commit.html_url,
               username: commit.author.login
-              // total: commit.stats.total,
-              // additions: commit.stats.additions,
-              // deletions: commit.stats.deletions
             }
           })
           res.status(200).send(commits)

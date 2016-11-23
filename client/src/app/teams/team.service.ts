@@ -15,6 +15,7 @@ export class TeamService {
   public teamProjectInfo;
   public teamProjectId;
   public teamOwner;
+  public teamName;
   public teamRepo;
   public teamContributors;
   public chartContributors = [];
@@ -29,6 +30,8 @@ export class TeamService {
   public commitHourContributors = [];
   public commitHours = [];
   public productiveHourByContributor = [];
+  public teamProjectPieChartContributors = [];
+  public teamProjectPieChartScore = [];
 
   constructor(private _http: Http) { }
 
@@ -50,7 +53,6 @@ export class TeamService {
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/teams', options)
       .map((res: Response) => {
-        console.log('TEAMS ------------>', res.json())
         this.teams = res.json();
         return res.json();
       });
@@ -77,6 +79,7 @@ export class TeamService {
   }
 
   deleteTeam(teamId) {
+    console.log('inside team service', teamId)
     let userid = localStorage.getItem('userid')
     let headers = new Headers({'userid': userid});
     headers.append('Content-Type', 'application/json');
@@ -84,6 +87,58 @@ export class TeamService {
       headers: headers
     })
       .subscribe(result => { console.log('deleted team') });
+  }
+
+  fetchTeamContributionsHelper(json) {
+    if (!json.hasOwnProperty('err') && json.length > 0) {
+      // add up overall team contributions and frequencies across all projects
+      let sum = {};
+      let frequency = {};
+      json.forEach(contribution => {
+
+        // sum up contributions
+        if (!sum[contribution.login]) {
+          sum[contribution.login] = contribution.contributions;
+        } else {
+          sum[contribution.login] += contribution.contributions;
+        }
+
+        // count frequencies
+        if (!frequency[contribution.contributions]) {
+          frequency[contribution.contributions] = 1;
+        } else {
+          frequency[contribution.contributions]++;
+        }
+      })
+
+      // separate contributors from contributions to render with chartjs
+      for (let contributor in sum) {
+        this.chartContributors.push(contributor);
+        this.contributionScore.push(sum[contributor])
+      }
+      
+      // calculate average
+      let total = this.contributionScore.reduce((acc, curr) => {
+        return acc + curr;
+      }, 0)
+      this.averageContribution = total/(this.chartContributors.length);
+
+      // calculate median
+      let sortedContributions = this.contributionScore.slice().sort((a,b) => {
+        return a - b;
+      })
+      let lowMiddle = Math.floor((sortedContributions.length - 1) / 2);
+      let highMiddle = Math.ceil((sortedContributions.length - 1) / 2);
+      this.medianContribution = (sortedContributions[lowMiddle] + sortedContributions[highMiddle]) / 2;
+      
+      // calculate mode
+      let freqArr = Object.keys(frequency).map( key => { return frequency[key]; });
+      this.modeContribution = Math.max.apply(null, freqArr);
+    } else {
+      this.averageContribution = 'No data found'
+      this.medianContribution = 'No data found'
+      this.modeContribution = 'No data found'
+    }
   }
 
   fetchTeamContributions(teamId): Observable<any> {
@@ -94,57 +149,7 @@ export class TeamService {
     return this._http.get('/api/teams/' + teamId + '/contributions', options)
       .map((res: Response) => {
         let result = res.json();
-
-
-        if (!result.hasOwnProperty('err') && result.length > 0) {
-          // add up overall team contributions and frequencies across all projects
-          let sum = {};
-          let frequency = {};
-          result.forEach(contribution => {
-
-            // sum up contributions
-            if (!sum[contribution.login]) {
-              sum[contribution.login] = contribution.contributions;
-            } else {
-              sum[contribution.login] += contribution.contributions;
-            }
-
-            // count frequencies
-            if (!frequency[contribution.contributions]) {
-              frequency[contribution.contributions] = 1;
-            } else {
-              frequency[contribution.contributions]++;
-            }
-          })
-
-          // separate contributors from contributions to render with chartjs
-          for (let contributor in sum) {
-            this.chartContributors.push(contributor);
-            this.contributionScore.push(sum[contributor])
-          }
-          
-          // calculate average
-          let total = this.contributionScore.reduce((acc, curr) => {
-            return acc + curr;
-          }, 0)
-          this.averageContribution = total/(this.chartContributors.length);
-
-          // calculate median
-          let sortedContributions = this.contributionScore.slice().sort((a,b) => {
-            return a - b;
-          })
-          let lowMiddle = Math.floor((sortedContributions.length - 1) / 2);
-          let highMiddle = Math.ceil((sortedContributions.length - 1) / 2);
-          this.medianContribution = (sortedContributions[lowMiddle] + sortedContributions[highMiddle]) / 2;
-          
-          // calculate mode
-          let freqArr = Object.keys(frequency).map( key => { return frequency[key]; });
-          this.modeContribution = Math.max.apply(null, freqArr);
-        } else {
-          this.averageContribution = 'No data found'
-          this.medianContribution = 'No data found'
-          this.modeContribution = 'No data found'
-        }
+        this.fetchTeamContributionsHelper(result);
         return res.json();
       });
   }
@@ -187,7 +192,7 @@ export class TeamService {
     return this._http.get('/api/teams/' + teamId + '/commit-freq')
       .map((res: Response) => {
         let result = res.json();
-
+        
         if (!result.hasOwnProperty('err')) {
           /* most recent commit by each contributor */
           let committers = Object.keys(result.mostRecentCommit)
@@ -252,19 +257,23 @@ export class TeamService {
       });
   }
 
-  fetchProjectInfo(projectId): Observable<any> {
+  fetchTeamProjectInfo(projectId, teamId): Observable<any> {
     this.teamProjectId = projectId
-    return this._http.get('/api/projects/' + projectId)
+    let headers = new Headers({ projectid: projectId });
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/teams/' + teamId + '/project', options)
       .map((res: Response) => {
         this.teamProjectInfo = res.json();
         this.teamOwner = this.teamProjectInfo.owner;
         this.teamRepo = this.teamProjectInfo.name;
+        this.teamName = this.teamProjectInfo.team.name;
+        console.log('res in fetchProjectInfo', this.teamProjectInfo, this.teamOwner, this.teamRepo, this.teamName)
         return res.json();
       });
   }
 
-  fetchProjectCommits(projectId, branch): Observable<any> {
-    let headers = new Headers({ branch: branch });
+  fetchTeamProjectCommits(projectId, branch): Observable<any> {
+    let headers = new Headers({ branch: branch, username: this.teamName });
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/projects/' + projectId + '/commits', options)
       .map((res: Response) => {
@@ -296,7 +305,9 @@ export class TeamService {
   }
 
   fetchProjectContributors(projectId): Observable<any> {
-    return this._http.get('/api/projects/' + projectId + '/contributors')
+    let headers = new Headers({ userid: this.teamOwner })
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/projects/' + projectId + '/contributors', options)
       .map((res: Response) => {
         return res.json();
       });
