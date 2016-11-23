@@ -28,7 +28,7 @@ button {
 }
 
 .dropdown a:hover {
-    color: #9E9E9E;
+    color: white;
 }
 
 .avatar {
@@ -38,4 +38,12 @@ button {
     margin-left: 10px;
     margin-top: 8px;
     cursor: pointer;
+}
+
+.logo {
+    height: 40px;
+}
+
+.nav-logo {
+    margin-left: 37%;
 }
