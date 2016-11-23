@@ -3,6 +3,7 @@ import { TeamService } from './team.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { NgForm } from "@angular/forms";
+import { Team } from './team';
 
 @Component({
   selector: 'app-teams',
@@ -23,15 +24,17 @@ import { NgForm } from "@angular/forms";
             <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Create Team</button>
         </div>
       </form>
-    <div *ngFor="let team of teams">
-      team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a> <button (click)="this.teamService.deleteTeam(team.id)">Delete Team</button>
+    <div *ngFor="let team of teamService.teams">
+      <!-- team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a> <button (click)="this.teamService.deleteTeam(team.id)">Delete Team</button> -->
+      <p>{{team.name}}</p>
     </div>
+    
   `,
   styleUrls: ['./teams.component.css']
 })
 export class TeamsComponent implements OnInit {
   private userId = localStorage.getItem('userid')
-  private teams;
+  // public teams: Team[] = [];
   private teamId;
   private teamMembers;
   constructor(private teamService: TeamService) { }
@@ -48,15 +51,19 @@ export class TeamsComponent implements OnInit {
 
   createTeam(form: NgForm) {
       let teamName = form.value.team;
-      console.log(teamName)
+      // console.log(teamName)
       let userId = localStorage.getItem('userid');
-      form.reset()
       this.teamService.createTeam(teamName, userId)
         .subscribe(
           data => {
-            console.log(data, 'data')
-            return data
-    })
+            console.log("data: ", data)
+            this.teamService.teams.unshift(data)
+    
+            // this.teams.unshift(data)
+            // console.log("this.teams", this.teams)
+            // console.log("this.teamService.teams", this.teamService.teams)
+        })
+      form.reset()
   }
 
   ngOnInit() {

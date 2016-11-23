@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { Team } from './team';
 
 @Injectable()
 export class TeamService {
   private teamId;
   private userId;
   public teamProjects;
-  public teams;
+  public teams: Team[] = [];
   public teamMembers;
   public teamContributions;
   public teamProjectInfo;
