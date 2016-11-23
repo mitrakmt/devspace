@@ -37,3 +37,7 @@
     text-align: center;
     margin-top: -10px;
 }
+
+.non-admin {
+    padding: 25px;
+}

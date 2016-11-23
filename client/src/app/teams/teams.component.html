@@ -2,8 +2,8 @@
 
 <h1 class="title">Teams</h1>
 
-<md-card *ngFor="let team of teamService.teams" class="team-card" layout-margin layout-padding>
-   <button class="delete-button" (click)="this.teamService.deleteTeam(team.id)" [hidden]="!team.UsersTeams.isAdmin" md-button md-raised>Delete Team</button>
+<md-card *ngFor="let team of teamService.teams" class="team-card" [ngClass]="{'non-admin': !team.UsersTeams.isAdmin}" layout-margin layout-padding>
+   <button class="delete-button" (click)="this.teamService.deleteTeam(team.id)" *ngIf="!!team.UsersTeams.isAdmin" md-button md-raised>Delete Team</button>
    <h1><a [routerLink]="['/teams', team.id]" class="link">{{ team.name }}</a></h1>
 </md-card>
 
