@@ -3,49 +3,11 @@ import { TeamService } from '../team.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { NgForm } from "@angular/forms";
-
+import { PieChartComponent } from './pie-chart/pie-chart.component';
+//import {}
 @Component({
   selector: 'app-team-project',
-  template:`
-    <app-search></app-search>
-    hello
-    <div class="landing" md-margin layout-align="center">
-      <h1 class="md-display-2">{{teamRepo}}</h1>
-      <h2 class="md-display-1">{{teamProjectInfo?.deadline}}</h2>
-    </div>
-
-    <h3>Contributors</h3>
-    <div *ngFor="let contributor of teamProjectContributors">
-      <h4><a [routerLink]="['/profile', username]">{{ contributor?.login }}</a>: {{ contributor?.contributions }}</h4>
-    </div>
-
-    <h3>Languages</h3>
-    <div *ngFor="let lang of teamProjectLanguages">
-      <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
-      <img [src]="lang.language[image_url]" />
-    </div>
-
-
-    <div>
-      <h3>Forks</h3>
-      <p *ngFor="let fork of teamProjectForks">
-        {{fork?.owner}}
-        Github url: {{fork?.html_url}}
-      </p>
-    </div>
-
-    <div>
-      <h3>Branches</h3>
-      <p *ngFor="let branch of teamProjectBranches">
-       {{branch?.name}} {{branch?.login}}
-      </p>
-    </div>
-    
-    <div class="readme">
-      <h3>Readme</h3>
-      {{teamProjectReadme?._body}}
-    </div>
-  `,
+  templateUrl: './team-project.component.html',
   styleUrls: ['./team-project.component.css']
 })
 
@@ -61,6 +23,7 @@ export class TeamProjectComponent implements OnInit {
   private teamProjectReadme;
   private teamProjectBranches;
   public repoLength;
+  private branchesByContributor;
 
   constructor(private route: ActivatedRoute, private teamService: TeamService) { }
 
@@ -118,6 +81,7 @@ export class TeamProjectComponent implements OnInit {
             }
           })
           console.log('store in fetchProjectBranches', store)
+          this.branchesByContributor = store;
           this.teamProjectBranches = projectBranches
           return projectBranches;
       });

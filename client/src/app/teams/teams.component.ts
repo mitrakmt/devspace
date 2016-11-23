@@ -6,32 +6,12 @@ import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-teams',
-  template: `
-      <app-search></app-search>
-      <form (ngSubmit)="createTeam(f)" #f="ngForm">
-        <div class="form-group">
-          <label for="team">Team</label>
-          <input 
-            type="text"
-            id="team"
-            style="width: 55%;"
-            name="team"
-            [(ngModel)]="team.name"
-            #team = "ngModel"
-            required
-            >
-            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Create Team</button>
-        </div>
-      </form>
-    <div *ngFor="let team of teams">
-      team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a> <button (click)="this.teamService.deleteTeam(team.id)">Delete Team</button>
-    </div>
-  `,
+  templateUrl: './teams.component.html' ,
   styleUrls: ['./teams.component.css']
 })
 export class TeamsComponent implements OnInit {
   private userId = localStorage.getItem('userid')
-  private teams;
+  private teams = [];
   private teamId;
   private teamMembers;
   constructor(private teamService: TeamService) { }
@@ -44,7 +24,6 @@ export class TeamsComponent implements OnInit {
     console.log('inside teams component ts', teamId)
     this.teamService.deleteTeam(teamId)
   }
-    project = {name: ''}
 
   createTeam(form: NgForm) {
       let teamName = form.value.team;
@@ -54,7 +33,8 @@ export class TeamsComponent implements OnInit {
       this.teamService.createTeam(teamName, userId)
         .subscribe(
           data => {
-            console.log(data, 'data')
+            this.teamService.teams.unshift(data);
+            this.teams.unshift(data);
             return data
     })
   }

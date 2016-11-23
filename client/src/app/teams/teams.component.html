@@ -1,3 +1,20 @@
-<p>
-  teams works!
-</p>
+<app-search></app-search>
+Import a team from Github. Simply enter your organization's name.
+<form (ngSubmit)="createTeam(f)" #f="ngForm">
+  <div class="form-group">
+    <label for="team">Team</label>
+    <input 
+      type="text"
+      id="team"
+      style="width: 55%;"
+      name="team"
+      [(ngModel)]="team.name"
+      #team = "ngModel"
+      required
+      >
+      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Create Team</button>
+  </div>
+</form>
+<div *ngFor="let team of teamService.teams">
+  team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a> <button (click)="this.teamService.deleteTeam(team.id)">Delete Team</button>
+</div>
