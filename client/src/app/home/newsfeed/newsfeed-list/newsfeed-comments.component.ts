@@ -5,12 +5,13 @@ import { NewsfeedListService } from './newsfeed-list.service';
 
 @Component({
   selector: 'app-newsfeed-comments',
+  styleUrls: ['./newsfeed-comments.component.css'],
   template: `
-        <md-card style="margin-bottom: 20px; background-color: #F8F8F8;" md-padding md-margin>
+        <md-card class="comment-card" md-padding md-margin>
           <div *ngFor="let comment of comments" style="border-bottom: 1px solid lightgray; margin-bottom: 10px;">
-            <p style="margin-left: 9px; font-size: 16px;"> {{ comment.firstName }} {{ comment.lastName }} <a [routerLink]="['/dev', comment.username]"><strong>{{comment.username}}</strong></a>:</p>
-            <p style="margin-left: 9px; font-size: 16px;"> {{comment.content | emojify }} </p>
-            <p style="font-size: 11px; margin-top: -5px; font-color: gray; margin-bottom: 0px">{{comment.createdAt | date:'short'}}</p>
+            <p class="comment-names"> {{ comment.firstName }} {{ comment.lastName }} <a [routerLink]="['/dev', comment.username]" style="color: #2ea890" ><strong>{{comment.username}}</strong></a>:</p>
+            <p class="comment-content" [innerHTML]="comment.content | emojify"></p>
+            <p class="comment-time">{{comment.createdAt | date:'short'}}</p>
           </div>       
         </md-card>`
 })

@@ -34,10 +34,36 @@ export class ProfileListComponent implements OnInit {
     this._profileFeedService.fetchProfileFeed()
       .subscribe(
         data => { 
+          console.log("INITIAL DATA ++++>", data)
           let userId = localStorage.getItem('userid')
           let newArray = []
 
           let newData = data.map(post => {
+
+            // console.log("POST", post)
+            let newComments = post.comments.map(comment => {
+              return comment.content.split(' ').map(word => {
+                if (word.indexOf('http') !== -1) {
+                  word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
+                } else if (word.indexOf('www.') !== -1) {
+                  word = '<a href="http://' + word + '" target="_blank" class="link">' + word + '</a>'
+                } else if (word === ':)') {
+                  word = ':smiley:'
+                } else if (word === '<3') {
+                  word = ':heart:'
+                }   
+                return word             
+              }).join(' '); 
+            })
+
+            for (var i = 0; i < post.comments.length; i++) {
+              post.comments[i].content = '<p>' + newComments[i] + '</p>'
+            }
+
+            // post.comments = newComments;
+            // console.log('newComments', newComments)
+            console.log('new post', post)
+
             return post.content.split(' ').map(word => {
               if (word.indexOf('http') !== -1) {
                 word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
@@ -51,6 +77,9 @@ export class ProfileListComponent implements OnInit {
               return word
             }).join(' ');        
           })
+
+          console.log('dis data', data)
+          console.log('dat newData', newData)
           
           for (var i = 0; i < data.length; i++) {
             data[i].content = '<p>' + newData[i] + '</p>'

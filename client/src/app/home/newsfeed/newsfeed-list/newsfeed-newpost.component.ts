@@ -36,8 +36,7 @@ export class NewpostComponent {
       .subscribe(
         data => {
           data.comments = []
-  
-          let newArray = []
+
           let newData = data.content.split(' ').map(word => {
             if (word.indexOf('www.') !== -1 || word.indexOf('.com') !== -1) {
               word = '<a src="' + word + '" target="_blank" class="link">' + word + '</a>'
@@ -46,12 +45,13 @@ export class NewpostComponent {
             } else if (word === '<3') {
               word = ':heart:'
             }
+            // Convert the above to an emoji object
             return word
           }).join(' ');      
         
           data.content = '<p>' + newData + '</p>'
 
           return data
-          })
+      })
   }
 }

@@ -47,6 +47,7 @@ profilePosts: ProfilePost[] = [];
       })
         .map((data) => data.json())
     }
+
     sendNewComment(comment: any, postId: number): Observable<any> {
       let userid = localStorage.getItem('userid')
       let username = localStorage.getItem('username')
@@ -59,6 +60,7 @@ profilePosts: ProfilePost[] = [];
       })
         .map((data) => data.json())      
     }
+    
     likePost(postId, userid): Observable<any> {
       let headers = new Headers({'userid': userid});
       headers.append('Content-Type', 'application/json');

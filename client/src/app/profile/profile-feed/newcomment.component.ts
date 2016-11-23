@@ -38,11 +38,26 @@ export class ProfileNewCommentComponent{
       .subscribe(
         data => {
           this._profileFeedService.profilePosts.map((post)=>{
-          if(post['id'] === this.postId){
+          console.log("DATA HERE", data)
+          if(post['id'] === this.postId) {
+            let newData = data.content.split(' ').map(word => {
+              if (word.indexOf('www.') !== -1 || word.indexOf('.com') !== -1) {
+                word = '<a src="' + word + '" target="_blank" class="link">' + word + '</a>'
+              } else if (word === ':)') {
+                word = ':smiley:'
+              } else if (word === '<3') {
+                word = ':heart:'
+              }
+              return word
+            }).join(' ');      
+          
+            data.content = '<p>' + newData + '</p>'
+
             post['comments'].unshift(data)
           }
+
           return post
           })
-  })
-}
-}
+        })
+    }
+  }

@@ -23,6 +23,26 @@ export class NewsfeedListComponent implements OnInit {
   convertLink = (data) => {
     let tempArray = [];
     let newData = data.map(post => {
+
+      let newComments = post.comments.map(comment => {
+        return comment.content.split(' ').map(word => {
+          if (word.indexOf('http') !== -1) {
+            word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
+          } else if (word.indexOf('www.') !== -1) {
+            word = '<a href="http://' + word + '" target="_blank" class="link">' + word + '</a>'
+          } else if (word === ':)') {
+            word = ':smiley:'
+          } else if (word === '<3') {
+            word = ':heart:'
+          }   
+          return word             
+        }).join(' '); 
+      })
+
+      for (var i = 0; i < post.comments.length; i++) {
+        post.comments[i].content = '<p>' + newComments[i] + '</p>'
+      }
+
       return post.content.split(' ').map(word => {
         if (word.indexOf('http') !== -1) {
           word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'

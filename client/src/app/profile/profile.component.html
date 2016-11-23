@@ -1,9 +1,7 @@
-<!--// Add nav component here-->
 <app-search></app-search>
-<div class="background-image" layout-align="center">
-  <img src="http://i66.tinypic.com/2uyq547.png" class="logo">
-</div>
-<!--// Make this below a component?-->
+
+<div class="background-image" layout-align="center"></div>
+
 <div class="background-overlay" layout="row" layout-align="center" style="background-color: #F8F8F8">
   <md-grid-list cols="3" class="top-grid"  rowHeight="280px">
     <md-grid-tile>
@@ -18,7 +16,7 @@
 
     <md-grid-tile>
       <br>
-      <div class="language" *ngFor="let language of languages"><img src="{{ language }}" style="height: 50px; margin-top: 17px;"></div>
+      <div class="language" *ngFor="let language of languages"><img src="{{ language }}" style="height: 50px; margin-bottom: 5px;"></div>
     </md-grid-tile>
   </md-grid-list>
 </div>
@@ -41,7 +39,7 @@
                 <!--<img class="profile-image" src="{{ friend.avatar_url }}" />-->
                 <div *ngFor="let friend of followerList" class="follower">
                   <img src="{{friend.imageUrl}}" class="friend-image" />
-                  <a [routerLink]="['/dev', friend.username]">{{ friend.firstName }} {{ friend.lastName }}</a> - <a [routerLink]="['/dev', friend.username]" style="font-size: 15px; color: white;">@{{friend.username}}</a>
+                  <a [routerLink]="['/dev', friend.username]">{{ friend.firstName }} {{ friend.lastName }}</a> - <a [routerLink]="['/dev', friend.username]" style="font-size: 11px; color: white;">@{{friend.username}}</a>
                 </div>
             </modal-content>
         </sm-modal>
@@ -53,7 +51,7 @@
                 <md-divider class="divider"></md-divider>
                 <div *ngFor="let friend of followingList" class="following">
                   <img src="{{friend.imageUrl}}" class="friend-image" />
-                  <a [routerLink]="['/dev', friend.username]">{{ friend.firstName }} {{ friend.lastName }}</a> - <a [routerLink]="['/dev', friend.username]" style="font-size: 15px; color: white;">@{{friend.username}}</a>
+                  <a [routerLink]="['/dev', friend.username]">{{ friend.firstName }} {{ friend.lastName }}</a> - <a [routerLink]="['/dev', friend.username]" style="font-size: 11px; color: white;">@{{friend.username}}</a>
                 </div>
             </modal-content>
         </sm-modal>

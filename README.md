@@ -26,10 +26,10 @@ Sometimes your API call will generate an error. Every response to an API call th
 - [David Kim](https://github.com/davidkim310) - Software Engineer
 
 ## Built With:
-| Front-End        | Back-End     | Testing Frameworks  |
-| ---------------- |:------------:|:--------------------|
-| Angular 2        | Node JS      | Mocha               |
-| NGRX             | Express      | Chai                |
-| Webpack          | Postgres     |                     |
-| Angular Material | Sequelize    |                     |
-| Ionic 2          |              |                     |
+| Front-End         | Back-End     | Testing Frameworks  |
+| ---------------- -|:------------:|:--------------------|
+| Angular 2         | Node JS      | Mocha               |
+| NGRX              | Express      | Chai                |
+| Webpack           | Postgres     |                     |
+| Angular2 Material | Sequelize    |                     |
+| Ionic 2           |              |                     |
