@@ -34,13 +34,11 @@ export class ProfileListComponent implements OnInit {
     this._profileFeedService.fetchProfileFeed()
       .subscribe(
         data => { 
-          console.log("INITIAL DATA ++++>", data)
           let userId = localStorage.getItem('userid')
           let newArray = []
 
           let newData = data.map(post => {
 
-            // console.log("POST", post)
             let newComments = post.comments.map(comment => {
               return comment.content.split(' ').map(word => {
                 if (word.indexOf('http') !== -1) {
@@ -60,10 +58,6 @@ export class ProfileListComponent implements OnInit {
               post.comments[i].content = '<p>' + newComments[i] + '</p>'
             }
 
-            // post.comments = newComments;
-            // console.log('newComments', newComments)
-            console.log('new post', post)
-
             return post.content.split(' ').map(word => {
               if (word.indexOf('http') !== -1) {
                 word = '<a href="' + word + '" target="_blank" class="link">' + word + '</a>'
@@ -77,9 +71,6 @@ export class ProfileListComponent implements OnInit {
               return word
             }).join(' ');        
           })
-
-          console.log('dis data', data)
-          console.log('dat newData', newData)
           
           for (var i = 0; i < data.length; i++) {
             data[i].content = '<p>' + newData[i] + '</p>'
@@ -90,7 +81,6 @@ export class ProfileListComponent implements OnInit {
             for (var j = 0; j < data[i].interactions.length; j++) {
               if (data[i].interactions[j].userId == userId) {
                 data[i].liked = true
-                console.log("Liked post", data[i])
               }
             }
           }

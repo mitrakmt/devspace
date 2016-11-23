@@ -57,9 +57,7 @@ postsModel.DELETE_POST = (userId, postId) => {
     if (!post) {
       return 'Bad request'
     }
-    console.log(post)
     post.destroy()
-    console.log(post)
     return 'Post successfully deleted'
   })
 }

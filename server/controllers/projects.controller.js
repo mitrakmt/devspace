@@ -256,7 +256,6 @@ projectsController.GET_LANGUAGES = (req, res) => {
               langs.push({language: [key, results[key]]})
             }
           }
-          console.log("languages", langs)
           res.status(200).send(langs)
         })
     })

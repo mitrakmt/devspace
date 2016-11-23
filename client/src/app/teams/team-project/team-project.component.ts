@@ -31,7 +31,6 @@ export class TeamProjectComponent implements OnInit {
     return this.route.params.subscribe(params => {
       this.teamId = +params['teamId'];
       this.teamProjectId = +params['teamProjectId']
-      console.log(this.teamId, this.teamProjectId)
       this.teamService.fetchProjectInfo(this.teamProjectId)
         .subscribe(teamProjectInfo => {
           this.teamProjectInfo = this.teamService.teamProjectInfo;
@@ -80,7 +79,6 @@ export class TeamProjectComponent implements OnInit {
               store[branch.login].push(branch.name)
             }
           })
-          console.log('store in fetchProjectBranches', store)
           this.branchesByContributor = store;
           this.teamProjectBranches = projectBranches
           return projectBranches;

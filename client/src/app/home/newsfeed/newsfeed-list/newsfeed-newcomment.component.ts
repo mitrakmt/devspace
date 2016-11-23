@@ -54,7 +54,7 @@ export class NewcommentComponent{
             
               data.content = '<p>' + newData + '</p>'
 
-              post['comments'].unshift(data)
+              post['comments'].push(data)
             }
             return post
           })

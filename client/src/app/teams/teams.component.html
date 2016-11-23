@@ -1,20 +1,26 @@
 <app-search></app-search>
-Import a team from Github. Simply enter your organization's name.
-<form (ngSubmit)="createTeam(f)" #f="ngForm">
+
+<h1 class="title">Teams</h1>
+
+<md-card *ngFor="let team of teamService.teams" class="team-card" [ngClass]="{'non-admin': !team.UsersTeams.isAdmin}" layout-margin layout-padding>
+   <button class="delete-button" (click)="this.teamService.deleteTeam(team.id)" *ngIf="!!team.UsersTeams.isAdmin" md-button md-raised>Delete Team</button>
+   <h1><a [routerLink]="['/teams', team.id]" class="link">{{ team.name }}</a></h1>
+</md-card>
+
+<form (ngSubmit)="createTeam(f)" #f="ngForm" class="create-team-form">
   <div class="form-group">
-    <label for="team">Team</label>
-    <input 
+    <label for="team" style="margin-right: 7px; font-size: 20px;">Team</label>
+    <md-input 
       type="text"
+      dividerColor="#2ea890"
       id="team"
-      style="width: 55%;"
-      name="team"
+      style="width: 55%; padding: 8px 0 8px 0; font-size: 17px;"
+      name="Organization name"
       [(ngModel)]="team.name"
       #team = "ngModel"
       required
-      >
-      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Create Team</button>
+      ></md-input>
+      <button type="submit" class="create-team-button" md-button md-raised [disabled]="!f.valid">Create Team</button>
   </div>
 </form>
-<div *ngFor="let team of teamService.teams">
-  team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a> <button (click)="this.teamService.deleteTeam(team.id)">Delete Team</button>
-</div>
+<p style="font-size: 11px; font-style: italic;" class="create-team-tag">Import a team from Github. Simply enter your organization's name.</p>

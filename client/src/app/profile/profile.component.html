@@ -3,9 +3,8 @@
 <div class="background-image" layout-align="center"></div>
 
 <div class="background-overlay" layout="row" layout-align="center" style="background-color: #F8F8F8">
-  <md-grid-list cols="3" class="top-grid"  rowHeight="280px">
+  <md-grid-list cols="3" class="top-grid"  rowHeight="240px">
     <md-grid-tile>
-      <br>
       <h3 style="margin-left: 25%;">Bytes of code written: {{ this._profileService.bytesStat || 0 }}</h3>
     </md-grid-tile>
 
@@ -27,7 +26,14 @@
   </div>
 
   <div class="bottom-grid-box profile-info" flex="150" style="background-color: #F8F8F8; height: 400px;" layout-padding>
-    <h1 style="text-align:center; border-bottom: 1px solid #EEEEEE; padding-bottom: 20px;">{{ githubData.name }}</h1>
+    <div>
+      <a href="{{ githubData.blog }}" target="_blank" style="float:right; margin-left: -25%; margin-right: 25%;">
+        <img src="https://cdn3.iconfinder.com/data/icons/ui-design-2/64/_Personal_Profile_Website_Ui_Design-512.png" class="blog-icon" target="_blank" *ngIf="githubData.blog" />
+      </a>
+      <h1 style="text-align:center; border-bottom: 1px solid #EEEEEE; padding-bottom: 20px;">
+        {{ githubData.name }}
+      </h1>
+    </div>
     <p style="text-align:center; font-style:italic; margin-top: 17px;">{{ githubData.location }}</p>
     <p style="text-align: center; font-style: italic; font-size: 17px; margin-top: 25px;">{{ githubData.bio }}</p>
     <md-grid-list cols="2" rowHeight="70px">

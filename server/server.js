@@ -131,7 +131,6 @@ app.get('/api/auth/github/callback',
       let username = req.user[0].username
       let firstname = req.user[0].firstName
       let lastname = req.user[0].lastName
-      console.log("req.user[0]--->", req.user[0])
 
       let token = jwt.sign({
         userid: userid,

@@ -143,7 +143,6 @@ usersController.GET_AVATAR = (req, res) => {
 
   Users.GET_AVATAR(username)
     .then(userAvatar => {
-      console.log('avatar', userAvatar)
       res.status(200).send(userAvatar)
     })
 }

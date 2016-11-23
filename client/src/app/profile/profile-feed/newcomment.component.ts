@@ -38,7 +38,6 @@ export class ProfileNewCommentComponent{
       .subscribe(
         data => {
           this._profileFeedService.profilePosts.map((post)=>{
-          console.log("DATA HERE", data)
           if(post['id'] === this.postId) {
             let newData = data.content.split(' ').map(word => {
               if (word.indexOf('www.') !== -1 || word.indexOf('.com') !== -1) {
@@ -53,7 +52,7 @@ export class ProfileNewCommentComponent{
           
             data.content = '<p>' + newData + '</p>'
 
-            post['comments'].unshift(data)
+            post['comments'].push(data)
           }
 
           return post

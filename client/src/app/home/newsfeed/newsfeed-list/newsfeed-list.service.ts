@@ -16,13 +16,26 @@ secondaryList: NewsfeedPost[] = [];
 
   constructor(private _http: Http) { }
 
+  insertionSort = (unsortedList) => {  
+    var len = unsortedList.length;
+    for (var i = 0; i < len; i++) {
+        var tmp = unsortedList[i]
+        for (var j = i - 1; j >= 0 && (unsortedList[j].id > tmp.id); j--) {
+            unsortedList[j + 1] = unsortedList[j]
+        }
+        unsortedList[j + 1] = tmp;
+    }
+    return unsortedList
+  }
+
     fetchNewsfeedUpdates(): Observable<any> {
       let userid = localStorage.getItem('userid')
       let headers = new Headers({ 'userid': userid })
       let options = new RequestOptions({ headers: headers })
       return this._http.get('/api/home/feed', options)
         .map((res:Response) => {
-          this.newsfeedPosts = res.json();
+          let orderedPosts = this.insertionSort(res.json())
+          this.newsfeedPosts = orderedPosts
           return this.newsfeedPosts
       })
         .catch(err=> {
@@ -70,7 +83,7 @@ secondaryList: NewsfeedPost[] = [];
 
     socketRecieve(callback){
       this.socket.on('post server', (post) => {
-      callback(post)
+        callback(post)
       })
     }
 

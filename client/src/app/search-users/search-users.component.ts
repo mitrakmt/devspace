@@ -20,7 +20,6 @@ export class SearchUsersComponent implements OnInit {
     this._searchUsersService.follow(followedUsername, userId)
       .subscribe(
         data => {
-          console.log("data in follow", data._body)
           if(data._body ==="Deleted follow"){
             this.followStatus = "Follow";
           }
@@ -36,7 +35,6 @@ export class SearchUsersComponent implements OnInit {
     this._searchUsersService.searchUsers(searchTerm)
         .subscribe(
           data => {
-            console.log(data)
             this.searchedUsers = data.items;
             this._searchUsersService.searchedUsers = data.items;
           }
