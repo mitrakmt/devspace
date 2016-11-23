@@ -53,6 +53,6 @@ export class ProfileNewPostComponent {
 
           this._profileFeedService.profilePosts.unshift(data)
           return data
-          })
+      })
   }
 }

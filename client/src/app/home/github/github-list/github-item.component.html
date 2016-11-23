@@ -1,19 +1,19 @@
 <div>
-  <md-card style="margin-bottom: 20px; background-color: white; padding-bottom: 40px;" md-padding md-margin>
+  <md-card style="margin-bottom: 20px; background-color: white; padding-bottom: 20px;" md-padding md-margin>
     <p style="float: right; margin-top: -10px; font-size: 11px;">{{ githubpost.created_at | date:'medium'}}</p>
     <br>
     <div layout="row" style="margin-top: -33px;">
       <img class="img-responsive"
            src="{{githubpost.avatar}}"
-           style="max-height: 60px; float: left; border-radius: 50%;"/>
-        <div style="margin-left: 80px;" layout="column">
-          <p class="md-display"><strong><a [routerLink]="['/dev', githubpost.username]">@{{githubpost.username}}</a></strong></p>
+           style="max-height: 60px; float: left; border-radius: 50%; margin-top: -5px;"/>
+        <div style="margin-left: 80px; margin-top: 10px;" layout="column">
+          <p class="md-display"><strong><a [routerLink]="['/dev', githubpost.username]" class="link">@{{githubpost.username}}</a></strong></p>
           <div>
             <p class="md-display">
-              <span *ngIf="githubpost.action === 'opened'">Opened </span>
-              <span *ngIf="githubpost.action === 'closed'">Closed </span>
-              {{githubpost.type}} 
-              <a href="https://www.github.com/{{githubpost.repo}}" target="_blank">{{githubpost.repo}}</a>
+              <span *ngIf="githubpost.action === 'opened'" >Opened </span>
+              <span *ngIf="githubpost.action === 'closed'" >Closed </span>
+              <span class="link">{{githubpost.type}}</span>
+              <a href="https://www.github.com/{{githubpost.repo}}" target="_blank" class="link">{{githubpost.repo}}</a>
             </p>
             <p *ngIf="githubpost.description !== null">{{githubpost.description}}</p>
           </div>

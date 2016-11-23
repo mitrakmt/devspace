@@ -26,6 +26,11 @@ button {
 
 .link {
     cursor: pointer;
+    color: #2a9b84;
+}
+
+.link:hover {
+    color: #1a7b84;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */

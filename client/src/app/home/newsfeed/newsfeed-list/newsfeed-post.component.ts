@@ -18,7 +18,7 @@ import { NewsfeedListService } from './newsfeed-list.service';
             <h5 md-line style="margin-bottom: 0; margin-left: 5px; padding-bottom: 0;"><strong>{{ newsfeedPost.user.firstName }} {{ newsfeedPost.user.lastName }}</strong></h5>
             <p class="time">{{newsfeedPost.createdAt | date:'short'}}</p>
 
-            <p md-line><a [routerLink]="['/dev', newsfeedPost.user.username]" style="font-size: 12px; margin: 0; padding: 2px; margin-left: 10px;"> @{{ newsfeedPost.user.username }}</a></p>
+            <p md-line class="username"><a [routerLink]="['/dev', newsfeedPost.user.username]" class="username"> @{{ newsfeedPost.user.username }}</a></p>
           </md-list-item>
         </md-list>
 

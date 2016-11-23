@@ -3,6 +3,8 @@ import { NgForm } from "@angular/forms";
 import { NewsfeedListService } from './newsfeed-list.service';
 import { NewsfeedPost } from '../newsfeed-post';
 
+// shouldn't this be deleted?
+
 @Component({
   selector: 'app-newpost',
   template: `
@@ -35,7 +37,9 @@ export class NewpostComponent {
       .subscribe(
         data => {
           data.comments = []
-          console.log("data is --->", data)
+          
+
+
           this._newsfeedListService.newsfeedPosts.unshift(data)
           return data
           })

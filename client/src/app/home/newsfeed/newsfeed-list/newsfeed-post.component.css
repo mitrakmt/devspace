@@ -19,6 +19,13 @@
     color: gray;
 }
 
+.username {
+    font-size: 12px; 
+    margin: 0; 
+    padding: 2px; 
+    margin-left: 10px; 
+    color: #2ea890;
+}
 .card {
     margin-bottom: 20px; 
     background-color: white;

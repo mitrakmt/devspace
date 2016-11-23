@@ -24,6 +24,8 @@ export class ProfileComponent implements OnInit {
   constructor(private _profileService: ProfileService, private router: Router) { }
 
   public username;
+  public userId;
+
   currentUser = localStorage.getItem('username');
 
   follow = () => {
@@ -48,6 +50,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     let username = this.router.url.slice(5);
     let currentUser = localStorage.getItem('username')
+    let userId = localStorage.getItem('userid')
 
     this._profileService.checkMemberStatus(username)
       .subscribe(
@@ -115,7 +118,16 @@ export class ProfileComponent implements OnInit {
      this._profileService.fetchFollowing()
       .subscribe(
         data => {
+          console.log('following list data', data)
+          for(var i = 0; i < data.length; i++) {
+            if (data[i].username === username) {
+              data.splice(i, 1)
+              break;
+            }
+          }
+
           this.followingList = data
+
           for (var i = 0; i < data.length; i++) {
             if(data[i].username === username) {
               this.followStatus = "Unfollow"
@@ -125,11 +137,18 @@ export class ProfileComponent implements OnInit {
           }
         }
       ) 
+
       this._profileService.fetchFollowers()
       .subscribe(
         data => {
+          for(var i = 0; i < data.length; i++) {
+            if (data[i].username === username) {
+              data.splice(i, 1)
+              break;
+            }
+          }
+          
           this.followerList = data
-          console.log("followerlist", this.followerList)
         }
       )
   }
