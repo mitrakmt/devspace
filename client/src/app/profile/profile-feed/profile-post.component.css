@@ -1,0 +1,51 @@
+.like-button {
+    color: #2ea890; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    border: 1px solid #2ea890; 
+    padding: 2px 5px 2px 5px; 
+    margin-right: 3px;
+}
+
+.like-button:hover {
+    background-color: #2ea890;
+    color: white;
+}
+
+.time {
+    float: right; 
+    font-size: 11px; 
+    margin-bottom: -15px; 
+    color: gray;
+}
+
+.card {
+    margin-bottom: 20px; 
+    background-color: white;
+}
+
+.postImage {
+    height: 55px;
+    border-radius: 50%;
+}
+
+#postform {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.searchfield {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+.likedStyle {
+    background-color: #2ea890;
+    color: white;
+}
+
+.clickToLikeStyle {
+    background-color: #2ea890;
+    color: white;
+}

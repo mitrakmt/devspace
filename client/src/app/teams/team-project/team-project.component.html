@@ -1,0 +1,45 @@
+<app-search></app-search>
+<div class="landing" md-margin layout-align="center">
+  <h1 class="md-display-2">{{teamName}} {{teamRepo}}</h1>
+  <h2 class="md-display-1">{{teamProjectInfo?.deadline}}</h2>
+</div>
+
+<h3>Contributors</h3>
+<div *ngFor="let contributor of teamProjectContributors">
+  <h4><a [routerLink]="['/profile', username]">{{ contributor?.login }}</a>: {{ contributor?.contributions }}</h4>
+</div>
+
+<h3>Languages</h3>
+<div *ngFor="let lang of teamProjectLanguages">
+  <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
+  <img [src]="lang.language[image_url]" />
+</div>
+
+
+<div>
+  <h3>Forks</h3>
+  <p *ngFor="let fork of teamProjectForks">
+    {{fork?.owner}}
+    Github url: {{fork?.html_url}}
+  </p>
+</div>
+
+<div>
+  <h3>Branches</h3>
+  <p *ngFor="let branch of teamProjectBranches">
+    {{branch?.name}} {{branch?.login}}
+  </p>
+</div>
+
+<!--<div *ngFor="let contrib of branchesByContributor">
+  <div *ngFor="let branch of contrib">
+  {{branch}}
+  </div>
+</div>-->
+
+<div class="readme">
+  <h3>Readme</h3>
+  {{teamProjectReadme?._body}}
+</div>
+
+<app-pie-chart></app-pie-chart>

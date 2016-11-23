@@ -7,7 +7,7 @@ postsRouter.route('/interactions/:postId')
 
 postsRouter.route('/comments/:postId')
   .post(postsController.CREATE_COMMENT)
-    // Requires userId, content. postId in req url
+    // Requires userId, username, content. postId in req url
   .put(postsController.UPDATE_COMMENT)
     // Requires userId, content, commentId. postId in req url
   .delete(postsController.DELETE_COMMENT)
@@ -22,5 +22,5 @@ postsRouter.route('/:postId')
 postsRouter.route('/')
   .post(postsController.CREATE_POST)
     // Requires userId, content
-
+  .delete(postsController.DELETE_COMMENTS_AND_POSTS)
 module.exports = postsRouter

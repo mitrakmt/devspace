@@ -12,7 +12,17 @@ postsModel.CREATE_POST = (userId, content, paid, likes) => {
     likes: likes
   })
   .then(post => {
-    return post
+    return Posts.findOne({
+      where: {
+        id: post.id
+      },
+      include: [{
+        model: Users
+      }]
+    })
+    .then(foundPost => {
+      return foundPost
+    })
   })
 }
 
@@ -52,11 +62,12 @@ postsModel.DELETE_POST = (userId, postId) => {
   })
 }
 
-postsModel.CREATE_COMMENT = (userId, postId, content) => {
+postsModel.CREATE_COMMENT = (userId, postId, content, username) => {
   return Comments.create({
     userId: userId,
     postId: postId,
-    content: content
+    content: content,
+    username: username
   })
   .then(comment => {
     return comment
@@ -119,7 +130,7 @@ postsModel.UPDATE_INTERACTION = (userId, postId) => {
         })
         .then(post => {
           post.increment('likes')
-          return post
+          return 'Increment'
         })
       })
     } else {
@@ -134,10 +145,23 @@ postsModel.UPDATE_INTERACTION = (userId, postId) => {
         return post
       })
       .then(post => {
-        return post
+        return 'Decrement'
       })
     }
   })
 }
 
+postsModel.DELETE_COMMENTS_AND_POSTS = () => {
+  return Comments.destroy({
+    where: {}
+  })
+  .then(numDeleted => {
+    Posts.destroy({
+      where: {}
+    })
+    .then(res => {
+      return 'Successfully deleted posts'
+    })
+  }) 
+}
 module.exports = postsModel

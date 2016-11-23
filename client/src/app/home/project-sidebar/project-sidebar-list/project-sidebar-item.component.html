@@ -1,0 +1,6 @@
+<div>
+  <div>
+    <p *ngIf="project.teamId === null" style="padding: 5px;"><a [routerLink]="['/projects', project.id]" style="font-weight: bold; font-size: 18px; color: #2ea890 ">{{project.name}}</a></p>
+    <p *ngIf="project.teamId !== null" style="padding: 5px;"><a [routerLink]="['/teams', project.teamId, project.id]" style="font-weight: bold; font-size: 18px; color: #2ea890">{{project.name}}</a></p>    
+  </div>
+</div>

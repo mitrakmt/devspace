@@ -1,3 +1,84 @@
-<p>
-  main works!
-</p>
+<div class="main">
+  <div class="landing" md-margin layout-align="center">
+    <h1 class="md-display-2">Devspace</h1>
+    <h2 class="md-display-1">Connect with your favorite developers</h2>
+  </div>
+
+  <div class="features" md-margin layout-align="center">
+    <h1 class="md-display-2 heading">Features</h1>
+    <md-grid-list cols="3" rowHeight="500px">
+      <md-grid-tile>
+        <div class="feature">
+          <div class="card transition">
+            <h2 class="transition">Connect with other developers</h2>
+            <p>Interact and learn from your favorite developers</p>
+            <div class="cta-container transition"><a routerLink="/signup" class="cta">Sign Up Now</a></div>
+            <div class="card_circle transition network"></div>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div class="feature">
+         <div class="card transition">
+            <h2 class="transition">See what's happening on Github, beautified</h2>
+            <p>See each project's status visualized and know what each member is working on</p>
+            <div class="cta-container transition"><a routerLink="/signup" class="cta">Sign Up Now</a></div>
+            <div class="card_circle transition visualization"></div>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div class="feature">
+          <div class="card transition">
+            <h2 class="transition">Show off your best projects for all to see</h2>
+            <p>Display the best parts of your work for the developer community to see and interact with</p>
+            <div class="cta-container transition"><a routerLink="/signup" class="cta">Sign Up Now</a></div>
+            <div class="card_circle transition projects"></div>
+          </div>
+        </div>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+
+  <div class="signup-landing" md-margin layout-align="center">
+    <h1 class="md-display-2 heading">Signup with Github</h1>
+    <a href="/api/auth/github"><img src="http://image.flaticon.com/icons/png/512/25/25231.png" style="height: 65px;" /></a>
+  </div>
+
+  <div class="team" md-margin layout-align="center">
+    <h1 class="md-display-2 heading" style="margin-botom: -50px">Team</h1>
+    <md-grid-list class="team" cols="3">
+      <md-grid-tile>
+        <div id="card">
+          <div id="avatar"></div>
+          <div id="profile">
+            <h1>Michael Mitrakos</h1>
+            <h3>Software Engineer & Product Owner</h3>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div id="card">
+          <div id="avatar"></div>
+          <div id="profile">
+            <h1>Dianne Le</h1>
+            <h3>Software Engineer & Scrum Master</h3>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div id="card">
+          <div id="avatar"></div>
+          <div id="profile">
+            <h1>David Kim</h1>
+            <h3>Software Engineer</h3>
+          </div>
+        </div>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+</div>

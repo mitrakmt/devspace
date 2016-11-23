@@ -34,50 +34,88 @@ followsModel.GET_FOLLOWING = (userId) => {
   })
 }
 
-followsModel.POST_FOLLOWING = (userId, followerId) => {
-  return Follows.findOne({
+followsModel.GET_FOLLOW_STATUS = (userId, followedUsername) => {
+  return Users.findOne({
     where: {
-      userId: userId,
-      followerId: followerId
+      username: followedUsername
     }
   })
-  .then(follow => {
-    if (follow === null) {
-      return Follows.create({
-        userId: userId,
-        followerId: followerId
-      })
-      .then(follow => {
-        Users.findOne({
-          where: {
-            id: follow.userId
-          }
-        })
-        .then(user => {
-          user.increment('followerCount')
-        })
+  .then(followed => {
+    if (!followed) {
+      return false
+    }
+    
+    return Follows.findAll({
+      where: {
+        userId: followed.id
+      }
+    })
+    .then(follows => {
+      for (var i = 0; i < follows.length; i++) {
+        if (follows[i].followerId == userId) {
+          return true
+        }
+      }
 
+      return false
+    })
+
+  })
+}
+
+followsModel.POST_FOLLOWING = (followedUsername, followerId) => {
+  return Users.findOne({
+    where: {
+      username: followedUsername
+    }
+  })
+  .then(user => {
+    return Follows.findOne({
+      where: {
+        userId: user.id,
+        followerId: followerId
+      }
+    })
+    .then(follow => {
+      if (follow === null) {
+        return Follows.create({
+          userId: user.id,
+          followerId: followerId
+        })
+        .then(follow => {
+          Users.findOne({
+            where: {
+              id: follow.userId
+            }
+          })
+          .then(user => {
+            user.increment('followerCount')
+          })
+
+          Users.findOne({
+            where: {
+              id: follow.followerId
+            }
+          })
+          .then(user => {
+            user.increment('followingCount')
+          })
+
+          return 'Successfully followed ' + followedUsername
+        })
+      } else {
         Users.findOne({
           where: {
             id: follow.followerId
           }
         })
         .then(user => {
-          user.increment('followingCount')
+          user.decrement('followingCount')
         })
-      })
-    } else {
-      Users.findOne({
-        where: {
-          id: follow.followerId
-        }
-      })
-      .then(user => {
-        user.decrement('followingCount')
-      })
-      follow.destroy()
-      return 'Deleted follow'
-    }
+        follow.destroy()
+        return 'Deleted follow'
+      }
+    })
   })
   .catch(err => {
     console.log('err in follow/unfollow', err)

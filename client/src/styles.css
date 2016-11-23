@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+a {
+    color: #2a9b84;
+    font-family: 'Roboto', sans-serif;
+}
+
+a:hover {
+    color: #2a9b84;
+    text-decoration: none;
+}
+
+button {
+    background-color: #2a9b84;
+}
+
+.main-button {
+    color: white !important;
+    font-family: 'Roboto', sans-serif;
+}
+
+.link {
+    cursor: pointer;
+    color: #2a9b84;
+}
+
+.link:hover {
+    color: #1a7b84;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: #ccc;
+  font-style: italic;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #ccc;
+  font-style: italic;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #ccc;
+  font-style: italic;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #ccc !important;
+  font-style: italic;  
+}

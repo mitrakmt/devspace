@@ -20,14 +20,27 @@ teamsRouter.route('/:teamId/admin')
     // Requires userId header, teamId in req url, idToRemove to delete in req.body
 
 teamsRouter.route('/:teamId/member')
+  .get(teamsController.GET_TEAM_MEMBERS)
   .post(teamsController.ADD_MEMBER)
     // Requires userId header, teamId in req url, idToAdd in req.body
-  .delete(teamsController.REMOVE_ADMIN)
+  .delete(teamsController.REMOVE_MEMBER)
     // Requires userId header, teamId in req url, idToRemove to remove in req.body
 
 teamsRouter.route('/:teamId/projects')
   .get(teamsController.GET_TEAM_PROJECTS)
     // Requires userId header, teamId in reql url
+
+teamsRouter.route('/:teamId/project')
+  .get(teamsController.GET_TEAM_PROJECT_FROM_DB)
+  
+teamsRouter.route('/:teamId/contributions')
+  .get(teamsController.GET_TEAM_CONTRIBUTIONS)
+
+teamsRouter.route('/:teamId/branches')
+  .get(teamsController.GET_ALL_BRANCHES)
+
+teamsRouter.route('/:teamId/commit-freq')
+  .get(teamsController.GET_COMMIT_FREQ)
 
 module.exports = teamsRouter
 

@@ -1,0 +1,19 @@
+.navbar-default {
+    background-color: #278d79;
+    color: white !important;
+    margin: 0;
+}
+
+button {
+    background-color: #278d79;
+    color: white;
+    border-radius: 4px;
+}
+
+.dropdown a {
+    color: white !important;
+}
+
+.dropdown a:hover {
+    color: #9E9E9E;
+}

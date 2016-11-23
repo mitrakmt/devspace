@@ -1,0 +1,106 @@
+.background-image {
+    min-width: 100%;
+    height: 110px;
+    text-align: center;
+    background-color: #F8F8F8;
+}
+
+.language {
+    margin: 5px;
+    margin-top: 13px;
+}
+
+.body {
+    background-color: #F8F8F8;
+}
+
+.top-grid {
+    height: 100px;
+}
+
+.bottom-grid {
+    margin-top: -90px;
+}
+
+.bottom-grid-box {
+    width: 50%;
+    border-top: 1px solid black;
+    padding: 30px;
+    float: left;
+}
+
+.follows h3 {
+    float: left;
+}
+
+.profile-image {
+    border-radius: 50%;
+    text-align: center;
+    height: 190px;
+    z-index: 10;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 190px;
+    background-color: white;
+    border: 6px solid white;
+}
+
+.background-overlay {
+    margin-top: -120px;
+}
+
+md-grid-tile h3 {
+    margin-top: 40px;
+}
+
+.follow-button {
+    background-color: #2ea890;
+    color: white;
+    border-radius: 4px;
+    margin-left: -20%;
+}
+
+.profile-info p {
+    text-align: center;
+}
+
+.follower {
+    margin-bottom: 20px;
+}
+
+.follower a {
+    font-size: 22px;
+    color: #2ea890;
+    font-weight: 400;
+}
+
+.following {
+    margin-bottom: 20px;
+}
+
+.following a {
+    font-size: 18px;
+    color: #2ea890;
+    font-weight: 400;
+}
+
+div .ui .header {
+    font-size: 35px;
+}
+
+.divider {
+    margin-bottom: 25px;
+    margin-top: -10px;
+}
+
+.friend-image {
+    height: 55px;
+    border-radius: 50%;
+    margin-right: 15px;
+    display: inline-block;
+}
+
+.blog-icon {
+    height: 30px;
+}
