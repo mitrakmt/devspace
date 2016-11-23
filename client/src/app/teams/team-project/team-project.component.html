@@ -1,6 +1,6 @@
 <app-search></app-search>
 <div class="landing" md-margin layout-align="center">
-  <h1 class="md-display-2">{{teamRepo}}</h1>
+  <h1 class="md-display-2">{{teamName}} {{teamRepo}}</h1>
   <h2 class="md-display-1">{{teamProjectInfo?.deadline}}</h2>
 </div>
 
@@ -31,11 +31,11 @@
   </p>
 </div>
 
-<div *ngFor="let contrib of branchesByContributor">
+<!--<div *ngFor="let contrib of branchesByContributor">
   <div *ngFor="let branch of contrib">
   {{branch}}
   </div>
-</div>
+</div>-->
 
 <div class="readme">
   <h3>Readme</h3>

@@ -15,6 +15,7 @@ export class TeamService {
   public teamProjectInfo;
   public teamProjectId;
   public teamOwner;
+  public teamName;
   public teamRepo;
   public teamContributors;
   public chartContributors = [];
@@ -29,6 +30,8 @@ export class TeamService {
   public commitHourContributors = [];
   public commitHours = [];
   public productiveHourByContributor = [];
+  public teamProjectPieChartContributors = [];
+  public teamProjectPieChartScore = [];
 
   constructor(private _http: Http) { }
 
@@ -187,7 +190,7 @@ export class TeamService {
     return this._http.get('/api/teams/' + teamId + '/commit-freq')
       .map((res: Response) => {
         let result = res.json();
-
+        
         if (!result.hasOwnProperty('err')) {
           /* most recent commit by each contributor */
           let committers = Object.keys(result.mostRecentCommit)
@@ -252,20 +255,23 @@ export class TeamService {
       });
   }
 
-  fetchProjectInfo(projectId): Observable<any> {
+  fetchTeamProjectInfo(projectId, teamId): Observable<any> {
     this.teamProjectId = projectId
-    return this._http.get('/api/projects/' + projectId)
+    let headers = new Headers({ projectid: projectId });
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/teams/' + teamId + '/project', options)
       .map((res: Response) => {
         this.teamProjectInfo = res.json();
         this.teamOwner = this.teamProjectInfo.owner;
         this.teamRepo = this.teamProjectInfo.name;
-         console.log('res in fetchProjectInfo', this.teamProjectInfo, this.teamOwner, this.teamRepo)
+        this.teamName = this.teamProjectInfo.team.name;
+        console.log('res in fetchProjectInfo', this.teamProjectInfo, this.teamOwner, this.teamRepo, this.teamName)
         return res.json();
       });
   }
 
-  fetchProjectCommits(projectId, branch): Observable<any> {
-    let headers = new Headers({ branch: branch });
+  fetchTeamProjectCommits(projectId, branch): Observable<any> {
+    let headers = new Headers({ branch: branch, username: this.teamName });
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/projects/' + projectId + '/commits', options)
       .map((res: Response) => {
@@ -297,7 +303,9 @@ export class TeamService {
   }
 
   fetchProjectContributors(projectId): Observable<any> {
-    return this._http.get('/api/projects/' + projectId + '/contributors')
+    let headers = new Headers({ userid: this.teamOwner })
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/projects/' + projectId + '/contributors', options)
       .map((res: Response) => {
         return res.json();
       });
