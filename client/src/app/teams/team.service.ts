@@ -9,7 +9,7 @@ export class TeamService {
   private teamId;
   private userId;
   public teamProjects;
-  public teams: Team[] = [];
+  public teams = [];
   public teamMembers;
   public teamContributions;
   public teamProjectInfo;
@@ -95,50 +95,56 @@ export class TeamService {
       .map((res: Response) => {
         let result = res.json();
 
-        // add up overall team contributions and frequencies across all projects
-        let sum = {};
-        let frequency = {};
-        result.forEach(contribution => {
 
-          // sum up contributions
-          if (!sum[contribution.login]) {
-            sum[contribution.login] = contribution.contributions;
-          } else {
-            sum[contribution.login] += contribution.contributions;
+        if (!result.hasOwnProperty('err') && result.length > 0) {
+          // add up overall team contributions and frequencies across all projects
+          let sum = {};
+          let frequency = {};
+          result.forEach(contribution => {
+
+            // sum up contributions
+            if (!sum[contribution.login]) {
+              sum[contribution.login] = contribution.contributions;
+            } else {
+              sum[contribution.login] += contribution.contributions;
+            }
+
+            // count frequencies
+            if (!frequency[contribution.contributions]) {
+              frequency[contribution.contributions] = 1;
+            } else {
+              frequency[contribution.contributions]++;
+            }
+          })
+
+          // separate contributors from contributions to render with chartjs
+          for (let contributor in sum) {
+            this.chartContributors.push(contributor);
+            this.contributionScore.push(sum[contributor])
           }
+          
+          // calculate average
+          let total = this.contributionScore.reduce((acc, curr) => {
+            return acc + curr;
+          }, 0)
+          this.averageContribution = total/(this.chartContributors.length);
 
-          // count frequencies
-          if (!frequency[contribution.contributions]) {
-            frequency[contribution.contributions] = 1;
-          } else {
-            frequency[contribution.contributions]++;
-          }
-        })
-
-        // separate contributors from contributions to render with chartjs
-        for (let contributor in sum) {
-          this.chartContributors.push(contributor);
-          this.contributionScore.push(sum[contributor])
+          // calculate median
+          let sortedContributions = this.contributionScore.slice().sort((a,b) => {
+            return a - b;
+          })
+          let lowMiddle = Math.floor((sortedContributions.length - 1) / 2);
+          let highMiddle = Math.ceil((sortedContributions.length - 1) / 2);
+          this.medianContribution = (sortedContributions[lowMiddle] + sortedContributions[highMiddle]) / 2;
+          
+          // calculate mode
+          let freqArr = Object.keys(frequency).map( key => { return frequency[key]; });
+          this.modeContribution = Math.max.apply(null, freqArr);
+        } else {
+          this.averageContribution = 'No data found'
+          this.medianContribution = 'No data found'
+          this.modeContribution = 'No data found'
         }
-        
-        // calculate average
-        let total = this.contributionScore.reduce((acc, curr) => {
-          return acc + curr;
-        }, 0)
-
-        this.averageContribution = total/(this.chartContributors.length);
-
-        // calculate median
-        let sortedContributions = this.contributionScore.slice().sort((a,b) => {
-          return a - b;
-        })
-        let lowMiddle = Math.floor((sortedContributions.length - 1) / 2);
-        let highMiddle = Math.ceil((sortedContributions.length - 1) / 2);
-        this.medianContribution = (sortedContributions[lowMiddle] + sortedContributions[highMiddle]) / 2;
-        
-        // calculate mode
-        let freqArr = Object.keys(frequency).map( key => { return frequency[key]; });
-        this.modeContribution = Math.max.apply( null, freqArr );
         return res.json();
       });
   }
@@ -172,7 +178,6 @@ export class TeamService {
     let userid = localStorage.getItem('userid')
     let headers = new Headers({ userid: userid, idtoremove: idToRemove })
     let options = new RequestOptions({ headers: headers })
-    console.log('removeTeamMember, idToRemve: ',idToRemove, 'teamId: ', teamId)
     return this._http.delete('/api/teams/' + teamId + '/member', options)
       .subscribe(result => { console.log('deleted member') });
   }
@@ -183,63 +188,66 @@ export class TeamService {
       .map((res: Response) => {
         let result = res.json();
 
-        /* most recent commit by each contributor */
-        for (let contributor in result.mostRecentCommit) {
-          this.mostRecentCommits.push(contributor);
-        }
+        if (!result.hasOwnProperty('err')) {
+          /* most recent commit by each contributor */
+          let committers = Object.keys(result.mostRecentCommit)
+          for (let i = 0; i < committers.length; i++) {
+            this.mostRecentCommits.push([committers[i], result.mostRecentCommit[committers[i]].date, result.mostRecentCommit[committers[i]].message]);
+          }
+          
+          /* most productive day by contributor */
+          // group contributors and their day freq
+          var temp = [];
+          for (let contributor in result.commitDay) {
+            this.commitDayContributors.push(contributor)
+            temp.push(result.commitDay[contributor])
+          }
 
-        /* most productive day by contributor */
-        // group contributors and their day freq
-        var temp = [];
-        for (let contributor in result.commitDay) {
-          this.commitDayContributors.push(contributor)
-          temp.push(result.commitDay[contributor])
-        }
+          // map day freq to arrays
+          temp.forEach(obj => {
+            let UTCdays = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
+            this.commitDays.push(UTCdays)
+          })
 
-        // map day freq to arrays
-        temp.forEach(obj => {
-          let UTCdays = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
-          this.commitDays.push(UTCdays)
-        })
+          // convert to SMTWTFS
+          let daysOfWeek = {
+            0: 'Sunday',
+            1: 'Monday',
+            2: 'Tuesday',
+            3: 'Wednesday',
+            4: 'Thursday',
+            5: 'Friday',
+            6: 'Saturday',
+            7: 'Sunday'
+          }
+          
+          let mostCommitDays = this.commitDays.map(UTCday => {
+            return daysOfWeek[UTCday]
+          })
 
-        // convert to SMTWTFS
-        let daysOfWeek = {
-          0: 'Sunday',
-          1: 'Monday',
-          2: 'Tuesday',
-          3: 'Wednesday',
-          4: 'Thursday',
-          5: 'Friday',
-          6: 'Saturday',
-          7: 'Sunday'
-        }
-        
-        let mostCommitDays = this.commitDays.map(UTCday => {
-          return daysOfWeek[UTCday]
-        })
+          // this.commitDays and this.commitDayContributors are available to render with chartjs
+          // productiveDayByContributor is to render by string interpolation
+          for (let i = 0; i < this.commitDayContributors.length; i++) {
+            this.productiveDayByContributor.push([this.commitDayContributors[i], mostCommitDays[i]])
+          }
+          
+          /* most productive hour by contributor */
+          var temps = [];
+          for (let contributor in result.commitHour) {
+            this.commitHourContributors.push(contributor)
+            temps.push(result.commitHour[contributor])
+          }
 
-        // this.commitDays and this.commitDayContributors are available to render with chartjs
-        // productiveDayByContributor is to render by string interpolation
-        for (let i = 0; i < this.commitDayContributors.length; i++) {
-          this.productiveDayByContributor.push([this.commitDayContributors[i], mostCommitDays[i]])
-        }
-        
-        /* most productive hour by contributor */
-        var temps = [];
-        for (let contributor in result.commitHour) {
-          this.commitHourContributors.push(contributor)
-          temps.push(result.commitHour[contributor])
-        }
+          // map hour freq to arrays
+          temps.forEach(obj => {
+            let UTChours = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
+            this.commitHours.push(UTChours)
+          })
 
-        // map hour freq to arrays
-        temps.forEach(obj => {
-          let UTChours = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
-          this.commitHours.push(UTChours)
-        })
-
-        for (let i = 0; i < this.commitHourContributors.length; i++) {
-          this.productiveHourByContributor.push([this.commitHourContributors[i], Number(this.commitHours[i])])
-        }
+          for (let i = 0; i < this.commitHourContributors.length; i++) {
+            this.productiveHourByContributor.push([this.commitHourContributors[i], Number(this.commitHours[i])])
+          }
+        } 
         return res.json();
       });
   }
@@ -270,7 +278,6 @@ export class TeamService {
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/teams/' + teamId + '/branches', options)
       .map((res: Response) => {
-        console.log(res.json())
         return res.json();
       });
   }

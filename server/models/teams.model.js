@@ -19,20 +19,34 @@ teamsModel.GET_TEAMS = (userId) => {
 }
 
 teamsModel.CREATE_TEAM = (userId, teamName, teamDescription, teamAdmins) => {
-  return Teams.create({
-    name: teamName,
-    description: teamDescription,
-    owner: userId
+  return Teams.find({
+    where: {
+      name: teamName
+    }
   })
   .then(team => {
-    return UsersTeams.create({
-      isAdmin: true,
-      teamId: team.id,
-      userId: userId
-    })
-    .then(() => {
-      return team
-    })
+    if (!team) {
+      return Teams.create({
+        name: teamName,
+        description: teamDescription,
+        owner: userId
+      })
+      .then(team => {
+        return UsersTeams.create({
+          isAdmin: true,
+          teamId: team.id,
+          userId: userId
+        })
+        .then(() => {
+          return team
+        })
+      })
+    } else {
+      return { err: 'Team already exists'}
+    }
+  })
+  .catch(err => {
+    return err
   })
 }
 
