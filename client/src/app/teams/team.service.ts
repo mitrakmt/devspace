@@ -188,7 +188,7 @@ export class TeamService {
       .map((res: Response) => {
         let result = res.json();
 
-        if (!result.hasOwnProperty('err') && result.length > 0) {
+        if (!result.hasOwnProperty('err')) {
           /* most recent commit by each contributor */
           let committers = Object.keys(result.mostRecentCommit)
           for (let i = 0; i < committers.length; i++) {
