@@ -17,6 +17,7 @@ export class TeamDashboardComponent implements OnInit {
   private teamMembers;
   private userId = localStorage.getItem('userid');
   private teamContributions;
+  private subscriptions = {};
 
   submitTeamProject(form: NgForm) {
     let projectName = form.value.project;
@@ -46,32 +47,49 @@ export class TeamDashboardComponent implements OnInit {
     return this.route.params.subscribe(params => {
       this.teamId = +params['teamId'];
       
-      this.teamService.fetchProjects(this.teamId)
+      this.subscriptions['teamProjects'] = this.teamService.fetchProjects(this.teamId)
         .subscribe(projects => {
           this.teamProjects = this.teamService.teamProjects;
           console.log("THIS.TEAMPROJECTS IN TEAM DASHBOARD ------------->", this.teamProjects)
           return projects;
         });
 
-      this.teamService.fetchTeamMembers(this.teamId)
+      this.subscriptions['teamMembers'] = this.teamService.fetchTeamMembers(this.teamId)
         .subscribe(teamMembers => {
           this.teamMembers = this.teamService.teamMembers;
           console.log("THIS.teamMembers IN TEAM DASHBOARD ------------->", this.teamMembers)
           return teamMembers;
         });
 
-      this.teamService.fetchTeamContributions(this.teamId)
+      this.subscriptions['teamContributions'] = this.teamService.fetchTeamContributions(this.teamId)
         .subscribe(teamContributions => {
           this.teamContributions = this.teamService.teamContributions;
           console.log("THIS.teamContributions IN TEAM DASHBOARD ------------->", this.teamContributions)
           return teamContributions;
         });
         
-      this.teamService.fetchTeamCommitFrequency(this.teamId)
+      this.subscriptions['commitFreqs'] = this.teamService.fetchTeamCommitFrequency(this.teamId)
         .subscribe(commitFreqs => {
           console.log("COMMIT FREQS IN TEAM DASHBOARD ------------->", commitFreqs)
           return commitFreqs;
         });
       }); 
     }
+
+  ngOnDestroy() {
+    for (let subscription in this.subscriptions) {
+      if(this.subscriptions[subscription]) {
+        this.subscriptions[subscription].unsubscribe();
+      }
+    }
+    this.teamService.chartContributors = [];
+    this.teamService.contributionScore = [];
+    this.teamService.mostRecentCommits = [];
+    this.teamService.commitDayContributors = [];
+    this.teamService.commitDays = [];
+    this.teamService.commitHourContributors = [];
+    this.teamService.commitHours = [];
+    this.teamService.productiveDayByContributor = [];
+    this.teamService.productiveHourByContributor = [];
+  }
 }

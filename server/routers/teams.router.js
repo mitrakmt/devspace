@@ -30,6 +30,9 @@ teamsRouter.route('/:teamId/projects')
   .get(teamsController.GET_TEAM_PROJECTS)
     // Requires userId header, teamId in reql url
 
+teamsRouter.route('/:teamId/project')
+  .get(teamsController.GET_TEAM_PROJECT_FROM_DB)
+  
 teamsRouter.route('/:teamId/contributions')
   .get(teamsController.GET_TEAM_CONTRIBUTIONS)
 

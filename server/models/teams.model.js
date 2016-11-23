@@ -148,4 +148,19 @@ teamsModel.GET_TEAM_MEMBERS = (teamId) => {
     return teams.getUsers()
   })
 }
+
+teamsModel.GET_TEAM_PROJECT_FROM_DB = (projectId) => {
+  return Projects.findOne({
+    where: {
+      id: projectId
+    },
+    include: [{
+      model: Teams
+    }],
+  })
+  .then(project => {
+    return project
+  })
+}
+
 module.exports = teamsModel

@@ -24,7 +24,7 @@ export class ProjectDashboardService {
   }
 
   fetchProjectCommits(projectId, branch): Observable<any> {
-    let headers = new Headers({ branch: branch });
+    let headers = new Headers({ branch: branch, username: null });
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/projects/' + projectId + '/commits', options)
       .map((res: Response) => {

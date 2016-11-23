@@ -108,6 +108,15 @@ teamsController.GET_TEAM_PROJECTS = (req, res) => {
     })
 }
 
+teamsController.GET_TEAM_PROJECT_FROM_DB = (req, res) => {
+  let projectId = req.headers['projectid']
+
+  Teams.GET_TEAM_PROJECT_FROM_DB(projectId)
+    .then(project => {
+      res.status(200).send(project)
+    })
+}
+
 teamsController.ADD_PROJECT_TO_TEAM = (req, res) => {
   let projectId = req.headers['projectid']
   let teamId = req.params.teamId
