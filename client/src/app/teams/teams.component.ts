@@ -25,8 +25,7 @@ import { Team } from './team';
         </div>
       </form>
     <div *ngFor="let team of teamService.teams">
-      <!-- team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a> <button (click)="this.teamService.deleteTeam(team.id)">Delete Team</button> -->
-      <p>{{team.name}}</p>
+      team: <a [routerLink]="['/teams', team.id]">{{team.name}}</a> <button (click)="this.teamService.deleteTeam(team.id)">Delete Team</button>
     </div>
     
   `,
