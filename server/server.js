@@ -20,14 +20,20 @@ let PORT = process.env.PORT || 8000
 let http = require('http').Server(app)
 let io = require('socket.io')(http)
 
+
 //socketio calls
 io.on('connection', (socket)=>{
-  console.log('socket connected');
+  // socket.join('some room')
+  console.log('socket connected', socket.id);
   socket.on('disconnect', ()=>{
-    console.log('socket disconnected');
+    console.log('socket disconnected', socket.id);
   });
+  socket.on('subscribe', (room) => {
+    console.log('joined room ', room)
+    socket.join(room)
+  })
   socket.on('post', (post)=>{
-    io.emit('post server', post)
+    io.to(post.room).emit('post server', post.post)
     console.log('post------>', post);
   })
 })
