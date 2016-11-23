@@ -89,6 +89,58 @@ export class TeamService {
       .subscribe(result => { console.log('deleted team') });
   }
 
+  fetchTeamContributionsHelper(json) {
+    if (!json.hasOwnProperty('err') && json.length > 0) {
+      // add up overall team contributions and frequencies across all projects
+      let sum = {};
+      let frequency = {};
+      json.forEach(contribution => {
+
+        // sum up contributions
+        if (!sum[contribution.login]) {
+          sum[contribution.login] = contribution.contributions;
+        } else {
+          sum[contribution.login] += contribution.contributions;
+        }
+
+        // count frequencies
+        if (!frequency[contribution.contributions]) {
+          frequency[contribution.contributions] = 1;
+        } else {
+          frequency[contribution.contributions]++;
+        }
+      })
+
+      // separate contributors from contributions to render with chartjs
+      for (let contributor in sum) {
+        this.chartContributors.push(contributor);
+        this.contributionScore.push(sum[contributor])
+      }
+      
+      // calculate average
+      let total = this.contributionScore.reduce((acc, curr) => {
+        return acc + curr;
+      }, 0)
+      this.averageContribution = total/(this.chartContributors.length);
+
+      // calculate median
+      let sortedContributions = this.contributionScore.slice().sort((a,b) => {
+        return a - b;
+      })
+      let lowMiddle = Math.floor((sortedContributions.length - 1) / 2);
+      let highMiddle = Math.ceil((sortedContributions.length - 1) / 2);
+      this.medianContribution = (sortedContributions[lowMiddle] + sortedContributions[highMiddle]) / 2;
+      
+      // calculate mode
+      let freqArr = Object.keys(frequency).map( key => { return frequency[key]; });
+      this.modeContribution = Math.max.apply(null, freqArr);
+    } else {
+      this.averageContribution = 'No data found'
+      this.medianContribution = 'No data found'
+      this.modeContribution = 'No data found'
+    }
+  }
+
   fetchTeamContributions(teamId): Observable<any> {
     this.teamId = teamId;
     let userId = localStorage.getItem('userid')
@@ -97,57 +149,7 @@ export class TeamService {
     return this._http.get('/api/teams/' + teamId + '/contributions', options)
       .map((res: Response) => {
         let result = res.json();
-
-
-        if (!result.hasOwnProperty('err') && result.length > 0) {
-          // add up overall team contributions and frequencies across all projects
-          let sum = {};
-          let frequency = {};
-          result.forEach(contribution => {
-
-            // sum up contributions
-            if (!sum[contribution.login]) {
-              sum[contribution.login] = contribution.contributions;
-            } else {
-              sum[contribution.login] += contribution.contributions;
-            }
-
-            // count frequencies
-            if (!frequency[contribution.contributions]) {
-              frequency[contribution.contributions] = 1;
-            } else {
-              frequency[contribution.contributions]++;
-            }
-          })
-
-          // separate contributors from contributions to render with chartjs
-          for (let contributor in sum) {
-            this.chartContributors.push(contributor);
-            this.contributionScore.push(sum[contributor])
-          }
-          
-          // calculate average
-          let total = this.contributionScore.reduce((acc, curr) => {
-            return acc + curr;
-          }, 0)
-          this.averageContribution = total/(this.chartContributors.length);
-
-          // calculate median
-          let sortedContributions = this.contributionScore.slice().sort((a,b) => {
-            return a - b;
-          })
-          let lowMiddle = Math.floor((sortedContributions.length - 1) / 2);
-          let highMiddle = Math.ceil((sortedContributions.length - 1) / 2);
-          this.medianContribution = (sortedContributions[lowMiddle] + sortedContributions[highMiddle]) / 2;
-          
-          // calculate mode
-          let freqArr = Object.keys(frequency).map( key => { return frequency[key]; });
-          this.modeContribution = Math.max.apply(null, freqArr);
-        } else {
-          this.averageContribution = 'No data found'
-          this.medianContribution = 'No data found'
-          this.modeContribution = 'No data found'
-        }
+        this.fetchTeamContributionsHelper(result);
         return res.json();
       });
   }
