@@ -100,3 +100,7 @@ div .ui .header {
     margin-right: 15px;
     display: inline-block;
 }
+
+.blog-icon {
+    height: 30px;
+}

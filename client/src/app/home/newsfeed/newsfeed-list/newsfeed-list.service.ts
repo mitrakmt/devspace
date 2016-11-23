@@ -83,7 +83,7 @@ secondaryList: NewsfeedPost[] = [];
 
     socketRecieve(callback){
       this.socket.on('post server', (post) => {
-      callback(post)
+        callback(post)
       })
     }
 
