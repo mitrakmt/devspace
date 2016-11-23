@@ -60,6 +60,7 @@ import { BarChartComponent } from './teams/team-dashboard/bar-chart/bar-chart.co
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { SearchUsersService } from './search-users/search-users.service';
 import { PieChartComponent } from './teams/team-project/pie-chart/pie-chart.component';
+import { LineChartComponent } from './teams/team-dashboard/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { PieChartComponent } from './teams/team-project/pie-chart/pie-chart.comp
     ProfileEditComponent,
     BarChartComponent,
     SearchUsersComponent,
-    PieChartComponent
+    PieChartComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
