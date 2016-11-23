@@ -141,7 +141,6 @@ export class TeamDashboardComponent implements OnInit {
           console.log(commitFreqs, 'commitFreqs')
           return commitFreqs;
         })
-      }
-      
+      }  
     }
 }
