@@ -27,7 +27,7 @@ Sometimes your API call will generate an error. Every response to an API call th
 
 ## Built With:
 | Front-End         | Back-End     | Testing Frameworks  |
-| ---------------- -|:------------:|:--------------------|
+| ----------------- |:------------:| :-------------------|
 | Angular 2         | Node JS      | Mocha               |
 | NGRX              | Express      | Chai                |
 | Webpack           | Postgres     |                     |
