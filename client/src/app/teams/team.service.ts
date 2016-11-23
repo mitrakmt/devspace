@@ -50,6 +50,7 @@ export class TeamService {
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/teams', options)
       .map((res: Response) => {
+        console.log('TEAMS ------------>', res.json())
         this.teams = res.json();
         return res.json();
       });
