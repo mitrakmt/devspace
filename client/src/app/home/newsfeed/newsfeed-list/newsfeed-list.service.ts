@@ -16,11 +16,10 @@ secondaryList: NewsfeedPost[] = [];
 
   constructor(private _http: Http) { }
 
-  insertionSort = (unsortedList) => {  
-    var len = unsortedList.length;
-    for (var i = 0; i < len; i++) {
+  insertionSort = (unsortedList) => { 
+    for (var i = 0; i < unsortedList.length; i++) {
         var tmp = unsortedList[i]
-        for (var j = i - 1; j >= 0 && (unsortedList[j].id > tmp.id); j--) {
+        for (var j = i - 1; j >= 0 && (unsortedList[j].id < tmp.id); j--) {
             unsortedList[j + 1] = unsortedList[j]
         }
         unsortedList[j + 1] = tmp;
