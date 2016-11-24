@@ -42,7 +42,7 @@
   </div>
 </div>
 
-<div class="readme">
+<div class="readme" *ngIf="teamProjectReadme?._body">
   <h3>Readme</h3>
   {{teamProjectReadme?._body}}
   <p><span [innerHTML]="teamProjectReadme"></span></p>
