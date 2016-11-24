@@ -44,7 +44,7 @@
 
 <div class="readme" *ngIf="teamProjectReadme?._body">
   <h3>Readme</h3>
-  <p><span [innerHTML]="teamProjectReadme"></span></p>
+  <p [innerHTML]="teamProjectReadme?._body"></p>
 </div>
 
 <app-pie-chart></app-pie-chart>
