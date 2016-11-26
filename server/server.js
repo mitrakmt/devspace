@@ -20,7 +20,6 @@ let PORT = process.env.PORT || 8000
 let http = require('http').Server(app)
 let io = require('socket.io')(http)
 
-
 //socketio calls
 io.on('connection', (socket)=>{
   // socket.join('some room')
