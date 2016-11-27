@@ -6,7 +6,7 @@ let converter = new showdown.Converter()
 converter.setOption('tables', true)
 converter.setOption('simplifiedAutoLink', true)
 converter.setOption('tasklists', true)
-// converter.setOption('smartIndentationFix', true) 
+// converter.setOption('smartIndentationFix', true)
 
 projectsController.GET_PROJECTS = (req, res) => {
   let userId = req.headers['userid']
@@ -182,83 +182,139 @@ projectsController.GET_BRANCHES = (req, res) => {
 
 projectsController.GET_README = (req, res) => {
   let projectId = req.params['projectId']
+  let teamName = req.headers['teamname']
+  let teamRepo = req.headers['teamrepo']
 
-  Projects.GET_PROJECT_FROM_DB(projectId)
-    .then(project => {
-      let username = project.users[0].username
-      let repo = project['name']
+  if (teamName && teamRepo) {
+    Projects.GET_README(teamName, teamRepo)
+      .then(result => {
+        let resultHTML = converter.makeHtml(result)
+        res.status(200).send(resultHTML)
+      })
+  } else {
+    Projects.GET_PROJECT_FROM_DB(projectId)
+      .then(project => {
+        let username = project.users[0].username
+        let repo = project['name']
 
-      Projects.GET_README(username, repo)
-        .then(result => {
-          let resultHTML = converter.makeHtml(result)
-          res.status(200).send(resultHTML)
-        })
-    })
+        Projects.GET_README(username, repo)
+          .then(result => {
+            let resultHTML = converter.makeHtml(result)
+            res.status(200).send(resultHTML)
+          })
+      })
+  }
 }
 
 projectsController.GET_FORKS = (req, res) => {
   let projectId = req.params['projectId']
+  let teamName = req.headers['teamname']
+  let teamRepo = req.headers['teamrepo']
 
-  Projects.GET_PROJECT_FROM_DB(projectId)
-    .then(project => {
-      let username = project.users[0].username
-      let repo = project['name']
-
-      Projects.GET_FORKS(username, repo)
-        .then(results => {
-          let forks = (JSON.parse(results)).map(result => {
-            return {
-              owner: result.owner.login,
-              html_url: result.html_url
-            }
-          })
-          res.status(200).send(forks)
+  if (teamName && teamRepo) {
+    Projects.GET_FORKS(teamName, teamRepo)
+      .then(results => {
+        let forks = (JSON.parse(results)).map(result => {
+          return {
+            owner: result.owner.login,
+            html_url: result.html_url
+          }
         })
-    })
+        res.status(200).send(forks)
+      })
+  } else {
+    Projects.GET_PROJECT_FROM_DB(projectId)
+      .then(project => {
+        let username = project.users[0].username
+        let repo = project['name']
+
+        Projects.GET_FORKS(username, repo)
+          .then(results => {
+            let forks = (JSON.parse(results)).map(result => {
+              return {
+                owner: result.owner.login,
+                html_url: result.html_url
+              }
+            })
+            res.status(200).send(forks)
+          })
+      })
+  }
 }
 
 projectsController.GET_CONTRIBUTORS = (req, res) => {
   let projectId = req.params['projectId']
+  let teamName = req.headers['teamname']
+  let teamRepo = req.headers['teamrepo']
 
-  Projects.GET_PROJECT_FROM_DB(projectId)
+  if (teamName && teamRepo) {
+    Projects.GET_CONTRIBUTORS(teamName, teamRepo)
+      .then(results => {
+        let contributors = (JSON.parse(results)).map(result => {
+          return {
+            login: result.login,
+            avatar: result.avatar_url,
+            contributions: result.contributions
+          }
+        })
+        res.status(200).send(contributors)
+      })
+  } else {
+    Projects.GET_PROJECT_FROM_DB(projectId)
     .then(project => {
       let username = project.users[0].username
       let repo = project['name']
 
       Projects.GET_CONTRIBUTORS(username, repo)
-        .then(results => {
-          let contributors = (JSON.parse(results)).map(result => {
-            return {
-              login: result.login,
-              avatar: result.avatar_url,
-              contributions: result.contributions
-            }
-          })
-          res.status(200).send(contributors)
+      .then(results => {
+        let contributors = (JSON.parse(results)).map(result => {
+          return {
+            login: result.login,
+            avatar: result.avatar_url,
+            contributions: result.contributions
+          }
         })
+        res.status(200).send(contributors)
+      })
     })
+  }
 }
 
 projectsController.GET_LANGUAGES = (req, res) => {
   let projectId = req.params['projectId']
+  let teamName = req.headers['teamname']
+  let teamRepo = req.headers['teamrepo']
 
-  Projects.GET_PROJECT_FROM_DB(projectId)
-    .then(project => {
-      let username = project.users[0].username
-      let repo = project['name']
-
-      Projects.GET_LANGUAGES(username, repo)
-        .then(results => {
-          results = JSON.parse(results)
-          let langs = []
-          if (Object.keys(results).length > 0) {
-            for (var key in results) {
-              langs.push({language: [key, results[key]]})
-            }
+  if (teamName && teamRepo) {
+    Projects.GET_LANGUAGES(teamName, teamRepo)
+      .then(results => {
+        let langs = []
+        if (Object.keys(results).length > 0) {
+          for (var key in results) {
+            langs.push({language: [key, results[key]]})
           }
-          res.status(200).send(langs)
-        })
-    })
+        }
+        res.status(200).send(langs)
+      })
+  } else {
+    Projects.GET_PROJECT_FROM_DB(projectId)
+      .then(project => {
+        let username = project.users[0].username
+        let repo = project['name']
+
+        Projects.GET_LANGUAGES(username, repo)
+          .then(results => {
+            results = JSON.parse(results)
+            let langs = []
+            if (Object.keys(results).length > 0) {
+              for (var key in results) {
+                langs.push({language: [key, results[key]]})
+              }
+            }
+            res.status(200).send(langs)
+          })
+      })
+  }
 }
 
 module.exports = projectsController

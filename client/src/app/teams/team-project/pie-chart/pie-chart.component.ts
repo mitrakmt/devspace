@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { TeamService } from '../../team.service';
 
 @Component({
@@ -18,17 +18,15 @@ import { TeamService } from '../../team.service';
 })
 
   
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements DoCheck {
   constructor(private teamService: TeamService) { }
   // Pie
-  // public pieChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  // @Input() pieChartLabelsIn:string[]
-  // @Input() pieChartDataIn:number[];
-  public pieChartLabels:string[] = this.teamService.teamProjectPieChartContributors;
-  public pieChartData:number[] = this.teamService.teamProjectPieChartScore;
+  public pieChartLabels:string[] = ['No Data Found'];
+  public pieChartData:number[] = [];
   public pieChartType:string = 'pie';
 
-  ngOnInit() {
-    console.log(this.pieChartLabels, this.pieChartData)
+  ngDoCheck() {
+    this.pieChartLabels = this.teamService.teamProjectPieChartContributors;
+    this.pieChartData = this.teamService.teamProjectPieChartScore;
   }
 }
