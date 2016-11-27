@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, DoCheck, OnChanges } from '@angular/core';
 import { TeamService } from '../../team.service';
 
 @Component({
@@ -18,21 +18,24 @@ import { TeamService } from '../../team.service';
   `,
   styleUrls: ['./line-chart.component.css']
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements DoCheck {
 
-  constructor(private teamService: TeamService) { }
+  constructor(private teamService: TeamService) {
+  }
 
   public lineChartOptions:any = {
+    animation: false,
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public lineChartLabels:string[] = this.teamService.commitHourContributors;
+  public lineChartLabels:string[] = ['12 am', '1 am', '2 am', '3 am', '4 am', '5 am', '6 am','7 am', '8 am', '9 am', '10 am', '11 am', 
+                                      '12 pm', '1 pm','2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm', '8 pm', '9 pm', '10 pm', '11 pm'];
   public lineChartType:string = 'line';
   public lineChartLegend:boolean = true;
 
-  public lineChartData:any[] = [{data: this.teamService.commitHourContributors, label: 'Contribution Score'}];
+  public lineChartData:any[] = [{data: [], label: 'No Data Found'}];
 
-  ngOnInit() {
+  ngDoCheck() {
+    this.lineChartData = this.teamService.lineChartHoursData.slice();
   }
-
 }

@@ -8,7 +8,7 @@ import { ProjectDashboardService } from '../project-dashboard.service';
 export class ProjectCommitsComponent implements OnInit {
   @Input() projectId: any;
   //private projectId = this.projectDashboardService.projectId
-  private branch = 'dev';
+  private branch = 'master';
   private projectCommits;
 
   constructor(private projectDashboardService: ProjectDashboardService) { }

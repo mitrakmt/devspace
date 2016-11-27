@@ -1,6 +1,6 @@
 <app-search></app-search>
 
-<h1 class="title">- Team Name Here -</h1>
+<h1 class="title">{{ this.teamService.teamName }}</h1>
 
 <h2 class="title">Team Members</h2>
 <div class="team-member-div">
@@ -40,12 +40,6 @@
   name: <a [routerLink]="['/teams', teamId, project.id]">{{project.name}}</a> {{project.createdAt}} {{project.url}}
 </div>
 
-<h2 class="title">Contributions</h2>
-<div *ngFor="let contributor of teamContributions">
-  name: {{contributor.login}} {{contributor.html_url}}
-  contributions {{contributor.contributions}}
-</div>
-
 <h2 class="title">Import a project</h2>
 <form (ngSubmit)="submitTeamProject(f)" #f="ngForm">
   <md-input 
@@ -78,7 +72,7 @@ Median Contribution: {{this.teamService.medianContribution}}
 
 <app-line-chart></app-line-chart>
 
-<!--<h2 class="title">Most Productive Time By Contributor</h2>
+<h2 class="title">Most Productive Time By Contributor</h2>
 <div *ngFor="let contributor of this.teamService.productiveHourByContributor">
   <p>{{contributor[0]}}:{{contributor[1]}}:00</p>
-</div>-->
+</div>
