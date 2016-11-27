@@ -295,6 +295,7 @@ export class TeamService {
         this.teamOwner = this.teamProjectInfo.owner;
         this.teamRepo = this.teamProjectInfo.name;
         this.teamName = this.teamProjectInfo.team.name;
+        console.log(this.teamOwner, this.teamRepo, this.teamName)
         return res.json();
       });
   }
@@ -324,32 +325,37 @@ export class TeamService {
   //     });
   // }
 
-  fetchProjectForks(projectId): Observable<any> {
-    return this._http.get('/api/projects/' + projectId + '/forks')
+  fetchProjectForks(projectId, teamName, teamRepo): Observable<any> {
+    let headers = new Headers({ teamname: teamName, teamrepo: teamRepo })
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/projects/' + projectId + '/forks', options)
       .map((res: Response) => {
         return res.json();
       });
   }
 
-  fetchProjectContributors(projectId): Observable<any> {
-    let headers = new Headers({ userid: this.teamOwner })
+  fetchProjectContributors(projectId, teamOwner, teamName, teamRepo): Observable<any> {
+    let headers = new Headers({ userid: this.teamOwner, teamname: teamName, teamrepo: teamRepo })
     let options = new RequestOptions({ headers: headers })
     return this._http.get('/api/projects/' + projectId + '/contributors', options)
       .map((res: Response) => {
-        console.log('project contributors res.json()', res.json())
         return res.json();
       });
   }
 
-  fetchProjectLanguages(projectId): Observable<any> {
-    return this._http.get('/api/projects/' + projectId + '/languages')
+  fetchProjectLanguages(projectId, teamName, teamRepo): Observable<any> {
+    let headers = new Headers({ teamname: teamName, teamrepo: teamRepo })
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/projects/' + projectId + '/languages', options)
       .map((res: Response) => {
         return res.json();
       });
   }
 
-  fetchProjectReadme(projectId): Observable<any> {
-    return this._http.get('/api/projects/' + projectId + '/readme')
+  fetchProjectReadme(projectId, teamName, teamRepo): Observable<any> {
+    let headers = new Headers({ teamname: teamName, teamrepo: teamRepo })
+    let options = new RequestOptions({ headers: headers })
+    return this._http.get('/api/projects/' + projectId + '/readme', options)
       .map((res: Response) => {
         return res;
       });

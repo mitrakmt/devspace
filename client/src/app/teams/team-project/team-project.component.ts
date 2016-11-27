@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, AfterViewInit } from '@angular/core';
 import { TeamService } from '../team.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MaterialModule } from '@angular/material';
@@ -25,10 +25,6 @@ export class TeamProjectComponent implements OnInit {
   private teamProjectBranches;
   public repoLength;
   private branchesByContributor;
-  private contributorsArr = [];
-  private contributorsScore = [];
-  // @Output() contributorsArr = [];
-  // @Output() contributorsScore = [];
 
   constructor(private route: ActivatedRoute, private teamService: TeamService) { }
 
@@ -45,40 +41,42 @@ export class TeamProjectComponent implements OnInit {
           this.teamOwner = this.teamService.teamOwner;
           this.teamRepo = this.teamService.teamRepo;
           this.teamName = this.teamService.teamName;
+          
+          this.teamService.fetchProjectContributors(this.teamProjectId, this.teamOwner, this.teamName, this.teamRepo)
+            .subscribe(projectContributors => {
+              this.teamProjectContributors = projectContributors;
+              let tempTeamProjectPieChartContributors = [];
+              let tempTeamProjectPieChartScore = [];
+              projectContributors.forEach(contributor => {
+               tempTeamProjectPieChartContributors.push(contributor.login)
+               tempTeamProjectPieChartScore.push(contributor.contributions)
+              })
+              this.teamService.teamProjectPieChartContributors = tempTeamProjectPieChartContributors;
+              this.teamService.teamProjectPieChartScore = tempTeamProjectPieChartScore;              
+              console.log('projectContributors', this.teamService.teamProjectPieChartContributors, this.teamService.teamProjectPieChartScore)
+             return projectContributors;
+          });
+          
+          this.teamService.fetchProjectLanguages(this.teamProjectId, this.teamName, this.teamRepo)
+            .subscribe(projectLanguages => {
+              this.teamProjectLanguages = projectLanguages;
+              return projectLanguages;
+             });
+          
+          this.teamService.fetchProjectForks(this.teamProjectId, this.teamName, this.teamRepo)
+            .subscribe(projectForks => {
+              this.teamProjectForks = projectForks;
+              return projectForks;
+          });
+
+          this.teamService.fetchProjectReadme(this.teamProjectId, this.teamName, this.teamRepo)
+            .subscribe(projectReadme => {
+              this.teamProjectReadme = projectReadme;
+              return projectReadme;
+          });
           return teamProjectInfo;
-      });
+        });
 
-      this.teamService.fetchProjectForks(this.teamProjectId)
-        .subscribe(projectForks => {
-          this.teamProjectForks = projectForks;
-          return projectForks;
-      });
-      
-      this.teamService.fetchProjectContributors(this.teamProjectId)
-        .subscribe(projectContributors => {
-          this.teamProjectContributors = projectContributors;
-          projectContributors.forEach(contributor => {
-            this.contributorsArr.push(contributor.login)
-            this.contributorsScore.push(contributor.contributions)
-            this.teamService.teamProjectPieChartContributors.push(contributor.login)
-            this.teamService.teamProjectPieChartScore.push(contributor.contribution)
-          })
-          console.log('projectContributors', this.contributorsArr, this.contributorsScore)
-          return projectContributors;
-      });
-
-      this.teamService.fetchProjectLanguages(this.teamProjectId)
-        .subscribe(projectLanguages => {
-          this.teamProjectLanguages = projectLanguages;
-          return projectLanguages;
-      });
-
-      this.teamService.fetchProjectReadme(this.teamProjectId)
-        .subscribe(projectReadme => {
-          this.teamProjectReadme = projectReadme;
-          return projectReadme;
-      });
-    
       this.teamService.fetchProjectBranches(this.teamProjectId, this.teamId)
         .subscribe(projectBranches => {
           var store = {};

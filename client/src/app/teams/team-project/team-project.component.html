@@ -6,13 +6,18 @@
 
 <h3>Contributors</h3>
 <div *ngFor="let contributor of teamProjectContributors">
-  <h4><a [routerLink]="['/profile', username]">{{ contributor?.login }}</a>: {{ contributor?.contributions }}</h4>
+  <h4><a [routerLink]="['/dev', contributor.login]">{{ contributor?.login }}</a>: {{ contributor?.contributions }}</h4>
 </div>
 
 <h3>Languages</h3>
-<div *ngFor="let lang of teamProjectLanguages">
-  <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
-  <img [src]="lang.language[image_url]" />
+<div *ngIf="teamProjectLanguages">
+  <div *ngFor="let lang of teamProjectLanguages">
+    <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
+    <img src="{{lang.language[0]}}" />
+  </div>
+</div>
+<div *ngIf="!teamProjectLanguages">
+  Github has not yet calculated the language statistics for your project.
 </div>
 
 
@@ -40,6 +45,7 @@
 <div class="readme">
   <h3>Readme</h3>
   {{teamProjectReadme?._body}}
+  <p><span [innerHTML]="teamProjectReadme"></span></p>
 </div>
 
 <app-pie-chart></app-pie-chart>
