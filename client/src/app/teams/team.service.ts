@@ -33,6 +33,7 @@ export class TeamService {
   public teamProjectPieChartContributors = [];
   public teamProjectPieChartScore = [];
   public lineChartHoursData = [{data: [], label: 'No Data Found'}];
+  public lineChartDaysData = [{data: [], label: 'No Data Found'}];
 
   constructor(private _http: Http) { }
 
@@ -209,10 +210,23 @@ export class TeamService {
           }
 
           // map day freq to arrays
-          temp.forEach(obj => {
-            let UTCdays = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
+          var tempLineChartDaysData = [];
+          temp.forEach((obj, index) => {
+            let tempDaysArr = [];
+            let reduceFlag = false;
+            let UTCdays = Object.keys(obj).reduce(function(a, b){
+              if (!reduceFlag) {
+                tempDaysArr.push(obj[a]);
+                reduceFlag = true;
+              }
+              tempDaysArr.push(obj[b]);
+              return obj[a] > obj[b] ? a : b 
+            });
+            tempLineChartDaysData.push({ data: tempDaysArr, label: this.commitDayContributors[index] });
             this.commitDays.push(UTCdays)
           })
+
+          this.lineChartDaysData = tempLineChartDaysData;
 
           // convert to SMTWTFS
           let daysOfWeek = {

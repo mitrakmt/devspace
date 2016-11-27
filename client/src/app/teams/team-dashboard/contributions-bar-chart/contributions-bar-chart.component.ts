@@ -2,7 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { TeamService } from '../../team.service';
 
 @Component({
-  selector: 'app-bar-chart',
+  selector: 'app-contributions-bar-chart',
   template: `
     <div>
       <div style="display: block">
@@ -16,9 +16,9 @@ import { TeamService } from '../../team.service';
       </div>
   </div>
   `,
-  styleUrls: ['./bar-chart.component.css']
+  styleUrls: ['./contributions-bar-chart.component.css']
 })
-export class BarChartComponent implements DoCheck {
+export class ContributionsBarChartComponent implements DoCheck {
   constructor(private teamService: TeamService) { }
   public barChartOptions:any = {
     animation: false,

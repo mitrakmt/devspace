@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, DoCheck, OnChanges } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { TeamService } from '../../team.service';
 
 @Component({
-  selector: 'app-line-chart',
+  selector: 'app-days-line-chart',
   template: `
   <div>
       <div style="display: block">
@@ -16,26 +16,24 @@ import { TeamService } from '../../team.service';
       </div>
   </div>
   `,
-  styleUrls: ['./line-chart.component.css']
+  styles: []
 })
-export class LineChartComponent implements DoCheck {
+export class DaysLineChartComponent implements DoCheck {
 
-  constructor(private teamService: TeamService) {
-  }
-
+  constructor(private teamService: TeamService) { }
+  
   public lineChartOptions:any = {
     animation: false,
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public lineChartLabels:string[] = ['12 am', '1 am', '2 am', '3 am', '4 am', '5 am', '6 am','7 am', '8 am', '9 am', '10 am', '11 am', 
-                                      '12 pm', '1 pm','2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm', '8 pm', '9 pm', '10 pm', '11 pm'];
+  public lineChartLabels:string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   public lineChartType:string = 'line';
   public lineChartLegend:boolean = true;
 
   public lineChartData:any[] = [{data: [], label: 'No Data Found'}];
-
   ngDoCheck() {
-    this.lineChartData = this.teamService.lineChartHoursData.slice();
+    this.lineChartData = this.teamService.lineChartDaysData.slice();
   }
+
 }

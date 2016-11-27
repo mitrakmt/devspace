@@ -55,7 +55,7 @@
   <button md-raised-button type="submit" [disabled]="!f.valid" class="md-raised md-primary">Import Organization Project</button>
 </form>
 
-<app-bar-chart></app-bar-chart>
+<app-contributions-bar-chart></app-contributions-bar-chart>
 Average Contribution: {{this.teamService.averageContribution}}
 Median Contribution: {{this.teamService.medianContribution}}
 <!-- Mode Contribution: {{this.teamService.modeContribution}} -->
@@ -65,12 +65,13 @@ Median Contribution: {{this.teamService.medianContribution}}
   <p>{{contributor[0]}}: {{contributor[1]}} {{contributor[2]}}</p>
 </div>
 
+<app-days-line-chart></app-days-line-chart>
 <h2 class="title">Most Productive Day By Contributor</h2>
 <div *ngFor="let contributor of this.teamService.productiveDayByContributor">
   <p>{{contributor[0]}}:{{contributor[1]}}</p>
 </div>
 
-<app-line-chart></app-line-chart>
+<app-hours-line-chart></app-hours-line-chart>
 
 <h2 class="title">Most Productive Time By Contributor</h2>
 <div *ngFor="let contributor of this.teamService.productiveHourByContributor">

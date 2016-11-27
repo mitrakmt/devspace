@@ -3,8 +3,8 @@ import { TeamService } from '../team.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { NgForm } from '@angular/forms';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
-import { LineChartComponent } from './line-chart/line-chart.component';
+import { ContributionsBarChartComponent } from './contributions-bar-chart/contributions-bar-chart.component';
+import { HoursLineChartComponent } from './hours-line-chart/hours-line-chart.component';
 
 @Component({
   selector: 'app-team-dashboard',
