@@ -32,7 +32,7 @@ export class TeamProjectComponent implements OnInit {
     return this.route.params.subscribe(params => {
       this.teamId = +params['teamId'];
       this.teamProjectId = +params['teamProjectId']
-      console.log(this.teamId, this.teamProjectId)
+
       this.teamService.fetchTeamProjectInfo(this.teamProjectId, this.teamId)
         .subscribe(teamProjectInfo => {
           this.teamProjectInfo = this.teamService.teamProjectInfo;
@@ -52,8 +52,8 @@ export class TeamProjectComponent implements OnInit {
                tempTeamProjectPieChartScore.push(contributor.contributions)
               })
               this.teamService.teamProjectPieChartContributors = tempTeamProjectPieChartContributors;
-              this.teamService.teamProjectPieChartScore = tempTeamProjectPieChartScore;              
-              console.log('projectContributors', this.teamService.teamProjectPieChartContributors, this.teamService.teamProjectPieChartScore)
+              this.teamService.teamProjectPieChartScore = tempTeamProjectPieChartScore;    
+
              return projectContributors;
           });
           
@@ -89,7 +89,11 @@ export class TeamProjectComponent implements OnInit {
             }
           });
           console.log('store in fetchProjectBranches', store)
-          this.branchesByContributor = store;
+          let tempBranchesByContributor = [];
+          for (let contrib in store)  {
+            tempBranchesByContributor.push(store[contrib]);
+          }
+          this.branchesByContributor = tempBranchesByContributor;
           this.teamProjectBranches = projectBranches
           return projectBranches;
       });

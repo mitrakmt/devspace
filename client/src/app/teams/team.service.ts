@@ -87,7 +87,7 @@ export class TeamService {
     return this._http.delete('/api/teams/' + teamId, {
       headers: headers
     })
-      .subscribe(result => { console.log('deleted team') });
+      .subscribe(result => {});
   }
 
   fetchTeamContributions(teamId): Observable<any> {
@@ -185,7 +185,7 @@ export class TeamService {
     let headers = new Headers({ userid: userid, idtoremove: idToRemove })
     let options = new RequestOptions({ headers: headers })
     return this._http.delete('/api/teams/' + teamId + '/member', options)
-      .subscribe(result => { console.log('deleted member') });
+      .subscribe(result => {});
   }
 
   fetchTeamCommitFrequency(teamId): Observable<any> {
@@ -295,7 +295,6 @@ export class TeamService {
         this.teamOwner = this.teamProjectInfo.owner;
         this.teamRepo = this.teamProjectInfo.name;
         this.teamName = this.teamProjectInfo.team.name;
-        console.log(this.teamOwner, this.teamRepo, this.teamName)
         return res.json();
       });
   }
@@ -317,13 +316,6 @@ export class TeamService {
         return res.json();
       });
   }
-
-  //  fetchProjectBranches(projectId): Observable<any> {
-  //   return this._http.get('/api/projects/' + projectId + '/branches')
-  //     .map((res: Response) => {
-  //       return res.json();
-  //     });
-  // }
 
   fetchProjectForks(projectId, teamName, teamRepo): Observable<any> {
     let headers = new Headers({ teamname: teamName, teamrepo: teamRepo })

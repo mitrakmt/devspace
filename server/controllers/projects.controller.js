@@ -304,7 +304,6 @@ projectsController.GET_LANGUAGES = (req, res) => {
 
         Projects.GET_LANGUAGES(username, repo)
           .then(results => {
-            results = JSON.parse(results)
             let langs = []
             if (Object.keys(results).length > 0) {
               for (var key in results) {
