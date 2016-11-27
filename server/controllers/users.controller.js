@@ -20,10 +20,10 @@ usersController.GET_PROFILE = (req, res) => {
 
 usersController.LOGIN = (req, res) => {
   let options = {
-    'redirect_uri': 'localhost:4200/home'
+    'redirect_uri': 'https://devspace.herokuapp.com/home'
   }
 
-  res.redirect('https://github.com/login/oauth/authorize?scope=user:email&client_id=' + process.env.GITHUB_ID + '&redirect_uri=localhost:4200/home')
+  res.redirect('https://github.com/login/oauth/authorize?scope=user:email&client_id=' + process.env.GITHUB_ID + '&redirect_uri=https://devspace.herokuapp.com/home')
 }
 
 usersController.EDIT = (req, res) => {
