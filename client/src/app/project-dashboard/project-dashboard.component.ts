@@ -19,6 +19,9 @@ import { MaterialModule } from '@angular/material';
         <div *ngFor="let contributor of projectContributors">
           <h4><a [routerLink]="['/profile', username]">{{ contributor?.login }}</a>: {{ contributor?.contributions }}</h4>
         </div>
+        <div *ngIf="!projectContributors || projectContributors.length === 0">
+          <span>No data found. Try again in an hour.</span>
+        </div>
       </md-grid-tile>
       <md-grid-tile>
         <h3>Languages</h3>
@@ -26,15 +29,23 @@ import { MaterialModule } from '@angular/material';
           <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
           <img [src]="lang.language[image_url]" />
         </div>
+        <div *ngIf="!projectLanguages || projectLanguages.length === 0">
+          <span>No data found. Try again in an hour.</span>
+        </div>
       </md-grid-tile>
     </md-grid-list>
 
     <div>
       <h3>Forks</h3>
-      <p *ngFor="let fork of projectForks">
-        {{fork?.owner}}
-        Github url: {{fork?.html_url}}
-      </p>
+      <div *ngIf="projectForks && projectForks.length > 0">
+        <p *ngFor="let fork of projectForks">
+          {{fork?.owner}}
+          Github url: {{fork?.html_url}}
+        </p>
+      </div>
+      <div *ngIf="!projectForks || projectForks.length === 0">
+        <span>No one has forked your project yet.</span>
+      </div>
     </div>
 
     <div>
@@ -42,11 +53,17 @@ import { MaterialModule } from '@angular/material';
       <p *ngFor="let branch of projectBranches">
         {{branch?.name}}
       </p>
+      <div *ngIf="!projectBranches || projectBranches.length === 0">
+        <span>No data found. Try again in an hour.</span>
+      </div>
     </div>
     
     <div class="readme">
       <h3>Readme</h3>
       <p><span [innerHTML]="projectReadme"></span></p>
+      <div *ngIf="!projectReadme">
+        <span>No data found. Try again in an hour.</span>
+      </div>
     </div>
 
     <app-project-commits [projectId]="projectId"></app-project-commits>
@@ -90,11 +107,11 @@ export class ProjectDashboardComponent implements OnInit {
         return projectForks;
       });
 
-    // this.projectDashboardService.fetchProjectContributors(this.projectId)
-    //   .subscribe(projectContributors => {
-    //     this.projectContributors = projectContributors;
-    //     return projectContributors;
-    //   });
+    this.projectDashboardService.fetchProjectContributors(this.projectId)
+      .subscribe(projectContributors => {
+        this.projectContributors = projectContributors;
+        return projectContributors;
+      });
 
     this.projectDashboardService.fetchProjectLanguages(this.projectId)
       .subscribe(projectLanguages => {
