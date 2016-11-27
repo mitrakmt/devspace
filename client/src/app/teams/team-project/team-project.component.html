@@ -31,16 +31,16 @@
 
 <div>
   <h3>Branches</h3>
-  <p *ngFor="let branch of teamProjectBranches">
-    {{branch?.name}} {{branch?.login}}
-  </p>
-</div>
 
-<!--<div *ngFor="let contrib of branchesByContributor">
-  <div *ngFor="let branch of contrib">
-  {{branch}}
+  <div *ngFor="let contrib of branchesByContributor">
+    <md-card>
+      <h4>{{contrib[0].login}}</h4>
+     <div *ngFor="let branch of contrib">
+        {{branch.name}}
+     </div>
+    </md-card>
   </div>
-</div>-->
+</div>
 
 <div class="readme">
   <h3>Readme</h3>
