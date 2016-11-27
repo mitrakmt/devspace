@@ -7,7 +7,7 @@ All data is sent and received as JSON.
 
 - Run 'npm install'
 - Run 'npm start'.
-- Go to localhost:8000.
+- Go to https://devspace.herokuapp.com/.
 
 ### Errors:
 Sometimes your API call will generate an error. Every response to an API call that generates an error will include an error code, the reason for the error, and an error message to help you debug your request.
