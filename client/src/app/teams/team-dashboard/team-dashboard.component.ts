@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { TeamService } from '../team.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { NgForm } from '@angular/forms';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { ContributionsBarChartComponent } from './contributions-bar-chart/contributions-bar-chart.component';
+import { HoursLineChartComponent } from './hours-line-chart/hours-line-chart.component';
 
 @Component({
   selector: 'app-team-dashboard',
@@ -11,13 +12,16 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
   styleUrls: ['./team-dashboard.component.css']
 })
 
+
+
 export class TeamDashboardComponent implements OnInit {
   private teamId;
   private teamProjects;
   private teamMembers;
   private userId = localStorage.getItem('userid');
-  private teamContributions;
+  // private teamContributions;
   private subscriptions = {};
+  @Output() lineChartData = this.teamService.lineChartHoursData;
 
   submitTeamProject(form: NgForm) {
     let projectName = form.value.project;
@@ -50,29 +54,18 @@ export class TeamDashboardComponent implements OnInit {
       this.subscriptions['teamProjects'] = this.teamService.fetchProjects(this.teamId)
         .subscribe(projects => {
           this.teamProjects = this.teamService.teamProjects;
-          console.log("THIS.TEAMPROJECTS IN TEAM DASHBOARD ------------->", this.teamProjects)
-          return projects;
         });
 
       this.subscriptions['teamMembers'] = this.teamService.fetchTeamMembers(this.teamId)
         .subscribe(teamMembers => {
           this.teamMembers = this.teamService.teamMembers;
-          console.log("THIS.teamMembers IN TEAM DASHBOARD ------------->", this.teamMembers)
-          return teamMembers;
         });
 
       this.subscriptions['teamContributions'] = this.teamService.fetchTeamContributions(this.teamId)
-        .subscribe(teamContributions => {
-          this.teamContributions = this.teamService.teamContributions;
-          console.log("THIS.teamContributions IN TEAM DASHBOARD ------------->", this.teamContributions)
-          return teamContributions;
-        });
+        .subscribe(teamContributions => {});
         
       this.subscriptions['commitFreqs'] = this.teamService.fetchTeamCommitFrequency(this.teamId)
-        .subscribe(commitFreqs => {
-          console.log("COMMIT FREQS IN TEAM DASHBOARD ------------->", commitFreqs)
-          return commitFreqs;
-        });
+        .subscribe(commitFreqs => {});
       }); 
     }
 

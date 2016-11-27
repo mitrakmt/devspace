@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { TeamService } from '../../team.service';
 
 @Component({
-  selector: 'app-line-chart',
+  selector: 'app-days-line-chart',
   template: `
   <div>
       <div style="display: block">
@@ -16,23 +16,24 @@ import { TeamService } from '../../team.service';
       </div>
   </div>
   `,
-  styleUrls: ['./line-chart.component.css']
+  styles: []
 })
-export class LineChartComponent implements OnInit {
+export class DaysLineChartComponent implements DoCheck {
 
   constructor(private teamService: TeamService) { }
-
+  
   public lineChartOptions:any = {
+    animation: false,
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public lineChartLabels:string[] = this.teamService.commitHourContributors;
+  public lineChartLabels:string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   public lineChartType:string = 'line';
   public lineChartLegend:boolean = true;
 
-  public lineChartData:any[] = [{data: this.teamService.commitHourContributors, label: 'Contribution Score'}];
-
-  ngOnInit() {
+  public lineChartData:any[] = [{data: [], label: 'No Data Found'}];
+  ngDoCheck() {
+    this.lineChartData = this.teamService.lineChartDaysData.slice();
   }
 
 }

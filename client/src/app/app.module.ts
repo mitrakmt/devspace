@@ -56,11 +56,12 @@ import { TeamDashboardComponent } from './teams/team-dashboard/team-dashboard.co
 import { TeamService } from './teams/team.service';
 import { TeamProjectComponent } from './teams/team-project/team-project.component';
 import { TeamsComponent } from './teams/teams.component';
-import { BarChartComponent } from './teams/team-dashboard/bar-chart/bar-chart.component';
+import { ContributionsBarChartComponent } from './teams/team-dashboard/contributions-bar-chart/contributions-bar-chart.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { SearchUsersService } from './search-users/search-users.service';
 import { PieChartComponent } from './teams/team-project/pie-chart/pie-chart.component';
-import { LineChartComponent } from './teams/team-dashboard/line-chart/line-chart.component';
+import { HoursLineChartComponent } from './teams/team-dashboard/hours-line-chart/hours-line-chart.component';
+import { DaysLineChartComponent } from './teams/team-dashboard/days-line-chart/days-line-chart.component';
 
 @NgModule({
   declarations: [
@@ -96,10 +97,11 @@ import { LineChartComponent } from './teams/team-dashboard/line-chart/line-chart
     TeamProjectComponent,
     TeamsComponent,
     ProfileEditComponent,
-    BarChartComponent,
+    ContributionsBarChartComponent,
     SearchUsersComponent,
     PieChartComponent,
-    LineChartComponent
+    HoursLineChartComponent,
+    DaysLineChartComponent
   ],
   imports: [
     BrowserModule,

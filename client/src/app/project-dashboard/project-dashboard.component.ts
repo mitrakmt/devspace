@@ -90,11 +90,11 @@ export class ProjectDashboardComponent implements OnInit {
         return projectForks;
       });
 
-    this.projectDashboardService.fetchProjectContributors(this.projectId)
-      .subscribe(projectContributors => {
-        this.projectContributors = projectContributors;
-        return projectContributors;
-      });
+    // this.projectDashboardService.fetchProjectContributors(this.projectId)
+    //   .subscribe(projectContributors => {
+    //     this.projectContributors = projectContributors;
+    //     return projectContributors;
+    //   });
 
     this.projectDashboardService.fetchProjectLanguages(this.projectId)
       .subscribe(projectLanguages => {
@@ -107,7 +107,7 @@ export class ProjectDashboardComponent implements OnInit {
         this.projectReadme = projectReadme;
         return projectReadme;
       });
-    
+
     this.projectDashboardService.fetchProjectBranches(this.projectId)
       .subscribe(projectBranches => {
         this.projectBranches = projectBranches;

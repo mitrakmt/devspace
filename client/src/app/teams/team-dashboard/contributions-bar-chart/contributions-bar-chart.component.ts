@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { TeamService } from '../../team.service';
 
 @Component({
-  selector: 'app-bar-chart',
+  selector: 'app-contributions-bar-chart',
   template: `
     <div>
       <div style="display: block">
@@ -16,11 +16,12 @@ import { TeamService } from '../../team.service';
       </div>
   </div>
   `,
-  styleUrls: ['./bar-chart.component.css']
+  styleUrls: ['./contributions-bar-chart.component.css']
 })
-export class BarChartComponent implements OnInit {
+export class ContributionsBarChartComponent implements DoCheck {
   constructor(private teamService: TeamService) { }
   public barChartOptions:any = {
+    animation: false,
     scaleShowVerticalLines: false,
     responsive: true
   };
@@ -28,9 +29,12 @@ export class BarChartComponent implements OnInit {
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
 
-  public barChartData:any[] = [{data: this.teamService.contributionScore, label: 'Contribution Score'}];
+  public barChartData:any[] = [{data: this.teamService.contributionScore, label: 'No Data Found'}];
 
-  ngOnInit() {
+  ngDoCheck() {
+    if (this.teamService.contributionScore.length > 0) {
+      this.barChartData = [{data: this.teamService.contributionScore, label: 'Contribution Score'}];
+    }
   }
 
 }
