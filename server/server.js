@@ -20,7 +20,6 @@ let PORT = process.env.PORT || 8000
 let http = require('http').Server(app)
 let io = require('socket.io')(http)
 
-
 //socketio calls
 io.on('connection', (socket)=>{
   // socket.join('some room')
@@ -49,7 +48,7 @@ passport.deserializeUser((obj, done) => {
 passport.use(new Strategy({
   clientID: process.env.GITHUB_ID,
   clientSecret: process.env.GITHUB_SECRET,
-  callbackURL: 'http://localhost:4200/api/auth/github/callback'
+  callbackURL: 'https://devspace.herokuapp.com/api/auth/github/callback'
 }, (accessToken, refreshToken, profile, done) => {
   profile = JSON.parse(profile['_raw'])
   if (profile.name) {

@@ -10,7 +10,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 
 export class NewsfeedListService {
-socket = io("http://localhost:8000")
+socket = io("https://devspace.herokuapp.com/")
 newsfeedPosts: NewsfeedPost[] = [];
 secondaryList: NewsfeedPost[] = [];
 
