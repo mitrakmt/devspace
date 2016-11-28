@@ -4,8 +4,8 @@ import { TeamService } from '../../team.service';
 @Component({
   selector: 'app-hours-line-chart',
   template: `
-  <div>
-      <div style="display: block">
+  <div layout-align="center">
+      <div style="display: block; width: 90%;">
         <canvas baseChart
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
