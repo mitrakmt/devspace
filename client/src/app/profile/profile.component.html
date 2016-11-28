@@ -3,8 +3,9 @@
 <h1 class="non-member-overlay-text" *ngIf="!member">{{ githubData.name }} is not a member. Invite them now! :)</h1>
 <span class="non-member-overlay" *ngIf="!member">
   <div class="background-image" layout-align="center"></div>
+</span>
 
-  <div class="background-overlay" layout="row" layout-align="center" style="background-color: #F8F8F8">
+  <div class="background-overlay" layout="row" layout-align="center" style="background-color: #F8F8F8; margin-top: 0;">
     <md-grid-list cols="3" class="top-grid"  rowHeight="240px">
       <md-grid-tile>
         <h3 style="margin-left: 25%;">Bytes of code written: {{ this._profileService.bytesStat || 0 }}</h3>
@@ -12,7 +13,7 @@
 
       <md-grid-tile>
         <img class="profile-image" src="{{ githubData.avatar_url }}" />
-        <button class="follow-button" (click)="follow()" *ngIf="member && currentUser !== username" md-button md-raised>{{followStatus}}</button>
+        <button class="follow-button" (click)="follow()" *ngIf="currentUser === username" md-button md-raised>{{followStatus}}</button>
       </md-grid-tile>
 
       <md-grid-tile>
@@ -70,6 +71,5 @@
       <!--<h1 style="text-align: center;">Projects</h1>-->
     </div>
   </div>
-</span>
 
 <router-outlet></router-outlet>

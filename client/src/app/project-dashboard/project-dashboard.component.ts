@@ -37,8 +37,8 @@ import { MaterialModule } from '@angular/material';
       <md-grid-list cols="5" rowHeight="110px">
         <md-grid-tile class="language" *ngFor="let lang of projectLanguages">
           <div>
-            <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
-            <img [src]="lang.language[2]" />
+            <p><strong>{{lang.language[0]}}</strong>: {{lang.language[1]}}</p>
+            <img [src]="lang.language[2]" style="height: 50px; margin-bottom: 5px;" />
           </div>   
         </md-grid-tile>
       </md-grid-list>
@@ -63,8 +63,8 @@ import { MaterialModule } from '@angular/material';
 
     <div style="text-align: center; margin-top: 50px;">
       <h2 class="title">Branches</h2>
-      <p *ngFor="let branch of projectBranches" class="link">
-        <a href="{{ branch.url }}" target="_blank">{{branch?.name}}</a>
+      <p *ngFor="let branch of projectBranches">
+        <a href="{{ branch.url }}" class="link" target="_blank">{{branch?.name}}</a>
       </p>
       <div *ngIf="!projectBranches || projectBranches.length === 0">
         <span>No branches found.</span>

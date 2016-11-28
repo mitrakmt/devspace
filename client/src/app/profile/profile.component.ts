@@ -25,8 +25,7 @@ export class ProfileComponent implements OnInit {
 
   public username;
   public userId;
-
-  currentUser = localStorage.getItem('username');
+  public currentUser
 
   follow = () => {
     let followedUsername = this.router.url.slice(5);
@@ -44,8 +43,6 @@ export class ProfileComponent implements OnInit {
         }
       )
   }
-
-  
 
   ngOnInit() {
     let username = this.router.url.slice(5);
