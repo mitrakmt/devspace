@@ -11,9 +11,9 @@
 
 <h3>Languages</h3>
 <div *ngIf="teamProjectLanguages">
-  <div *ngFor="let lang of teamProjectLanguages">
+  <div class="language" *ngFor="let lang of teamProjectLanguages">
     <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
-    <img src="{{lang.language[0]}}" />
+    <img src="{{lang.language[2]}}" style="height: 50px; margin-bottom: 5px;">
   </div>
 </div>
 <div *ngIf="!teamProjectLanguages">
