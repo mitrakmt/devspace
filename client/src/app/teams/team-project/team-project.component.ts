@@ -60,6 +60,23 @@ export class TeamProjectComponent implements OnInit {
           this.teamService.fetchProjectLanguages(this.teamProjectId, this.teamName, this.teamRepo)
             .subscribe(projectLanguages => {
               this.teamProjectLanguages = projectLanguages;
+              console.log('languages = ', this.teamProjectLanguages)
+              for(let i = 0; i < this.teamProjectLanguages.length; i++) {
+                if (this.teamProjectLanguages[i].language[0] === 'JavaScript') {
+                  this.teamProjectLanguages[i].language[2] = "https://wp-andypiapps.rhcloud.com/wp-content/uploads/2016/08/js4560_450.png"
+                } else if (this.teamProjectLanguages[i].language[0] === 'HTML') {
+                  this.teamProjectLanguages[i].language[2] = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/200px-HTML5_logo_and_wordmark.svg.png"
+                } else if (this.teamProjectLanguages[i].language[0] === 'TypeScript') {
+                  this.teamProjectLanguages[i].language[2] = "https://chocolatey.org/content/packageimages/typescript.vs.1.0.1.png"
+                } else if (this.teamProjectLanguages[i].language[0] === 'CSS') {
+                  this.teamProjectLanguages[i].language[2] = "http://2016.cssday.it/img/confs/css/css3.png"
+                } else if (this.teamProjectLanguages[i].language[0] === 'Java') {
+                  this.teamProjectLanguages[i].language[2] = "https://ignite.apache.org/images/java.png"
+                } else if (this.teamProjectLanguages[i].language[0] === 'Ruby') {
+                  this.teamProjectLanguages[i].language[2] = "http://nicholasjohnson.com/images/sections/ruby.png"
+                }
+              }
+              console.log('languages = ', this.teamProjectLanguages)
               return projectLanguages;
              });
           
