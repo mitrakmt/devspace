@@ -25,15 +25,17 @@ export class TeamsComponent implements OnInit {
     this.teamService.deleteTeam(teamId)
   }
 
+  project = {name: ''}
+
   createTeam(form: NgForm) {
       let teamName = form.value.team;
       let userId = localStorage.getItem('userid');
+      console.log(teamName, userId, 'teamName and userId')
+      form.reset()
       this.teamService.createTeam(teamName, userId)
         .subscribe(
           data => {
-           form.reset()
-           this.teamService.teams.unshift(data);
-           this.teams.unshift(data);
+            console.log('created Team', data)
            return data
     })
   }

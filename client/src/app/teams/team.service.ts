@@ -70,6 +70,7 @@ export class TeamService {
   }
 
   createTeam(teamName, userId) {
+    console.log('teamName and teamId in team service', teamName, userId)
     let userid = localStorage.getItem('userid')
     let body = { teamName: teamName };
     let headers = new Headers({'userid': userid});
@@ -156,6 +157,7 @@ export class TeamService {
   }
 
   importTeamProject(projectName, teamId): Observable<any> {
+    console.log(projectName, teamId, 'projectName and teamId in team service')
     let userid = localStorage.getItem('userid')
     let headers = new Headers({ userid: userid })
     let options = new RequestOptions({ headers: headers })
