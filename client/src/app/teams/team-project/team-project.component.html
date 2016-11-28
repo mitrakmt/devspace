@@ -1,7 +1,7 @@
 <app-search></app-search>
 <div style="text-align: center;">
   <div class="landing" md-margin layout-align="center">
-    <h1 class="md-display-2">{{teamName}} - {{teamRepo}}</h1>
+    <h1 class="md-display-2" style="margin-top: 45px;">{{teamName}} - {{teamRepo}}</h1>
     <h2 class="md-display-1">{{teamProjectInfo?.deadline}}</h2>
   </div>
 
@@ -17,7 +17,6 @@
         <br />
         {{ contributor?.contributions }}
       </p>
-
     </md-card>
   </div>
 
@@ -46,16 +45,22 @@
 
   <div style="text-align: center; margin-top: 50px;">
       <h2 class="title">Branches</h2>
-
-      <div *ngFor="let contrib of branchesByContributor">
-        <md-card>
-          <h4>{{contrib[0].login}}</h4>
-        <div *ngFor="let branch of contrib">
-            {{branch.name}}
-        </div>
-        </md-card>
-      </div>
+      <md-grid-list cols="6" rowHeight="250px">
+        <md-grid-tile class="language" *ngFor="let contrib of branchesByContributor">
+          <div>
+            <h4 class="link"><a [routerLink]="['/dev', contrib[0].login]">{{contrib[0].login}}</a></h4>
+            <div *ngFor="let branch of contrib">
+                {{branch.name}}
+            </div>
+          </div>
+        </md-grid-tile>
+    </md-grid-list>
   </div>
+
+  <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+    <h2 class="title" style="text-align: center;">Contribution Score</h2>
+  </div>
+  <app-pie-chart></app-pie-chart>
 
   <div style="text-align: center; margin-top: 50px;">
     <md-card class="readme" *ngIf="teamProjectReadme?._body" style="text-align: left; margin: 100px;">
@@ -64,8 +69,3 @@
     </md-card>
   </div>
 </div>
-
-<div style="text-align: center; margin-top: 50px;">
-  <h2 class="title" style="text-align: center;">Contribution Score</h2>
-</div>
-<app-pie-chart></app-pie-chart>

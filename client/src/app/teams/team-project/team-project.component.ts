@@ -18,6 +18,7 @@ export class TeamProjectComponent implements OnInit {
   private teamOwner;
   private teamRepo;
   private teamName;
+  private teamSize;
   private teamProjectForks;
   private teamProjectContributors;
   private teamProjectLanguages;
@@ -48,10 +49,11 @@ export class TeamProjectComponent implements OnInit {
               let tempTeamProjectPieChartContributors = [];
               let tempTeamProjectPieChartScore = [];
               projectContributors.forEach(contributor => {
-                console.log('contib', contributor)
                tempTeamProjectPieChartContributors.push(contributor.login)
                tempTeamProjectPieChartScore.push(contributor.contributions)
               })
+              console.log('projectContributors', projectContributors)
+              this.teamSize = projectContributors.length;
               this.teamService.teamProjectPieChartContributors = tempTeamProjectPieChartContributors;
               this.teamService.teamProjectPieChartScore = tempTeamProjectPieChartScore;    
 
@@ -61,7 +63,6 @@ export class TeamProjectComponent implements OnInit {
           this.teamService.fetchProjectLanguages(this.teamProjectId, this.teamName, this.teamRepo)
             .subscribe(projectLanguages => {
               this.teamProjectLanguages = projectLanguages;
-              console.log('languages = ', this.teamProjectLanguages)
               for(let i = 0; i < this.teamProjectLanguages.length; i++) {
                 if (this.teamProjectLanguages[i].language[0] === 'JavaScript') {
                   this.teamProjectLanguages[i].language[2] = "https://wp-andypiapps.rhcloud.com/wp-content/uploads/2016/08/js4560_450.png"
@@ -77,7 +78,6 @@ export class TeamProjectComponent implements OnInit {
                   this.teamProjectLanguages[i].language[2] = "http://nicholasjohnson.com/images/sections/ruby.png"
                 }
               }
-              console.log('languages = ', this.teamProjectLanguages)
               return projectLanguages;
              });
           
@@ -106,7 +106,6 @@ export class TeamProjectComponent implements OnInit {
               store[branch.login].push(branch)
             }
           });
-          console.log('store in fetchProjectBranches', store)
           let tempBranchesByContributor = [];
           for (let contrib in store)  {
             tempBranchesByContributor.push(store[contrib]);

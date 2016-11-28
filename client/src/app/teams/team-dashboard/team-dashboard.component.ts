@@ -12,8 +12,6 @@ import { HoursLineChartComponent } from './hours-line-chart/hours-line-chart.com
   styleUrls: ['./team-dashboard.component.css']
 })
 
-
-
 export class TeamDashboardComponent implements OnInit {
   private teamId;
   private teamProjects;
@@ -30,7 +28,6 @@ export class TeamDashboardComponent implements OnInit {
     this.teamService.importTeamProject(projectName, this.teamId)
       .subscribe(
         data => {
-          console.log('imported Team Project', data)
           return data;
     })
   }
@@ -42,7 +39,6 @@ export class TeamDashboardComponent implements OnInit {
     this.teamService.addTeamMember(memberUsername, this.teamId)
       .subscribe(
         data => {
-          console.log('added team member', data)
           return data;
     })
   }
