@@ -61,7 +61,7 @@
 <div style="text-align: center; margin-top: 50px; padding-top: 25px; border-top: 1px solid black;">
   <h2 class="title">Most Recent Commit</h2>
   <div *ngFor="let contributor of this.teamService.mostRecentCommits">
-    <p>{{contributor[0]}}: {{contributor[1]}} {{contributor[2]}}</p>
+    <p><a [routerLink]="['/dev', contributor[0]]" class="link">{{ contributor[0] }}</a>: {{ contributor[2] }}</p>
   </div>
 </div>
 
@@ -76,7 +76,7 @@
 <div style="text-align: center; margin-top: 25px;">
   <h2 class="title">Most Productive Day By Contributor</h2>
   <div *ngFor="let contributor of this.teamService.productiveDayByContributor">
-    <p>{{contributor[0]}}:{{contributor[1]}}</p>
+    <p>{{contributor[0]}}: {{contributor[1]}}</p>
   </div>
   <app-days-line-chart></app-days-line-chart>
 </div>
@@ -84,7 +84,7 @@
 <div style="text-align: center; margin-top: 25px;">
   <h2 class="title">Most Productive Time By Contributor</h2>
   <div *ngFor="let contributor of this.teamService.productiveHourByContributor">
-    <p>{{contributor[0]}}:{{contributor[1]}}:00</p>
+    <p>{{contributor[0]}}: {{contributor[1]}}:00</p>
   </div>
   <app-hours-line-chart></app-hours-line-chart>
 </div>
