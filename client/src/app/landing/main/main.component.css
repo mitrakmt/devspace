@@ -159,6 +159,8 @@ h2 {
     font-weight: 200;
     margin-top: 150px;
     position: absolute;
+    padding-right: 5px;
+    padding-left: 5px;
     text-align: center;
     width: 100%;
     z-index: 9999;
@@ -170,6 +172,8 @@ p {
     font-size: 100%;
     font-weight: normal;
     margin-top: 220px;
+    padding-right: 5px;
+    padding-left: 5px;
     position: absolute;
     text-align: center;
     z-index: 9999;
