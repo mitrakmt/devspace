@@ -21,13 +21,13 @@
     </md-card>
   </div>
 
-  <div style="text-align: center;">
+  <div style="text-align: center; margin-top: 70px;">
     <h2 class="title">Languages</h2>
     <md-grid-list cols="5" rowHeight="110px" *ngIf="teamProjectLanguages">
       <md-grid-tile class="language" *ngFor="let lang of teamProjectLanguages">
         <div>
-        <img src="{{lang.language[2]}}" style="height: 50px; margin-bottom: 5px;">
-        <p><strong>{{lang.language[0]}}</strong>: {{lang.language[1]}}</p>  
+          <img src="{{lang.language[2]}}" style="height: 50px; margin-bottom: 5px;">
+          <p><strong>{{lang.language[0]}}</strong>: {{lang.language[1]}}</p>  
         </div>   
       </md-grid-tile>
     </md-grid-list>
@@ -37,18 +37,14 @@
       </div>
   </div>
 
-  <div style="text-align: center;">
-    <div>
+  <div style="text-align: center; margin-top: 50px;">
       <h2 class="title">Forks</h2>
       <p *ngFor="let fork of teamProjectForks">
-        {{fork?.owner}}
-        Github url: {{fork?.html_url}}
+        <a [routerLink]="['/dev', fork.owner]" class="link"><strong>{{ fork?.owner }}</strong></a>: <a href="{{ fork.html_url }}">{{ fork?.html_url }}</a>
       </p>
-    </div>
   </div>
 
-  <div style="text-align: center;">
-    <div>
+  <div style="text-align: center; margin-top: 50px;">
       <h2 class="title">Branches</h2>
 
       <div *ngFor="let contrib of branchesByContributor">
@@ -59,10 +55,9 @@
         </div>
         </md-card>
       </div>
-    </div>
   </div>
 
-  <div style="text-align: center;">
+  <div style="text-align: center; margin-top: 50px;">
     <md-card class="readme" *ngIf="teamProjectReadme?._body" style="text-align: left; margin: 100px;">
       <h2 class="title" style="text-align: center;">Readme</h2>
       <p [innerHTML]="teamProjectReadme?._body" style="text-align: left; margin: 50px;"></p>
@@ -70,4 +65,7 @@
   </div>
 </div>
 
+<div style="text-align: center; margin-top: 50px;">
+  <h2 class="title" style="text-align: center;">Contribution Score</h2>
+</div>
 <app-pie-chart></app-pie-chart>
