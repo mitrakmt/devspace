@@ -19,61 +19,72 @@
   </md-card>
 </div>
 
-<h4 style="margin-top: 20px;">Add a Team Member</h4>
-<form (ngSubmit)="submitTeamMember(g)" #g="ngForm" style="margin-left: 10%; margin-right: 10%; margin-bottom: 15px;">
-  <md-input 
-    style="width: 100%"
-    type="text"
-    id="member"
-    name="username"
-    [(ngModel)]="member.name"
-    #member = "ngModel"
-    required>
-  </md-input>
-  <button md-raised-button type="submit" [disabled]="!f.valid" class="button" md-button md-raised>Add a team member</button>
-</form>
-
-<md-divider></md-divider>
-
-<h1 class="title">Projects</h1>
-<div *ngFor="let project of teamProjects">
-  name: <a [routerLink]="['/teams', teamId, project.id]">{{project.name}}</a> {{project.createdAt}} {{project.url}}
+<div style="text-align: center;">
+  <form (ngSubmit)="submitTeamMember(g)" #g="ngForm" style="margin-left: 10%; margin-right: 10%; margin-bottom: 15px;">
+    <md-input 
+      style="width: 100%"
+      type="text"
+      id="member"
+      name="username"
+      [(ngModel)]="member.name"
+      #member = "ngModel"
+      required>
+    </md-input>
+    <button md-raised-button type="submit" [disabled]="!f.valid" class="button" md-button md-raised>Add a team member</button>
+  </form>
 </div>
 
-<h2 class="title">Import a project</h2>
-<form (ngSubmit)="submitTeamProject(f)" #f="ngForm"  style="margin-left: 10%; margin-right: 10%; margin-bottom: 15px;">
-  <md-input 
-    placeholder="Github organization project name" 
-    style="width: 100%"
-    type="text"
-    id="project"
-    name="project"
-    [(ngModel)]="project.name"
-    #project = "ngModel"
-    required>
-  </md-input>
-  <button md-raised-button type="submit" [disabled]="!f.valid" class="button" md-button md-raised>Import Organization Project</button>
-</form>
+<div style="text-align: center; margin-top: 50px; padding-top: 25px; border-top: 1px solid black;">
+  <h1 class="title">Projects</h1>
 
-<h2 class="title">Most Recent Commit</h2>
-<div *ngFor="let contributor of this.teamService.mostRecentCommits">
-  <p>{{contributor[0]}}: {{contributor[1]}} {{contributor[2]}}</p>
+  <md-card *ngFor="let project of teamProjects" class="team-card" layout-margin layout-padding>
+    <h1><a [routerLink]="['/teams', teamId, project.id]" class="link">{{ project.name }}</a></h1>
+  </md-card>
 </div>
 
-<h2 class="title">Contributions</h2>
-Average Contribution: {{this.teamService.averageContribution}}
-Median Contribution: {{this.teamService.medianContribution}}
-<app-contributions-bar-chart></app-contributions-bar-chart>
-<!-- Mode Contribution: {{this.teamService.modeContribution}} -->
-
-<h2 class="title">Most Productive Day By Contributor</h2>
-<div *ngFor="let contributor of this.teamService.productiveDayByContributor">
-  <p>{{contributor[0]}}:{{contributor[1]}}</p>
+<div style="text-align: center;">
+  <form (ngSubmit)="submitTeamProject(f)" #f="ngForm"  style="margin-left: 10%; margin-right: 10%; margin-bottom: 15px;">
+    <md-input 
+      placeholder="Github organization project name" 
+      style="width: 100%"
+      type="text"
+      id="project"
+      name="project"
+      [(ngModel)]="project.name"
+      #project = "ngModel"
+      required>
+    </md-input>
+    <button md-raised-button type="submit" [disabled]="!f.valid" class="button" md-button md-raised>Import Organization Project</button>
+  </form>
 </div>
-<app-days-line-chart></app-days-line-chart>
 
-<h2 class="title">Most Productive Time By Contributor</h2>
-<div *ngFor="let contributor of this.teamService.productiveHourByContributor">
-  <p>{{contributor[0]}}:{{contributor[1]}}:00</p>
+<div style="text-align: center; margin-top: 50px; padding-top: 25px; border-top: 1px solid black;">
+  <h2 class="title">Most Recent Commit</h2>
+  <div *ngFor="let contributor of this.teamService.mostRecentCommits">
+    <p>{{contributor[0]}}: {{contributor[1]}} {{contributor[2]}}</p>
+  </div>
 </div>
-<app-hours-line-chart></app-hours-line-chart>
+
+<div style="text-align: center; margin-top: 50px; padding-top: 25px; border-top: 1px solid black;">
+  <h2 class="title">Contributions</h2>
+  Average Contribution: {{this.teamService.averageContribution}}
+  Median Contribution: {{this.teamService.medianContribution}}
+  <app-contributions-bar-chart></app-contributions-bar-chart>
+  <!-- Mode Contribution: {{this.teamService.modeContribution}} -->
+</div>
+
+<div style="text-align: center; margin-top: 25px;">
+  <h2 class="title">Most Productive Day By Contributor</h2>
+  <div *ngFor="let contributor of this.teamService.productiveDayByContributor">
+    <p>{{contributor[0]}}:{{contributor[1]}}</p>
+  </div>
+  <app-days-line-chart></app-days-line-chart>
+</div>
+
+<div style="text-align: center; margin-top: 25px;">
+  <h2 class="title">Most Productive Time By Contributor</h2>
+  <div *ngFor="let contributor of this.teamService.productiveHourByContributor">
+    <p>{{contributor[0]}}:{{contributor[1]}}:00</p>
+  </div>
+  <app-hours-line-chart></app-hours-line-chart>
+</div>
