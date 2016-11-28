@@ -1,9 +1,9 @@
-<div>
-  <h3>Commits</h3>
+<div style="text-align: center;">
+  <h2 class="title">Commits</h2>
   <p *ngFor="let commit of projectCommits">
-    message: {{commit?.message}}
-    url: {{commit?.url}}
-    username: {{commit?.username}}
+    <span class="link">{{commit?.username}}</span>
+    {{commit?.message}}
+    <a class="link" style="margin-left: 20px;" href="{{commit?.url}}">Link</a>
   </p>
   <div *ngIf="!projectCommits || projectCommits.length === 0">
     <span>No data found. Try again in an hour.</span>

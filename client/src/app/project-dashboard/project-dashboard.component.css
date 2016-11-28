@@ -14,6 +14,90 @@
     text-align: center;
 }
 
-.readme {
+.title {
+    font-size: 30px;
+    text-align: center;
+}
+
+.heading {
+    font-size: 50px;
+    text-align: center;
+}
+
+.team-card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    width: 50%;
+    padding: 3px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.delete-button {
+    color: white;
+    padding: 1px;
+    font-size: 12px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    float: right;
+}
+
+.create-team-form {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.create-team-button {
+    background-color: #2ea890;
+    color: white;
+}
+
+.create-team-tag {
+    text-align: center;
+    margin-top: -10px;
+}
+
+.non-admin {
+    padding: 25px;
+}
+
+.team-member-card-image {
+    text-align: center;
+    width: 100%;
+    padding: 4px;
+}
+
+.team-member-card {
+    width: 250px;
+    height: 100%;
+    float: left;
+    margin: 20px;
+}
+
+.team-member-card-username {
+    text-align: center;
+    font-size: 14px;
+}
+
+.team-member-card-name {
+    text-align: center;
+}
+
+.team-member-div {
+    height: 400px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.team-card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    width: 50%;
+    padding: 3px;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
     text-align: center;
 }

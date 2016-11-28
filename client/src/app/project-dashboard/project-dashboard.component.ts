@@ -8,35 +8,48 @@ import { MaterialModule } from '@angular/material';
   templateUrl: `
     <app-search></app-search>
 
-    <div class="landing" md-margin layout-align="center">
-      <h1 class="md-display-2">{{projectName}}</h1>
-      <h2 class="md-display-1">{{projectInfo?.deadline}}</h2>
+    <div class="landing" style="text-align: center; margin-top: 30px;">
+      <h1 class="heading">{{projectName}}</h1>
+      <h2 class="title">{{projectInfo?.deadline}}</h2>
     </div>
 
-    <md-grid-list cols="2" rowHeight="200px" layout="column">
-      <md-grid-tile layout="column">
-        <h3>Contributors</h3>
-        <div *ngFor="let contributor of projectContributors">
-          <h4><a [routerLink]="['/profile', username]">{{ contributor?.login }}</a>: {{ contributor?.contributions }}</h4>
-        </div>
-        <div *ngIf="!projectContributors || projectContributors.length === 0">
-          <span>No data found. Try again in an hour.</span>
-        </div>
-      </md-grid-tile>
-      <md-grid-tile>
-        <h3>Languages</h3>
-        <div *ngFor="let lang of projectLanguages">
-          <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
-          <img [src]="lang.language[image_url]" />
-        </div>
-        <div *ngIf="!projectLanguages || projectLanguages.length === 0">
-          <span>No data found. Try again in an hour.</span>
-        </div>
-      </md-grid-tile>
-    </md-grid-list>
+    <h2 class="title">Contributors</h2>
+    <div class="team-member-div">
+      <md-card *ngFor="let contributor of projectContributors" class="team-member-card">
+        <img src="{{ contributor.avatar }}" class="team-member-card-image" />
+        <h2 class="team-member-card-name">
+          @{{ contributor.login }}
+        </h2>  
+        <p class="team-member-card-username">
+          Contribution Score:
+          <br />
+          {{ contributor?.contributions }}
+        </p>
+      </md-card>
 
-    <div>
-      <h3>Forks</h3>
+      <div *ngIf="!projectContributors || projectContributors.length === 0">
+        <span>No data found. Try again in an hour.</span>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 70px;">
+      <h2 class="title">Languages</h2>
+      <md-grid-list cols="5" rowHeight="110px">
+        <md-grid-tile class="language" *ngFor="let lang of projectLanguages">
+          <div>
+            <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
+            <img [src]="lang.language[2]" />
+          </div>   
+        </md-grid-tile>
+      </md-grid-list>
+  
+      <div *ngIf="!projectLanguages">
+        Github has not yet calculated the language statistics for your project.
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 50px;">
+      <h2 class="title">Forks</h2>
       <div *ngIf="projectForks && projectForks.length > 0">
         <p *ngFor="let fork of projectForks">
           {{fork?.owner}}
@@ -44,25 +57,27 @@ import { MaterialModule } from '@angular/material';
         </p>
       </div>
       <div *ngIf="!projectForks || projectForks.length === 0">
-        <span>No one has forked your project yet.</span>
+        <span>No forks found.</span>
       </div>
     </div>
 
-    <div>
-      <h3>Branches</h3>
-      <p *ngFor="let branch of projectBranches">
-        {{branch?.name}}
+    <div style="text-align: center; margin-top: 50px;">
+      <h2 class="title">Branches</h2>
+      <p *ngFor="let branch of projectBranches" class="link">
+        <a href="{{ branch.url }}" target="_blank">{{branch?.name}}</a>
       </p>
       <div *ngIf="!projectBranches || projectBranches.length === 0">
-        <span>No data found. Try again in an hour.</span>
+        <span>No branches found.</span>
       </div>
     </div>
     
-    <div class="readme">
-      <h3>Readme</h3>
-      <p><span [innerHTML]="projectReadme"></span></p>
+    <div style="text-align: center; margin-top: 50px;">
+      <md-card class="readme" *ngIf="projectReadme?._body" style="text-align: left; margin: 100px;">
+        <h2 class="title" style="text-align: center;">Readme</h2>
+        <p [innerHTML]="projectReadme?._body" style="text-align: left; margin: 50px;"></p>
+      </md-card>
       <div *ngIf="!projectReadme">
-        <span>No data found. Try again in an hour.</span>
+        <span>No readme found.</span>
       </div>
     </div>
 
@@ -116,6 +131,21 @@ export class ProjectDashboardComponent implements OnInit {
     this.projectDashboardService.fetchProjectLanguages(this.projectId)
       .subscribe(projectLanguages => {
         this.projectLanguages = projectLanguages;
+        for(let i = 0; i < this.projectLanguages.length; i++) {
+          if (this.projectLanguages[i].language[0] === 'JavaScript') {
+            this.projectLanguages[i].language[2] = "https://wp-andypiapps.rhcloud.com/wp-content/uploads/2016/08/js4560_450.png"
+          } else if (this.projectLanguages[i].language[0] === 'HTML') {
+            this.projectLanguages[i].language[2] = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/200px-HTML5_logo_and_wordmark.svg.png"
+          } else if (this.projectLanguages[i].language[0] === 'TypeScript') {
+            this.projectLanguages[i].language[2] = "https://chocolatey.org/content/packageimages/typescript.vs.1.0.1.png"
+          } else if (this.projectLanguages[i].language[0] === 'CSS') {
+            this.projectLanguages[i].language[2] = "http://2016.cssday.it/img/confs/css/css3.png"
+          } else if (this.projectLanguages[i].language[0] === 'Java') {
+            this.projectLanguages[i].language[2] = "https://ignite.apache.org/images/java.png"
+          } else if (this.projectLanguages[i].language[0] === 'Ruby') {
+            this.projectLanguages[i].language[2] = "http://nicholasjohnson.com/images/sections/ruby.png"
+          }
+        }
         return projectLanguages;
       });
 
