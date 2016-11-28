@@ -5,7 +5,7 @@ import { TeamService } from '../../team.service';
   selector: 'app-hours-line-chart',
   template: `
   <div>
-      <div style="display: block">
+      <div style="display: block;">
         <canvas baseChart
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"

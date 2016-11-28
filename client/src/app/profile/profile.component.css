@@ -104,3 +104,22 @@ div .ui .header {
 .blog-icon {
     height: 30px;
 }
+
+.non-member-overlay {
+    opacity: .15;
+    height: 100%;
+    position: fixed;
+    margin-top: 10px;
+    width: 100%;
+    background-color: black
+}
+
+.non-member-overlay-text {
+    font-weight: bold;
+    font-size: 55px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    margin-top: 230px;
+    z-index: 100;
+}
