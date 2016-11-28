@@ -70,6 +70,11 @@ teamsModel.DELETE_TEAM = (userId, teamId) => {
   .then(team => {
     return team.destroy()
       .then(status => {
+        Projects.destroy({
+          where: {
+            teamId: teamId
+          }
+        })
         return 'Team successfully deleted'
       })
   })
@@ -137,6 +142,20 @@ teamsModel.GET_TEAM_PROJECTS = (userId, teamId) => {
     return projects
   })
 }
+
+// teamsModel.DELETE_TEAM_PROJECTS = (userId, teamId) => {
+//   console.log(userId, teamId, 'userId, teamId')
+//   return Projects.destroy({
+//     where: {
+//       teamId: teamId
+//     },
+//     force: true
+//   })
+//   .then(projects => {
+//     console.log('projects', projects)
+//     return 'Deleted team projects'
+//   })
+// }
 
 teamsModel.GET_TEAM_MEMBERS = (teamId) => {
   return Teams.find({

@@ -35,8 +35,8 @@ teamsController.GET_TEAM = (req, res) => {
 }
 
 teamsController.DELETE_TEAM = (req, res) => {
-  let userId = req.headers['userid']
-  let teamId = req.params.teamId
+  let userId = +req.headers['userid']
+  let teamId = +req.params.teamId
   let idToAdd = req.body.idToAdd
 
   Teams.DELETE_TEAM(userId, teamId)
