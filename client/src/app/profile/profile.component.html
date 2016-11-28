@@ -13,7 +13,7 @@
 
       <md-grid-tile>
         <img class="profile-image" src="{{ githubData.avatar_url }}" />
-        <button class="follow-button" (click)="follow()" *ngIf="currentUser === username" md-button md-raised>{{followStatus}}</button>
+        <button class="follow-button" (click)="follow()" *ngIf="currentUser !== username" md-button md-raised>{{followStatus}}</button>
       </md-grid-tile>
 
       <md-grid-tile>
@@ -42,21 +42,21 @@
       <p style="text-align: center; font-style: italic; font-size: 17px; margin-top: 25px;">{{ githubData.bio }}</p>
       <md-grid-list cols="2" rowHeight="70px">
         <md-grid-tile>
-          <button md-button md-raised class="main-button" (click)="followers.show()">Followers: {{ userData.followerCount - 2 || githubData.followers }}</button>
-          <sm-modal title="Followers" class="basic" #followers *ngIf="!!member">
+          <button md-button md-raised class="main-button" (click)="followers.show()">Followers: {{ userData.followerCount - 1 }}</button>
+          <sm-modal title="Followers" class="basic" #followers>
               <modal-content>
                   <md-divider class="divider"></md-divider>
                   <!--<img class="profile-image" src="{{ friend.avatar_url }}" />-->
                   <div *ngFor="let friend of followerList" class="follower">
                     <img src="{{friend.imageUrl}}" class="friend-image" />
-                    <a [routerLink]="['/dev', friend.username]">{{ friend.firstName }} {{ friend.lastName }}</a> - <a [routerLink]="['/dev', friend.username]" style="font-size: 11px; color: white;">@{{friend.username}}</a>
+                    <a [routerLink]="['/dev', friend.username]">{{ friend.firstName }} {{ friend.lastName }}</a> - <a [routerLink]="['/dev', friend.username]" style="font-size: 11px; color: white;">@{{ friend.username }}</a>
                   </div>
               </modal-content>
           </sm-modal>
         </md-grid-tile>
         <md-grid-tile>
-          <button md-button md-raised class="main-button" (click)="myModal.show()">Following: {{ userData.followingCount || githubData.following }}</button>
-          <sm-modal title="Following" class="basic" #myModal *ngIf="!!member">
+          <button md-button md-raised class="main-button" (click)="myModal.show()">Following: {{ userData.followingCount }}</button>
+          <sm-modal title="Following" class="basic" #myModal>
               <modal-content>
                   <md-divider class="divider"></md-divider>
                   <div *ngFor="let friend of followingList" class="following">
