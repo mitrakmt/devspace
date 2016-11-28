@@ -74,7 +74,7 @@ teamsModel.DELETE_TEAM = (userId, teamId) => {
           where: {
             teamId: teamId
           }
-        }
+        })
         return 'Team successfully deleted'
       })
   })
