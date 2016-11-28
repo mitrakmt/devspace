@@ -1,50 +1,73 @@
 <app-search></app-search>
-<div class="landing" md-margin layout-align="center">
-  <h1 class="md-display-2">{{teamName}} {{teamRepo}}</h1>
-  <h2 class="md-display-1">{{teamProjectInfo?.deadline}}</h2>
-</div>
-
-<h3>Contributors</h3>
-<div *ngFor="let contributor of teamProjectContributors">
-  <h4><a [routerLink]="['/dev', contributor.login]">{{ contributor?.login }}</a>: {{ contributor?.contributions }}</h4>
-</div>
-
-<h3>Languages</h3>
-<div *ngIf="teamProjectLanguages">
-  <div class="language" *ngFor="let lang of teamProjectLanguages">
-    <p>{{lang.language[0]}}:{{lang.language[1]}}</p>
-    <img src="{{lang.language[2]}}" style="height: 50px; margin-bottom: 5px;">
+<div style="text-align: center;">
+  <div class="landing" md-margin layout-align="center">
+    <h1 class="md-display-2">{{teamName}} - {{teamRepo}}</h1>
+    <h2 class="md-display-1">{{teamProjectInfo?.deadline}}</h2>
   </div>
-</div>
-<div *ngIf="!teamProjectLanguages">
-  Github has not yet calculated the language statistics for your project.
-</div>
 
+  <h2 class="title">Contributors</h2>
+  <div class="team-member-div">
+    <md-card *ngFor="let contributor of teamProjectContributors" class="team-member-card">
+      <img src="{{ contributor.avatar }}" class="team-member-card-image" />
+      <h2 class="team-member-card-name">
+        @{{ contributor.login }}
+      </h2>  
+      <p class="team-member-card-username">
+        Contribution Score:
+        <br />
+        {{ contributor?.contributions }}
+      </p>
 
-<div>
-  <h3>Forks</h3>
-  <p *ngFor="let fork of teamProjectForks">
-    {{fork?.owner}}
-    Github url: {{fork?.html_url}}
-  </p>
-</div>
-
-<div>
-  <h3>Branches</h3>
-
-  <div *ngFor="let contrib of branchesByContributor">
-    <md-card>
-      <h4>{{contrib[0].login}}</h4>
-     <div *ngFor="let branch of contrib">
-        {{branch.name}}
-     </div>
     </md-card>
   </div>
-</div>
 
-<div class="readme" *ngIf="teamProjectReadme?._body">
-  <h3>Readme</h3>
-  <p [innerHTML]="teamProjectReadme?._body"></p>
+  <div style="text-align: center;">
+    <h2 class="title">Languages</h2>
+    <md-grid-list cols="5" rowHeight="110px" *ngIf="teamProjectLanguages">
+      <md-grid-tile class="language" *ngFor="let lang of teamProjectLanguages">
+        <div>
+        <img src="{{lang.language[2]}}" style="height: 50px; margin-bottom: 5px;">
+        <p><strong>{{lang.language[0]}}</strong>: {{lang.language[1]}}</p>  
+        </div>   
+      </md-grid-tile>
+    </md-grid-list>
+
+      <div *ngIf="!teamProjectLanguages">
+        Github has not yet calculated the language statistics for your project.
+      </div>
+  </div>
+
+  <div style="text-align: center;">
+    <div>
+      <h2 class="title">Forks</h2>
+      <p *ngFor="let fork of teamProjectForks">
+        {{fork?.owner}}
+        Github url: {{fork?.html_url}}
+      </p>
+    </div>
+  </div>
+
+  <div style="text-align: center;">
+    <div>
+      <h2 class="title">Branches</h2>
+
+      <div *ngFor="let contrib of branchesByContributor">
+        <md-card>
+          <h4>{{contrib[0].login}}</h4>
+        <div *ngFor="let branch of contrib">
+            {{branch.name}}
+        </div>
+        </md-card>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center;">
+    <md-card class="readme" *ngIf="teamProjectReadme?._body" style="text-align: left; margin: 100px;">
+      <h2 class="title" style="text-align: center;">Readme</h2>
+      <p [innerHTML]="teamProjectReadme?._body" style="text-align: left; margin: 50px;"></p>
+    </md-card>
+  </div>
 </div>
 
 <app-pie-chart></app-pie-chart>

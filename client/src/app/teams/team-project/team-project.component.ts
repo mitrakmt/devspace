@@ -48,6 +48,7 @@ export class TeamProjectComponent implements OnInit {
               let tempTeamProjectPieChartContributors = [];
               let tempTeamProjectPieChartScore = [];
               projectContributors.forEach(contributor => {
+                console.log('contib', contributor)
                tempTeamProjectPieChartContributors.push(contributor.login)
                tempTeamProjectPieChartScore.push(contributor.contributions)
               })
