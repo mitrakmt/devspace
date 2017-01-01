@@ -30,12 +30,10 @@ export class TeamsComponent implements OnInit {
   createTeam(form: NgForm) {
       let teamName = form.value.team;
       let userId = localStorage.getItem('userid');
-      console.log(teamName, userId, 'teamName and userId')
       form.reset()
       this.teamService.createTeam(teamName, userId)
         .subscribe(
           data => {
-            console.log('created Team', data)
            return data
     })
   }

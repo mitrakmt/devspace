@@ -63,7 +63,6 @@ export class ProfileComponent implements OnInit {
     this._profileService.fetchBytes(username)
       .subscribe(
         data => {
-          console.log("LANGUAGES IN PROFILE.COMPONENT-------------------->", data)
           for (var i = 0; i < data.length; i++) {
             if (data[i].language[0] === 'JavaScript') {
               this.languages.push("https://wp-andypiapps.rhcloud.com/wp-content/uploads/2016/08/js4560_450.png")

@@ -39,7 +39,7 @@
   <div style="text-align: center; margin-top: 50px;">
       <h2 class="title">Forks</h2>
       <p *ngFor="let fork of teamProjectForks">
-        <a [routerLink]="['/dev', fork.owner]" class="link"><strong>{{ fork?.owner }}</strong></a>: <a href="{{ fork.html_url }}">{{ fork?.html_url }}</a>
+        <strong>{{ fork?.owner }}</strong>: <a href="{{ fork.html_url }}" class="link">{{ fork?.html_url }}</a>
       </p>
   </div>
 

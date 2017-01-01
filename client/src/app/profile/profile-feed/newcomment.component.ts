@@ -6,23 +6,7 @@ import { ProfileComment } from './profile-comment';
 @Component({
   selector: 'app-profile-newcomment',
   template: `
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm" id="postform" >
-        <div class="form-group">
-          <label for="comment">Comment</label>
-          <input 
-            type="text"
-            id="comment"
-            class="searchfield"
-            placeholder="Go ahead, type something!"
-            style="width: 55%; padding: 6px;"
-            name="comment"
-            [(ngModel)]="comment.content"
-            #comment = "ngModel"
-            required
-          >
-          <button type="submit" md-button md-raised class="main-button" [disabled]="!f.valid">comment</button>
-        </div>
-      </form>
+    // html here
   `
 })
 export class ProfileNewCommentComponent{
