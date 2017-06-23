@@ -6,7 +6,7 @@ import { ProfileComment } from './profile-comment';
 @Component({
   selector: 'app-profile-newcomment',
   template: `
-    // html here
+    
   `
 })
 export class ProfileNewCommentComponent{

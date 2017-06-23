@@ -12,7 +12,6 @@ import { NgForm } from "@angular/forms";
       <div class="col-sm-4"><app-github></app-github></div>
       <div class="col-sm-2"><app-project-sidebar></app-project-sidebar></div>
     </div>
-    <router-outlet></router-outlet>
   `
 })
 export class HomeComponent implements OnInit {
